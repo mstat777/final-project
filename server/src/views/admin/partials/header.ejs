@@ -1,11 +1,12 @@
-<h1>Administration de votre application</h1>
+<h1>Panneau d'administration</h1>
 <nav>
-    <a href="/api/v.0.1/admin/" class="<%= template.includes("home") ? "active" : null %>">accueil</a>
-    <a href="/api/v.0.1/admin/reservation">réservations</a>
+    <a href="/api/v.0.1/admin/dashboard/" class="<%= template.includes("home") ? "active" : null %>">accueil</a>
+    
+    <a href="/api/v.0.1/admin/dashboard/signout" class="<%= template.includes("signin") ? "active" : null %>">déconnexion</a>
 
-    <%# if( !user.isLogged ) { %>
-        <a href="/api/v.0.1/admin/signin" class="<%= template.includes("signin") ? "active" : null %>">connexion</a>
-    <%# } %>
+    <a href="/api/v.0.1/admin/dashboard/reservation">réservations</a>
+
+    <a href="/api/v.0.1/admin/dashboard/signup">créer un nouveau compte admin</a>
 
     <%# if( user.isLogged ) { %>
         <%#<a href="/user/signout">déconnexion</a>%>

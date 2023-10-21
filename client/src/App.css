@@ -1,0 +1,73 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-color:   #e0e1e2 ;  /* 60% */
+  --secondary-color: #3F9AE9 ;  /* 30% */
+  --tertiary-color:  #AF7C33 ;  /* 10% */
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body{
+  font-size: 1.8rem;
+  font-family: 'Montserrat', sans-serif;  
+  background-color: white;
+}
+
+h1 {
+	font-weight: 500;
+	font-size: 4rem;
+	color: var(--tertiary-color);
+}
+
+h2 {
+	font-weight: 500;
+	font-size: 3rem;
+  color: var(--tertiary-color);
+}
+
+h3 {
+	font-weight: 500;
+	font-size: 2.5rem;
+  color: var(--tertiary-color);
+}
+
+a {
+  text-decoration: none;
+  text-transform: uppercase;
+  margin: 10px;
+  padding: 10px;
+  display: inline-block;
+}
+
+li {
+  list-style: none;
+}
+
+p {
+  margin: 10px 0;
+}
+
+img {
+  display: block;
+  width: 100%;
+  max-height: 100%;
+}
+
+main {
+	width: 100%;
+	text-align: center;
+}
+
+/******************************************************************/
+/* ----------------------- VERSION DESKTOP ---------------------- */
+/******************************************************************/
+@media screen and (min-width: 1200px) {
+
+}

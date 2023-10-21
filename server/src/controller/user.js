@@ -17,48 +17,52 @@ const checkToken = async (req, res) => {
     }
 };
 
-const signIn = async (req, res) => {
+const userSignIn = async (req, res) => {
     try {
         let msg = "";
-        const datas = {
-            mail: req.body.mail
-        };
         const queryUser = "SELECT * FROM utilisateurs WHERE mail = ?";
-        const [user] = await Query.findByDatas(queryUser, datas);
-
+        console.log("req.body.email" + req.body.email);
+        const [user] = await Query.findByValue(queryUser, req.body.email);
+        console.log("user.mail = "+user[0].mail);
         if (user.length) {
             msg = "utilisateur trouvé";
+            console.log("server - utilisateur trouvé");
             const TOKEN = sign({ mail: user[0].mail}, SK);
+            res.status(200).json({ msg, TOKEN });
         } else if (!user.length){
             msg = "mauvais identifiant";
-            req.status(409).json({ msg });
+            res.status(409).json({ msg });
         }
     } catch (err) {
         throw Error(err);
     }
 }
 
-
-const createAccount = async (req, res) => {
+const createUserAccount = async (req, res) => {
     try {
         let msg = "";
         const datas = {
-            mail: req.body.mail
+            mail: req.body.email
         };
         const queryUser = "SELECT mail FROM utilisateurs WHERE mail = ?";
         const [user] = await Query.findByValue(queryUser, datas);
 
         if (user.length) {
             msg = "un utilisateur avec cette adresse mail existe déjà";
-            req.status(409).json({ msg });
+            res.status(409).json({ msg });
+
         } else if (!user.length){
             const datas = {
                 lastName: req.body.lastName,
                 firstName: req.body.firstName,
-                mail: req.body.mail,
+                email: req.body.email,
+                tel: req.body.tel,
+                addresse: req.body.addresse,
+                birthday: req.body.birthday,
+                profession: req.body.profession,
                 password: await hash(req.body.password, SALT)
             };
-            const query = "INSERT INTO utilisateurs (nom, prenom, mail, tel, ne_jour, ne_mois, ne_annee, situation, date_cree, abonnamment, mdp) VALUES (?, ?, ?, 0123, 3, 4, 1985, 'manager', NOW(), 'BASIC', ?)";
+            const query = "INSERT INTO utilisateurs (nom, prenom, mail, tel, adresse, date_naissance, profession, type_compte, compte_cree_par, date_creation, mdp) VALUES (?, ?, ?, ?, ?, ?, ?, 'client', 'client', CURRENT_TIMESTAMP(), ?)";
             await Query.write(query, datas);
 
             msg = "utilisateur créé";
@@ -69,4 +73,7 @@ const createAccount = async (req, res) => {
     }
 }
 
-export { checkToken, createAccount, signIn };
+export { checkToken, 
+        createUserAccount, 
+        userSignIn 
+};

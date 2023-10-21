@@ -1,12 +1,19 @@
 import { Router } from "express";
-import { checkToken, createAccount, signIn } from "../controller/user.js";
+import { checkToken, 
+        createUserAccount, 
+        userSignIn,
+        } from "../controller/user.js";
 import { auth } from "../middlewares/auth.js";
 
 const router = Router();
 
-router.get("/check_token", auth, checkToken);
+// vérifier le token
+router.get("/check-token", auth, checkToken);
 
-router.post("/signup", createAccount);
-router.post("/signin", signIn);
+// créer un compte utilisateur client :
+router.post("/signup", createUserAccount);
+
+// page de connexion pour l'utilisateur client :
+router.post("/signin", userSignIn);
 
 export default router;

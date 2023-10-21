@@ -3,6 +3,9 @@ import jwt from "jsonwebtoken";
 const { SK } = process.env;
 
 export const auth = (req, res, next) => {
+    //console.log("req.headers.authentication = "+req.headers.authentication);
+    //console.log("req.headers['authentication'] = "+req.headers['authentication']);
+    console.log("req.headers = "+JSON.stringify(req.headers));
     const TOKEN = req.headers.authentication.slice(7);
     console.log(TOKEN);
     if (TOKEN === undefined || TOKEN === "null") {
@@ -15,7 +18,7 @@ export const auth = (req, res, next) => {
                 res.status(401).json({status: 401, msg: "token invalid"});
                 return;
             } else {
-                req.params.label = decoded.label;
+                req.params.email = decoded.email;
                 next();
             }
         })

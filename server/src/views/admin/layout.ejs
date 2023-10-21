@@ -5,7 +5,9 @@
 </head>
 <body>
     <header>
-        <%- include("partials/header") %>
+        <% if (template != "signin") { %>
+            <%- include("partials/header") %>
+        <% } %>
     </header>
 
     <main id="admin">

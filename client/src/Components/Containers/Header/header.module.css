@@ -1,0 +1,45 @@
+header {
+    width: 100%;
+}
+
+.nav_upper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav_upper_button {
+    padding: 0 .5em;
+    font-weight: 500;
+    color: var(--tertiary-color);
+}
+
+nav {
+    display: flex;
+    flex-direction: column;
+    padding: 0 .5em .5em .5em;
+    background-color: var(--primary-color);
+}
+
+nav > a {
+    display: block;
+    padding: .5em 1em;
+    font-weight: 600;
+    letter-spacing: .2em;
+    text-align: center;
+    color: var(--primary-color);
+    background-color: var(--tertiary-color);
+}
+
+/******************************************************************/
+/* ----------------------- VERSION DESKTOP ---------------------- */
+/******************************************************************/
+@media screen and (min-width: 1200px) {
+    nav {
+        flex-direction: row;
+    }
+    .nav_upper_button {
+        position: absolute;
+        right: 0;
+    }
+}

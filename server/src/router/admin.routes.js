@@ -1,29 +1,37 @@
 import { Router } from "express";
 
-import {    getHome,
+import {    getSignOut,
+            getAdminHome,
+            getSignUp, 
+            createAdminAccount,
             getReservationById,
             addReservation,
-            getUserById,
-            getSignIn,
-            adminSignedIn,
-            getSignUp
+            getUserById
         } from "../controller/admin.js";
-import { createAccount } from "../controller/user.js";
-
 
 const router = Router();
 
-router.get("/", getHome);
+// ************************************* //
+// *** Dashboard - protected links : *** //
+// ************************************* //
 
-router.get("/reservation", getReservationById);
-router.post("/reservation/add", addReservation);
+// page d'accueil admin connecté
+router.get("/", getAdminHome);
 
+// se déconnecter :
+router.get("/signout", getSignOut);
+
+// créer un compte utilisateur via le formulaire de création :
+router.get("/signup", getSignUp);
+router.post("/signup", createAdminAccount);
+
+// trouver un utilisateur par son ID :
 router.get("/user", getUserById);
 
-router.get("/signin", getSignIn);
-router.post("/signin", adminSignedIn);
+// trouver une réservation par son ID :
+router.get("/reservation", getReservationById);
 
-router.get("/signin", getSignUp);
-router.post("/signup", createAccount);
+// créer une réservation ???????????????? :
+router.post("/reservation/add", addReservation);
 
 export default router;
