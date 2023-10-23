@@ -5,7 +5,7 @@ import banner from '../../../assets/img/banner_02_big.jpg';
 function Home() {
 
     return (
-        <main id="home">
+        <main id="home" className={styles.home_main}>
             <Search />
             <img src={banner} alt="banner" />
         </main>

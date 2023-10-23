@@ -17,7 +17,7 @@
 
 .search_form > input[type=date],
 .search_form > input[type=number] {
-    width: 35%;
+    width: 49%;
 }
 
 .search_form > button {
@@ -30,19 +30,26 @@
     color: white;
     background-color: var(--tertiary-color);
 }
+.search_form > button:hover {
+    cursor: pointer;
+}
+
 
 .results_section {
     margin: 2em;
-    padding: 1em;
-    background-color: lightgrey;
+    /*background-color: lightgrey;*/
 }
 
 .results_section > article {
+    display: flex;
+    flex-direction: column;
     margin: 1em;
-    padding: 1em;
+    border: 1px solid lightgray;
     background-color: rgb(184, 255, 222);
 }
 
-.results_section img {
-    width: 300px;
+.results_section > article > p {
+    margin-left: 1em;
+    margin-right: 1em;
+    font-size: 1.4rem
 }

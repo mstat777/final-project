@@ -33,7 +33,7 @@ function App() {
           <Route path="dashboard" element={<HOC child={Dashboard} auth="true"/>} />
         </Route>
         
-        <Route path="/detail" element={<Detail/>} />
+        <Route path="/detail/:id" element={<Detail/>} />
 
         <Route path="/not-found" element={<NotFound/>} />
 

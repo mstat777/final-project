@@ -1,15 +1,14 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import styles from './search.module.css';
 import ShowResults from '../../Functions/ShowResults';
 import { useDispatch } from 'react-redux';
 import { choosenDestination } from '../../../store/slices/user';
+import { setDestination } from "../../../store/slices/travel";
 
 function Search() {
 
     const dispatch = useDispatch();
     // pour stocker les destinations trouvées via le fetch
-    const [destinations, setDestinations] = useState([]);
-    //
     const [selectedDestination, setSelectedDestination] = useState(null);
     // hook pour la barre de recherche
     const [destinationInput, setDestinationInput] = useState("");
@@ -18,15 +17,19 @@ function Search() {
     //
     const [msg, setMsg] = useState(null);
 
+    // en cliquant le bouton "RECHERCHER" :
     async function handleSubmit(e) {
         e.preventDefault();
-        //console.log("destinationInput : "+destinationInput);
-        const res = await fetch(`/api/v.0.1/travel/destination/${destinationInput}`);
-        const json = await res.json();
-        setMsg(json.msg);
-        if(res.status === 200 && json.datas[0]){
+        // on récupère les données de la destination :
+        const dataDest = await (await fetch(`/api/v.0.1/travel/destination/${destinationInput}`)).json();
+
+        setMsg(dataDest.msg);
+
+        if(dataDest.datas[0]){
             console.log("la destination a été trouvée dans la BD");
-            setSelectedDestination(json.datas[0]);
+            setSelectedDestination(dataDest.datas[0]);
+            dispatch(setDestination(dataDest.datas[0]));
+            localStorage.setItem("destination", JSON.stringify(dataDest.datas[0]));
             dispatch(choosenDestination({destinationInput}));
         } else {
             console.log("la destination n'a pas été trouvée!!!");
@@ -57,17 +60,18 @@ function Search() {
 
             </form>
 
-            <section id="resultsContainer" className={styles.results_section}>
-                { selectedDestination &&
+            { selectedDestination &&
+                <section id="resultsContainer" className={styles.results_section}>
                     <ShowResults 
                         reference={selectedDestination.reference}
-                        nom={selectedDestination.nom}
+                        dest_nom={selectedDestination.dest_nom}
                         pays={selectedDestination.pays}
                         description={selectedDestination.description}
                         url={selectedDestination.url_image_initiale}
                     /> 
-                }
-            </section>
+                </section>
+            }
+            
         </>
     )
 }

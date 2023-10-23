@@ -39,7 +39,7 @@ function Signin(){
     return(
         <main id="signin">
             {msg && <p className={styles.msg}>{msg}</p>}
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className={styles.sign_form}>
                 <input type="email" 
                         name="email" 
                         placeholder="Votre adresse mail"

@@ -1,7 +1,8 @@
 import { Router } from "express";
 import { 
     getAllDestinations,
-    getDestinationByName
+    getDestinationByName,
+    getHebergementById
 } from "../controller/travel.js";
 
 const router = Router();
@@ -10,5 +11,7 @@ const router = Router();
 router.get("/destination/all", getAllDestinations);
 // chercher une destination par nom :
 router.get("/destination/:name", getDestinationByName);
+// chercher un hébérgement par nom :
+router.get("/hebergement/:id", getHebergementById);
 
 export default router;

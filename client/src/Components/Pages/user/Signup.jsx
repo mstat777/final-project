@@ -47,7 +47,7 @@ function Signup(){
 
             {msg && <p className={styles.msg}>{msg}</p>}
 
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className={styles.sign_form}>
                 <input type="text" 
                         name="lastName" 
                         placeholder="Votre nom"
