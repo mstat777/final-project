@@ -1,0 +1,48 @@
+.search_form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 2em;
+    padding: 1em;
+    background-color: var(--secondary-color);
+}
+
+.search_form > input {
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 1em;
+    padding: .5em;
+    border: none;
+}
+
+.search_form > input[type=date],
+.search_form > input[type=number] {
+    width: 35%;
+}
+
+.search_form > button {
+    display: block;
+    margin: 0 auto;
+    padding: .5em;
+    border: none;
+    font-weight: 500;
+    text-transform: uppercase;
+    color: white;
+    background-color: var(--tertiary-color);
+}
+
+.results_section {
+    margin: 2em;
+    padding: 1em;
+    background-color: lightgrey;
+}
+
+.results_section > article {
+    margin: 1em;
+    padding: 1em;
+    background-color: rgb(184, 255, 222);
+}
+
+.results_section img {
+    width: 300px;
+}

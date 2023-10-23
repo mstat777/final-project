@@ -1,12 +1,14 @@
 import { Router } from "express";
 import { 
     getAllDestinations,
-    getLastOffer 
+    getDestinationByName
 } from "../controller/travel.js";
 
 const router = Router();
 
-router.get("/all-destinations", getAllDestinations);
-router.get("/last", getLastOffer);
+// afficher les noms de toutes les destinations :
+router.get("/destination/all", getAllDestinations);
+// chercher une destination par nom :
+router.get("/destination/:name", getDestinationByName);
 
 export default router;

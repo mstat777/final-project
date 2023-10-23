@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import Loading from "../../Containers/Loading/Index";
 import styles from './holidays.module.css';
 
@@ -10,9 +11,9 @@ function Holidays(){
         async function getData() {
             try {
                 const result = await (
-                await fetch("/api/v.0.1/travel/all-destinations") 
+                await fetch("/api/v.0.1/travel/destination/all") 
                 ).json();
-                setAllDestinations(result.data);
+                setAllDestinations(result.datas);
             } catch (error) {
                 console.log(error);
             }
@@ -27,19 +28,17 @@ function Holidays(){
             ) : (
             <div className={styles.holidays_section}>
                 <h2>Nos destinations</h2>
+                {allDestinations.length > 0 && (
                 <ul>
-                    {allDestinations.length > 0 && (
-                    <ul>
-                        {allDestinations.map(destination => {
-                            return(
-                                <li key={destination.id}>
-                                    {destination.nom}
-                                </li>
-                            )
-                        })}
-                    </ul>
-                    )}
+                    {allDestinations.map((destination, index) => {
+                        return(
+                            <li key={index}>
+                                <Link to={"/"}>{destination.nom}</Link>        
+                            </li>
+                        )
+                    })}
                 </ul>
+                )}
             </div>
             )}
         </main>

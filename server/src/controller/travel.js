@@ -2,16 +2,18 @@ import Query from "../model/Query.js";
 
 const getAllDestinations = async (req, res) => {
     const query = "SELECT nom FROM destinations GROUP BY nom";
-    const [data] = await Query.find(query);
-    res.status(200).json({data});
+    const [datas] = await Query.find(query);
+    res.status(200).json({datas});
 }
 
-const getLastOffer = async (req, res) => {
-    const query = "SELECT reference, nom, destination, type FROM offres ORDER BY id LIMIT 1";
-    const [datas] = await Query.find(query);
+const getDestinationByName = async (req, res) => {
+    const query = "SELECT * FROM destinations WHERE nom = ?";
+    const [datas] = await Query.findByValue(query, req.params.name);
+    //console.log("datas = "+datas[0].nom);
+    res.status(200).json({ msg: "destination trouvée", datas })
 }
 
 export { 
     getAllDestinations,
-    getLastOffer 
+    getDestinationByName 
 };

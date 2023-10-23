@@ -36,6 +36,7 @@ function App() {
         <Route path="/detail" element={<Detail/>} />
 
         <Route path="/not-found" element={<NotFound/>} />
+
       </Routes>
       
       <Footer/>
