@@ -3,11 +3,23 @@
     flex-direction: column;
     margin: 1em;
     border: 1px solid lightgray;
-    background-color: var(--primary-color);
+    /*background-color: var(--primary-color);*/
 }
 
 .detail_section > p {
-    margin-left: 1em;
-    margin-right: 1em;
-    font-size: 1.4rem
+    margin: 1em;
+    padding: 1em;
+    font-size: 1.4rem;
+    text-align: justify;
+}
+
+.detail_section > p + p {
+    border-top: 1px solid lightgrey;
+}
+
+.detail_section > p > span {
+    display: block;
+    margin: 1rem;
+	font-weight: 500;
+	font-size: 1.8rem;
 }
