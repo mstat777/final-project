@@ -3,7 +3,8 @@ import {
     getAllDestinations,
     getDestinationByName,
     getHebergementById,
-    getPacksByDestination
+    getPacksByDestination,
+    getActivitiesByDestination
 } from "../controller/travel.js";
 
 const router = Router();
@@ -16,5 +17,7 @@ router.get("/destination/:name", getDestinationByName);
 router.get("/hebergement/:id", getHebergementById);
 // chercher tous les packs par destination :
 router.get("/pack/:id", getPacksByDestination);
+// chercher tous les packs par destination :
+router.get("/activities/:id", getActivitiesByDestination);
 
 export default router;

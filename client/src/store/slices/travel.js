@@ -6,7 +6,7 @@ const initialState = {
     destinationImages: JSON.parse(localStorage.getItem("destination_images")) || {},
     hebergementImages: JSON.parse(localStorage.getItem("hebergement_images")) || {},
     packs: JSON.parse(localStorage.getItem("packs")) || [],
-    activites: JSON.parse(localStorage.getItem("activites")) || {}
+    activites: JSON.parse(localStorage.getItem("activites")) || []
 };
 
 export const allTravelSlice = createSlice({

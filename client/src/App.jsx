@@ -2,17 +2,22 @@ import './App.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import HOC from "./Components/HOC/Index";
+
 import Header from "./Components/Containers/Header/Index";
 import Footer from "./Components/Containers/Footer/Index";
+
 import Home from "./Components/Pages/Home/Index";
 import Holidays from "./Components/Pages/Holidays/Index";
 import Agency from "./Components/Pages/Agency/Index";
 import Contact from "./Components/Pages/Contact/Index";
+import Detail from "./Components/Pages/Detail/Index";
+import Booking from "./Components/Pages/Booking/Index";
+
 import Signin from "./Components/Pages/user/Signin";
 import Signup from "./Components/Pages/user/Signup";
 import Signout from "./Components/Pages/user/Signout";
 import Dashboard from "./Components/Pages/user/Dashboard";
-import Detail from "./Components/Pages/Detail/Index";
+
 import NotFound from "./Components/Pages/NotFound/Index";
 
 function App() {
@@ -34,6 +39,7 @@ function App() {
         </Route>
         
         <Route path="/detail/:id" element={<Detail/>} />
+        <Route path="/booking/:id" element={<Booking/>} />
 
         <Route path="/not-found" element={<NotFound/>} />
 

@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import styles from './search.module.css';
 import ShowResults from '../../Functions/ShowResults';
 import { useDispatch, useSelector } from 'react-redux';
-import { setDestination, setPacks } from "../../../store/slices/travel";
+import { setDestination } from "../../../store/slices/travel";
 
 function Search() {
 
@@ -19,24 +19,7 @@ function Search() {
 
     useEffect(() => {
         setDestination({});
-        setPacks([]);
     }, [])
-
-    // on récupère les données des packs :
-    useEffect(() => {
-        async function fetchData() {
-            try {
-                const dataPack = await (await fetch(`/api/v.0.1/travel/pack/${destination.id}`)).json();
-                console.log("des packs ont été trouvés dans la BD");
-                dispatch(setPacks(dataPack.datas));
-                localStorage.setItem("packs", JSON.stringify(dataPack.datas));
-            } catch (error) {
-                console.log("aucun pack n'a été trouvé !!!");
-                console.log(error);
-            }
-        }
-        fetchData();
-    }, [destination])
 
     // en cliquant le bouton "RECHERCHER" :
     async function handleSubmit(e) {
@@ -48,8 +31,9 @@ function Search() {
 
         if(dataDest.datas[0]){
             console.log("la destination a été trouvée dans la BD");
-            dispatch(setDestination(dataDest.datas[0]));
             localStorage.setItem("destination", JSON.stringify(dataDest.datas[0]));
+            dispatch(setDestination(dataDest.datas[0]));
+            console.log("dataDest.datas[0] = "+dataDest.datas[0]);
         } else {
             console.log("la destination n'a pas été trouvée!!!");
             //dispatch(setDestination({}));

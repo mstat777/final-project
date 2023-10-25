@@ -24,9 +24,16 @@ const getPacksByDestination = async (req, res) => {
     res.status(200).json({ msg: "packs trouvés", datas })
 }
 
+const getActivitiesByDestination = async (req, res) => {
+    const query = "SELECT * FROM activites AS a JOIN destinations_activites AS da ON a.id = da.activite_id WHERE da.destination_id = ?";
+    const [datas] = await Query.findByValue(query, req.params.id);
+    res.status(200).json({ msg: "activités trouvées", datas })
+}
+
 export { 
     getAllDestinations,
     getDestinationByName,
     getHebergementById,
-    getPacksByDestination
+    getPacksByDestination,
+    getActivitiesByDestination
 };
