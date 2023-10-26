@@ -10,8 +10,10 @@ import Home from "./Components/Pages/Home/Index";
 import Holidays from "./Components/Pages/Holidays/Index";
 import Agency from "./Components/Pages/Agency/Index";
 import Contact from "./Components/Pages/Contact/Index";
+
 import Detail from "./Components/Pages/Detail/Index";
 import Booking from "./Components/Pages/Booking/Index";
+import Summary from "./Components/Pages/Summary/Index";
 
 import Signin from "./Components/Pages/user/Signin";
 import Signup from "./Components/Pages/user/Signup";
@@ -40,6 +42,7 @@ function App() {
         
         <Route path="/detail/:id" element={<Detail/>} />
         <Route path="/booking/:id" element={<Booking/>} />
+        <Route path="/summary/:id" element={<Summary/>} />
 
         <Route path="/not-found" element={<NotFound/>} />
 

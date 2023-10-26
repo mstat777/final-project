@@ -120,16 +120,13 @@ function Detail(){
                 <p>Tripadvisor : {hebergement.tripadvisor}</p>
 
                 <div className={styles.activites_ctn}>
-                    <span>Veuillez choisir entre les activités suivantes :</span>
+                    <span>Au départ de votre {hebergement.nom}, vous pouvez profitez des activités suivantes :</span>
                     { console.log("activites = "+activites)}
                     { console.log("type de activites = "+typeof activites)}
                     {activites != undefined &&
                     activites.map((activite, index) => 
                         <div className={styles.activite} key={index}>
-                            <div>
-                                <input type="checkbox" name={activite.id}/>
-                                <label for={activite.id}>{activite.nom}</label>
-                            </div>
+                            <strong>{activite.nom}</strong>
                             <div>
                                 <p>Type: {activite.type}</p>
                                 <p>Prix: adultes: {activite.prix_adulte}&euro;, enfants: {activite.prix_enfant}&euro;</p>

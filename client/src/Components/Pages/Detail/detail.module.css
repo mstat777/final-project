@@ -32,16 +32,26 @@
 }
 
 /*** styler les activités ***/
-.activite {
-    margin: .5em 1em;
-    border: 1px solid lightgrey;
+.activites_ctn {
     text-align: left;
 }
 
-.activite input {
-    margin: auto .5em;
+.activites_ctn span {
+    display: block;
+    margin: 1em 2em;
 }
 
-.activite label {
+.activite {
+    margin: .5em 1em;
+    border: 1px solid lightgrey;
+}
+
+.activite strong {
+    display: block;
+    margin: 1em 2em;
     font-weight: 500;
+}
+
+.activite p {
+    padding: 0;
 }

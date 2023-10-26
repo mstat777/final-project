@@ -1,72 +1,115 @@
 import styles from './booking.module.css';
+import { Link, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { 
-    setPacks, setHebergement, setActivites
- } from "../../../store/slices/travel";
-import { Link } from 'react-router-dom';
-import { MapContainer, TileLayer } from 'react-leaflet';
-import "leaflet/dist/leaflet.css";
+import { useSelector, useDispatch } from 'react-redux';
+import { addToCart } from "../../../store/slices/cart";
+import { calculatePrices,
+        setActivites, 
+        increaseNumberAdultsPack, 
+        decreaseNumberAdultsPack, 
+        increaseNumberChildrenPack,
+        decreaseNumberChildrenPack,
+        increaseNumberAdultsActivite, 
+        decreaseNumberAdultsActivite
+    } from "../../../store/slices/booking";
 
 function Booking(){
+    const navigate = useNavigate();
     const dispatch = useDispatch();
+
     let { id } = useParams();
 
     const { destination } = useSelector((state) => state.allTravel);
-
+    
     const { packs } = useSelector((state) => state.allTravel);
     const { hebergement } = useSelector((state) => state.allTravel);
     const { activites } =  useSelector((state) => state.allTravel);
 
-    const [coord, setCoord] = useState([0,0]);
-    // récupérer et modifier les coordonnées de l'hébergement pour l'afficher dans la carte
-    useEffect(() => {
-        if(hebergement.coordonnees) {
-            const tempArray = (hebergement.coordonnees).split(", ");
-            //console.log("tempArray = "+tempArray);
-            console.log("coord = "+coord);
-            tempArray[0] = Math.round(tempArray[0] * 100000) / 100000;
-            tempArray[1] = Math.round(tempArray[1] * 100000) / 100000;
-            //console.log("coord[0] = "+coord[0]);
-            //console.log("coord[1] = "+coord[1]);
-            setCoord([tempArray[0],tempArray[1]]);
+    // stocker les données de la réservation :
+    const { bookingInfo } = useSelector((state) => state.booking);
+
+    // modifier les compteurs (nb d'enfants, nb d'adultes)
+    /*function incrNbAdultes(index){
+        if (!activite[index].nb_adults) {
+            activite[index].nb_adults
         }
-    }, [hebergement]);
+        console.log("nb_adults_act[0] = "+nb_adults_act[index]);
+    }
+    function decrNbAdultes(index){
+        nb_adults_act[index]--;
+    }
+    function incrNbChildren(index){
+        nb_children_act[index]++;
+    }
+    function decrNbChildren(index){
+        nb_children_act[index]--;
+    }*/
+
+    useEffect(() => {
+        dispatch(setActivites(activites.length));
+        //console.log("activites.length = "+activites.length);
+    }, [])
+
+    useEffect(() => {
+        const tempObject = {
+            prix_adulte: packs[id].prix_adulte,
+            prix_enfant: packs[id].prix_enfant,
+        }
+        dispatch(calculatePrices(tempObject));
+        console.log("packs[id].prix_adulte = "+packs[id].prix_adulte);
+        console.log("bookingInfo.prices.total_pack = "+bookingInfo.prices.total_pack);
+        console.log("bookingInfo.nb_adults.pack = "+bookingInfo.nb_adults.pack);
+    })
+
+    async function handleOnClick() {
+        navigate("/summary/:id")
+    }
 
     return (
         <main id="booking">
             { (destination && hebergement && activites) &&
-            <div className={styles.detail_section}>
+            <div className={styles.booking_section}>
                 <img src={"../../img/hebergements/"+hebergement.url_image_initiale} alt="" />
                 <h4>{hebergement.nom}</h4>
                 <h3>{destination.nom}</h3>
     
-                { console.log("id = "+id)}
-                <div className={styles.pack_ctn}>
-                    <span>{packs[id].date_depart.slice(0, packs[id].date_retour.indexOf('T'))}</span>
-                    <span>{packs[id].date_retour.slice(0, packs[id].date_retour.indexOf('T'))}</span> 
-                    <span>{packs[id].duree+1}J/{packs[id].duree}N</span>  
-                    <span>{packs[id].prix_adulte}</span> 
-                    <span>{packs[id].prix_enfant}</span> 
+                <p>Vous avez sélectionné le pack suivant :</p>
+                <div className={styles.booking_pack_ctn}>
+                    <p>Date de départ : <span>{packs[id].date_depart.slice(0, packs[id].date_retour.indexOf('T'))}</span></p>
+                    <p>Date de retour : <span>{packs[id].date_retour.slice(0, packs[id].date_retour.indexOf('T'))}</span></p> 
+                    <p>Durée : <span>{packs[id].duree+1}</span> jours / <span>{packs[id].duree}</span> nuits</p>  
+                    <p>Prix/TTC/adulte : {packs[id].prix_adulte} &euro;</p> 
+                    <p>Prix/TTC/enfant : {packs[id].prix_enfant} &euro;</p> 
                 </div>
 
-                <p><span>Présentation</span>{hebergement.presentation}</p>
-                <p><span>Equipement</span>{hebergement.equipement}</p>
-                <p><span>Logement</span>{hebergement.logement}</p>
-                <p><span>Restauration</span>{hebergement.restauration}</p>
-                <p><span>Formules</span>{hebergement.formules}</p>
-                <p><span>Loisirs</span>{hebergement.loisirs}</p>
-                <p><span>Enfants</span>{hebergement.enfants}</p>
-                <p>Tripadvisor : {hebergement.tripadvisor}</p>
+                <p>Veuillez indiquer le nombre d'adultes et d'enfants pour lesquels vous réservez :</p>
+                <div className={styles.booking_inputs}>
+                    <span>Nombre d'adultes :&nbsp;</span>
+                    <button onClick={()=>{dispatch(increaseNumberAdultsPack())}}>+</button>
+                    <input type="number" value={bookingInfo.nb_adults.pack} />
+                    <button onClick={()=>{dispatch(decreaseNumberAdultsPack())}}>-</button>
+                </div>
+                <div className={styles.booking_inputs}>
+                    <span>Nombre d'enfants :&nbsp;</span>
+                    <button onClick={()=>{dispatch(increaseNumberChildrenPack())}}>+</button>
+                    <input type="number" value={bookingInfo.nb_children.pack} />
+                    <button onClick={()=>{dispatch(decreaseNumberChildrenPack())}}>-</button>
+                </div>
 
-                <div className={styles.activites_ctn}>
+                <div className={styles.booking_activites_ctn}>
                     <span>Veuillez choisir entre les activités suivantes :</span>
                     {activites.map((activite, index) => 
-                        <div className={styles.activite} key={index}>
-                            <div>
+                        <div className={styles.booking_activite} key={index}>
+                            <div className={styles.booking_activite_title} >
                                 <input type="checkbox" name={activite.id}/>
                                 <label for={activite.id}>{activite.nom}</label>
+                            </div>
+                            <div className={styles.booking_activite_inputs}>
+                                <span>Adultes : </span>
+                                <button onClick={()=>{dispatch(increaseNumberAdultsActivite(index))}}>+</button>
+                                <input type="number" value={bookingInfo.nb_adults.activites[index]} />
+                                <button onClick={()=>{dispatch(decreaseNumberAdultsActivite(index))}}>-</button>
                             </div>
                             <div>
                                 <p>Type: {activite.type}</p>
@@ -77,10 +120,14 @@ function Booking(){
                     )}
                 </div>
 
-                <MapContainer center={coord} zoom={15} scrollWheelZoom={false} className={styles.leaflet_container}>
-                    <TileLayer attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-                        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
-                </MapContainer>
+                <p>Vous avez sélectionné le pack suivant :</p>
+                <div className={styles.booking_pack_ctn}>
+                    <p>Prix total du pack : <span>{bookingInfo.prices.total_pack}</span> &euro; TTC</p> 
+                    <p>Prix total des activités choisies : <span>{bookingInfo.prices.total_pack}</span> &euro; TTC</p> 
+                    <p>PRIX TOTAL A PAYER : <span>{bookingInfo.prices.total_pack}</span> &euro; TTC</p> 
+                </div>
+
+                <button onClick={handleOnClick} className={styles.booking_btn}>reserver</button>
             </div>
             }
         </main>
