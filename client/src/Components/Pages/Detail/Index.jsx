@@ -2,7 +2,7 @@ import styles from './detail.module.css';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { 
-    setPacks, setHebergement, setActivites
+    setPacks, setLodging, setActivities
  } from "../../../store/slices/travel";
 import { Link } from 'react-router-dom';
 import { MapContainer, TileLayer } from 'react-leaflet';
@@ -14,8 +14,8 @@ function Detail(){
     const { destination } = useSelector((state) => state.allTravel);
 
     const { packs } = useSelector((state) => state.allTravel);
-    const { hebergement } = useSelector((state) => state.allTravel);
-    const { activites } =  useSelector((state) => state.allTravel);
+    const { lodging } = useSelector((state) => state.allTravel);
+    const { activities } =  useSelector((state) => state.allTravel);
 
     const [coord, setCoord] = useState([0,0]);
 
@@ -36,36 +36,36 @@ function Detail(){
 
     useEffect(() => {
         // on récupère les données de l'hébérgement lié à la destination :
-        async function fetchHebergement() {
+        async function fetchLodging() {
             try {
-                const dataHeb = await (await fetch(`/api/v.0.1/travel/hebergement/${destination.hebergement_id}`)).json();
-                localStorage.setItem("hebergement", JSON.stringify(dataHeb.datas[0]));
-                dispatch(setHebergement(dataHeb.datas[0]));
+                const dataLodg = await (await fetch(`/api/v.0.1/travel/lodging/${destination.lodging_id}`)).json();
+                localStorage.setItem("lodging", JSON.stringify(dataLodg.datas[0]));
+                dispatch(setLodging(dataLodg.datas[0]));
             } catch (error) {
                 console.log(error);
             }
         }
-        fetchHebergement();
+        fetchLodging();
     }, []);
 
     useEffect(() => {
         // on récupère les données des activités liées à la destination :
-        async function fetchActivites() {
+        async function fetchActivities() {
             try {
                 const result = await (await fetch(`/api/v.0.1/travel/activities/${destination.id}`)).json();
-                localStorage.setItem("activites", JSON.stringify(result.datas));
-                dispatch(setActivites(result.datas));
+                localStorage.setItem("activities", JSON.stringify(result.datas));
+                dispatch(setActivities(result.datas));
             } catch (error) {
                 console.log(error);
             }
         }
-        fetchActivites();
+        fetchActivities();
     }, []);
 
     // récupérer et modifier les coordonnées de l'hébergement pour l'afficher dans la carte
     useEffect(() => {
-        if(hebergement.coordonnees) {
-            const tempArray = (hebergement.coordonnees).split(", ");
+        if(lodging.coordinates) {
+            const tempArray = (lodging.coordinates).split(", ");
             //console.log("tempArray = "+tempArray);
             console.log("coord = "+coord);
             tempArray[0] = Math.round(tempArray[0] * 100000) / 100000;
@@ -74,16 +74,16 @@ function Detail(){
             //console.log("coord[1] = "+coord[1]);
             setCoord([tempArray[0],tempArray[1]]);
         }
-    }, [hebergement]);
+    }, [lodging]);
 
     return (
         <main id="detail">
-            { (destination && hebergement && activites) &&
+            { (destination && lodging && activities) &&
             <div className={styles.detail_section}>
-                { console.log("hebergement = "+hebergement)}
-                <img src={"../../img/hebergements/"+hebergement.url_image_initiale} alt="" />
-                <h4>{hebergement.nom}</h4>
-                <h3>{destination.nom}</h3>
+                { console.log("lodging = "+lodging)}
+                <img src={"../../img/lodgings/"+lodging.url_initial_image} alt="" />
+                <h4>{lodging.name}</h4>
+                <h3>{destination.name}</h3>
                 <table className={styles.packs_div}>
                     <thead>
                         <tr> 
@@ -98,40 +98,40 @@ function Detail(){
                     <tbody>      
                         { packs.map((pack, index) => 
                             <tr key={index}>
-                                <td>{pack.date_depart.slice(0, pack.date_retour.indexOf('T'))}</td>
-                                <td>{pack.date_retour.slice(0, pack.date_retour.indexOf('T'))}</td> 
-                                <td>{pack.duree+1}J/{pack.duree}N</td>  
-                                <td>{pack.prix_adulte}</td> 
-                                <td>{pack.prix_enfant}</td> 
+                                <td>{pack.departure_date.slice(0, pack.departure_date.indexOf('T'))}</td>
+                                <td>{pack.return_date.slice(0, pack.return_date.indexOf('T'))}</td> 
+                                <td>{pack.duration+1}J/{pack.duration}N</td>  
+                                <td>{pack.price_adults}</td> 
+                                <td>{pack.price_children}</td> 
                                 <td>
-                                    <Link to={`/booking/${index}`}>Réserver</Link>
+                                    <Link to={`/booking/${index}`} className={styles.book_btn}>Réserver</Link>
                                 </td> 
                             </tr>
                         )}
                     </tbody>
                 </table>
-                <p><span>Présentation</span>{hebergement.presentation}</p>
-                <p><span>Equipement</span>{hebergement.equipement}</p>
-                <p><span>Logement</span>{hebergement.logement}</p>
-                <p><span>Restauration</span>{hebergement.restauration}</p>
-                <p><span>Formules</span>{hebergement.formules}</p>
-                <p><span>Loisirs</span>{hebergement.loisirs}</p>
-                <p><span>Enfants</span>{hebergement.enfants}</p>
-                <p>Tripadvisor : {hebergement.tripadvisor}</p>
+                <p><span>Présentation</span>{lodging.overview}</p>
+                <p><span>Equipement</span>{lodging.facilities}</p>
+                <p><span>Logement</span>{lodging.rooms}</p>
+                <p><span>Restauration</span>{lodging.food_drink}</p>
+                <p><span>Formules</span>{lodging.meal_plans}</p>
+                <p><span>Loisirs</span>{lodging.entertainment}</p>
+                <p><span>Enfants</span>{lodging.children}</p>
+                <p>Tripadvisor : {lodging.tripadvisor}</p>
 
-                <div className={styles.activites_ctn}>
-                    <span>Au départ de votre {hebergement.nom}, vous pouvez profitez des activités suivantes :</span>
-                    { console.log("activites = "+activites)}
-                    { console.log("type de activites = "+typeof activites)}
-                    {activites != undefined &&
-                    activites.map((activite, index) => 
-                        <div className={styles.activite} key={index}>
-                            <strong>{activite.nom}</strong>
+                <div className={styles.activities_ctn}>
+                    <span>Au départ de votre {lodging.name}, vous pouvez profitez des activités suivantes :</span>
+                    { console.log("activities = "+activities)}
+                    { console.log("type of activities = "+typeof activities)}
+                    {activities != undefined &&
+                    activities.map((activity, index) => 
+                        <div className={styles.activity} key={index}>
+                            <strong>{activity.name}</strong>
                             <div>
-                                <p>Type: {activite.type}</p>
-                                <p>Prix: adultes: {activite.prix_adulte}&euro;, enfants: {activite.prix_enfant}&euro;</p>
+                                <p>Type: {activity.type}</p>
+                                <p>Prix: adultes: {activity.price_adults}&euro;, enfants: {activity.price_children}&euro;</p>
                             </div> 
-                            <p>{activite.description}</p>
+                            <p>{activity.overview}</p>
                         </div>
                     )
                     }

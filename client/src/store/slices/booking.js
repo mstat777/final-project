@@ -4,15 +4,17 @@ const initialState = {
     bookingInfo: JSON.parse(localStorage.getItem("booking")) || {
         nb_adults: {
             pack: 0,
-            activites: []
+            activities: []
         },
         nb_children: {
             pack: 0,
-            activites: []
+            activities: []
         },
         prices: {
+            activities_adults: [],
+            activities_children: [],
             total_pack: 0,
-            total_activites: 0,
+            total_activities: 0,
             total_all: 0
         }
     }
@@ -23,18 +25,34 @@ export const bookingSlice = createSlice({
     initialState,
     reducers: {
         calculatePrices: (state, action) => {
-            const prix_pack_adults = state.bookingInfo.nb_adults.pack * action.payload.prix_adulte;
-            const prix_pack_children = state.bookingInfo.nb_children.pack * action.payload.prix_enfant;
-            state.bookingInfo.prices.total_pack = prix_pack_adults + prix_pack_children;
-            console.log("state.bookingInfo.nb_adults.pack = "+state.bookingInfo.nb_adults.pack);
-            console.log("action.payload.prix_adulte = "+action.payload.prix_adulte);
-            console.log("action.payload.prix_enfant = "+action.payload.prix_enfant);
-            console.log("state.bookingInfo.prices.total_pack = "+state.bookingInfo.prices.total_pack);
+            // calculer pour les packs :
+            const price_pack_adults = state.bookingInfo.nb_adults.pack * action.payload.price_adults_pack;
+            const price_pack_children = state.bookingInfo.nb_children.pack * action.payload.price_children_pack;
+
+            state.bookingInfo.prices.total_pack = price_pack_adults + price_pack_children;
+
+            console.log("action.payload.price_adults_activities = "+action.payload.price_adults_activities);
+
+            let temp = 0;
+            for (let i=0; i < state.bookingInfo.nb_adults.activities.length; i++ ) {
+                console.log("action.payload.price_adults_activities[index]= "+action.payload.price_adults_activities[i]);
+                console.log("state.bookingInfo.nb_adults.activities[i] = "+state.bookingInfo.nb_adults.activities[i]);
+
+                temp += state.bookingInfo.nb_adults.activities[i] * action.payload.price_adults_activities[i];
+
+                console.log("state.bookingInfo.prices.total_activities = "+state.bookingInfo.prices.total_activities);
+            }
+            state.bookingInfo.prices.total_activities = temp;
+         
+
+            state.bookingInfo.prices.total_all = state.bookingInfo.prices.total_pack + state.bookingInfo.prices.total_activities;
         },
-        setActivites: (state, action) => {
+        setActivities: (state, action) => {
             for (let i=0; i < action.payload; i++){
-                state.bookingInfo.nb_adults.activites.push(0);
-                state.bookingInfo.nb_children.activites.push(0);
+                state.bookingInfo.nb_adults.activities.push(0);
+                state.bookingInfo.nb_children.activities.push(0);
+                state.bookingInfo.prices.activities_adults.push(0);
+                state.bookingInfo.prices.activities_children.push(0);
             }
         },
         increaseNumberAdultsPack: (state, action) => {
@@ -49,20 +67,20 @@ export const bookingSlice = createSlice({
         decreaseNumberChildrenPack: (state, action) => {
             state.bookingInfo.nb_children.pack--;
         },
-        increaseNumberAdultsActivite: (state, action) => {
-            if (!state.bookingInfo.nb_adults.activites.length) {
-                state.bookingInfo.nb_adults.activites[action.payload] = 0;
+        increaseNumberAdultsActivity: (state, action) => {
+            if (!state.bookingInfo.nb_adults.activities.length) {
+                state.bookingInfo.nb_adults.activities[action.payload] = 0;
             }
-            if (state.bookingInfo.nb_adults.activites.length) {
-                state.bookingInfo.nb_adults.activites[action.payload]++;
+            if (state.bookingInfo.nb_adults.activities.length) {
+                state.bookingInfo.nb_adults.activities[action.payload]++;
             }
         },
-        decreaseNumberAdultsActivite: (state, action) => {
-            if (!state.bookingInfo.nb_adults.activites.length) {
-                state.bookingInfo.nb_adults.activites[action.payload] = 0;
+        decreaseNumberAdultsActivity: (state, action) => {
+            if (!state.bookingInfo.nb_adults.activities.length) {
+                state.bookingInfo.nb_adults.activities[action.payload] = 0;
             }
-            if (state.bookingInfo.nb_adults.activites.length) {
-                state.bookingInfo.nb_adults.activites[action.payload]--;
+            if (state.bookingInfo.nb_adults.activities.length) {
+                state.bookingInfo.nb_adults.activities[action.payload]--;
             }
         }
     }
@@ -70,13 +88,13 @@ export const bookingSlice = createSlice({
 
 export const { 
     calculatePrices,
-    setActivites, 
+    setActivities, 
     increaseNumberAdultsPack, 
     decreaseNumberAdultsPack, 
     increaseNumberChildrenPack,
     decreaseNumberChildrenPack,
-    increaseNumberAdultsActivite, 
-    decreaseNumberAdultsActivite 
+    increaseNumberAdultsActivity, 
+    decreaseNumberAdultsActivity 
     } = bookingSlice.actions;
 
 export default bookingSlice.reducer;

@@ -2,11 +2,11 @@ import {createSlice} from "@reduxjs/toolkit";
 
 const initialState = {
     destination: JSON.parse(localStorage.getItem("destination")) || {},
-    hebergement: JSON.parse(localStorage.getItem("hebergement")) || {},
+    lodging: JSON.parse(localStorage.getItem("lodging")) || {},
     destinationImages: JSON.parse(localStorage.getItem("destination_images")) || {},
-    hebergementImages: JSON.parse(localStorage.getItem("hebergement_images")) || {},
+    lodgingImages: JSON.parse(localStorage.getItem("lodging_images")) || {},
     packs: JSON.parse(localStorage.getItem("packs")) || [],
-    activites: JSON.parse(localStorage.getItem("activites")) || []
+    activities: JSON.parse(localStorage.getItem("activities")) || []
 };
 
 export const allTravelSlice = createSlice({
@@ -16,31 +16,31 @@ export const allTravelSlice = createSlice({
         setDestination: (state, action) => {
             state.destination = action.payload;
         },
-        setHebergement: (state, action) => {
-            state.hebergement = action.payload;
+        setLodging: (state, action) => {
+            state.lodging = action.payload;
         },
         setDestinationImages: (state, action) => {
             state.destinationImages = action.payload;
         },
-        setHebergementImages: (state, action) => {
-            state.hebergementImages = action.payload;
+        setLodgingImages: (state, action) => {
+            state.lodgingImages = action.payload;
         },
         setPacks: (state, action) => {
             state.packs = action.payload;
         },
-        setActivites: (state, action) => {
-            state.activites = action.payload;
+        setActivities: (state, action) => {
+            state.activities = action.payload;
         }
     }
 });
 
 export const { 
     setDestination,
-    setHebergement,
+    setLodging,
     setDestinationImages,
-    setHebergementImages,
+    setLodgingImages,
     setPacks,
-    setActivites
+    setActivities
 } = allTravelSlice.actions;
 
 export default allTravelSlice.reducer;

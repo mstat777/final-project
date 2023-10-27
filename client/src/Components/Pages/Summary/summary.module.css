@@ -28,33 +28,33 @@
 }
 
 /*** styler les activités ***/
-.summary_activites_ctn {
+.summary_activities_ctn {
     text-align: left;
 }
 
-.summary_activites_ctn span {
+.summary_activities_ctn span {
     display: block;
     margin: 1em 2em;
 }
 
-.summary_activite {
+.summary_activity {
     margin: .5em 1em;
     border: 1px solid lightgrey;
 }
 
-.summary_activite_title {
+.summary_activity_title {
     margin: 1px;
     padding: 1px;
     display: flex;
     justify-content: space-between;
 }
 
-.summary_activite_title label {
+.summary_activity_title label {
     display: inline-block;
     font-weight: 500;
 }
 
-.summary_activite p {
+.summary_activity p {
     padding: 0;
 }
 

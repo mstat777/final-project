@@ -19,19 +19,19 @@ const adminSignIn = async (req, res) => {
         res.redirect("/signin?msg=Pas%20de%20champs%20vide%20!");
         return;
     }
-    const query = "SELECT mail, mdp FROM utilisateurs WHERE mail = ?";
+    const query = "SELECT email, password FROM users WHERE email = ?";
     const [user] = await Query.findByValue(query, req.body.email);
     if (user.length) {
         //console.log("user.mail = "+user[0].mail);
         //console.log("user.mdp = "+user[0].mdp);
-        const same = await bcrypt.compare(req.body.password, user[0].mdp);
+        const same = await bcrypt.compare(req.body.password, user[0].password);
         if (same) {
             // Payload to generate JWT
             const payload = {
                 email: user.email,
                 password: user.password,
             };
-            // Create a jsonwebtoken that expires in 5 days
+            // Create a jsonwebtoken that expires in 1h
             const token = jwt.sign(payload, SK, { expiresIn: '1h' });
 
             /*res.status(200).json({
@@ -73,7 +73,7 @@ const createAdminAccount = async (req, res) => {
         const datas = {
             email: req.body.email
         };
-        const queryUser = "SELECT mail FROM utilisateurs WHERE mail = ?";
+        const queryUser = "SELECT email FROM users WHERE email = ?";
         const [user] = await Query.findByValue(queryUser, datas);
 
         if (user.length) {
@@ -86,12 +86,12 @@ const createAdminAccount = async (req, res) => {
                 email: req.body.email,
                 tel: req.body.tel,
                 addresse: req.body.addresse,
-                birthday: req.body.birthday,
-                profession: req.body.profession,
+                birthDate: req.body.birthDate,
+                occupation: req.body.occupation,
                 password: await hash(req.body.password, SALT)
             };
             //const query = "INSERT INTO utilisateurs (nom, prenom, mail, tel) VALUES (?, ?, ?, ?)";
-            const query = "INSERT INTO utilisateurs (nom, prenom, mail, tel, adresse, date_naissance, profession, type_compte, compte_cree_par, date_creation, mdp) VALUES (?, ?, ?, ?, ?, ?, ?, 'admin', 'admin', CURRENT_TIMESTAMP(), ?)";
+            const query = "INSERT INTO utilisateurs (last_name, first_name, email, tel, addresse, birth_date, occupation, account_type, account_created_by, date_created, password) VALUES (?, ?, ?, ?, ?, ?, ?, 'admin', 'admin', CURRENT_TIMESTAMP(), ?)";
             await Query.write(query, datas);
 
             msg = "utilisateur créé";
@@ -103,22 +103,22 @@ const createAdminAccount = async (req, res) => {
 }
 
 const getReservationById = async (req, res) => {
-    const query = "SELECT * FROM reservations WHERE id = ?";
-    const [datas] = await Query.findByValue(query, req.body.reservation_id);
+    const query = "SELECT * FROM bookings WHERE id = ?";
+    const [datas] = await Query.findByValue(query, req.body.booking_id);
     res.status(200).render("admin/layout",
     { datas });
 } 
 
 const addReservation = async (req, res) => {
     const datas = {
-        prix: req.body.prix,
         adultes: req.body.adultes,
         enfants: req.body.enfants,
+        prix: req.body.prix,
         paiement: req.body.paiement,
+        status: req.body.status,
         date_offre_id: req.body.date_offre_id,
-        utilisateur_id: req.body.utilisateur_id
     }
-    const query = "INSERT INTO reservations (date, prix, adultes, enfants, paiement, statut, date_offre_id, utilisateur_id) VALUES (NOW(), ?, ?, ?, ?, 'validé', ?, ?)";
+    const query = "INSERT INTO bookings (nb_adults, nb_children, price_total_booking, payment_type, status, date_created) VALUES (?, ?, ?, ?, 'validé', NOW())";
     await Query.write(query, datas);
 
     let msg = "utilisateur créé";
@@ -127,14 +127,14 @@ const addReservation = async (req, res) => {
 
 const getUserById = async (req, res) => {
     const query = "SELECT * FROM users WHERE id = ?";
-    const [datas] = await Query.findByValue(query, req.body.utilisateur_id);
+    const [datas] = await Query.findByValue(query, req.body.user_id);
     res.status(200).json({ datas });
 } 
 
-export { getSignOut,
+export { getAdminHome,
+        getSignOut,
         getSignIn,
         adminSignIn,
-        getAdminHome,
         getSignUp,
         createAdminAccount,
         getUserById,

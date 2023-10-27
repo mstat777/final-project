@@ -32,38 +32,38 @@
     text-align: left;
 }
 /*** styler les activités ***/
-.booking_activites_ctn {
+.booking_activities_ctn {
     text-align: left;
 }
 
-.booking_activites_ctn span {
+.booking_activities_ctn span {
     display: block;
     margin: 1em 2em;
 }
 
-.booking_activite {
+.booking_activity {
     margin: .5em 1em;
     padding: 1em;
     border: 1px solid lightgrey;
 }
 
-.booking_activite_title {
+.booking_activity_title {
     margin: 1em;
 }
 
-.booking_activite_title label {
+.booking_activity_title label {
     display: inline-block;
     margin-left: 1em;
     font-weight: 500;
 }
 
 .booking_inputs > span,
-.booking_activite_inputs > span {
+.booking_activity_inputs > span {
     display: inline-block;
 }
 
 .booking_inputs > button,
-.booking_activite_inputs > button {
+.booking_activity_inputs > button {
     width: 1.5em;
     height: 1.5em;
     text-align: center;
@@ -71,13 +71,13 @@
 }
 
 .booking_inputs > input,
-.booking_activite_inputs > input {
+.booking_activity_inputs > input {
     width: 3em;
     height: 1.5em;
     text-align: right;
 }
 
-.booking_activite p {
+.booking_activity p {
     padding: 0;
 }
 

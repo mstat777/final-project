@@ -5,62 +5,81 @@ import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { addToCart } from "../../../store/slices/cart";
 import { calculatePrices,
-        setActivites, 
+        setActivities, 
         increaseNumberAdultsPack, 
         decreaseNumberAdultsPack, 
         increaseNumberChildrenPack,
         decreaseNumberChildrenPack,
-        increaseNumberAdultsActivite, 
-        decreaseNumberAdultsActivite
+        increaseNumberAdultsActivity, 
+        decreaseNumberAdultsActivity
     } from "../../../store/slices/booking";
 
 function Booking(){
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
+    // on enregistre l'ID du pack sélectionné :
     let { id } = useParams();
 
     const { destination } = useSelector((state) => state.allTravel);
     
     const { packs } = useSelector((state) => state.allTravel);
-    const { hebergement } = useSelector((state) => state.allTravel);
-    const { activites } =  useSelector((state) => state.allTravel);
+    const { lodging } = useSelector((state) => state.allTravel);
+    const { activities } =  useSelector((state) => state.allTravel);
 
     // stocker les données de la réservation :
     const { bookingInfo } = useSelector((state) => state.booking);
 
-    // modifier les compteurs (nb d'enfants, nb d'adultes)
-    /*function incrNbAdultes(index){
-        if (!activite[index].nb_adults) {
-            activite[index].nb_adults
-        }
-        console.log("nb_adults_act[0] = "+nb_adults_act[index]);
+    let prices_adults = [];
+    let prices_children = [];
+    for (let i = 0; i < activities.length; i++) {
+        console.log("activities[i].price_adults = "+activities[i].price_adults);
+        prices_adults[i] = activities[i].price_adults;
+        prices_children[i] = activities[i].price_children;
+        console.log("prices_adults[i] = "+prices_adults[i]);
     }
-    function decrNbAdultes(index){
-        nb_adults_act[index]--;
-    }
-    function incrNbChildren(index){
-        nb_children_act[index]++;
-    }
-    function decrNbChildren(index){
-        nb_children_act[index]--;
-    }*/
+
+    // stocker les prix du pack et des activités associées :
+    const [pricesList, setPricesList] = useState({
+        price_adults_pack: 0,
+        price_children_pack: 0,
+        price_adults_activities: [],
+        price_children_activities: []
+    });
 
     useEffect(() => {
-        dispatch(setActivites(activites.length));
-        //console.log("activites.length = "+activites.length);
-    }, [])
+        // on initialise les données des activitées (nb personnes, prix)
+        const prices = async () => { 
+            const setPrices = async () => {  
+                dispatch(setActivities(activities.length))
+            }
+            await setPrices();
+            console.log("activities[0].price_adults = "+activities[0].price_adults);
+
+            const setList = async () => {  
+                setPricesList({
+                    price_adults_pack: packs[id].price_adults,
+                    price_children_pack: packs[id].price_children,
+                    price_adults_activities: prices_adults,
+                    price_children_activities: prices_children
+                })
+            }
+            await setList();
+
+            const checkPrices = () => {
+                console.log("pricesList.price_adults_activities = "+pricesList.price_adults_activities);
+            }
+            checkPrices();
+        }
+        prices();
+    }, []);
 
     useEffect(() => {
-        const tempObject = {
-            prix_adulte: packs[id].prix_adulte,
-            prix_enfant: packs[id].prix_enfant,
-        }
-        dispatch(calculatePrices(tempObject));
-        console.log("packs[id].prix_adulte = "+packs[id].prix_adulte);
+        dispatch(calculatePrices(pricesList));
+        console.log("packs[id].price_adults = "+packs[id].price_adults);
         console.log("bookingInfo.prices.total_pack = "+bookingInfo.prices.total_pack);
         console.log("bookingInfo.nb_adults.pack = "+bookingInfo.nb_adults.pack);
-    })
+    },[bookingInfo]);
 
     async function handleOnClick() {
         navigate("/summary/:id")
@@ -68,19 +87,19 @@ function Booking(){
 
     return (
         <main id="booking">
-            { (destination && hebergement && activites) &&
+            { (destination && lodging && activities) &&
             <div className={styles.booking_section}>
-                <img src={"../../img/hebergements/"+hebergement.url_image_initiale} alt="" />
-                <h4>{hebergement.nom}</h4>
-                <h3>{destination.nom}</h3>
+                <img src={"../../img/lodgings/"+lodging.url_initial_image} alt="" />
+                <h4>{lodging.name}</h4>
+                <h3>{destination.name}</h3>
     
                 <p>Vous avez sélectionné le pack suivant :</p>
                 <div className={styles.booking_pack_ctn}>
-                    <p>Date de départ : <span>{packs[id].date_depart.slice(0, packs[id].date_retour.indexOf('T'))}</span></p>
-                    <p>Date de retour : <span>{packs[id].date_retour.slice(0, packs[id].date_retour.indexOf('T'))}</span></p> 
-                    <p>Durée : <span>{packs[id].duree+1}</span> jours / <span>{packs[id].duree}</span> nuits</p>  
-                    <p>Prix/TTC/adulte : {packs[id].prix_adulte} &euro;</p> 
-                    <p>Prix/TTC/enfant : {packs[id].prix_enfant} &euro;</p> 
+                    <p>Date de départ : <span>{packs[id].departure_date.slice(0, packs[id].departure_date.indexOf('T'))}</span></p>
+                    <p>Date de retour : <span>{packs[id].return_date.slice(0, packs[id].return_date.indexOf('T'))}</span></p> 
+                    <p>Durée : <span>{packs[id].duration+1}</span> jours / <span>{packs[id].duration}</span> nuits</p>  
+                    <p>Prix/TTC/adulte : {packs[id].price_adults} &euro;</p> 
+                    <p>Prix/TTC/enfant : {packs[id].price_children} &euro;</p> 
                 </div>
 
                 <p>Veuillez indiquer le nombre d'adultes et d'enfants pour lesquels vous réservez :</p>
@@ -97,25 +116,25 @@ function Booking(){
                     <button onClick={()=>{dispatch(decreaseNumberChildrenPack())}}>-</button>
                 </div>
 
-                <div className={styles.booking_activites_ctn}>
+                <div className={styles.booking_activities_ctn}>
                     <span>Veuillez choisir entre les activités suivantes :</span>
-                    {activites.map((activite, index) => 
-                        <div className={styles.booking_activite} key={index}>
-                            <div className={styles.booking_activite_title} >
-                                <input type="checkbox" name={activite.id}/>
-                                <label for={activite.id}>{activite.nom}</label>
+                    {activities.map((activity, index) => 
+                        <div className={styles.booking_activity} key={index}>
+                            <div className={styles.booking_activity_title} >
+                                <input type="checkbox" name={activity.id}/>
+                                <label for={activity.id}>{activity.name}</label>
                             </div>
-                            <div className={styles.booking_activite_inputs}>
+                            <div className={styles.booking_activity_inputs}>
                                 <span>Adultes : </span>
-                                <button onClick={()=>{dispatch(increaseNumberAdultsActivite(index))}}>+</button>
-                                <input type="number" value={bookingInfo.nb_adults.activites[index]} />
-                                <button onClick={()=>{dispatch(decreaseNumberAdultsActivite(index))}}>-</button>
+                                <button onClick={()=>{dispatch(increaseNumberAdultsActivity(index))}}>+</button>
+                                <input type="number" value={bookingInfo.nb_adults.activities[index]} />
+                                <button onClick={()=>{dispatch(decreaseNumberAdultsActivity(index))}}>-</button>
                             </div>
                             <div>
-                                <p>Type: {activite.type}</p>
-                                <p>Prix: adultes: {activite.prix_adulte}&euro;, enfants: {activite.prix_enfant}&euro;</p>
+                                <p>Type: {activity.type}</p>
+                                <p>Prix: adultes: {activity.price_adults}&euro;, enfants: {activity.price_children}&euro;</p>
                             </div> 
-                            <p>{activite.description}</p>
+                            <p>{activity.overview}</p>
                         </div>
                     )}
                 </div>
@@ -123,8 +142,8 @@ function Booking(){
                 <p>Vous avez sélectionné le pack suivant :</p>
                 <div className={styles.booking_pack_ctn}>
                     <p>Prix total du pack : <span>{bookingInfo.prices.total_pack}</span> &euro; TTC</p> 
-                    <p>Prix total des activités choisies : <span>{bookingInfo.prices.total_pack}</span> &euro; TTC</p> 
-                    <p>PRIX TOTAL A PAYER : <span>{bookingInfo.prices.total_pack}</span> &euro; TTC</p> 
+                    <p>Prix total des activités choisies : <span>{bookingInfo.prices.total_activities}</span> &euro; TTC</p> 
+                    <p>PRIX TOTAL A PAYER : <span>{bookingInfo.prices.total_all}</span> &euro; TTC</p> 
                 </div>
 
                 <button onClick={handleOnClick} className={styles.booking_btn}>reserver</button>

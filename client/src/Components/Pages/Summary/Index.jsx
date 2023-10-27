@@ -10,8 +10,8 @@ function Summary(){
     const { destination } = useSelector((state) => state.allTravel);
 
     const { packs } = useSelector((state) => state.allTravel);
-    const { hebergement } = useSelector((state) => state.allTravel);
-    const { activites } =  useSelector((state) => state.allTravel);
+    const { lodging } = useSelector((state) => state.allTravel);
+    const { activities } =  useSelector((state) => state.allTravel);
 
     async function handleClick() {
 
@@ -24,15 +24,15 @@ function Summary(){
 
                 <p>Voici le récapitulatif de votre réservation :</p>
                 <div className={styles.summary_ctn}>
-                    <p>Nom et pays de la destination : <span>{destination.nom}</span>, <span>{destination.continent}</span></p>
-                    <p>Nom de l'hébérgement : <span>{hebergement.nom}</span></p>
-                    <p>Date de départ :<span>{packs[id].date_depart.slice(0, packs[id].date_retour.indexOf('T'))}</span></p>
-                    <p>Date de retour :<span>{packs[id].date_retour.slice(0, packs[id].date_retour.indexOf('T'))}</span></p> 
-                    <p>Durée :<span>{packs[id].duree+1}</span> jours / <span>{packs[id].duree}</span> nuits</p>  
+                    <p>Nom et pays de la destination : <span>{destination.name}</span>, <span>{destination.continent}</span></p>
+                    <p>Nom de l'hébérgement : <span>{lodging.name}</span></p>
+                    <p>Date de départ :<span>{packs[id].departure_date.slice(0, packs[id].departure_date.indexOf('T'))}</span></p>
+                    <p>Date de retour :<span>{packs[id].return_date.slice(0, packs[id].return_date.indexOf('T'))}</span></p> 
+                    <p>Durée :<span>{packs[id].duration+1}</span> jours / <span>{packs[id].duration}</span> nuits</p>  
                     <p>Nombre d'adultes :</p>
                     <p>Nombre d'enfants :</p>
-                    <p>Prix/TTC/adulte :<span>{packs[id].prix_adulte}</span> &euro;</p> 
-                    <p>Prix/TTC/enfant :<span>{packs[id].prix_enfant}</span> &euro;</p> 
+                    <p>Prix/TTC/adulte :<span>{packs[id].price_adults}</span> &euro;</p> 
+                    <p>Prix/TTC/enfant :<span>{packs[id].price_children}</span> &euro;</p> 
                     <p>Prix de la réservation (sans activités) :</p>
                     <p>Activités choisies :</p>
 

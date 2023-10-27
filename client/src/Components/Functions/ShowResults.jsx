@@ -12,18 +12,18 @@ function ShowResults() {
         for (let pack of packs) {
             (pack.prix_adulte < lowestPrice) ? lowestPrice = pack.prix_adulte
         }*/
-        return Math.min(...packs.map(pack => parseInt(pack.prix_adulte)))
+        return Math.min(...packs.map(pack => parseInt(pack.price_adults)))
     }
 
     return (
         <article>
-            <img src={"img/destinations/"+destination.url_image_initiale} alt="" />
-            <h3>{destination.nom}</h3>
-            <p>Pays : {destination.pays}</p>
+            <img src={"img/destinations/"+destination.url_initial_image} alt="" />
+            <h3>{destination.name}</h3>
+            <p>Pays : {destination.country}</p>
             <p><i>Réf. : {destination.reference}</i></p>
-            <p>Info : {destination.description}</p>
+            <p>Info : {destination.overview}</p>
             <p>dès {cheapestPack(packs)}&euro; TTC/adulte</p>
-            <Link to={`/detail/${destination.nom}`}>découvrir</Link>
+            <Link to={`/detail/${destination.name}`}>découvrir</Link>
         </article>
     )
 }

@@ -33,7 +33,7 @@ function Holidays(){
                     {allDestinations.map((destination, index) => {
                         return(
                             <li key={index}>
-                                <Link to={"/"}>{destination.nom}</Link>        
+                                <Link to={"/"}>{destination.name}</Link>        
                             </li>
                         )
                     })}

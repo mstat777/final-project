@@ -63,8 +63,8 @@ function Search() {
                 <button type="submit">rechercher</button>
 
             </form>
-            { (destinationInput && destination.nom != undefined) &&
-            ((destinationInput.toLowerCase() === destination.nom.toLowerCase()) &&
+            { (destinationInput && destination.name != undefined) &&
+            ((destinationInput.toLowerCase() === destination.name.toLowerCase()) &&
                 <section id="resultsContainer" className={styles.results_section}>
                     <ShowResults /> 
                 </section>

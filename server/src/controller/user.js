@@ -1,5 +1,5 @@
 import Query from "../model/Query.js";
-import { hash } from "bcrypt";
+import { hash, compare } from "bcrypt";
 // JWT allows to authenticate users in a stateless manner, without actually storing any information about them on the system itself
 import jsonwebtoken from "jsonwebtoken";
 
@@ -9,9 +9,9 @@ const SALT = 10;
 
 const checkToken = async (req, res) => {
     try {
-        const queryUser = "SELECT mail FROM utilisateur WHERE mail = ?";
-        await Query.findByValue(queryUser, req.params.mail);
-        res.status(200).json({ msg: "authentifié", id: queryUser.mail })
+        const queryUser = "SELECT email FROM user WHERE email = ?";
+        await Query.findByValue(queryUser, req.params.email);
+        res.status(200).json({ msg: "authentifié", id: queryUser.email })
     } catch(err) {
         throw Error(err);
     }
@@ -20,15 +20,23 @@ const checkToken = async (req, res) => {
 const userSignIn = async (req, res) => {
     try {
         let msg = "";
-        const queryUser = "SELECT * FROM utilisateurs WHERE mail = ?";
-        console.log("req.body.email" + req.body.email);
+        const queryUser = "SELECT * FROM users WHERE email = ?";
+        console.log("req.body.email = " + req.body.email);
         const [user] = await Query.findByValue(queryUser, req.body.email);
-        console.log("user.mail = "+user[0].mail);
+        //console.log("user.email = "+user[0].email);
         if (user.length) {
-            msg = "utilisateur trouvé";
-            console.log("server - utilisateur trouvé");
-            const TOKEN = sign({ mail: user[0].mail}, SK);
-            res.status(200).json({ msg, TOKEN });
+
+            const same = await compare(req.body.password, user[0].password);
+
+            if (same) {
+                msg = "utilisateur trouvé";
+                console.log("server - utilisateur trouvé");
+                const TOKEN = sign({ email: user[0].email}, SK);
+                res.status(200).json({ msg, TOKEN });
+            } else {
+                msg = "Mot de passe erroné. Contactez l'administrateur";
+                res.status(409).json({ msg });
+            }
         } else if (!user.length){
             msg = "mauvais identifiant";
             res.status(409).json({ msg });
@@ -42,9 +50,9 @@ const createUserAccount = async (req, res) => {
     try {
         let msg = "";
         const datas = {
-            mail: req.body.email
+            email: req.body.email
         };
-        const queryUser = "SELECT mail FROM utilisateurs WHERE mail = ?";
+        const queryUser = "SELECT email FROM users WHERE email = ?";
         const [user] = await Query.findByValue(queryUser, datas);
 
         if (user.length) {
@@ -58,11 +66,11 @@ const createUserAccount = async (req, res) => {
                 email: req.body.email,
                 tel: req.body.tel,
                 addresse: req.body.addresse,
-                birthday: req.body.birthday,
-                profession: req.body.profession,
+                birthDate: req.body.birthDate,
+                occupation: req.body.occupation,
                 password: await hash(req.body.password, SALT)
             };
-            const query = "INSERT INTO utilisateurs (nom, prenom, mail, tel, adresse, date_naissance, profession, type_compte, compte_cree_par, date_creation, mdp) VALUES (?, ?, ?, ?, ?, ?, ?, 'client', 'client', CURRENT_TIMESTAMP(), ?)";
+            const query = "INSERT INTO users (last_name, first_name, email, tel, addresse, birth_date, occupation, account_type, account_created_by, date_created, password) VALUES (?, ?, ?, ?, ?, ?, ?, 'client', 'client', CURRENT_TIMESTAMP(), ?)";
             await Query.write(query, datas);
 
             msg = "utilisateur créé";

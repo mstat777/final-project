@@ -1,7 +1,9 @@
 import { Router } from "express";
 
-import {    getSignOut,
-            getAdminHome,
+import {    getAdminHome,
+            getSignOut,
+            getSignIn,
+            adminSignIn,
             getSignUp, 
             createAdminAccount,
             getReservationById,
@@ -22,6 +24,10 @@ router.get("/", getAdminHome);
 router.get("/signout", getSignOut);
 
 // créer un compte utilisateur via le formulaire de création :
+router.get("/signin", getSignIn);
+router.post("/signin", adminSignIn);
+
+// créer un compte utilisateur via le formulaire de création :
 router.get("/signup", getSignUp);
 router.post("/signup", createAdminAccount);
 
@@ -29,9 +35,9 @@ router.post("/signup", createAdminAccount);
 router.get("/user", getUserById);
 
 // trouver une réservation par son ID :
-router.get("/reservation", getReservationById);
+router.get("/booking", getReservationById);
 
 // créer une réservation ???????????????? :
-router.post("/reservation/add", addReservation);
+router.post("/booking/add", addReservation);
 
 export default router;

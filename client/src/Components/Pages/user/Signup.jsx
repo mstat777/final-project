@@ -12,8 +12,8 @@ function Signup(){
     const [email, setEmail] = useState("");
     const [tel, setTel] = useState("");
     const [addresse, setAddresse] = useState("");
-    const [birthday, setBirthday] = useState("");
-    const [profession, setProfession] = useState("");
+    const [birthDate, setBirthDate] = useState("");
+    const [occupation, setOccupation] = useState("");
     const [password, setPassword] = useState("");
 
     const [msg, setMsg] = useState(null);
@@ -30,8 +30,8 @@ function Signup(){
                 email, 
                 tel,
                 addresse,
-                birthday,
-                profession,
+                birthDate,
+                occupation,
                 password})
         });
         const json = await res.json();
@@ -74,16 +74,16 @@ function Signup(){
                         value={addresse}
                         onChange={(e) => setAddresse(e.target.value)}></textarea>
                 <input type="date" 
-                        name="birthday" 
+                        name="birthDate" 
                         placeholder="Votre date de naissance"
                         min="1923-01-01"
-                        value={birthday}
-                        onChange={(e) => setBirthday(e.target.value)}/> 
+                        value={birthDate}
+                        onChange={(e) => setBirthDate(e.target.value)}/> 
                 <input type="text" 
-                        name="profession" 
+                        name="occupation" 
                         placeholder="Votre métier"
-                        value={profession}
-                        onChange={(e) => setProfession(e.target.value)}/>
+                        value={occupation}
+                        onChange={(e) => setOccupation(e.target.value)}/>
                 <input type="password" 
                         name="password" 
                         placeholder="Votre mot de passe"

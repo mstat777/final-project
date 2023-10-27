@@ -14,7 +14,7 @@ router.get("/destination/all", getAllDestinations);
 // chercher une destination par nom :
 router.get("/destination/:name", getDestinationByName);
 // chercher un hébérgement par nom :
-router.get("/hebergement/:id", getHebergementById);
+router.get("/lodging/:id", getHebergementById);
 // chercher tous les packs par destination :
 router.get("/pack/:id", getPacksByDestination);
 // chercher tous les packs par destination :

@@ -24,6 +24,13 @@
 	font-size: 1.8rem;
 }
 
+.book_btn {
+    padding: .3em .7em;
+    border-radius: 4px;
+    color: white;
+    background-color: var(--tertiary-color);
+}
+
 .leaflet_container {
     margin: 1em;
     width: 90%;
@@ -32,26 +39,26 @@
 }
 
 /*** styler les activités ***/
-.activites_ctn {
+.activities_ctn {
     text-align: left;
 }
 
-.activites_ctn span {
+.activities_ctn span {
     display: block;
     margin: 1em 2em;
 }
 
-.activite {
+.activity {
     margin: .5em 1em;
     border: 1px solid lightgrey;
 }
 
-.activite strong {
+.activity strong {
     display: block;
     margin: 1em 2em;
     font-weight: 500;
 }
 
-.activite p {
+.activity p {
     padding: 0;
 }

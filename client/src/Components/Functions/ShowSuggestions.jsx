@@ -25,13 +25,13 @@ function ShowSuggestions(props) {
 
     function showList(destination, index) {
         if (destinationInput.trim() !== '') {
-            if (textEntered.test(destination.nom)) {
+            if (textEntered.test(destination.name)) {
                 resultsFound++; 
                 return (
                     <li key={index} 
-                        onClick={() => handleClick(destination.nom)}
+                        onClick={() => handleClick(destination.name)}
                         >
-                        {destination.nom}
+                        {destination.name}
                     </li> 
                 )
             }
