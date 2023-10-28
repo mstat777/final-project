@@ -6,60 +6,17 @@
     /*background-color: var(--primary-color);*/
 }
 
-.summary_pack_ctn {
-    margin-bottom: 1em;
-}
-
-.summary_pack_ctn > p {
-    margin: 1em 2em;
-    font-size: 1.4rem;
-    text-align: justify;
-}
-
-.summary_pack_ctn > p > span {
-    font-weight: 500;
-}
-
-.leaflet_container {
+.summary_ctn {
     margin: 1em;
-    width: 90%;
-    height: 300px;
-    /*z-index: 1;*/
-}
-
-/*** styler les activités ***/
-.summary_activities_ctn {
     text-align: left;
 }
 
-.summary_activities_ctn span {
-    display: block;
-    margin: 1em 2em;
-}
-
-.summary_activity {
-    margin: .5em 1em;
-    border: 1px solid lightgrey;
-}
-
-.summary_activity_title {
-    margin: 1px;
-    padding: 1px;
-    display: flex;
-    justify-content: space-between;
-}
-
-.summary_activity_title label {
-    display: inline-block;
+.summary_ctn > p > span {
     font-weight: 500;
 }
 
-.summary_activity p {
-    padding: 0;
-}
-
 /* le bouton "confirmer la rservation */
-.summary_btn {
+.summary_confirm_btn {
     display: inline-block;
     margin: 1em;
     padding: .5em 1em;
@@ -70,6 +27,6 @@
     color: white;
     background-color: var(--tertiary-color);
 }
-.summary_btn:hover {
+.summary_confirm_btn:hover {
     cursor: pointer;
 }

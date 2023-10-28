@@ -21,6 +21,15 @@ function Search() {
         setDestination({});
     }, [])
 
+    // fonction pour supprimer des clés du localstorage
+    // on passe une liste de clés à supprimer dans un tableau
+    function deleteLocStorageItems(arrayOfItems) {
+        arrayOfItems.forEach(itemName => {
+            // vérifier si la clé existe
+            localStorage.getItem(`${itemName}`) !== null && localStorage.removeItem(`${itemName}`)
+        });
+    }
+
     // en cliquant le bouton "RECHERCHER" :
     async function handleSubmit(e) {
 
@@ -34,6 +43,8 @@ function Search() {
             localStorage.setItem("destination", JSON.stringify(dataDest.datas[0]));
             dispatch(setDestination(dataDest.datas[0]));
             console.log("dataDest.datas[0] = "+dataDest.datas[0]);
+
+            deleteLocStorageItems(['lodging', 'packs', 'activities']);
         } else {
             console.log("la destination n'a pas été trouvée!!!");
             //dispatch(setDestination({}));

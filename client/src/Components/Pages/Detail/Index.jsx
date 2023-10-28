@@ -1,12 +1,15 @@
 import styles from './detail.module.css';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { 
-    setPacks, setLodging, setActivities
- } from "../../../store/slices/travel";
+
 import { Link } from 'react-router-dom';
 import { MapContainer, TileLayer } from 'react-leaflet';
 import "leaflet/dist/leaflet.css";
+
+import { 
+        setPacks, setLodging, setActivities
+    } from "../../../store/slices/travel";
+import { resetCountersActivities, initialiseCountersActivities } from "../../../store/slices/booking";
 
 function Detail(){
     const dispatch = useDispatch();
@@ -55,6 +58,9 @@ function Detail(){
                 const result = await (await fetch(`/api/v.0.1/travel/activities/${destination.id}`)).json();
                 localStorage.setItem("activities", JSON.stringify(result.datas));
                 dispatch(setActivities(result.datas));
+                dispatch(resetCountersActivities());
+                dispatch(initialiseCountersActivities(result.datas.length));
+                console.log("result.datas.length = "+result.datas.length);
             } catch (error) {
                 console.log(error);
             }
@@ -104,7 +110,7 @@ function Detail(){
                                 <td>{pack.price_adults}</td> 
                                 <td>{pack.price_children}</td> 
                                 <td>
-                                    <Link to={`/booking/${index}`} className={styles.book_btn}>Réserver</Link>
+                                    <Link to={`/booking/${index}`} className={styles.book_btn}>réserver</Link>
                                 </td> 
                             </tr>
                         )}

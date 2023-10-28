@@ -1,12 +1,12 @@
 import {createSlice} from "@reduxjs/toolkit";
 
 const initialState = {
-    destination: JSON.parse(localStorage.getItem("destination")) || {},
-    lodging: JSON.parse(localStorage.getItem("lodging")) || {},
-    destinationImages: JSON.parse(localStorage.getItem("destination_images")) || {},
-    lodgingImages: JSON.parse(localStorage.getItem("lodging_images")) || {},
-    packs: JSON.parse(localStorage.getItem("packs")) || [],
-    activities: JSON.parse(localStorage.getItem("activities")) || []
+    destination: {},
+    lodging: {},
+    destinationImages: {},
+    lodgingImages: {},
+    packs: [],
+    activities: []
 };
 
 export const allTravelSlice = createSlice({

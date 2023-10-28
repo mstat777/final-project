@@ -35,7 +35,7 @@ export const bookingSlice = createSlice({
 
             let temp = 0;
             for (let i=0; i < state.bookingInfo.nb_adults.activities.length; i++ ) {
-                console.log("action.payload.price_adults_activities[index]= "+action.payload.price_adults_activities[i]);
+                console.log("action.payload.price_adults_activities[i]= "+action.payload.price_adults_activities[i]);
                 console.log("state.bookingInfo.nb_adults.activities[i] = "+state.bookingInfo.nb_adults.activities[i]);
 
                 temp += state.bookingInfo.nb_adults.activities[i] * action.payload.price_adults_activities[i];
@@ -47,7 +47,16 @@ export const bookingSlice = createSlice({
 
             state.bookingInfo.prices.total_all = state.bookingInfo.prices.total_pack + state.bookingInfo.prices.total_activities;
         },
-        setActivities: (state, action) => {
+        resetCountersActivities: (state, action) => {
+            // supprimer les anciennes valeurs
+            state.bookingInfo.nb_adults.activities = [];
+            state.bookingInfo.nb_children.activities = [];
+            state.bookingInfo.prices.activities_adults = [];
+            state.bookingInfo.prices.activities_children = [];
+        },
+        initialiseCountersActivities: (state, action) => {
+            // initialiser les tableaux
+            // attribuer des valuers 0 à tous les éléments en fonction de nombre d'activités (chaque pack/destination a un nb différent) :
             for (let i=0; i < action.payload; i++){
                 state.bookingInfo.nb_adults.activities.push(0);
                 state.bookingInfo.nb_children.activities.push(0);
@@ -88,7 +97,8 @@ export const bookingSlice = createSlice({
 
 export const { 
     calculatePrices,
-    setActivities, 
+    resetCountersActivities,
+    initialiseCountersActivities, 
     increaseNumberAdultsPack, 
     decreaseNumberAdultsPack, 
     increaseNumberChildrenPack,
