@@ -4,14 +4,16 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { calculatePrices,
-        resetCountersActivities,
-        initialiseCountersActivities, 
+        resetCounters,
+        initialiseCounters, 
         increaseNumberAdultsPack, 
         decreaseNumberAdultsPack, 
         increaseNumberChildrenPack,
         decreaseNumberChildrenPack,
         increaseNumberAdultsActivity, 
-        decreaseNumberAdultsActivity
+        decreaseNumberAdultsActivity,
+        increaseNumberChildrenActivity, 
+        decreaseNumberChildrenActivity
     } from "../../../store/slices/booking";
 
 function Booking(){
@@ -32,10 +34,11 @@ function Booking(){
     let prices_adults = [];
     let prices_children = [];
     for (let i = 0; i < activities.length; i++) {
-        console.log("activities[i].price_adults = "+activities[i].price_adults);
+        //console.log("activities[i].price_adults = "+activities[i].price_adults);
         prices_adults[i] = activities[i].price_adults;
         prices_children[i] = activities[i].price_children;
         console.log("prices_adults[i] = "+prices_adults[i]);
+        console.log("prices_children[i] = "+prices_children[i]);
     }
 
     // stocker les prix du pack et des activités associées :
@@ -49,13 +52,12 @@ function Booking(){
     // on initialise les données des activitées (nb personnes, prix)
     useEffect(() => {
         const initInfoAndSetPrices = async () => { 
-            /*const initInfoAct = async () => {  
-                dispatch(initialiseCountersActivities(activities.length))
-            }
-            await initInfoAct();*/
-            console.log("activities[0].price_adults = "+activities[0].price_adults);
 
-            const setPrices = async () => {  
+            console.log("activities[0].price_adults = "+activities[0].price_adults);
+            console.log("prices_adults = "+prices_adults);
+            console.log("prices_children = "+prices_children);
+
+            const setPrices = async () => {
                 setPricesList({
                     price_adults_pack: packs[id].price_adults,
                     price_children_pack: packs[id].price_children,
@@ -67,19 +69,21 @@ function Booking(){
 
             const checkPrices = () => {
                 console.log("pricesList.price_adults_activities = "+pricesList.price_adults_activities);
+                console.log("pricesList.price_children_activities = "+pricesList.price_children_activities);
             }
             checkPrices();
         }
 
         initInfoAndSetPrices();
-    },[]);
+    },[activities]);
 
     useEffect(() => {
         dispatch(calculatePrices(pricesList));
+
         console.log("packs[id].price_adults = "+packs[id].price_adults);
         console.log("bookingInfo.prices.total_pack = "+bookingInfo.prices.total_pack);
         console.log("bookingInfo.nb_adults.pack = "+bookingInfo.nb_adults.pack);
-    },[bookingInfo]);
+    },[bookingInfo.nb_adults, bookingInfo.nb_children]);
 
     return (
         <main id="booking">
@@ -125,6 +129,11 @@ function Booking(){
                                 <button onClick={()=>{dispatch(increaseNumberAdultsActivity(index))}}>+</button>
                                 <input type="number" value={bookingInfo.nb_adults.activities[index]} />
                                 <button onClick={()=>{dispatch(decreaseNumberAdultsActivity(index))}}>-</button>
+
+                                <span>Children : </span>
+                                <button onClick={()=>{dispatch(increaseNumberChildrenActivity(index))}}>+</button>
+                                <input type="number" value={bookingInfo.nb_children.activities[index]} />
+                                <button onClick={()=>{dispatch(decreaseNumberChildrenActivity(index))}}>-</button>
                             </div>
                             <div>
                                 <p>Type: {activity.type}</p>

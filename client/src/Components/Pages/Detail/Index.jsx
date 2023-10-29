@@ -9,7 +9,7 @@ import "leaflet/dist/leaflet.css";
 import { 
         setPacks, setLodging, setActivities
     } from "../../../store/slices/travel";
-import { resetCountersActivities, initialiseCountersActivities } from "../../../store/slices/booking";
+import { resetCounters, initialiseCounters } from "../../../store/slices/booking";
 
 function Detail(){
     const dispatch = useDispatch();
@@ -58,8 +58,8 @@ function Detail(){
                 const result = await (await fetch(`/api/v.0.1/travel/activities/${destination.id}`)).json();
                 localStorage.setItem("activities", JSON.stringify(result.datas));
                 dispatch(setActivities(result.datas));
-                dispatch(resetCountersActivities());
-                dispatch(initialiseCountersActivities(result.datas.length));
+                dispatch(resetCounters());
+                dispatch(initialiseCounters(result.datas.length));
                 console.log("result.datas.length = "+result.datas.length);
             } catch (error) {
                 console.log(error);

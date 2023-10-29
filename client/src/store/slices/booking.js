@@ -33,29 +33,30 @@ export const bookingSlice = createSlice({
 
             console.log("action.payload.price_adults_activities = "+action.payload.price_adults_activities);
 
-            let temp = 0;
+            let sum_adults = 0;
+            let sum_children = 0;
             for (let i=0; i < state.bookingInfo.nb_adults.activities.length; i++ ) {
                 console.log("action.payload.price_adults_activities[i]= "+action.payload.price_adults_activities[i]);
                 console.log("state.bookingInfo.nb_adults.activities[i] = "+state.bookingInfo.nb_adults.activities[i]);
 
-                temp += state.bookingInfo.nb_adults.activities[i] * action.payload.price_adults_activities[i];
-
-                console.log("state.bookingInfo.prices.total_activities = "+state.bookingInfo.prices.total_activities);
+                sum_adults += state.bookingInfo.nb_adults.activities[i] * action.payload.price_adults_activities[i];
+                sum_children += state.bookingInfo.nb_children.activities[i] * action.payload.price_children_activities[i];
             }
-            state.bookingInfo.prices.total_activities = temp;
-         
+            state.bookingInfo.prices.total_activities = sum_adults + sum_children;
+            console.log("state.bookingInfo.prices.total_activities = "+state.bookingInfo.prices.total_activities);
 
             state.bookingInfo.prices.total_all = state.bookingInfo.prices.total_pack + state.bookingInfo.prices.total_activities;
         },
-        resetCountersActivities: (state, action) => {
-            // supprimer les anciennes valeurs
+        resetCounters: (state, action) => {
+            // supprimer les anciennes valeurs des tableaux :
             state.bookingInfo.nb_adults.activities = [];
             state.bookingInfo.nb_children.activities = [];
             state.bookingInfo.prices.activities_adults = [];
             state.bookingInfo.prices.activities_children = [];
         },
-        initialiseCountersActivities: (state, action) => {
-            // initialiser les tableaux
+        initialiseCounters: (state, action) => {
+            state.bookingInfo.nb_adults.pack = 0;
+            state.bookingInfo.nb_children.pack = 0;
             // attribuer des valuers 0 à tous les éléments en fonction de nombre d'activités (chaque pack/destination a un nb différent) :
             for (let i=0; i < action.payload; i++){
                 state.bookingInfo.nb_adults.activities.push(0);
@@ -91,20 +92,38 @@ export const bookingSlice = createSlice({
             if (state.bookingInfo.nb_adults.activities.length) {
                 state.bookingInfo.nb_adults.activities[action.payload]--;
             }
-        }
+        },
+        increaseNumberChildrenActivity: (state, action) => {
+            if (!state.bookingInfo.nb_children.activities.length) {
+                state.bookingInfo.nb_children.activities[action.payload] = 0;
+            }
+            if (state.bookingInfo.nb_children.activities.length) {
+                state.bookingInfo.nb_children.activities[action.payload]++;
+            }
+        },
+        decreaseNumberChildrenActivity: (state, action) => {
+            if (!state.bookingInfo.nb_children.activities.length) {
+                state.bookingInfo.nb_children.activities[action.payload] = 0;
+            }
+            if (state.bookingInfo.nb_children.activities.length) {
+                state.bookingInfo.nb_children.activities[action.payload]--;
+            }
+        },
     }
 });
 
 export const { 
     calculatePrices,
-    resetCountersActivities,
-    initialiseCountersActivities, 
+    resetCounters,
+    initialiseCounters, 
     increaseNumberAdultsPack, 
     decreaseNumberAdultsPack, 
     increaseNumberChildrenPack,
     decreaseNumberChildrenPack,
     increaseNumberAdultsActivity, 
-    decreaseNumberAdultsActivity 
+    decreaseNumberAdultsActivity,
+    increaseNumberChildrenActivity, 
+    decreaseNumberChildrenActivity
     } = bookingSlice.actions;
 
 export default bookingSlice.reducer;
