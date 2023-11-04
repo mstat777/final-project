@@ -1,0 +1,82 @@
+/* bouton burger */
+.burger_icon {
+    position: fixed;
+    display: flex;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    right: 1em;
+    top: .6em;
+    /*background: #373a47;*/
+}
+
+.burger_icon:hover {
+    cursor: pointer;    
+    color: #a90000;
+}
+
+/* l'image du bouton burger */
+.burger_bar,
+.burger_bar::before,
+.burger_bar::after {
+    position: relative;
+    display: block;
+    width: 30px;
+    height: 3px;
+    border-radius: 3px;
+    background-color: white;
+}
+.burger_bar::before,
+.burger_bar::after {
+    content: "";
+    position: absolute;
+    left: 0;
+}
+.burger_bar::before {
+    transform: translateY(-8px);
+}
+.burger_bar::after {
+    transform: translateY(8px);
+}
+
+/* Position and sizing of clickable cross button */
+.burger_cross {
+    height: 24px;
+    width: 24px;
+}
+
+/* le containeur du menu burger */
+.burger_menu {
+    position: fixed;
+    top: 0;
+    right: 0;
+}
+
+/* le containeur des liens dans le menu burger (caché par défaut) */
+.burger_items_ctn {
+    position: fixed;
+    right: -200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100%;
+    width: 200px;
+    padding: 4em 1.5em 0;
+    font-size: 1.5rem;
+    background: #b8bfda;
+    visibility: hidden;
+    transition: all 1s ease-out;
+}
+
+.show_burger_menu .burger_items_ctn {
+    right: 0;
+    visibility: visible;
+    /*transform: translateX(-200px);*/
+    transition: all 1s ease-out;
+}
+
+/* Individual item */
+.burger_item {
+    display: inline-block;
+    margin-top: 1em;
+}

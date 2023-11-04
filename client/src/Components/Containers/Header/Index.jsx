@@ -1,18 +1,21 @@
 import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useSelector } from 'react-redux';
+import { useState } from 'react';
 
 import styles from './header.module.css';
 import logo from '../../../assets/img/logo-dimitravel-02-90p45p.png';
+import Burger from '../Burger/Index';
  
 function Header() {
 
     const { userInfo } = useSelector(state => state.user);
+
     return (
         <header>
             <nav>
                 <div className={styles.nav_upper}>
-                    <NavLink to={"/"}>
+                    <NavLink to={"/"} className={styles.nav_logo}>
                         <img src={logo} alt=""/>
                     </NavLink>
                     
@@ -34,12 +37,18 @@ function Header() {
                             >
                                 déconnexion
                             </NavLink>
+                            
                         </>
                     )}
+            
+                    <Burger/>
+                    
                 </div>
+
                 <NavLink to={"/holidays"}>séjours</NavLink>
                 <NavLink to={"/agency"}>agence</NavLink>
                 <NavLink to={"/contact"}>contact</NavLink>
+
             </nav>
         </header>
     )

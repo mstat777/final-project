@@ -2,40 +2,25 @@ import styles from './detail.module.css';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { MapContainer, TileLayer } from 'react-leaflet';
 import "leaflet/dist/leaflet.css";
 
-import { 
-        setPacks, setLodging, setActivities
-    } from "../../../store/slices/travel";
+import { setPacks, setLodging, setActivities } from "../../../store/slices/travel";
+import { choosePack } from "../../../store/slices/user";  
 import { resetCounters, initialiseCounters } from "../../../store/slices/booking";
 
 function Detail(){
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const { destination } = useSelector((state) => state.allTravel);
 
-    const { packs } = useSelector((state) => state.allTravel);
     const { lodging } = useSelector((state) => state.allTravel);
+    const { packs } = useSelector((state) => state.allTravel);
     const { activities } =  useSelector((state) => state.allTravel);
 
     const [coord, setCoord] = useState([0,0]);
-
-    useEffect(() => {
-        // on récupère les données des packs liées à la destination :
-        async function fetchPacks() {
-            try {
-                const dataPack = await (await fetch(`/api/v.0.1/travel/pack/${destination.id}`)).json();
-                console.log("des packs ont été trouvés dans la BD");
-                localStorage.setItem("packs", JSON.stringify(dataPack.datas));
-                dispatch(setPacks(dataPack.datas));  
-            } catch (error) {
-                console.log(error);
-            }
-        }
-        fetchPacks();
-    }, []);
 
     useEffect(() => {
         // on récupère les données de l'hébérgement lié à la destination :
@@ -67,6 +52,12 @@ function Detail(){
         }
         fetchActivities();
     }, []);
+
+    /*
+    function handleOnClick(index) {
+        
+        
+    }*/
 
     // récupérer et modifier les coordonnées de l'hébergement pour l'afficher dans la carte
     useEffect(() => {
@@ -110,7 +101,13 @@ function Detail(){
                                 <td>{pack.price_adults}</td> 
                                 <td>{pack.price_children}</td> 
                                 <td>
-                                    <Link to={`/booking/${index}`} className={styles.book_btn}>réserver</Link>
+                                    <button 
+                                    onClick={() => {
+                                        dispatch(choosePack(index));
+                                        console.log("index of pack = "+index);
+                                        navigate(`/booking/${index}`);
+                                    }} 
+                                    className={styles.book_btn}>réserver</button>
                                 </td> 
                             </tr>
                         )}

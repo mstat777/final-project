@@ -17,6 +17,7 @@ function Search() {
     //
     const [msg, setMsg] = useState(null);
 
+    // supprimer l'ancienne destination lors du rafraichissement :
     useEffect(() => {
         setDestination({});
     }, [])

@@ -53,7 +53,7 @@ function Booking(){
     useEffect(() => {
         const initInfoAndSetPrices = async () => { 
 
-            console.log("activities[0].price_adults = "+activities[0].price_adults);
+            //console.log("activities[0].price_adults = "+activities[0].price_adults);
             console.log("prices_adults = "+prices_adults);
             console.log("prices_children = "+prices_children);
 

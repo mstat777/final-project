@@ -41,7 +41,7 @@ function App() {
         </Route>
         
         <Route path="/detail/:id" element={<Detail/>} />
-        <Route path="/booking/:id" element={<Booking/>} />
+        <Route path="/booking/:id" element={<HOC child={Booking} auth="true"/>} />
         <Route path="/summary/:id" element={<Summary/>} />
 
         <Route path="/not-found" element={<NotFound/>} />

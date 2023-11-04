@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import { signout } from "../../store/slices/user";
 
@@ -14,15 +14,17 @@ function HOC({child, auth}){
 
     const Child = child;
 
+    const { userInfo } = useSelector(state => state.user);
+
     useEffect(() => {
         async function checkAuth() {
             if (auth) {
                 if (!TOKEN) {
-                    navigate("/");
+                    navigate("/user/signin");
                     console.log("pas de token");
                 }
                 if (TOKEN) {
-                    const res = await fetch("/api/v.0.1/user/check_token", {
+                    const res = await fetch("/api/v.0.1/user/check-token", {
                         headers: { Authentication: "Bearer " + TOKEN }
                     });
                     console.log("token trouvé");
@@ -38,6 +40,11 @@ function HOC({child, auth}){
                         setTokenIsValid(true);
                     }
                 }
+            }
+
+            if (!auth) {
+                navigate("/user/signin");
+                console.log("pas logué");
             }
         }
 

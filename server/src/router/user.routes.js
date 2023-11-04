@@ -2,6 +2,7 @@ import { Router } from "express";
 import { checkToken, 
         createUserAccount, 
         userSignIn,
+        makeBooking
         } from "../controller/user.js";
 import { auth } from "../middlewares/auth.js";
 
@@ -13,7 +14,10 @@ router.get("/check-token", auth, checkToken);
 // créer un compte utilisateur client :
 router.post("/signup", createUserAccount);
 
-// page de connexion pour l'utilisateur client :
+// loguer l'utilisateur :
 router.post("/signin", userSignIn);
+
+// créer une réservation (confirmer sur la page Sommaire("Summary"))
+router.post("/booking", makeBooking);
 
 export default router;

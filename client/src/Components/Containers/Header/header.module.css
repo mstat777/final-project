@@ -3,6 +3,7 @@ header {
 }
 
 .nav_upper {
+    position: relative;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -17,12 +18,13 @@ header {
 nav {
     display: flex;
     flex-direction: column;
-    padding: 0 .5em .5em .5em;
+    padding: .5em;
     background-color: var(--primary-color);
 }
 
 nav > a {
     display: block;
+    margin: .5em;
     padding: .5em 1em;
     font-weight: 600;
     letter-spacing: .2em;
@@ -31,15 +33,32 @@ nav > a {
     background-color: var(--tertiary-color);
 }
 
+.nav_logo {
+    margin: 0 .5em;
+}
+
 /******************************************************************/
 /* ----------------------- VERSION DESKTOP ---------------------- */
 /******************************************************************/
 @media screen and (min-width: 1200px) {
     nav {
         flex-direction: row;
+        padding: 0 2em;
     }
+
     .nav_upper_button {
         position: absolute;
         right: 0;
+    }
+
+    nav > a {
+        margin: .5em 1em;
+        padding: .5em;
+        color: var(--tertiary-color);
+        background-color: var(--primary-color);
+    }
+
+    .nav_logo {
+        margin-right: 5em;
     }
 }

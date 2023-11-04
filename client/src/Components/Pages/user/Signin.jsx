@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate, Link } from "react-router-dom";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { signin } from '../../../store/slices/user';
 
@@ -12,8 +12,9 @@ function Signin(){
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-
     const [msg, setMsg] = useState(null);
+
+    const { userInfo } =  useSelector((state) => state.user);
     
     async function handleSubmit(e){
         e.preventDefault();
@@ -29,8 +30,16 @@ function Signin(){
         if(res.status === 200){
             localStorage.setItem("auth", json.TOKEN);
             console.log("le token a été créé dans localhost");
-            dispatch(signin({email}));
-            navigate("/");
+            console.log("json.userID = "+json.userID);
+            const userID = json.userID;
+            dispatch(signin({email, userID}));
+            console.log("userInfo.chosenPackID ="+userInfo.chosenPackID);
+            // si on n'a pas encore trouvé un pack :
+            if (!userInfo.chosenPackID) { 
+                navigate("/");
+            } else {
+                navigate(`/booking/${userInfo.chosenPackID}`);
+            }    
         } else {
             console.log("res.status n'est pas OK!!!");
         }

@@ -26,9 +26,14 @@
 
 .book_btn {
     padding: .3em .7em;
+    border: none;
     border-radius: 4px;
     color: white;
+    text-transform: uppercase;
     background-color: var(--tertiary-color);
+}
+.book_btn:hover {
+    cursor: pointer;
 }
 
 .leaflet_container {

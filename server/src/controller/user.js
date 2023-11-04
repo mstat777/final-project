@@ -9,7 +9,7 @@ const SALT = 10;
 
 const checkToken = async (req, res) => {
     try {
-        const queryUser = "SELECT email FROM user WHERE email = ?";
+        const queryUser = "SELECT email FROM users WHERE email = ?";
         await Query.findByValue(queryUser, req.params.email);
         res.status(200).json({ msg: "authentifié", id: queryUser.email })
     } catch(err) {
@@ -32,7 +32,7 @@ const userSignIn = async (req, res) => {
                 msg = "utilisateur trouvé";
                 console.log("server - utilisateur trouvé");
                 const TOKEN = sign({ email: user[0].email}, SK);
-                res.status(200).json({ msg, TOKEN });
+                res.status(200).json({ msg, TOKEN, userID: user[0].id });
             } else {
                 msg = "Mot de passe erroné. Contactez l'administrateur";
                 res.status(409).json({ msg });
@@ -81,7 +81,28 @@ const createUserAccount = async (req, res) => {
     }
 }
 
+const makeBooking = async (req, res) => {
+    try {
+        let msg = "";
+        const datas = {
+            nb_adults: req.body.nb_adults,
+            nb_children: req.body.nb_children,
+            price_total_booking: req.body.price_total_booking,
+            paymentType: req.body.paymentType,
+            pack_id: req.body.pack_id,
+            user_id: req.body.user_id
+        };
+        const query = "INSERT INTO bookings (nb_adults, nb_children, price_total_booking, payment_type, status, date_created, pack_id, user_id) VALUES (?, ?, ?, ?, 'en cours', CURRENT_TIMESTAMP(), ?, ?)";
+        await Query.write(query, datas);
+        msg = "réservation créée";
+        res.status(201).json({ msg });
+    } catch (err) {
+        throw Error(err)
+    }
+}
+
 export { checkToken, 
         createUserAccount, 
-        userSignIn 
+        userSignIn,
+        makeBooking
 };
