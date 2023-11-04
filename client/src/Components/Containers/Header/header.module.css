@@ -34,7 +34,7 @@ nav > a {
 }
 
 .nav_logo {
-    margin: 0 .5em;
+    margin: .5em;
 }
 
 /******************************************************************/
@@ -43,6 +43,7 @@ nav > a {
 @media screen and (min-width: 1200px) {
     nav {
         flex-direction: row;
+        align-items: center;
         padding: 0 2em;
     }
 
@@ -52,10 +53,16 @@ nav > a {
     }
 
     nav > a {
-        margin: .5em 1em;
+        margin: .5em 1.5em;
         padding: .5em;
         color: var(--tertiary-color);
+        letter-spacing: normal;
         background-color: var(--primary-color);
+    }
+
+    nav > a:hover {
+        text-decoration: underline;
+        text-underline-offset: 3px;
     }
 
     .nav_logo {

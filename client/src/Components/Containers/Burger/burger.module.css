@@ -1,42 +1,43 @@
 /* bouton burger */
 .burger_icon {
-    position: fixed;
+    position: absolute;
+    right: 1em;
+    top: 1.2em;
     display: flex;
     align-items: center;
-    width: 30px;
-    height: 30px;
-    right: 1em;
-    top: .6em;
-    /*background: #373a47;*/
+    justify-content: center;
+    width: 2.5em;
+    height: 2.5em;
+    border: none;
+    border-radius: 1.25em;
+    font-size: 1.6rem;
+    color: var(--primary-color);
+    background: var(--tertiary-color);
 }
 
 .burger_icon:hover {
-    cursor: pointer;    
-    color: #a90000;
+    cursor: pointer;   
+    justify-content: right;
+    width: attr(data-width); /*9em;*/
+    outline: 2px solid var(--tertiary-color);
+    color: var(--tertiary-color);
+    background: white; /* var(--primary-color);*/
+    transition: color .6s, background-color .6s, width .6s, content 1s;
 }
 
-/* l'image du bouton burger */
-.burger_bar,
-.burger_bar::before,
-.burger_bar::after {
-    position: relative;
-    display: block;
-    width: 30px;
-    height: 3px;
-    border-radius: 3px;
-    background-color: white;
+.burger_icon:hover::before {
+    margin-right: .5em;
+    content: attr(data-content); /*"connexion";*/
+    text-transform: uppercase;
 }
-.burger_bar::before,
-.burger_bar::after {
-    content: "";
-    position: absolute;
-    left: 0;
+
+.burger_icon:hover > .burger_icon_fawesome {
+    margin-right: .8em;
 }
-.burger_bar::before {
-    transform: translateY(-8px);
-}
-.burger_bar::after {
-    transform: translateY(8px);
+
+/* l'image dans le bouton burger */
+.burger_icon_fawesome {
+    height: 1.6rem;
 }
 
 /* Position and sizing of clickable cross button */
@@ -79,4 +80,14 @@
 .burger_item {
     display: inline-block;
     margin-top: 1em;
+}
+
+/******************************************************************/
+/* ----------------------- VERSION DESKTOP ---------------------- */
+/******************************************************************/
+@media screen and (min-width: 1200px) {
+    .burger_icon {
+        top: .6em;
+        right: 2em;
+    }
 }

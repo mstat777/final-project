@@ -1,26 +1,43 @@
 import styles from './burger.module.css';
-import { Link } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-regular-svg-icons';
 
 function Burger() {
+    const navigate = useNavigate();
+
+    const { userInfo } = useSelector(state => state.user);
 
     const [burgerOpen, setBurgerOpen] = useState(false);
 
-    const toggleBurger = () => {
-        setBurgerOpen(!burgerOpen);
+    const toggleBurgerOrLogin = () => {
+        !userInfo.isLogged ? navigate("/user/signin") : setBurgerOpen(!burgerOpen);
     }
 
     return (
         <div className={`${styles.burger_menu} ${burgerOpen ? styles.show_burger_menu : styles.hide_burger_menu }`}>
+
             <div className={styles.burger_items_ctn}>
-                <Link className={styles.burger_item} to={"/"}>Home</Link>
-                <Link className={styles.burger_item} to={"/"}>About</Link>
-                <Link className={styles.burger_item} to={"/"}>Contact</Link>
+                {userInfo.isLogged && (
+                        <>
+                            <NavLink to={"/"} className={styles.burger_item}>Info personnelles</NavLink>
+                            <NavLink to={"/"} className={styles.burger_item}>Mes réservations</NavLink>
+                            <NavLink to={"/user/signout"} className={styles.burger_item} onClick={() => toggleBurgerOrLogin()}>déconnexion</NavLink>    
+                        </>
+                    )}
             </div>
             
-            <Link onClick={() => toggleBurger()} className={styles.burger_icon} href="">
-                <span className={styles.burger_bar}></span>
-            </Link>
+            <button 
+            onClick={() => toggleBurgerOrLogin()} 
+            className={styles.burger_icon} 
+            title="Espace utilisateur" 
+            data-content={!userInfo.isLogged ? "connexion" : ""} 
+            data-width={!userInfo.isLogged ? `&{9em}` : "5em"}>
+                <FontAwesomeIcon icon={faUser} className={styles.burger_icon_fawesome}/>
+            </button>
+
         </div>
     )
 }
