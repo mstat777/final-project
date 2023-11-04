@@ -2,16 +2,17 @@
 .burger_icon {
     position: absolute;
     right: 1em;
-    top: 1.2em;
+    top: 1.4em;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: .7em;
+    padding: .6em;
     border: none;
     border-radius: 1.5em;
     font-size: 1.6rem;
     color: var(--primary-color);
     background: var(--tertiary-color);
+    transition: color .5s, background-color .5s, width .5s, content .5s;
 }
 
 .burger_icon:hover {
@@ -20,17 +21,18 @@
     outline: 2px solid var(--tertiary-color);
     color: var(--tertiary-color);
     background: white; /* var(--primary-color);*/
-    transition: color .6s, background-color .6s, width .6s, content 1s;
 }
 
 .burger_icon:hover::before {
     margin-right: .5em;
-    content: attr(data-content);
-    text-transform: uppercase;
 }
 
 .burger_icon:hover > .burger_icon_fawesome {
     margin-bottom: .15em;
+}
+
+.burger_icon:focus {
+    visibility: hidden;
 }
 
 /* l'image dans le bouton burger */
@@ -38,11 +40,34 @@
     height: 1.6rem;
     width: 1.6rem;
 }
+/*
+.burger_icon > span {
+    opacity: 1;
+    transition: .5s;
+}*/
 
 /* Position and sizing of clickable cross button */
+.burger_cross_btn {
+    position: absolute;
+    top: .7em;
+    left: .7em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: .5em;
+    border: none;
+    border-radius: 50%;
+    background-color: inherit;
+    transition: background-color .6s;
+}
+.burger_cross_btn:hover {
+    cursor: pointer;
+    background-color: #cfd4e9;
+}
+/* L'image du bouton croix */
 .burger_cross {
-    height: 24px;
-    width: 24px;
+    height: 2rem;
+    width: 2rem;
 }
 
 /* le containeur du menu burger */
@@ -58,10 +83,10 @@
     right: -200px;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: left;
     height: 100%;
     width: 200px;
-    padding: 4em 1.5em 0;
+    padding: 4em 2em 0;
     font-size: 1.5rem;
     background: #b8bfda;
     visibility: hidden;
@@ -79,6 +104,38 @@
 .burger_item {
     display: inline-block;
     margin-top: 1em;
+    /*padding-top: .5em;
+    padding-bottom: .5em;*/
+    padding: .5em;
+    border-radius: .4em;
+}
+.burger_item:hover {
+    cursor: pointer;
+    background-color: #cfd4e9;
+}
+
+.burger_item_signout {
+    align-self: center;
+    width: 100%;
+    margin-top: 2em;
+    padding-top: .5em;
+    padding-bottom: .5em;
+    border-radius: .4em;
+    color: var(--primary-color);
+    background-color: rgb(6, 19, 52);
+    text-align: center;
+}
+
+/* Afficher et cacher des éléments */
+.show {
+    visibility: visible;
+    opacity: 1;
+    transition: all 2s;
+}
+.hide {
+    visibility: hidden;
+    opacity: 0;
+    transition: all .5s;
 }
 
 /******************************************************************/
