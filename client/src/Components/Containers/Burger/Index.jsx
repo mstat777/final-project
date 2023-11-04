@@ -33,8 +33,7 @@ function Burger() {
             onClick={() => toggleBurgerOrLogin()} 
             className={styles.burger_icon} 
             title="Espace utilisateur" 
-            data-content={!userInfo.isLogged ? "connexion" : ""} 
-            data-width={!userInfo.isLogged ? `&{9em}` : "5em"}>
+            data-content={!userInfo.isLogged ? "connexion" : ""}>
                 <FontAwesomeIcon icon={faUser} className={styles.burger_icon_fawesome}/>
             </button>
 

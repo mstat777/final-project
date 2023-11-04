@@ -6,10 +6,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 2.5em;
-    height: 2.5em;
+    padding: .7em;
     border: none;
-    border-radius: 1.25em;
+    border-radius: 1.5em;
     font-size: 1.6rem;
     color: var(--primary-color);
     background: var(--tertiary-color);
@@ -18,7 +17,6 @@
 .burger_icon:hover {
     cursor: pointer;   
     justify-content: right;
-    width: attr(data-width); /*9em;*/
     outline: 2px solid var(--tertiary-color);
     color: var(--tertiary-color);
     background: white; /* var(--primary-color);*/
@@ -27,17 +25,18 @@
 
 .burger_icon:hover::before {
     margin-right: .5em;
-    content: attr(data-content); /*"connexion";*/
+    content: attr(data-content);
     text-transform: uppercase;
 }
 
 .burger_icon:hover > .burger_icon_fawesome {
-    margin-right: .8em;
+    margin-bottom: .15em;
 }
 
 /* l'image dans le bouton burger */
 .burger_icon_fawesome {
     height: 1.6rem;
+    width: 1.6rem;
 }
 
 /* Position and sizing of clickable cross button */
