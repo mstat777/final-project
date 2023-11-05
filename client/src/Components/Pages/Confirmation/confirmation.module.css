@@ -1,0 +1,7 @@
+.confirmation_section {
+    display: flex;
+    flex-direction: column;
+    margin: 1em;
+    border: 1px solid lightgray;
+    /*background-color: var(--primary-color);*/
+}

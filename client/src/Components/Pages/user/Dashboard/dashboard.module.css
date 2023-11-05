@@ -1,0 +1,89 @@
+.user_db_header {
+    height: 40px;
+    width: 100%;
+}
+
+/******************************************************************/
+/* ----------------------- VERSION DESKTOP ---------------------- */
+/******************************************************************/
+@media screen and (min-width: 1200px) {
+    body > div {
+        /*display: flex;*/
+        /*flex-direction: row;*/
+        /*background-color: aquamarine;*/
+    }
+
+    .user_db_header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        bottom: 0;
+        display: flex;
+        flex-direction: column;
+        height: 100vh;
+        width: 25%; /* 300px;*/
+        background-color: var(--secondary-color);
+    }
+
+    .user_db_header > div {
+        display: block;
+        width: 100%;
+        color: var(--primary-color);
+        text-align: center;
+        align-items: center;
+        background-color: black;
+    }
+
+    .user_db_nav {
+        display: flex;
+        flex-direction: column;
+        margin: 2em 1em;
+        background-color: unset;
+        /*background-color: rgb(179, 222, 217);*/
+    }
+
+    .user_db_nav > .user_db_image_ctn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 80px;
+        width: 80px;
+        /*border: 3px solid black;*/
+        border-radius: 40px;
+        background-color: rgb(122, 191, 141);
+    }
+
+    .user_db_nav .user_db_image {
+        font-size: 4rem;
+    }
+    
+    .user_db_nav > span {
+        margin: 1em auto 2em;
+        color: white;
+    }
+
+    .user_db_nav > .link {
+        display: block;
+        width: 90%;
+        /*width: 200px;*/
+    }
+
+    .user_db_nav > .link_home {
+        margin-top: 4em;
+        color: white;
+        background-color: black;
+    }
+
+    .user_db_main {
+        display: inline-block;
+        height: 100vh;
+        width: 75%;
+        margin-left: 25%; /* 300px;*/
+        padding: 80px 200px;
+        /*background-color: rgb(138, 122, 103);*/
+    }
+
+    .user_db_main > h2 {
+        text-transform: uppercase;
+    }
+}

@@ -50,7 +50,7 @@ function Summary(){
         setMsg(json.msg);
         
         if ( res.status === 201) {
-            navigate("/");
+            navigate("/confirmation");
         }
     }
 
