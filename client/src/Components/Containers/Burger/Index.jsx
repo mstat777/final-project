@@ -36,8 +36,8 @@ function Burger() {
                                 <FontAwesomeIcon icon={faXmark} className={styles.burger_cross}/>
                             </button>
 
-                            <NavLink to={"/dashboard/user"} className={styles.burger_item}>Info personnelles</NavLink>
-                            <NavLink to={"/dashboard/user"} className={styles.burger_item}>Mes réservations</NavLink>
+                            <NavLink to={"/dashboard/user/infos"} className={styles.burger_item}>Info personnelles</NavLink>
+                            <NavLink to={"/dashboard/user/bookings"} className={styles.burger_item}>Mes réservations</NavLink>
                             
                             <NavLink to={"/user/signout"} className={styles.burger_item_signout} onClick={() => toggleBurgerOrLogin()}>déconnexion</NavLink>
                         </>

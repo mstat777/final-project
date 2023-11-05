@@ -1,4 +1,4 @@
-header {
+.header {
     width: 100%;
 }
 
@@ -15,14 +15,14 @@ header {
     color: var(--tertiary-color);
 }
 
-nav {
+.nav {
     display: flex;
     flex-direction: column;
     padding: .5em;
     background-color: var(--primary-color);
 }
 
-nav > a {
+.nav > a {
     display: block;
     margin: .5em;
     padding: .5em 1em;
@@ -41,7 +41,7 @@ nav > a {
 /* ----------------------- VERSION DESKTOP ---------------------- */
 /******************************************************************/
 @media screen and (min-width: 1200px) {
-    nav {
+    .nav {
         flex-direction: row;
         align-items: center;
         padding: 0 2em;
@@ -52,7 +52,7 @@ nav > a {
         right: 0;
     }
 
-    nav > a {
+    .nav > a {
         margin: .5em 1.5em;
         padding: .5em;
         color: var(--tertiary-color);
@@ -60,7 +60,7 @@ nav > a {
         background-color: var(--primary-color);
     }
 
-    nav > a:hover {
+    .nav > a:hover {
         text-decoration: underline;
         text-underline-offset: 3px;
     }

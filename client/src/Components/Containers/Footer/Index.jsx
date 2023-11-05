@@ -5,7 +5,7 @@ import { faFacebook, faTwitter, faInstagram, faYoutube } from '@fortawesome/free
 
 function Footer() {
     return (
-        <footer>
+        <footer className={styles.footer}>
             <section className={styles.footer_social}>
                 <Link to={'#'}><FontAwesomeIcon icon={faFacebook} /></Link>
                 <Link to={'#'}><FontAwesomeIcon icon={faTwitter} /></Link>

@@ -20,6 +20,14 @@ body{
   background-color: white;
 }
 
+body > div {
+  min-height: 100vh; /* pour positionner le footer toujours en bas de la page */
+  display: flex;
+  flex-direction: column;
+  /*background-color: aquamarine;*/
+}
+
+/* ----- */
 h1 {
   margin: 3rem;
 	font-weight: 500;

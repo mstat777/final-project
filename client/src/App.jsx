@@ -5,6 +5,7 @@ import HOC from "./Components/HOC/Index";
 
 import Header from "./Components/Containers/Header/Index";
 import Footer from "./Components/Containers/Footer/Index";
+import UserDashboardHeader from "./Components/Containers/dashboard/Header/Index";
 
 import Home from "./Components/Pages/Home/Index";
 import Holidays from "./Components/Pages/Holidays/Index";
@@ -19,7 +20,8 @@ import Confirmation from "./Components/Pages/Confirmation/Index";
 import Signin from "./Components/Pages/user/Signin";
 import Signup from "./Components/Pages/user/Signup";
 import Signout from "./Components/Pages/user/Signout";
-import UserDashboard from "./Components/Pages/user/Dashboard/Index";
+import UserDashboardInfos from "./Components/Pages/user/dashboard/Infos";
+import UserDashboardBookings from "./Components/Pages/user/dashboard/Bookings";
 
 import NotFound from "./Components/Pages/NotFound/Index";
 
@@ -33,8 +35,13 @@ function BasicLayout() {
   )
 }
 
-function DashboardLayout() {
-  return <Outlet/>
+function UserDashboardLayout() {
+  return (
+    <>
+      <UserDashboardHeader/>
+      <Outlet/>
+    </>
+  )
 }
 
 function App() {
@@ -62,8 +69,9 @@ function App() {
             <Route path="not-found" element={<NotFound/>} />
         </Route>
 
-        <Route path="/dashboard/user" element={<DashboardLayout/>}>
-            <Route index element={<HOC child={UserDashboard} auth="true"/>} />
+        <Route path="/dashboard/user" element={<UserDashboardLayout/>}>
+            <Route path="infos" element={<HOC child={UserDashboardInfos} auth="true"/>} />
+            <Route path="bookings" element={<HOC child={UserDashboardBookings} auth="true"/>} />
         </Route>
 
       </Routes>

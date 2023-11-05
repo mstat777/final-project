@@ -7,8 +7,8 @@ import Burger from '../Burger/Index';
 function Header() {
 
     return (
-        <header>
-            <nav>
+        <header className={styles.header}>
+            <nav className={styles.nav}>
                 <div className={styles.nav_upper}>
                     <NavLink to={"/"} className={styles.nav_logo}>
                         <img src={logo} alt=""/>
