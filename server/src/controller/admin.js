@@ -109,35 +109,11 @@ const getReservationById = async (req, res) => {
     { datas });
 } 
 
-const addReservation = async (req, res) => {
-    const datas = {
-        adultes: req.body.adultes,
-        enfants: req.body.enfants,
-        prix: req.body.prix,
-        paiement: req.body.paiement,
-        status: req.body.status,
-        date_offre_id: req.body.date_offre_id,
-    }
-    const query = "INSERT INTO bookings (nb_adults, nb_children, price_total_booking, payment_type, status, date_created) VALUES (?, ?, ?, ?, 'validé', NOW())";
-    await Query.write(query, datas);
-
-    let msg = "utilisateur créé";
-    res.status(201).json({ msg });
-}
-
-const getUserById = async (req, res) => {
-    const query = "SELECT * FROM users WHERE id = ?";
-    const [datas] = await Query.findByValue(query, req.body.user_id);
-    res.status(200).json({ datas });
-} 
-
 export { getAdminHome,
         getSignOut,
         getSignIn,
         adminSignIn,
         getSignUp,
         createAdminAccount,
-        getUserById,
         getReservationById,
-        addReservation
 };

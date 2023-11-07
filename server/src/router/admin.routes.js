@@ -6,9 +6,7 @@ import {    getAdminHome,
             adminSignIn,
             getSignUp, 
             createAdminAccount,
-            getReservationById,
-            addReservation,
-            getUserById
+            getReservationById
         } from "../controller/admin.js";
 
 const router = Router();
@@ -31,13 +29,7 @@ router.post("/signin", adminSignIn);
 router.get("/signup", getSignUp);
 router.post("/signup", createAdminAccount);
 
-// trouver un utilisateur par son ID :
-router.get("/user", getUserById);
-
 // trouver une réservation par son ID :
 router.get("/booking", getReservationById);
-
-// créer une réservation ???????????????? :
-router.post("/booking/add", addReservation);
 
 export default router;

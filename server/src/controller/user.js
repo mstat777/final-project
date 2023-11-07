@@ -81,9 +81,28 @@ const createUserAccount = async (req, res) => {
     }
 }
 
+const getUserById = async (req, res) => {
+    try {
+        const query = "SELECT * FROM users WHERE id = ?";
+        const [datas] = await Query.findByValue(query, req.params.id);
+        res.status(200).json({ datas });
+    } catch (err) {
+        throw Error(err)
+    }
+}
+
+const getAllUserBookings = async (req, res) => {
+    try {
+        const query = "SELECT * FROM bookings WHERE user_id = ?";
+        const [datas] = await Query.findByValue(query, req.params.id);
+        res.status(200).json({ datas });
+    } catch (err) {
+        throw Error(err)
+    }
+}
+
 const makeBooking = async (req, res) => {
     try {
-        let msg = "";
         const datas = {
             nb_adults: req.body.nb_adults,
             nb_children: req.body.nb_children,
@@ -94,7 +113,7 @@ const makeBooking = async (req, res) => {
         };
         const query = "INSERT INTO bookings (nb_adults, nb_children, price_total_booking, payment_type, status, date_created, pack_id, user_id) VALUES (?, ?, ?, ?, 'en cours', CURRENT_TIMESTAMP(), ?, ?)";
         await Query.write(query, datas);
-        msg = "réservation créée";
+        let msg = "réservation créée";
         res.status(201).json({ msg });
     } catch (err) {
         throw Error(err)
@@ -104,5 +123,7 @@ const makeBooking = async (req, res) => {
 export { checkToken, 
         createUserAccount, 
         userSignIn,
+        getUserById,
+        getAllUserBookings,
         makeBooking
 };

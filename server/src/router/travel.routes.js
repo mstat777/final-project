@@ -13,11 +13,11 @@ const router = Router();
 router.get("/destination/all", getAllDestinations);
 // chercher une destination par nom :
 router.get("/destination/:name", getDestinationByName);
-// chercher un hébérgement par nom :
+// chercher un hébérgement par ID :
 router.get("/lodging/:id", getHebergementById);
-// chercher tous les packs par destination :
+// chercher un pack par ID de destination :
 router.get("/pack/:id", getPacksByDestination);
-// chercher tous les packs par destination :
+// chercher une activité par ID de destination :
 router.get("/activities/:id", getActivitiesByDestination);
 
 export default router;
