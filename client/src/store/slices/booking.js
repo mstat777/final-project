@@ -1,21 +1,24 @@
 import {createSlice} from "@reduxjs/toolkit";
 
 const initialState = {
+    // pour stocker les infos de la réservation (nb de personnes, prix, etc.) :
     bookingInfo: JSON.parse(localStorage.getItem("booking")) || {
         nb_adults: {
-            pack: 0,
-            activities: []
+            pack: 0, // nb d'adultes par pack
+            activities: [] // nb d'adultes par activité
         },
         nb_children: {
-            pack: 0,
-            activities: []
+            pack: 0, // nb d'enfants par pack
+            activities: [] // nb d'enfants par activité
         },
         prices: {
-            activities_adults: [],
-            activities_children: [],
-            total_pack: 0,
-            total_activities: 0,
-            total_all: 0
+            activity_per_adult: [], //prix défini par adulte/activité récupéré de la BDD
+            activity_per_child: [], //prix défini par enfant/activité récupéré de la BDD
+            total_adults: [], //prix à payer pour les adultes/activité récupéré de la BDD
+            total_children: [], //prix à payer pour les enfants/activité récupéré de la BDD
+            total_pack: 0, //la somme à payer que pour le pack
+            total_activities: 0, //la somme des prix pour toutes les activités (adultes + enfants)
+            total_all: 0 // = total_pack + total_activities
         }
     }
 }
@@ -38,9 +41,14 @@ export const bookingSlice = createSlice({
             for (let i=0; i < state.bookingInfo.nb_adults.activities.length; i++ ) {
                 console.log("action.payload.price_adults_activities[i]= "+action.payload.price_adults_activities[i]);
                 console.log("state.bookingInfo.nb_adults.activities[i] = "+state.bookingInfo.nb_adults.activities[i]);
-
-                sum_adults += state.bookingInfo.nb_adults.activities[i] * action.payload.price_adults_activities[i];
-                sum_children += state.bookingInfo.nb_children.activities[i] * action.payload.price_children_activities[i];
+                // calculer le prix total de chaque activité pour tous les adultes (on l'affiche sur la page Summary)
+                state.bookingInfo.prices.total_adults[i] = state.bookingInfo.nb_adults.activities[i] * action.payload.price_adults_activities[i];
+                // calculer la somme des prix totaux de tous les activités pour tous les adultes
+                sum_adults += state.bookingInfo.prices.total_adults[i];
+                // calculer le prix total de chaque activité pour tous les enfants (on l'affiche sur la page Summary)
+                state.bookingInfo.prices.total_children[i] = state.bookingInfo.nb_children.activities[i] * action.payload.price_children_activities[i];
+                // calculer la somme des prix totaux de tous les activités pour tous les enfants
+                sum_children += state.bookingInfo.prices.total_children[i];
             }
             state.bookingInfo.prices.total_activities = sum_adults + sum_children;
             console.log("state.bookingInfo.prices.total_activities = "+state.bookingInfo.prices.total_activities);
@@ -51,8 +59,8 @@ export const bookingSlice = createSlice({
             // supprimer les anciennes valeurs des tableaux :
             state.bookingInfo.nb_adults.activities = [];
             state.bookingInfo.nb_children.activities = [];
-            state.bookingInfo.prices.activities_adults = [];
-            state.bookingInfo.prices.activities_children = [];
+            state.bookingInfo.prices.activity_per_adult = [];
+            state.bookingInfo.prices.activity_per_child = [];
         },
         initialiseCounters: (state, action) => {
             state.bookingInfo.nb_adults.pack = 0;
@@ -61,8 +69,8 @@ export const bookingSlice = createSlice({
             for (let i=0; i < action.payload; i++){
                 state.bookingInfo.nb_adults.activities.push(0);
                 state.bookingInfo.nb_children.activities.push(0);
-                state.bookingInfo.prices.activities_adults.push(0);
-                state.bookingInfo.prices.activities_children.push(0);
+                state.bookingInfo.prices.activity_per_adult.push(0);
+                state.bookingInfo.prices.activity_per_child.push(0);
             }
         },
         increaseNumberAdultsPack: (state, action) => {

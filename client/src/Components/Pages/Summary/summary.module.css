@@ -11,7 +11,7 @@
     text-align: left;
 }
 
-.summary_ctn > p > span {
+.summary_ctn span {
     font-weight: 500;
 }
 
@@ -29,4 +29,12 @@
 }
 .summary_confirm_btn:hover {
     cursor: pointer;
+}
+
+.summary_activities > li {
+    margin-left: 2em;
+}
+
+.summary_ctn select {
+    margin-left: 1em;
 }

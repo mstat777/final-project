@@ -1,5 +1,5 @@
 import styles from './summary.module.css';
-import { useEffect, useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -18,6 +18,27 @@ function Summary(){
 
     const [msg, setMsg] = useState(null);
 
+    const [bookedActivities, setBookedActivities] = useState([]);
+
+    // récupérer les données uniquement des activités réservées pour pouvoir les envoyer dans la BDD
+    function findBookedActivities(){
+        const myArray = [];
+        for(let i = 0; i < activities.length; i++){
+            const myObject = {};
+            myObject.name = activities[i].name;
+            myObject.nb_adults = bookingInfo.nb_adults.activities[i];
+            myObject.nb_children = bookingInfo.nb_children.activities[i];
+            myObject.price_total_act = bookingInfo.prices.total_adults[i] + bookingInfo.prices.total_children[i];
+            myObject.activity_id = activities[i].id;
+
+            myArray.push(myObject);
+        }
+        //console.log(myArray);
+        const filtered = myArray.filter(el => el.nb_adults > 0 || el.nb_children > 0);
+        console.log(filtered);
+        return filtered;
+    }
+
     // les options pour le méthode du paiement :
     const paymentOptions = [
         { label: 'Virement', value: '1' },
@@ -30,9 +51,29 @@ function Summary(){
         setPaymentType(e.target.value);
     }
 
+    useEffect(() => {
+        setBookedActivities(findBookedActivities());
+    },[])
+
     // confirmer les données et faire une réservation :
     async function handleConfirm() {
-        console.log("Données confirmées. Réservation envoyée.");
+        const activitiesForDB = [];
+        bookedActivities.forEach(el => {
+            delete el.name;
+            //el.booking_id = 3;
+            activitiesForDB.push(Object.values(el));
+        });
+        console.log(activitiesForDB);
+
+        /*  ici pour tester qqch :
+        const test = 2;
+        let newArray = [];
+        activitiesForDB.forEach(el => {
+            el = [...el, test];
+            newArray.push(el);
+            console.log(el);
+        });
+        console.log(newArray); */
 
         const res = await fetch("/api/v.0.1/user/booking", {
             method: "post",
@@ -43,7 +84,8 @@ function Summary(){
                 price_total_booking: bookingInfo.prices.total_all,
                 paymentType,
                 pack_id: packs[id].id, // l'ID du pack stocké dans 'params'
-                user_id: userInfo.userID
+                user_id: userInfo.userID,
+                activities: activitiesForDB
             })
         });
         const json = await res.json();
@@ -72,7 +114,11 @@ function Summary(){
                     <p>Prix/TTC/enfant : <span>{packs[id].price_children}</span> &euro;</p> 
                     <p>Prix du pack (sans activités) : <span>{bookingInfo.prices.total_pack}</span> &euro;</p>
                     <p>Activités choisies : </p>
-
+                    <ul className={styles.summary_activities}>
+                    {bookedActivities.map((activity, index) => 
+                        <li key={index}><span>{activity.name}</span> pour <span>{activity.nb_adults}</span> adulte(s) et <span>{activity.nb_children}</span> enfant(s) au prix de <span>{activity.price_total_act}</span> &euro;</li>
+                    )}
+                    </ul>
                     <p>Prix total des activités : <span>{bookingInfo.prices.total_activities}</span> &euro;</p>
                     <hr/>
                     <p>Prix total de la réservation : <span>{bookingInfo.prices.total_all}</span> &euro;</p>

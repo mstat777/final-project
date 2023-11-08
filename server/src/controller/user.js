@@ -103,7 +103,8 @@ const getAllUserBookings = async (req, res) => {
 
 const makeBooking = async (req, res) => {
     try {
-        const datas = {
+        // on enregistre la réservation du pack dans la table 'bookings' :
+        const datasPack = {
             nb_adults: req.body.nb_adults,
             nb_children: req.body.nb_children,
             price_total_booking: req.body.price_total_booking,
@@ -111,8 +112,15 @@ const makeBooking = async (req, res) => {
             pack_id: req.body.pack_id,
             user_id: req.body.user_id
         };
-        const query = "INSERT INTO bookings (nb_adults, nb_children, price_total_booking, payment_type, status, date_created, pack_id, user_id) VALUES (?, ?, ?, ?, 'en cours', CURRENT_TIMESTAMP(), ?, ?)";
-        await Query.write(query, datas);
+        /*console.log("req.body.activities.price_total_act = "+req.body.activities.price_total_act);*/
+        const queryPack = "INSERT INTO bookings (nb_adults, nb_children, price_total_booking, payment_type, status, date_created, pack_id, user_id) VALUES (?, ?, ?, ?, 'en cours', CURRENT_TIMESTAMP(), ?, ?)";
+        await Query.write(queryPack, datasPack);
+        // on a besoin de récupérer l'ID de 
+
+        // on enregistre la réservation des activités dans la table 'booked_activities' :
+        const queryActivities = "INSERT INTO booked_activities (nb_adults, nb_children, price_total_act, activity_id, booking_id) VALUES ?";
+        await Query.writeAndAddId(queryActivities, req.body.activities, 5);
+        //
         let msg = "réservation créée";
         res.status(201).json({ msg });
     } catch (err) {

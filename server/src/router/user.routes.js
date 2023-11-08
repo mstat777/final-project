@@ -28,5 +28,4 @@ router.get("/bookings/:id", getAllUserBookings);
 // créer une réservation (confirmer sur la page Sommaire("Summary"))
 router.post("/booking", makeBooking);
 
-
 export default router;
