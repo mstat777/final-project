@@ -7,6 +7,7 @@ const { sign } = jsonwebtoken;
 const { SK } = process.env;
 const SALT = 10;
 
+// vérifier le token
 const checkToken = async (req, res) => {
     try {
         const queryUser = "SELECT email FROM users WHERE email = ?";
@@ -16,7 +17,7 @@ const checkToken = async (req, res) => {
         throw Error(err);
     }
 };
-
+// connecter l'utilisateur :
 const userSignIn = async (req, res) => {
     try {
         let msg = "";
@@ -45,7 +46,7 @@ const userSignIn = async (req, res) => {
         throw Error(err);
     }
 }
-
+// créer un compte utilisateur de type "client" :
 const createUserAccount = async (req, res) => {
     try {
         let msg = "";
@@ -80,7 +81,7 @@ const createUserAccount = async (req, res) => {
         throw Error(err)
     }
 }
-
+// trouver les données de l'utilisateur par son ID :
 const getUserById = async (req, res) => {
     try {
         const query = "SELECT * FROM users WHERE id = ?";
@@ -90,17 +91,17 @@ const getUserById = async (req, res) => {
         throw Error(err)
     }
 }
-
+// trouver toutes les réservations d'un utilisateur :
 const getAllUserBookings = async (req, res) => {
     try {
-        const query = "SELECT * FROM bookings WHERE user_id = ?";
-        const [datas] = await Query.findByValue(query, req.params.id);
+        const query = "SELECT * FROM bookings AS b JOIN packs AS p ON b.pack_id = p.id JOIN destinations AS d ON p.destination_id = d.id WHERE user_id = ?";
+        const [datas] = await Query.findByValueMultipleTables(query, req.params.id);
         res.status(200).json({ datas });
     } catch (err) {
         throw Error(err)
     }
 }
-
+// enregistrer la réservation du pack et des activités :
 const makeBooking = async (req, res) => {
     try {
         // on enregistre la réservation du pack dans la table 'bookings' :

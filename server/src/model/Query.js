@@ -9,6 +9,11 @@ class Query{
     static async findByValue(query, value){
         return await pool.query(query, [value]);
     }
+
+    // la même fonction, mais dans le cas on joint plusieurs tables. "nestTables: true" pour éviter l'écrasement de données dont les colonnes ont le même nom
+    static async findByValueMultipleTables(query, value){
+        return await pool.query({sql: query, nestTables: true}, [value]);
+    }
     
     static async write(query, data) {
         return await pool.query(query, [...Object.values(data)]);
