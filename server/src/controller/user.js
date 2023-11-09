@@ -115,11 +115,13 @@ const makeBooking = async (req, res) => {
         /*console.log("req.body.activities.price_total_act = "+req.body.activities.price_total_act);*/
         const queryPack = "INSERT INTO bookings (nb_adults, nb_children, price_total_booking, payment_type, status, date_created, pack_id, user_id) VALUES (?, ?, ?, ?, 'en cours', CURRENT_TIMESTAMP(), ?, ?)";
         await Query.write(queryPack, datasPack);
-        // on a besoin de récupérer l'ID de 
-
+        // on a besoin de récupérer l'ID de la réservation pour pouvoir envoyer les données des activitées réservées dans la BDD :
+        const queryLastBooking = "SELECT id FROM bookings WHERE user_id = ? ORDER BY date_created DESC LIMIT 1";
+        const [bookingData] = await Query.findByValue(queryLastBooking, req.body.user_id);
+        console.log(bookingData[0].user_id);
         // on enregistre la réservation des activités dans la table 'booked_activities' :
         const queryActivities = "INSERT INTO booked_activities (nb_adults, nb_children, price_total_act, activity_id, booking_id) VALUES ?";
-        await Query.writeAndAddId(queryActivities, req.body.activities, 5);
+        await Query.writeAndAddId(queryActivities, req.body.activities, bookingData[0].id);
         //
         let msg = "réservation créée";
         res.status(201).json({ msg });
