@@ -22,8 +22,13 @@ function Detail(){
 
     const [coord, setCoord] = useState([0,0]);
 
+    // remonter au top de la page lors de chargement
     useEffect(() => {
-        // on récupère les données de l'hébérgement lié à la destination :
+        document.getElementById("detail").scrollIntoView();
+    }, [])
+
+    // on récupère les données de l'hébérgement lié à la destination :
+    useEffect(() => {
         async function fetchLodging() {
             try {
                 const dataLodg = await (await fetch(`/api/v.0.1/travel/lodging/${destination.lodging_id}`)).json();
@@ -36,8 +41,8 @@ function Detail(){
         fetchLodging();
     }, []);
 
+    // on récupère les données des activités liées à la destination :
     useEffect(() => {
-        // on récupère les données des activités liées à la destination :
         async function fetchActivities() {
             try {
                 const result = await (await fetch(`/api/v.0.1/travel/activities/${destination.id}`)).json();

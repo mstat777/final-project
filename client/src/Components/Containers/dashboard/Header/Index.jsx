@@ -19,6 +19,7 @@ function UserDashboardHeader(){
                 <span>{userInfo.email}</span>
                 <NavLink to={"/dashboard/user/infos"} className={styles.link}>Info personnelles</NavLink>
                 <NavLink to={"/dashboard/user/bookings"} className={styles.link}>Mes réservations</NavLink>
+                <NavLink to={"/user/signout"} className={styles.link_signout}>déconnexion</NavLink>
 
                 <NavLink to={"/"} className={styles.link_home}>Accueil</NavLink>
             </nav>

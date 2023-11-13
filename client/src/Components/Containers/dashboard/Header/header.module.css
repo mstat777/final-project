@@ -62,6 +62,7 @@
         color: white;
     }
 
+    .user_db_nav > .link_signout,
     .user_db_nav > .link {
         display: inline-block;
         width: 90%;
@@ -78,5 +79,9 @@
         padding: .5em 1em;
         color: white;
         background-color: black;
+    }
+
+    .user_db_nav > .link_signout {
+        color: brown;
     }
 }

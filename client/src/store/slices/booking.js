@@ -78,12 +78,18 @@ export const bookingSlice = createSlice({
         },
         decreaseNumberAdultsPack: (state, action) => {
             state.bookingInfo.nb_adults.pack--;
+            if (state.bookingInfo.nb_adults.pack < 0){ 
+                state.bookingInfo.nb_adults.pack = 0;
+            }
         },
         increaseNumberChildrenPack: (state, action) => {
             state.bookingInfo.nb_children.pack++;
         },
         decreaseNumberChildrenPack: (state, action) => {
             state.bookingInfo.nb_children.pack--;
+            if (state.bookingInfo.nb_children.pack < 0){ 
+                state.bookingInfo.nb_children.pack = 0;
+            }
         },
         increaseNumberAdultsActivity: (state, action) => {
             if (!state.bookingInfo.nb_adults.activities.length) {
@@ -99,6 +105,9 @@ export const bookingSlice = createSlice({
             }
             if (state.bookingInfo.nb_adults.activities.length) {
                 state.bookingInfo.nb_adults.activities[action.payload]--;
+                if (state.bookingInfo.nb_adults.activities[action.payload] < 0) {
+                    state.bookingInfo.nb_adults.activities[action.payload] = 0;
+                }
             }
         },
         increaseNumberChildrenActivity: (state, action) => {
@@ -115,6 +124,9 @@ export const bookingSlice = createSlice({
             }
             if (state.bookingInfo.nb_children.activities.length) {
                 state.bookingInfo.nb_children.activities[action.payload]--;
+                if (state.bookingInfo.nb_children.activities[action.payload] < 0){
+                    state.bookingInfo.nb_children.activities[action.payload] = 0;
+                }
             }
         },
     }

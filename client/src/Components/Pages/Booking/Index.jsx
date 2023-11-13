@@ -1,5 +1,4 @@
 import styles from './booking.module.css';
-import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -15,6 +14,7 @@ import { calculatePrices,
         increaseNumberChildrenActivity, 
         decreaseNumberChildrenActivity
     } from "../../../store/slices/booking";
+import { verifyBooking } from '../../Functions/verifyBooking';
 
 function Booking(){
     const dispatch = useDispatch();
@@ -31,14 +31,15 @@ function Booking(){
     // stocker les données de la réservation :
     const { bookingInfo } = useSelector((state) => state.booking);
 
+    // on récupère les prix tels qu'indiqués dans la BDD pour les passer au state :
     let prices_adults = [];
     let prices_children = [];
     for (let i = 0; i < activities.length; i++) {
         //console.log("activities[i].price_adults = "+activities[i].price_adults);
         prices_adults[i] = activities[i].price_adults;
         prices_children[i] = activities[i].price_children;
-        console.log("prices_adults[i] = "+prices_adults[i]);
-        console.log("prices_children[i] = "+prices_children[i]);
+        //console.log("prices_adults[i] = "+prices_adults[i]);
+        //console.log("prices_children[i] = "+prices_children[i]);
     }
 
     // stocker les prix du pack et des activités associées :
@@ -49,13 +50,17 @@ function Booking(){
         price_children_activities: []
     });
 
+    // remonter au top de la page lors de chargement
+    useEffect(() => {
+        document.getElementById("booking").scrollIntoView();
+    }, [])
+
     // on initialise les données des activitées (nb personnes, prix)
     useEffect(() => {
         const initInfoAndSetPrices = async () => { 
-
             //console.log("activities[0].price_adults = "+activities[0].price_adults);
-            console.log("prices_adults = "+prices_adults);
-            console.log("prices_children = "+prices_children);
+            //console.log("prices_adults = "+prices_adults);
+            //console.log("prices_children = "+prices_children);
 
             const setPrices = async () => {
                 setPricesList({
@@ -66,24 +71,48 @@ function Booking(){
                 })
             }
             await setPrices();
-
+            /*
             const checkPrices = () => {
                 console.log("pricesList.price_adults_activities = "+pricesList.price_adults_activities);
                 console.log("pricesList.price_children_activities = "+pricesList.price_children_activities);
             }
-            checkPrices();
+            checkPrices();*/
         }
 
         initInfoAndSetPrices();
     },[activities]);
 
+    // calculer les prix selon le nb de personnes :
     useEffect(() => {
         dispatch(calculatePrices(pricesList));
-
-        console.log("packs[id].price_adults = "+packs[id].price_adults);
-        console.log("bookingInfo.prices.total_pack = "+bookingInfo.prices.total_pack);
-        console.log("bookingInfo.nb_adults.pack = "+bookingInfo.nb_adults.pack);
+        //console.log("packs[id].price_adults = "+packs[id].price_adults);
+        //console.log("bookingInfo.prices.total_pack = "+bookingInfo.prices.total_pack);
+        //console.log("bookingInfo.nb_adults.pack = "+bookingInfo.nb_adults.pack);
     },[bookingInfo.nb_adults, bookingInfo.nb_children]);
+
+    // pour stocker les états des checkboxes :
+    let myArray = []; 
+    activities.forEach(() => {
+        myArray.push(false);
+    });
+    const [checkBoxes, setCheckBoxes] = useState(myArray);
+
+    // afficher/cacher les compteurs pour les activités :
+    function handleChange(index) {
+        const newArray = [...checkBoxes];
+        newArray[index] = !checkBoxes[index];
+        console.log("newArray[index] = "+newArray[index]);
+        console.log(newArray);
+        setCheckBoxes(newArray);
+    }
+
+    // vérifier la réservation grâce à la fonction verifyBooking et passer à la page Summary, si OK :
+    function handleSubmitBooking(){
+        setErrors(verifyBooking());
+    }
+
+    // stocker les erreurs lors de la vérification de la réservation :
+    const [errors, setErrors] = useState([]);
 
     return (
         <main id="booking">
@@ -121,9 +150,14 @@ function Booking(){
                     {activities.map((activity, index) => 
                         <div className={styles.booking_activity} key={index}>
                             <div className={styles.booking_activity_title} >
-                                <input type="checkbox" name={activity.id}/>
+                                <input type="checkbox" 
+                                        //name={activity.id}
+                                        checked={ checkBoxes[index] } 
+                                        onChange={() => handleChange(index)}/>
                                 <label for={activity.id}>{activity.name}</label>
                             </div>
+
+                            { checkBoxes[index] && 
                             <div className={styles.booking_activity_inputs}>
                                 <span>Adultes : </span>
                                 <button onClick={()=>{dispatch(increaseNumberAdultsActivity(index))}}>+</button>
@@ -134,7 +168,8 @@ function Booking(){
                                 <button onClick={()=>{dispatch(increaseNumberChildrenActivity(index))}}>+</button>
                                 <input type="number" value={bookingInfo.nb_children.activities[index]} />
                                 <button onClick={()=>{dispatch(decreaseNumberChildrenActivity(index))}}>-</button>
-                            </div>
+                            </div>}
+
                             <div>
                                 <p>Type: {activity.type}</p>
                                 <p>Prix: adultes: {activity.price_adults}&euro;, enfants: {activity.price_children}&euro;</p>
@@ -151,7 +186,13 @@ function Booking(){
                     <p>PRIX TOTAL A PAYER : <span>{bookingInfo.prices.total_all}</span> &euro; TTC</p> 
                 </div>
 
-                <Link to={`/summary/${id}`} className={styles.booking_btn}>réserver</Link>
+                <button onClick={handleSubmitBooking} className={styles.booking_btn}>réserver</button>
+
+                <div className={styles.error_ctn}>
+                {errors.map((activity, idx) => errors[idx] &&
+                <p>Erreur : {errors[idx]}</p>)}
+                </div>
+
             </div>
             }
         </main>

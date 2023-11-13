@@ -51,11 +51,20 @@
     margin: 1em;
 }
 
+.booking_activity_title input {
+    display: inline-block;
+}
+
 .booking_activity_title label {
     display: inline-block;
     margin-left: 1em;
     font-weight: 500;
 }
+
+/*
+.booking_activity_inputs {
+    display: none;
+}*/
 
 .booking_inputs > span,
 .booking_activity_inputs > span {
@@ -81,10 +90,15 @@
     padding: 0;
 }
 
+.show {
+    display: block;
+    color: blue;
+}
+
 /* le bouton "réserver */
 .booking_btn {
     display: inline-block;
-    margin: 1em;
+    margin: 1em auto;
     padding: .5em 1em;
     border: none;
     border-radius: 6px;
@@ -95,4 +109,9 @@
 }
 .booking_btn:hover {
     cursor: pointer;
+}
+
+.error_ctn {
+    margin: 0 2em 1em;
+    color: red;
 }

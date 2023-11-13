@@ -35,6 +35,7 @@ function UserDashboardBookings(){
                         <th>N&deg;</th> 
                         <th>date</th>
                         <th>destination</th>
+                        <th>prix total</th>
                         <th>modifier</th>
                     </tr>
                 </thead>
@@ -42,8 +43,9 @@ function UserDashboardBookings(){
                     { userBookings.map((booking, index) => 
                         <tr key={index}>
                             <td>{index+1}</td>
-                            <td>{booking.date_created.slice(0, booking.date_created.indexOf('T'))}</td>
-                            <td>{booking.destination}</td>
+                            <td>{booking.b.date_created.slice(0, booking.b.date_created.indexOf('T'))}</td>
+                            <td>{booking.d.name}</td>
+                            <td>{booking.b.price_total_booking} &euro;</td>
                             <td>
                                 <button>modifier</button>
                             </td>
