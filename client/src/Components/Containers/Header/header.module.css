@@ -1,18 +1,8 @@
+/******************************************************************/
+/* ----------------------- VERSION MOBILE ----------------------- */
+/******************************************************************/
 .header {
     width: 100%;
-}
-
-.nav_upper {
-    position: relative;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.nav_upper_button {
-    padding: 0 .5em;
-    font-weight: 500;
-    color: var(--tertiary-color);
 }
 
 .nav {
@@ -22,7 +12,29 @@
     background-color: var(--primary-color);
 }
 
-.nav > a {
+.nav_upper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--primary-color);
+    z-index: 100;
+}
+
+.nav_upper_button {
+    padding: 0 .5em;
+    font-weight: 500;
+    color: var(--tertiary-color);
+}
+
+.nav_lower {
+    margin-top: 3em;
+}
+
+.nav_lower > a {
     display: block;
     margin: .5em;
     padding: .5em 1em;
@@ -34,8 +46,16 @@
 }
 
 .nav_logo {
-    margin: .5em;
+    margin: .5em 1em;
 }
+
+/******************************************************************/
+/* ---------------------- VERSION TABLETTE ---------------------- */
+/******************************************************************/
+@media screen and (min-width: 768px) {
+
+}
+
 
 /******************************************************************/
 /* ----------------------- VERSION DESKTOP ---------------------- */
@@ -47,12 +67,27 @@
         padding: 0 2em;
     }
 
+    .nav_upper {
+        /*z-index: 0;*/
+    }
+
     .nav_upper_button {
         position: absolute;
         right: 0;
     }
 
-    .nav > a {
+    .nav_lower {
+        position: fixed;
+        top: 0;
+        left: 10em;
+        right: 0;
+        display: flex;
+        margin-top: .3em;
+        margin-left: 1em;
+        z-index: 100;
+    }
+
+    .nav_lower > a {
         margin: .5em 1.5em;
         padding: .5em;
         color: var(--tertiary-color);
@@ -60,12 +95,13 @@
         background-color: var(--primary-color);
     }
 
-    .nav > a:hover {
+    .nav_lower > a:hover {
         text-decoration: underline;
         text-underline-offset: 3px;
     }
 
     .nav_logo {
+        margin-left: 4em;
         margin-right: 5em;
     }
 }

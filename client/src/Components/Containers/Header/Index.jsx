@@ -16,11 +16,11 @@ function Header() {
                 
                     <Burger/>
                 </div>
-
-                <NavLink to={"/holidays"}>séjours</NavLink>
-                <NavLink to={"/agency"}>agence</NavLink>
-                <NavLink to={"/contact"}>contact</NavLink>
-
+                <div className={styles.nav_lower}>
+                    <NavLink to={"/holidays"}>séjours</NavLink>
+                    <NavLink to={"/agency"}>agence</NavLink>
+                    <NavLink to={"/contact"}>contact</NavLink>
+                </div>
             </nav>
         </header>
     )

@@ -1,9 +1,54 @@
+/******************************************************************/
+/* ----------------------- VERSION MOBILE ----------------------- */
+/******************************************************************/
 .footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     margin-top: auto;
     padding: 1em;
     background-color: var(--secondary-color);
 }
 
 .footer_social {
+    margin: .5em auto;
+}
 
+.footer_social svg {
+    margin: auto 1em;
+    color: white;
+    font-size: 2.5rem;
+}
+
+.footer_links > div {
+    display: flex;
+    flex-direction: column;
+    margin: 1em auto;
+    text-align: center;
+}
+
+.footer_links > div > a {
+    margin-bottom: .5em;
+    color: white;
+}
+
+.footer_legal p {
+    display: block;
+    margin-bottom: 0;
+    font-size: 1.4rem;
+}
+
+/******************************************************************/
+/* ----------------------- VERSION DESKTOP ---------------------- */
+/******************************************************************/
+@media screen and (min-width: 1200px) {
+    .footer_links {
+        width: 100%;
+        display: flex;
+    }
+
+    .footer_links > div {
+        width: 25%;
+        margin: 1em 2em;
+    }
 }
