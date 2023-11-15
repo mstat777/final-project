@@ -1,10 +1,8 @@
 import styles from './booking.module.css';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { calculatePrices,
-        resetCounters,
-        initialiseCounters, 
         increaseNumberAdultsPack, 
         decreaseNumberAdultsPack, 
         increaseNumberChildrenPack,
@@ -18,6 +16,7 @@ import { verifyBooking } from '../../Functions/verifyBooking';
 
 function Booking(){
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     // on enregistre l'ID du pack sélectionné :
     let { id } = useParams();
@@ -106,13 +105,17 @@ function Booking(){
         setCheckBoxes(newArray);
     }
 
+    // stocker les erreurs lors de la vérification de la réservation :
+    const [errors, setErrors] = useState([]);
+
     // vérifier la réservation grâce à la fonction verifyBooking et passer à la page Summary, si OK :
     function handleSubmitBooking(){
         setErrors(verifyBooking());
+        // si aucune erreur trouvée, passe à la page Summary :
+        if (errors.every(el => el === false)) {
+            navigate(`/summary/${id}`);
+        }
     }
-
-    // stocker les erreurs lors de la vérification de la réservation :
-    const [errors, setErrors] = useState([]);
 
     return (
         <main id="booking">

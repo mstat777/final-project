@@ -1,10 +1,11 @@
 import { store } from "../../store";
-//import { setErrors } from "../../Components/Pages/Booking/Index";
 
+// cette fonction cherche et retourne un tableau d'erreurs
 function verifyBooking(id){
-    const state = store.getState();
     const errors = [];
 
+    const state = store.getState();
+    
     // on importe le state pour l'utiliser
     const bookingInfo = state.booking.bookingInfo;
     console.log(bookingInfo);

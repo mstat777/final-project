@@ -3,8 +3,8 @@ import {createSlice} from "@reduxjs/toolkit";
 const initialState = {
     destination: {},
     lodging: {},
-    destinationImages: {},
-    lodgingImages: {},
+    destinationImages: [],
+    lodgingImages: [],
     packs: [],
     activities: []
 };

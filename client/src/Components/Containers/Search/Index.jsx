@@ -3,6 +3,7 @@ import styles from './search.module.css';
 import ShowResults from '../../Functions/ShowResults';
 import { useDispatch, useSelector } from 'react-redux';
 import { setDestination } from "../../../store/slices/travel";
+import { fetchDestinationImages } from '../../Functions/fetchData';
 
 function Search() {
 
@@ -46,9 +47,11 @@ function Search() {
             console.log("dataDest.datas[0] = "+dataDest.datas[0]);
 
             deleteLocStorageItems(['lodging', 'packs', 'activities']);
+            
+            const destID = dataDest.datas[0].id;
+            await fetchDestinationImages(destID);
         } else {
             console.log("la destination n'a pas été trouvée!!!");
-            //dispatch(setDestination({}));
         }
 
         setMsg(dataDest.msg);

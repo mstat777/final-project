@@ -2,11 +2,11 @@ import styles from './detail.module.css';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { MapContainer, TileLayer } from 'react-leaflet';
 import "leaflet/dist/leaflet.css";
 
-import { setPacks, setLodging, setActivities } from "../../../store/slices/travel";
+import { setLodging, setActivities } from "../../../store/slices/travel";
 import { choosePack } from "../../../store/slices/user";  
 import { resetCounters, initialiseCounters } from "../../../store/slices/booking";
 
@@ -57,12 +57,6 @@ function Detail(){
         }
         fetchActivities();
     }, []);
-
-    /*
-    function handleOnClick(index) {
-        
-        
-    }*/
 
     // récupérer et modifier les coordonnées de l'hébergement pour l'afficher dans la carte
     useEffect(() => {

@@ -1,0 +1,58 @@
+.slider_ctn {
+    position: relative;
+    height: 500px;
+    max-width: 700px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+}
+
+.slide {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    opacity: 0;
+    transition: opacity ease-in-out .4s;
+}
+
+.slide img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+}
+
+.slider_btn {
+    height: 50px;
+    width: 50px;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    border-radius: 50%;
+    color: white;
+    background-color: rgb(176, 176, 176);
+    opacity: 0.6;
+    cursor: pointer;
+}
+
+.slider_btn > img {
+    height: 30px;
+    width: 30px;
+    pointer-events: none;
+}
+
+.next {
+    top: 50%;
+    right: 20px;
+    transform: translateY(-60%);
+}
+
+.prev {
+    top: 50%;
+    left: 20px;
+    transform: translateY(-60%);
+}
+
+.active_anim {
+    opacity: 1;
+}
