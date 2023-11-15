@@ -2,6 +2,7 @@ import { Router } from "express";
 import { 
     getAllDestinations,
     getDestinationByName,
+    getImagesDestination,
     getHebergementById,
     getPacksByDestination,
     getActivitiesByDestination
@@ -13,6 +14,8 @@ const router = Router();
 router.get("/destination/all", getAllDestinations);
 // chercher une destination par nom :
 router.get("/destination/:name", getDestinationByName);
+// chercher toutes les images de la destination :
+router.get("/destination/img/all/:id", getImagesDestination);
 // chercher un hébérgement par ID :
 router.get("/lodging/:id", getHebergementById);
 // chercher un pack par ID de destination :

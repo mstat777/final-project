@@ -12,6 +12,12 @@ const getDestinationByName = async (req, res) => {
     res.status(200).json({ msg: "destination trouvée", datas })
 }
 
+const getImagesDestination = async (req, res) => {
+    const query = "SELECT id, name, url_image FROM destinations_images WHERE destination_id = ?";
+    const [datas] = await Query.findByValue(query, req.params.id);
+    res.status(200).json({ msg: "images trouvées", datas })
+}
+
 const getHebergementById = async (req, res) => {
     const query = "SELECT * FROM lodgings WHERE id = ?";
     const [datas] = await Query.findByValue(query, req.params.id);
@@ -33,6 +39,7 @@ const getActivitiesByDestination = async (req, res) => {
 export { 
     getAllDestinations,
     getDestinationByName,
+    getImagesDestination,
     getHebergementById,
     getPacksByDestination,
     getActivitiesByDestination
