@@ -29,17 +29,13 @@ function ShowResults() {
 
     // function pour trouver le prix du pack le moins cher :
     function cheapestPack(packs) {
-        /*let lowestPrice = packs[0].prix_adulte;
-        for (let pack of packs) {
-            (pack.prix_adulte < lowestPrice) ? lowestPrice = pack.prix_adulte
-        }*/
         return Math.min(...packs.map(pack => parseInt(pack.price_adults)))
     }
 
     return (
         <article>
             {console.log(destinationImages)}
-            {destinationImages[0] ? <Slider/> : <p></p>}
+            {destinationImages[0] ? <Slider type="destination"/> : <p></p>}
             <h3>{destination.name}</h3>
             <p>Pays : {destination.country}</p>
             <p><i>Réf. : {destination.reference}</i></p>

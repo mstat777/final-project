@@ -1,4 +1,4 @@
-import { setDestinationImages } from '../../store/slices/travel';
+import { setDestinationImages, setLodgingImages } from '../../store/slices/travel';
 import { store } from "../../store";
 
 async function fetchDestinationImages(destinationID){
@@ -15,4 +15,18 @@ async function fetchDestinationImages(destinationID){
     }
 }
 
-export {fetchDestinationImages};
+async function fetchLodgingImages(lodgingID){
+    try {
+        const result = await(await fetch(`/api/v.0.1/travel/lodging/img/all/${lodgingID}`)).json();
+        //console.log(result.datas);
+        store.dispatch(setLodgingImages(result.datas));
+
+        const state = store.getState();
+        console.log(state.allTravel.lodgingImages);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+export {fetchDestinationImages, 
+        fetchLodgingImages};

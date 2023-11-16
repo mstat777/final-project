@@ -18,6 +18,12 @@ const getImagesDestination = async (req, res) => {
     res.status(200).json({ msg: "images trouvées", datas })
 }
 
+const getImagesLodging = async (req, res) => {
+    const query = "SELECT id, name, url_image FROM lodgings_images WHERE lodging_id = ?";
+    const [datas] = await Query.findByValue(query, req.params.id);
+    res.status(200).json({ msg: "images trouvées", datas })
+} 
+
 const getHebergementById = async (req, res) => {
     const query = "SELECT * FROM lodgings WHERE id = ?";
     const [datas] = await Query.findByValue(query, req.params.id);
@@ -40,6 +46,7 @@ export {
     getAllDestinations,
     getDestinationByName,
     getImagesDestination,
+    getImagesLodging,
     getHebergementById,
     getPacksByDestination,
     getActivitiesByDestination

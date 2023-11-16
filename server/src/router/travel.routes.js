@@ -3,6 +3,7 @@ import {
     getAllDestinations,
     getDestinationByName,
     getImagesDestination,
+    getImagesLodging,
     getHebergementById,
     getPacksByDestination,
     getActivitiesByDestination
@@ -16,6 +17,8 @@ router.get("/destination/all", getAllDestinations);
 router.get("/destination/:name", getDestinationByName);
 // chercher toutes les images de la destination :
 router.get("/destination/img/all/:id", getImagesDestination);
+// chercher toutes les images de l'hébérgement :
+router.get("/lodging/img/all/:id", getImagesLodging);
 // chercher un hébérgement par ID :
 router.get("/lodging/:id", getHebergementById);
 // chercher un pack par ID de destination :

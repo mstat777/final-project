@@ -9,6 +9,7 @@ import "leaflet/dist/leaflet.css";
 import { setLodging, setActivities } from "../../../store/slices/travel";
 import { choosePack } from "../../../store/slices/user";  
 import { resetCounters, initialiseCounters } from "../../../store/slices/booking";
+import Slider from '../../Containers/Slider/Index';
 
 function Detail(){
     const dispatch = useDispatch();
@@ -77,7 +78,7 @@ function Detail(){
             { (destination && lodging && activities) &&
             <div className={styles.detail_section}>
                 { console.log("lodging = "+lodging)}
-                <img src={"../../img/lodgings/"+lodging.url_initial_image} alt="" />
+                <Slider type="lodging"/>
                 <h4>{lodging.name}</h4>
                 <h3>{destination.name}</h3>
                 <table className={styles.packs_div}>
