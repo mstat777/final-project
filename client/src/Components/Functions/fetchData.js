@@ -1,5 +1,8 @@
-import { setDestinationImages, setLodgingImages } from '../../store/slices/travel';
 import { store } from "../../store";
+import { setDestination,
+        setDestinationImages, 
+        setLodgingImages
+        } from "../../store/slices/travel";
 
 async function fetchDestinationImages(destinationID){
     try {
@@ -28,5 +31,37 @@ async function fetchLodgingImages(lodgingID){
     }
 }
 
-export {fetchDestinationImages, 
+// fonction pour supprimer des clés du localstorage
+// on passe une liste de clés à supprimer dans un tableau
+function deleteLocStorageItems(arrayOfItems) {
+    arrayOfItems.forEach(itemName => {
+        // vérifier si la clé existe
+        localStorage.getItem(`${itemName}`) !== null && localStorage.removeItem(`${itemName}`)
+    });
+}
+
+async function fetchDestination(destinationInput){
+    // on récupère les données de la destination :
+    const dataDest = await (await fetch(`/api/v.0.1/travel/destination/${destinationInput}`)).json();
+
+    if(dataDest.datas[0]){
+        console.log("la destination a été trouvée dans la BD");
+        localStorage.setItem("destination", JSON.stringify(dataDest.datas[0]));
+        store.dispatch(setDestination(dataDest.datas[0]));
+        console.log("dataDest.datas[0] = "+dataDest.datas[0]);
+
+        deleteLocStorageItems(['lodging', 'packs', 'activities']);
+        
+        const destID = dataDest.datas[0].id;
+        await fetchDestinationImages(destID);
+        const lodgID = dataDest.datas[0].lodging_id;
+        await fetchLodgingImages(lodgID);
+    } else {
+        console.log("la destination n'a pas été trouvée!!!");
+    }
+    //setMsg(dataDest.msg);
+}
+
+export { fetchDestination,
+        fetchDestinationImages, 
         fetchLodgingImages};

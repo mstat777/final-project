@@ -1,8 +1,11 @@
 import './App.css';
 import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
 
-import HOC from "./Components/HOC/Index";
+// HOCs
+import WithAuth from "./Components/HOC/WithAuth/Index";
+import WithFetch from "./Components/HOC/WithFetch/Index";
 
+// Containeurs et pages
 import Header from "./Components/Containers/Header/Index";
 import Footer from "./Components/Containers/Footer/Index";
 import UserDashboardHeader from "./Components/Containers/dashboard/Header/Index";
@@ -50,8 +53,8 @@ function App() {
       <Routes>
 
         <Route path="/" element={<BasicLayout />}>
-            <Route index element={<Home/>} />
-            <Route path="holidays" element={<Holidays/>} />
+            <Route index element={<WithFetch child={Home} />} />
+            <Route path="holidays" element={<WithFetch child={Holidays} />} />
             <Route path="agency" element={<Agency/>} />
             <Route path="contact" element={<Contact/>} />
             
@@ -62,7 +65,7 @@ function App() {
             </Route>
             
             <Route path="detail/:id" element={<Detail/>} />
-            <Route path="booking/:id" element={<HOC child={Booking} auth="true"/>} />
+            <Route path="booking/:id" element={<WithAuth child={Booking} auth="true"/>} />
             <Route path="summary/:id" element={<Summary/>} />
             <Route path="confirmation" element={<Confirmation/>} />
 
@@ -70,8 +73,8 @@ function App() {
         </Route>
 
         <Route path="/dashboard/user" element={<UserDashboardLayout/>}>
-            <Route path="infos" element={<HOC child={UserDashboardInfos} auth="true"/>} />
-            <Route path="bookings" element={<HOC child={UserDashboardBookings} auth="true"/>} />
+            <Route path="infos" element={<WithAuth child={UserDashboardInfos} auth="true"/>} />
+            <Route path="bookings" element={<WithAuth child={UserDashboardBookings} auth="true"/>} />
         </Route>
 
       </Routes>

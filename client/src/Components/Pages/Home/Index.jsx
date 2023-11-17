@@ -3,7 +3,6 @@ import Search from "../../Containers/Search/Index";
 import banner from '../../../assets/img/banner_02_big.jpg';
 
 function Home() {
-
     return (
         <main id="home" className={styles.home_main}>
             <Search />

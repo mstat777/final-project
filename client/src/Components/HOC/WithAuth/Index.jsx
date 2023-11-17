@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 
-import { signout } from "../../store/slices/user";
+import { signout } from "../../../store/slices/user.js";
 
-function HOC({child, auth}){
+function WithAuth({child, auth}){
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -54,4 +54,4 @@ function HOC({child, auth}){
     return <>{(!auth || (auth && tokenIsValid)) && <Child />}</>
 }
 
-export default HOC;
+export default WithAuth;

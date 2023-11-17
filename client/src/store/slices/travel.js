@@ -1,6 +1,7 @@
 import {createSlice} from "@reduxjs/toolkit";
 
 const initialState = {
+    allDestinations: [],
     destination: {},
     lodging: {},
     destinationImages: [],
@@ -13,6 +14,9 @@ export const allTravelSlice = createSlice({
     name: "allTravel",
     initialState,
     reducers: {
+        setAllDestinations: (state, action) => {
+            state.allDestinations = action.payload;
+        },
         setDestination: (state, action) => {
             state.destination = action.payload;
         },
@@ -35,6 +39,7 @@ export const allTravelSlice = createSlice({
 });
 
 export const { 
+    setAllDestinations,
     setDestination,
     setLodging,
     setDestinationImages,
