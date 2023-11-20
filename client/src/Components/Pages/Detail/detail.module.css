@@ -6,7 +6,7 @@
     /*background-color: var(--primary-color);*/
 }
 
-.detail_section p {
+.detail_section > p {
     margin: 1em;
     padding: 1em;
     font-size: 1.4rem;
@@ -37,7 +37,7 @@
 }
 
 .leaflet_container {
-    margin: 1em;
+    margin: 1em auto;
     width: 90%;
     height: 300px;
     /*z-index: 1;*/
@@ -45,25 +45,37 @@
 
 /*** styler les activités ***/
 .activities_ctn {
+    padding-top: 1em;
     text-align: left;
 }
 
-.activities_ctn span {
+.activities_ctn > span {
     display: block;
     margin: 1em 2em;
+	font-weight: 500;
+	font-size: 1.8rem;
+}
+
+.activities_ctn > p {
+    margin: 0 2em;
+    font-size: 1.4rem;
+    text-align: justify;
 }
 
 .activity {
     margin: .5em 1em;
+    padding: 1em;
     border: 1px solid lightgrey;
+}
+
+.activity p {
+    margin: 1em 0;
+    font-size: 1.4rem;
+    text-align: justify;
 }
 
 .activity strong {
     display: block;
-    margin: 1em 2em;
+    margin: 0 1em 1em;
     font-weight: 500;
-}
-
-.activity p {
-    padding: 0;
 }

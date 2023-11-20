@@ -7,11 +7,16 @@
     align-items: center;
     margin-top: auto;
     padding: 1em;
+    text-align: center;
     background-color: var(--secondary-color);
 }
 
 .footer_social {
     margin: .5em auto;
+}
+
+.footer_title {
+    text-transform: uppercase;
 }
 
 .footer_social svg {
@@ -24,12 +29,12 @@
     display: flex;
     flex-direction: column;
     margin: 1em auto;
-    text-align: center;
 }
 
 .footer_links > div > a {
     margin-bottom: .5em;
     color: white;
+    text-transform: none;
 }
 
 .footer_legal p {

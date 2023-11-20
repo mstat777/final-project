@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { setDestination } from "../../../store/slices/travel";
 import { fetchDestination } from '../../Functions/fetchData';
-import ShowResults from '../../Functions/ShowResults';
+import Results from '../Results/Index';
 import Suggestions from './Suggestions/Index';
 
 function Search() {
@@ -57,16 +57,16 @@ function Search() {
                         name="maxPrice" 
                         placeholder="Prix maximal"/>
                 <button type="submit">rechercher</button>
-                <Suggestions destinationInput={destinationInput} />
+                <Suggestions destinationInput={destinationInput} setDestinationInput={setDestinationInput}/>
             </form>
-            { msg && <p className={styles.msg}>{msg}</p>}
+            { (msg && !destinationInput) && 
+                    <p className={styles.msg}>{msg}</p>}
 
             { (destinationInput && destination.name != undefined) &&
-            ((destinationInput.toLowerCase() === destination.name.toLowerCase()) &&
-                <section id="resultsContainer" className={styles.results_section}>
-                    <ShowResults /> 
-                </section>
-            )}
+                ((destinationInput.toLowerCase() === destination.name.toLowerCase()) &&
+                    <Results/> 
+                )
+            }
         </>
     )
 }

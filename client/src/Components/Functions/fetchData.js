@@ -25,7 +25,6 @@ async function fetchDestination(destination){
         console.log("la destination a été trouvée dans la BD");
         localStorage.setItem("destination", JSON.stringify(dataDest.datas[0]));
         store.dispatch(setDestination(dataDest.datas[0]));
-        console.log("dataDest.datas[0] = "+dataDest.datas[0]);
 
         deleteLocStorageItems(['lodging', 'packs', 'activities']);
         
@@ -55,11 +54,7 @@ async function fetchDestinationImages(destinationID){
     try {
         //console.log("destinationID = "+destinationID);
         const result = await(await fetch(`/api/v.0.1/travel/destination/img/all/${destinationID}`)).json();
-        console.log(result.datas);
         store.dispatch(setDestinationImages(result.datas));
-
-        const state = store.getState();
-        console.log(state.allTravel.destinationImages);
     } catch (error) {
         console.log(error);
     }
@@ -68,11 +63,7 @@ async function fetchDestinationImages(destinationID){
 async function fetchLodgingImages(lodgingID){
     try {
         const result = await(await fetch(`/api/v.0.1/travel/lodging/img/all/${lodgingID}`)).json();
-        //console.log(result.datas);
         store.dispatch(setLodgingImages(result.datas));
-
-        const state = store.getState();
-        console.log(state.allTravel.lodgingImages);
     } catch (error) {
         console.log(error);
     }

@@ -10,6 +10,7 @@ import { setLodging, setActivities } from "../../../store/slices/travel";
 import { choosePack } from "../../../store/slices/user";  
 import { resetCounters, initialiseCounters } from "../../../store/slices/booking";
 import Slider from '../../Containers/Slider/Index';
+import TripadvisorNote from '../../Containers/TripadvisorNote/Index';
 
 function Detail(){
     const dispatch = useDispatch();
@@ -121,9 +122,12 @@ function Detail(){
                 <p><span>Loisirs</span>{lodging.entertainment}</p>
                 <p><span>Enfants</span>{lodging.children}</p>
                 <p>Tripadvisor : {lodging.tripadvisor}</p>
+                <TripadvisorNote note={lodging.tripadvisor}/>
 
+                
                 <div className={styles.activities_ctn}>
-                    <span>Au départ de votre {lodging.name}, vous pouvez profitez des activités suivantes :</span>
+                    <span>Activités optionnelles</span>
+                    <p>Au départ de votre {lodging.name}, vous pouvez profitez des activités suivantes :</p>
                     { console.log("activities = "+activities)}
                     { console.log("type of activities = "+typeof activities)}
                     {activities != undefined &&

@@ -4,7 +4,6 @@ import { useSelector } from 'react-redux';
 import SliderBtn from './SliderBtn';
 
 function Slider({type}){
-    console.log(type);
     const { destinationImages } = useSelector((state) => state.allTravel);
     const { lodgingImages } = useSelector((state) => state.allTravel);
 
