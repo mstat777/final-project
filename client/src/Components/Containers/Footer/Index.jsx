@@ -7,7 +7,7 @@ function Footer() {
     return (
         <footer className={styles.footer}>
             <section className={styles.footer_social}>
-                <p>suivez-nous</p>
+                <p className={styles.footer_title}>suivez-nous</p>
                 <Link to={'#'}><FontAwesomeIcon icon={faFacebook} /></Link>
                 <Link to={'#'}><FontAwesomeIcon icon={faTwitter} /></Link>
                 <Link to={'#'}><FontAwesomeIcon icon={faInstagram} /></Link>
@@ -15,12 +15,12 @@ function Footer() {
             </section>
             <section className={styles.footer_links}>
                 <div>
-                    <p>A propos</p>
+                    <p className={styles.footer_title}>A propos</p>
                     <Link to={'#'}>A propos</Link>
                     <Link to={'#'}>Recrutement</Link>
                 </div>
                 <div>
-                    <p>informations pratiques</p>
+                    <p className={styles.footer_title}>informations pratiques</p>
                     <Link to={'#'}>Conditions Particulières de Vente</Link>
                     <Link to={'#'}>Mentions légales</Link>
                     <Link to={'#'}>Politique de confidentialité</Link>
@@ -32,7 +32,7 @@ function Footer() {
                 </div>
             </section>
             <section className={styles.footer_legal}>
-                <p>&copy;2023 D.Statev tous droits réservés</p>
+                <p>&copy;2023 DS</p>
             </section>
         </footer>
     )

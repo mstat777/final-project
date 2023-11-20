@@ -1,0 +1,37 @@
+.card_ctn {
+    display: flex;
+    height: 200px;
+    max-width: 600px;
+    margin-bottom: 1em;
+    border-radius: 5px;
+    box-shadow: 2px 2px 6px var(--primary-color);
+    overflow: hidden;
+}
+
+.card_ctn > img {
+    display: inline-block;
+    height: 100%;
+    width: auto;
+    object-fit: cover;
+}
+
+.card_info {
+    width: 300px;
+    display: inline-block;
+    padding: 1em;
+}
+
+/*  */
+.discover_btn {
+    display: inline-block;
+    margin: 1em auto;
+    padding: .5em .7em .4em;
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;   
+    color: white;
+    text-transform: uppercase;
+    letter-spacing: .1em;
+    background-color: var(--tertiary-color);
+    cursor: pointer;
+}

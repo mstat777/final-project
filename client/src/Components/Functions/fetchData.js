@@ -1,8 +1,55 @@
 import { store } from "../../store";
-import { setDestination,
+import { setBestPromo, 
+        setTopDestination,
+        setDestination,
+        setPacks,
         setDestinationImages, 
         setLodgingImages
         } from "../../store/slices/travel";
+
+// fonction pour supprimer des clés du localstorage
+// on passe une liste de clés à supprimer dans un tableau
+function deleteLocStorageItems(arrayOfItems) {
+    arrayOfItems.forEach(itemName => {
+        // vérifier si la clé existe
+        localStorage.getItem(`${itemName}`) !== null && localStorage.removeItem(`${itemName}`)
+    });
+}
+
+// on passe le nom de la destination
+async function fetchDestination(destination){
+    // on récupère les données de la destination :
+    const dataDest = await (await fetch(`/api/v.0.1/travel/destination/${destination}`)).json();
+
+    if(dataDest.datas[0]){
+        console.log("la destination a été trouvée dans la BD");
+        localStorage.setItem("destination", JSON.stringify(dataDest.datas[0]));
+        store.dispatch(setDestination(dataDest.datas[0]));
+        console.log("dataDest.datas[0] = "+dataDest.datas[0]);
+
+        deleteLocStorageItems(['lodging', 'packs', 'activities']);
+        
+        const destID = dataDest.datas[0].id;
+        await fetchDestinationImages(destID);
+        const lodgID = dataDest.datas[0].lodging_id;
+        await fetchLodgingImages(lodgID);
+    } else {
+        console.log("la destination n'a pas été trouvée!!!");
+    }
+    //setMsg(dataDest.msg);
+}
+
+// récupérer les données des packs liées à la destination :
+async function fetchPacks(destination_id) {
+    try {
+        const dataPack = await (await fetch(`/api/v.0.1/travel/pack/${destination_id}`)).json();
+        console.log("des packs ont été trouvés dans la BD");
+        localStorage.setItem("packs", JSON.stringify(dataPack.datas));
+        store.dispatch(setPacks(dataPack.datas));  
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 async function fetchDestinationImages(destinationID){
     try {
@@ -31,37 +78,28 @@ async function fetchLodgingImages(lodgingID){
     }
 }
 
-// fonction pour supprimer des clés du localstorage
-// on passe une liste de clés à supprimer dans un tableau
-function deleteLocStorageItems(arrayOfItems) {
-    arrayOfItems.forEach(itemName => {
-        // vérifier si la clé existe
-        localStorage.getItem(`${itemName}`) !== null && localStorage.removeItem(`${itemName}`)
-    });
+async function fetchBestPromoPack(){
+    try {
+        const result = await(await fetch(`/api/v.0.1/travel/pack/best-promo`)).json();
+        store.dispatch(setBestPromo(result.datas[0]));
+    } catch (error) {
+        console.log(error);
+    }
 }
 
-async function fetchDestination(destinationInput){
-    // on récupère les données de la destination :
-    const dataDest = await (await fetch(`/api/v.0.1/travel/destination/${destinationInput}`)).json();
-
-    if(dataDest.datas[0]){
-        console.log("la destination a été trouvée dans la BD");
-        localStorage.setItem("destination", JSON.stringify(dataDest.datas[0]));
-        store.dispatch(setDestination(dataDest.datas[0]));
-        console.log("dataDest.datas[0] = "+dataDest.datas[0]);
-
-        deleteLocStorageItems(['lodging', 'packs', 'activities']);
-        
-        const destID = dataDest.datas[0].id;
-        await fetchDestinationImages(destID);
-        const lodgID = dataDest.datas[0].lodging_id;
-        await fetchLodgingImages(lodgID);
-    } else {
-        console.log("la destination n'a pas été trouvée!!!");
+async function fetchTopDestination(){
+    try {
+        const result = await(await fetch(`/api/v.0.1/travel/destination/top-offer`)).json();
+        store.dispatch(setTopDestination(result.datas[0]));
+    } catch (error) {
+        console.log(error);
     }
-    //setMsg(dataDest.msg);
 }
 
 export { fetchDestination,
+        fetchPacks,
         fetchDestinationImages, 
-        fetchLodgingImages};
+        fetchLodgingImages,
+        fetchBestPromoPack,
+        fetchTopDestination
+    };

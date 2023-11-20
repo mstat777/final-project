@@ -6,7 +6,7 @@ export const auth = (req, res, next) => {
     //console.log("req.headers.authentication = "+req.headers.authentication);
     //console.log("req.headers['authentication'] = "+req.headers['authentication']);
     console.log("req.headers = "+JSON.stringify(req.headers));
-    // on prend le token dans le headers envoyé par le client (HOC.jsx)
+    // on prend le token dans le headers envoyé par le client (HOC/withAuth.jsx)
     const TOKEN = req.headers.authentication.slice(7);
     console.log(TOKEN);
     if (TOKEN === undefined || TOKEN === "null") {

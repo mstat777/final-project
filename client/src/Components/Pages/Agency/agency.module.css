@@ -1,6 +1,6 @@
 .agency_section {
-    padding: .5em;
-    background-color: var(--primary-color);
+    padding: 2em;
+    /*background-color: var(--primary-color);*/
 }
 
 .agency_section > p {

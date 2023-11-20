@@ -2,6 +2,8 @@ import {createSlice} from "@reduxjs/toolkit";
 
 const initialState = {
     allDestinations: [],
+    topDestination: {},
+    bestPromo: {},
     destination: {},
     lodging: {},
     destinationImages: [],
@@ -16,6 +18,12 @@ export const allTravelSlice = createSlice({
     reducers: {
         setAllDestinations: (state, action) => {
             state.allDestinations = action.payload;
+        },
+        setTopDestination: (state, action) => {
+            state.topDestination = action.payload;
+        },
+        setBestPromo: (state, action) => {
+            state.bestPromo = action.payload;
         },
         setDestination: (state, action) => {
             state.destination = action.payload;
@@ -40,6 +48,8 @@ export const allTravelSlice = createSlice({
 
 export const { 
     setAllDestinations,
+    setTopDestination,
+    setBestPromo,
     setDestination,
     setLodging,
     setDestinationImages,
