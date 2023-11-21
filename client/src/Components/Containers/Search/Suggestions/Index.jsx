@@ -26,7 +26,6 @@ function Suggestions(props){
     },[hide]);
 
     function handleClick(e){
-        console.log(e.target.innerText.toLowerCase());
         setDestinationInput(e.target.innerText);
         fetchDestination(e.target.innerText.toLowerCase());
         setTextEntered("");

@@ -13,7 +13,7 @@ function Results() {
 
     useEffect(() => {
         // on récupère les données des packs liées à la destination :
-        fetchPacks();
+        fetchPacks(destination.id);
     }, []);
 
     return (
@@ -24,7 +24,7 @@ function Results() {
                 <p>Pays : {destination.country}</p>
                 <p><i>Réf. : {destination.reference}</i></p>
                 <p>Info : {destination.overview}</p>
-                <p>dès {cheapestPack(packs)}&euro; TTC/adulte</p>
+                <p>dès {packs[0] && cheapestPack(packs)}&euro; TTC/adulte</p>
                 <Link to={`/detail/${destination.name}`} className={styles.discover_btn}>découvrir</Link>
             </article>
         </section>
