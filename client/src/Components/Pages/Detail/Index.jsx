@@ -1,16 +1,22 @@
 import styles from './detail.module.css';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { useNavigate } from 'react-router-dom';
-import { MapContainer, TileLayer } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import "leaflet/dist/leaflet.css";
+// - pour gérer le bug d'affichage du marker d'Openstreetmaps :
+import L from 'leaflet';
+import icon from 'leaflet/dist/images/marker-icon.png';
+import iconShadow from 'leaflet/dist/images/marker-shadow.png';
+// ------------------------------------------------------------
+import { formatCoordinates } from '../../Functions/utils.js';
 
 import { choosePack } from "../../../store/slices/user";  
 
 import Slider from '../../Containers/Slider/Index';
 import TripadvisorNote from '../../Containers/TripadvisorNote/Index';
-import { fetchLodging, fetchActivities } from '../../Functions/fetchData';
+import { fetchActivities } from '../../Functions/fetchData';
 
 function Detail(){
     const dispatch = useDispatch();
@@ -20,39 +26,33 @@ function Detail(){
 
     const { lodging } = useSelector((state) => state.allTravel);
     const { packs } = useSelector((state) => state.allTravel);
-    const { activities } =  useSelector((state) => state.allTravel);
+    const { activities } = useSelector((state) => state.allTravel);
+    const { coordinates } = useSelector((state) => state.allTravel);
 
-    const [coord, setCoord] = useState([0,0]);
+    // ----- Corriger le bug d'Openstreetmap ------
+    let DefaultIcon = L.icon({
+        iconUrl: icon,
+        shadowUrl: iconShadow
+    });
+    L.Marker.prototype.options.icon = DefaultIcon;
+    // --------------------------------------------
 
     // remonter au top de la page lors de chargement
     useEffect(() => {
         document.getElementById("detail").scrollIntoView();
     }, [])
 
-    // on récupère les données de l'hébérgement lié à la destination :
-    useEffect(() => {
-        fetchLodging(destination.lodging_id);
-    }, []);
-
     // on récupère les données des activités liées à la destination :
     useEffect(() => {
         fetchActivities(destination.id);
-    }, []);
-
-    // récupérer et modifier les coordonnées de l'hébergement pour l'afficher dans la carte
+    }, [destination]);
+/*
     useEffect(() => {
-        if(lodging.coordinates) {
-            const tempArray = (lodging.coordinates).split(", ");
-            //console.log("tempArray = "+tempArray);
-            console.log("coord = "+coord);
-            tempArray[0] = Math.round(tempArray[0] * 100000) / 100000;
-            tempArray[1] = Math.round(tempArray[1] * 100000) / 100000;
-            //console.log("coord[0] = "+coord[0]);
-            //console.log("coord[1] = "+coord[1]);
-            setCoord([tempArray[0],tempArray[1]]);
-            console.log("coord = "+coord);
-        }
-    }, [lodging]);
+        console.log("lodging.coordinates = "+lodging.coordinates);
+        if (lodging.coordinates) {
+            formatCoordinates(lodging.coordinates);
+        }   
+    }, [lodging.coordinates]);*/
 
     return (
         <main id="detail">
@@ -103,7 +103,6 @@ function Detail(){
                 <p><span>Enfants</span>{lodging.children}</p>
                 <p>Tripadvisor : {lodging.tripadvisor}</p>
                 <TripadvisorNote note={lodging.tripadvisor}/>
-
                 
                 <div className={styles.activities_ctn}>
                     <span>Activités optionnelles</span>
@@ -121,14 +120,18 @@ function Detail(){
                             <p>{activity.overview}</p>
                         </div>
                     )
-                    }
-                    
+                    }       
                 </div>
 
-                <MapContainer center={coord} zoom={15} scrollWheelZoom={false} className={styles.leaflet_container}>
+                { coordinates[0] &&
+                <MapContainer center={coordinates} zoom={15} scrollWheelZoom={false} className={styles.leaflet_container}>
                     <TileLayer attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
+                    <Marker position={coordinates}>
+                        <Popup>{lodging.name}</Popup>
+                    </Marker>
                 </MapContainer>
+                }
             </div>
             }
         </main>

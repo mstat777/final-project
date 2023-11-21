@@ -2,7 +2,10 @@ import styles from './search.module.css';
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { setDestination } from "../../../store/slices/travel";
-import { fetchDestination } from '../../Functions/fetchData';
+import { fetchDestination, 
+        fetchLodging,
+        fetchPacks } from '../../Functions/fetchData';
+import { formatCoordinates } from '../../Functions/utils';
 import Results from '../Results/Index';
 import Suggestions from './Suggestions/Index';
 
@@ -11,11 +14,49 @@ function Search() {
     const { allDestinations } = useSelector((state) => state.allTravel);
 
     // les destinations trouvées via le fetch :
-    const { destination } = useSelector((state) => state.allTravel);
+    const { destination, lodging } = useSelector((state) => state.allTravel);
 
     // stocker la valeur de l'input de la barre de recherche
     const [destinationInput, setDestinationInput] = useState("");
 
+    // la destination cherchée est trouvée ou pas ?
+    const [destinationFound, setDestinationFound] = useState(false);
+
+    // afficher le containeur des résultats :
+    const [showResults, setShowResults] = useState(false);
+
+    // vérification si l'entrée de l'utilisateur matche l'une des destinations. On passe les deux variables en minuscules:
+    function checkDestination(){
+        allDestinations.map((dest) => {
+            //console.log("dest.toLowerCase() = "+dest.toLowerCase());
+            //console.log("destinationInput.trim().toLowerCase() = "+destinationInput.trim().toLowerCase());
+            if (dest.toLowerCase() === destinationInput.trim().toLowerCase()) {
+                console.log("MATCH !!!");
+                setDestinationFound(true);
+                setShowResults(true);
+            }
+        })
+    }
+
+    // Si la destination existe dans la BDD. on fetch :
+    useEffect(() => {
+        if (destinationFound) {
+            console.log("destinationFound est truefy. On va fetcher.");
+            fetchDestination(destinationInput);
+        } else {
+            setMsg("Aucun résultat trouvé");
+        }
+    },[destinationFound])
+
+    //
+    useEffect(() => {
+        if (destination.lodging_id) {
+            fetchLodging(destination.lodging_id);
+            fetchPacks(destination.id);
+        }
+    },[destination]);
+
+    // afficher un message si la destination n'est pas trouvée  
     const [msg, setMsg] = useState("");
 
     // supprimer l'ancienne destination lors du rafraichissement :
@@ -24,19 +65,27 @@ function Search() {
         setMsg("");
     }, []);
 
+    // formatter les coordonnées de l'hébérgement :
+    useEffect(() => {
+        if (lodging != undefined) {
+            if (lodging.coordinates) {
+                //console.log("lodging.coordinates = "+lodging.coordinates);
+                formatCoordinates(lodging.coordinates);
+            }  
+        }
+    },[lodging]);
+
     // lors du changement du texte dans la barre de recherche :
     function handleChange(e){
         setDestinationInput(e.target.value);
+        setShowResults(false);
     }
     
     // en cliquant le bouton "RECHERCHER" :
     async function handleSubmit(e) {
         e.preventDefault();
-        if (allDestinations.includes(destinationInput)) {
-            fetchDestination(destinationInput);
-        } else {
-            setMsg("Aucun résultat trouvé");
-        }
+        // on vérifie si la destination cherchée existe
+        checkDestination();
     }
 
     return (
@@ -62,11 +111,7 @@ function Search() {
             { (msg && !destinationInput) && 
                     <p className={styles.msg}>{msg}</p>}
 
-            { (destinationInput && destination.name != undefined) &&
-                ((destinationInput.toLowerCase() === destination.name.toLowerCase()) &&
-                    <Results/> 
-                )
-            }
+            { showResults && <Results/>}
         </>
     )
 }

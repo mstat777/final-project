@@ -36,11 +36,12 @@
     cursor: pointer;
 }
 
+/*** la carte Openstreetmap ***/
 .leaflet_container {
     margin: 1em auto;
     width: 90%;
     height: 300px;
-    /*z-index: 1;*/
+    z-index: 0;
 }
 
 /*** styler les activités ***/

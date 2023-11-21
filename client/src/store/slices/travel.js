@@ -9,7 +9,8 @@ const initialState = {
     destinationImages: [],
     lodgingImages: [],
     packs: [],
-    activities: []
+    activities: [],
+    coordinates: []
 };
 
 export const allTravelSlice = createSlice({
@@ -42,6 +43,9 @@ export const allTravelSlice = createSlice({
         },
         setActivities: (state, action) => {
             state.activities = action.payload;
+        },
+        setCoordinates: (state, action) => {
+            state.coordinates = action.payload;
         }
     }
 });
@@ -55,7 +59,8 @@ export const {
     setDestinationImages,
     setLodgingImages,
     setPacks,
-    setActivities
+    setActivities,
+    setCoordinates
 } = allTravelSlice.actions;
 
 export default allTravelSlice.reducer;
