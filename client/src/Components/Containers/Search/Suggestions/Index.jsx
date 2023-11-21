@@ -9,21 +9,32 @@ function Suggestions(props){
     const { allDestinations } = useSelector((state) => state.allTravel);
     // stocker le texte entré par l'utilisateur une fois formaté
     const [textEntered, setTextEntered] = useState("");
+    // aficher/cacher les suggestions :
+    const [showSuggestions, setShowSuggestions] = useState(false);
+    // ce state évoque le changement du state showSuggestions :
+    const [hide, setHide] = useState(false);
 
     useEffect(() => {
         let tempArray = destinationInput.trim();
         tempArray = tempArray.charAt(0).toUpperCase() + tempArray.slice(1);
         setTextEntered(tempArray);
+        setShowSuggestions(true);
     },[destinationInput]);
+
+    useEffect(() => {
+        setShowSuggestions(false);
+    },[hide]);
 
     function handleClick(e){
         console.log(e.target.innerText.toLowerCase());
         setDestinationInput(e.target.innerText);
         fetchDestination(e.target.innerText.toLowerCase());
+        setTextEntered("");
+        setHide(true);
     }
 
     return <>
-            {(allDestinations.length > 0 && textEntered) && 
+            {(allDestinations.length > 0 && textEntered && showSuggestions) && 
             <ul className={styles.suggestions_box}>
                 {allDestinations.filter(dest => dest.startsWith(textEntered)).map((filteredDest, index) => 
                     <li key={index} onClick={handleClick}>

@@ -6,11 +6,11 @@ import { useNavigate } from 'react-router-dom';
 import { MapContainer, TileLayer } from 'react-leaflet';
 import "leaflet/dist/leaflet.css";
 
-import { setLodging, setActivities } from "../../../store/slices/travel";
 import { choosePack } from "../../../store/slices/user";  
-import { resetCounters, initialiseCounters } from "../../../store/slices/booking";
+
 import Slider from '../../Containers/Slider/Index';
 import TripadvisorNote from '../../Containers/TripadvisorNote/Index';
+import { fetchLodging, fetchActivities } from '../../Functions/fetchData';
 
 function Detail(){
     const dispatch = useDispatch();
@@ -31,33 +31,12 @@ function Detail(){
 
     // on récupère les données de l'hébérgement lié à la destination :
     useEffect(() => {
-        async function fetchLodging() {
-            try {
-                const dataLodg = await (await fetch(`/api/v.0.1/travel/lodging/${destination.lodging_id}`)).json();
-                localStorage.setItem("lodging", JSON.stringify(dataLodg.datas[0]));
-                dispatch(setLodging(dataLodg.datas[0]));
-            } catch (error) {
-                console.log(error);
-            }
-        }
-        fetchLodging();
+        fetchLodging(destination.lodging_id);
     }, []);
 
     // on récupère les données des activités liées à la destination :
     useEffect(() => {
-        async function fetchActivities() {
-            try {
-                const result = await (await fetch(`/api/v.0.1/travel/activities/${destination.id}`)).json();
-                localStorage.setItem("activities", JSON.stringify(result.datas));
-                dispatch(setActivities(result.datas));
-                dispatch(resetCounters());
-                dispatch(initialiseCounters(result.datas.length));
-                console.log("result.datas.length = "+result.datas.length);
-            } catch (error) {
-                console.log(error);
-            }
-        }
-        fetchActivities();
+        fetchActivities(destination.id);
     }, []);
 
     // récupérer et modifier les coordonnées de l'hébergement pour l'afficher dans la carte
@@ -71,6 +50,7 @@ function Detail(){
             //console.log("coord[0] = "+coord[0]);
             //console.log("coord[1] = "+coord[1]);
             setCoord([tempArray[0],tempArray[1]]);
+            console.log("coord = "+coord);
         }
     }, [lodging]);
 

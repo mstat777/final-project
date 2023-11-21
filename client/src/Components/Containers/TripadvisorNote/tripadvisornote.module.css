@@ -1,0 +1,29 @@
+.note_ctn {
+    display: flex;
+    align-items: center;
+    margin-left: 2em;
+}
+
+.note_ctn > img {
+    height: 1em;
+    width: auto;
+    margin-right: .2em;
+}
+
+.note_circle {
+    /*display: flex;*/
+    height: .7em;
+    width: .7em;
+    margin: 3px;
+    border: 1px solid rgb(25,171,106);
+    outline: 2px solid rgb(25,171,106);
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.note_circle_fill {
+    height: .7em;
+    width: .7em;
+    /*border-radius: 50%;*/
+    background-color: rgb(25,171,106);
+}
