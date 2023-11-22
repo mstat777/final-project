@@ -1,6 +1,9 @@
 import { store } from "../../store";
 import { setBestPromo, 
         setTopDestination,
+        setAllContinents,
+        setAllDestinations,
+        setDestinationsWithContinents,
         setDestination,
         setLodging,
         setPacks,
@@ -21,7 +24,44 @@ function deleteLocStorageItems(arrayOfItems) {
     });
 }
 
-// on passe le nom de la destination
+// trouver tous les continents :
+async function fetchAllContinents() {
+    try {
+        const result = await (await fetch("/api/v.0.1/travel/continent/all")).json();
+        //console.log(result.datas);
+        const resultArray = result.datas.map(el => el.continent);
+        //console.log(resultArray);
+        store.dispatch(setAllContinents(resultArray));
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+// trouver toutes les destinations :
+async function fetchAllDestinations() {
+    try {
+        const result = await (await fetch("/api/v.0.1/travel/destination/all")).json();
+        //console.log(result.datas);
+        const resultArray = result.datas.map(el => el.name);
+        //console.log(resultArray);
+        store.dispatch(setAllDestinations(resultArray));
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+//
+async function fetchAllContinentsAndDestinations() {
+    try {
+        const result = await (await fetch("/api/v.0.1/travel/destination/all-with-continent")).json();
+        //console.log(result.datas);
+        store.dispatch(setDestinationsWithContinents(result.datas));
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+// trouver une destination par son nom :
 async function fetchDestination(destination){
     // on récupère les données de la destination :
     const dataDest = await (await fetch(`/api/v.0.1/travel/destination/${destination}`)).json();
@@ -116,7 +156,11 @@ async function fetchTopDestination(){
     }
 }
 
-export { fetchDestination,
+export { 
+        fetchAllContinents,
+        fetchAllDestinations,
+        fetchAllContinentsAndDestinations,
+        fetchDestination,
         fetchLodging,
         fetchPacks,
         fetchActivities,

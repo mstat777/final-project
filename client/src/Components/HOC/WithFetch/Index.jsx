@@ -1,30 +1,28 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useEffect } from "react";
-import { setAllDestinations } from "../../../store/slices/travel";
+import { fetchAllContinents, 
+        fetchAllDestinations, 
+        fetchAllContinentsAndDestinations } from "../../Functions/fetchData";
 
 function WithFetch({child}){
 
     const Child = child;
-    const dispatch = useDispatch();
-    const { allDestinations } = useSelector((state) => state.allTravel);
 
-    // on récupère les noms de 
-    useEffect( () => {
-        async function getData() {
-            try {
-                const result = await (await fetch("/api/v.0.1/travel/destination/all")).json();
-                //console.log(result.datas);
-                const resultArray = result.datas.map(el => el.name);
-                //console.log(resultArray);
-                dispatch(setAllDestinations(resultArray));
-            } catch (error) {
-                console.log(error);
-            }
-        }
-        !allDestinations[0] && getData();
+    const { allContinents, 
+            allDestinations, 
+            destinationsWithContinents } = useSelector((state) => state.allTravel);
+
+    // on récupère les listes des continents et des destinations :
+    useEffect(() => {
+        !allContinents[0] && fetchAllContinents();
+        !allDestinations[0] && fetchAllDestinations();
+        !destinationsWithContinents[0] && fetchAllContinentsAndDestinations();
     }, []);
     
-    return <>{allDestinations[0] && <Child/>}</>
+    return <> 
+        {(allContinents[0] && allDestinations[0] && destinationsWithContinents[0]) && 
+        <Child/>}
+        </>
 }
 
 export default WithFetch;

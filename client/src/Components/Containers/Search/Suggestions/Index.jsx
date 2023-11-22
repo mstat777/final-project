@@ -7,15 +7,18 @@ import { fetchDestination,
 import { formatCoordinates } from '../../../Functions/utils.js';
 
 function Suggestions(props){
-    const { destinationInput, setDestinationInput } = props;
+    const { destinationInput, 
+            setDestinationInput,
+            showSuggestions,
+            setShowSuggestions,
+            setShowResults } = props;
     // toutes les destinations :
     const { allDestinations } = useSelector((state) => state.allTravel);
     const { destination } = useSelector((state) => state.allTravel);
     const { lodging } = useSelector((state) => state.allTravel);
     // stocker le texte entré par l'utilisateur une fois formaté
     const [textEntered, setTextEntered] = useState("");
-    // aficher/cacher les suggestions :
-    const [showSuggestions, setShowSuggestions] = useState(false);
+    
     // ce state évoque le changement du state showSuggestions :
     const [hide, setHide] = useState(false);
 
@@ -31,6 +34,7 @@ function Suggestions(props){
     },[hide]);
 
     useEffect(() => {
+        console.log("la destination a été modifiée.");
         if (destination.lodging_id) {
             fetchLodging(destination.lodging_id);
             fetchPacks(destination.id);
@@ -52,6 +56,7 @@ function Suggestions(props){
         await fetchDestination(e.target.innerText.toLowerCase());
         setTextEntered("");
         setHide(true);
+        setShowResults(true);
     }
 
     return <>

@@ -1,5 +1,7 @@
 import { Router } from "express";
 import { 
+    getAllContinentsAndDestinations,
+    getAllContinents,
     getAllDestinations,
     getDestinationByName,
     getImagesDestination,
@@ -13,7 +15,11 @@ import {
 
 const router = Router();
 
-// afficher les noms de toutes les destinations :
+// afficher toutes les destinations avec le continent :
+router.get("/destination/all-with-continent", getAllContinentsAndDestinations);
+// afficher tous les continents :
+router.get("/continent/all", getAllContinents);
+// afficher toutes les destinations :
 router.get("/destination/all", getAllDestinations);
 // afficher la "Top" destination (la plus réservée) :
 router.get("/destination/top-offer", getTopDestination);

@@ -4,28 +4,38 @@ import Loading from "../../Containers/Loading/Index";
 import styles from './holidays.module.css';
 
 function Holidays(){
-
-    const { allDestinations } = useSelector((state) => state.allTravel);
+    const { allContinents, 
+            allDestinations, 
+            destinationsWithContinents } = useSelector((state) => state.allTravel);
 
     return (
         <main id="holidays">
-            {!allDestinations ? (
+            {!allContinents ? (
                 <Loading />
-            ) : (
-            <div className={styles.holidays_section}>
+            ) : ( 
+                <>
                 <h2>Nos destinations</h2>
-                {allDestinations.length > 0 && (
-                <ul>
-                    {allDestinations.map((destination, index) => {
-                        return(
-                            <li key={index}>
-                                <Link to={"/"}>{destination}</Link>        
-                            </li>
-                        )
-                    })}
-                </ul>
-                )}
-            </div>
+                {allContinents.length > 0 && 
+                    <div className={styles.holidays_section}>
+                        {allContinents.map((cont, index) => {
+                            return <div key={index}>
+                                <h3>{cont}</h3>
+                                <ul key={index}>
+                                    {destinationsWithContinents
+                                    .filter((dest) => dest.continent === cont)
+                                    .map((dest, index) => {
+                                        return(
+                                            <li key={index}>
+                                                <Link to={"/"}>{dest.name}</Link>        
+                                            </li>
+                                        )
+                                    })}
+                                </ul>
+                            </div>
+                        })}
+                    </div>
+                }
+                </>
             )}
         </main>
     )

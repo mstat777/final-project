@@ -1,8 +1,20 @@
 import Query from "../model/Query.js";
 
-// les noms de toutes les destinations :
+// tous les contnents & destinations :
+const getAllContinentsAndDestinations = async (req, res) => {
+    const query = "SELECT name, continent FROM destinations ORDER BY name";
+    const [datas] = await Query.find(query);
+    res.status(200).json({datas});
+}
+// tous les contnents :
+const getAllContinents = async (req, res) => {
+    const query = "SELECT DISTINCT continent FROM destinations ORDER BY continent";
+    const [datas] = await Query.find(query);
+    res.status(200).json({datas});
+}
+// toutes les destinations :
 const getAllDestinations = async (req, res) => {
-    const query = "SELECT name FROM destinations GROUP BY name";
+    const query = "SELECT DISTINCT name FROM destinations ORDER BY name";
     const [datas] = await Query.find(query);
     res.status(200).json({datas});
 }
@@ -57,6 +69,8 @@ const getActivitiesByDestination = async (req, res) => {
 }
 
 export { 
+    getAllContinentsAndDestinations,
+    getAllContinents,
     getAllDestinations,
     getDestinationByName,
     getImagesDestination,

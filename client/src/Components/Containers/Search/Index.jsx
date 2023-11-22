@@ -25,6 +25,9 @@ function Search() {
     // afficher le containeur des résultats :
     const [showResults, setShowResults] = useState(false);
 
+    // aficher/cacher les suggestions :
+    const [showSuggestions, setShowSuggestions] = useState(false);
+
     // vérification si l'entrée de l'utilisateur matche l'une des destinations. On passe les deux variables en minuscules:
     function checkDestination(){
         allDestinations.map((dest) => {
@@ -35,7 +38,7 @@ function Search() {
                 setDestinationFound(true);
                 setShowResults(true);
             }
-        })
+        });
     }
 
     // Si la destination existe dans la BDD. on fetch :
@@ -79,6 +82,9 @@ function Search() {
     function handleChange(e){
         setDestinationInput(e.target.value);
         setShowResults(false);
+        if (e.target.value) {
+            setShowSuggestions(true);
+        }
     }
     
     // en cliquant le bouton "RECHERCHER" :
@@ -86,6 +92,7 @@ function Search() {
         e.preventDefault();
         // on vérifie si la destination cherchée existe
         checkDestination();
+        setShowSuggestions(false);
     }
 
     return (
@@ -106,7 +113,13 @@ function Search() {
                         name="maxPrice" 
                         placeholder="Prix maximal"/>
                 <button type="submit">rechercher</button>
-                <Suggestions destinationInput={destinationInput} setDestinationInput={setDestinationInput}/>
+                <Suggestions 
+                destinationInput={destinationInput} 
+                setDestinationInput={setDestinationInput}
+                showSuggestions={showSuggestions}
+                setShowSuggestions={setShowSuggestions}
+                showResults={showResults} 
+                setShowResults={setShowResults} />
             </form>
             { (msg && !destinationInput) && 
                     <p className={styles.msg}>{msg}</p>}
