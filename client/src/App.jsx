@@ -52,29 +52,31 @@ function App() {
     <BrowserRouter>
       <Routes>
 
-        <Route path="/" element={<BasicLayout />}>
-            <Route index element={<WithFetch child={Home} />} />
-            <Route path="holidays" element={<WithFetch child={Holidays} />} />
-            <Route path="agency" element={<Agency/>} />
-            <Route path="contact" element={<Contact/>} />
+        <Route path="/" element={<BasicLayout/>}>
+            <Route index element={<WithFetch child={Home}/>}/>
+            <Route path="search" element={<WithFetch child={Home}/>}/>
+
+            <Route path="holidays" element={<WithFetch child={Holidays}/>}/>
+            <Route path="agency" element={<Agency/>}/>
+            <Route path="contact" element={<Contact/>}/>
             
             <Route path="user">
-              <Route path="signin" element={<Signin/>} />
-              <Route path="signup" element={<Signup/>} />
-              <Route path="signout" element={<Signout/>} /> 
+              <Route path="signin" element={<Signin/>}/>
+              <Route path="signup" element={<Signup/>}/>
+              <Route path="signout" element={<Signout/>}/> 
             </Route>
-            
-            <Route path="detail/:id" element={<Detail/>} />
-            <Route path="booking/:id" element={<WithAuth child={Booking} auth="true"/>} />
-            <Route path="summary/:id" element={<Summary/>} />
-            <Route path="confirmation" element={<Confirmation/>} />
 
-            <Route path="not-found" element={<NotFound/>} />
+            <Route path="detail/:id" element={<Detail/>}/>
+            <Route path="booking/:id" element={<WithAuth child={Booking} auth="true"/>}/>
+            <Route path="summary/:id" element={<Summary/>}/>
+            <Route path="confirmation" element={<Confirmation/>}/>
+
+            <Route path="not-found" element={<NotFound/>}/>
         </Route>
 
         <Route path="/dashboard/user" element={<UserDashboardLayout/>}>
-            <Route path="infos" element={<WithAuth child={UserDashboardInfos} auth="true"/>} />
-            <Route path="bookings" element={<WithAuth child={UserDashboardBookings} auth="true"/>} />
+            <Route path="infos" element={<WithAuth child={UserDashboardInfos} auth="true"/>}/>
+            <Route path="bookings" element={<WithAuth child={UserDashboardBookings} auth="true"/>}/>
         </Route>
 
       </Routes>

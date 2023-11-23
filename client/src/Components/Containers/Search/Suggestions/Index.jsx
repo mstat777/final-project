@@ -1,9 +1,7 @@
 import styles from '../search.module.css';
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { fetchDestination, 
-        fetchLodging,
-        fetchPacks } from '../../../Functions/fetchData.js';
+import { fetchLodging, fetchPacks } from '../../../Functions/fetchData.js';
 import { formatCoordinates } from '../../../Functions/utils.js';
 
 function Suggestions(props){
@@ -11,7 +9,7 @@ function Suggestions(props){
             setDestinationInput,
             showSuggestions,
             setShowSuggestions,
-            setShowResults } = props;
+            setSearchDestination } = props;
     // toutes les destinations :
     const { allDestinations } = useSelector((state) => state.allTravel);
     const { destination } = useSelector((state) => state.allTravel);
@@ -33,30 +31,12 @@ function Suggestions(props){
         setShowSuggestions(false);
     },[hide]);
 
-    useEffect(() => {
-        console.log("la destination a été modifiée.");
-        if (destination.lodging_id) {
-            fetchLodging(destination.lodging_id);
-            fetchPacks(destination.id);
-        }
-    },[destination]);
-
-    // formatter les coordonnées de l'hébérgement :
-    useEffect(() => {
-        if (lodging != undefined) {
-            if (lodging.coordinates) {
-                //console.log("lodging.coordinates = "+lodging.coordinates);
-                formatCoordinates(lodging.coordinates);
-            }  
-        } 
-    },[lodging]);
-
     async function handleClick(e){
         setDestinationInput(e.target.innerText);
-        await fetchDestination(e.target.innerText.toLowerCase());
+        setSearchDestination(e.target.innerText.toLowerCase());
         setTextEntered("");
+        //await fetchDestination(e.target.innerText.toLowerCase());
         setHide(true);
-        setShowResults(true);
     }
 
     return <>

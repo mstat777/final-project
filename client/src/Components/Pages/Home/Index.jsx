@@ -5,10 +5,12 @@ import Card from "../../Containers/Card/Index";
 
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-
+import { useLocation } from "react-router-dom";
 import { fetchBestPromoPack, fetchTopDestination } from '../../Functions/fetchData.js';
 
 function Home() {
+    const { pathname } = useLocation();
+    //console.log(pathname);
     const {bestPromo} = useSelector((state) => state.allTravel);
     const {topDestination} = useSelector((state) => state.allTravel);
 
@@ -21,14 +23,17 @@ function Home() {
 
     return (
         <main id="home" className={styles.home_main}>
-            <img src={banner} alt="banner" />
-            <Search />
-
-            <h2>Offres promotionnelles</h2>
-            <Card type="promo" data={bestPromo}/>
-
-            <h2>Top destinations</h2>
-            <Card type="topOffer" data={topDestination}/>
+            <img src={banner} alt="banner"/>
+            <Search/>
+            {pathname.slice(1) !== "search" && 
+                <>
+                <h2>Offres promotionnelles</h2>
+                <Card type="promo" data={bestPromo}/>
+    
+                <h2>Top destinations</h2>
+                <Card type="topOffer" data={topDestination}/>
+                </>
+            }
         </main>
     )
 }
