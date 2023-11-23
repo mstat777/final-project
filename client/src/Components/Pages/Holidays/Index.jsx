@@ -5,7 +5,6 @@ import styles from './holidays.module.css';
 
 function Holidays(){
     const { allContinents, 
-            allDestinations, 
             destinationsWithContinents } = useSelector((state) => state.allTravel);
 
     return (
@@ -26,7 +25,7 @@ function Holidays(){
                                     .map((dest, index) => {
                                         return(
                                             <li key={index}>
-                                                <Link to={"/"}>{dest.name}</Link>        
+                                                <Link to={`/search?destination=${dest.name.toLowerCase()}`}>{dest.name}</Link>        
                                             </li>
                                         )
                                     })}

@@ -14,16 +14,17 @@ function Search() {
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
     //console.log(searchParams);
-    //console.log("urlDestination = "+searchParams.get('destination'));
-    const urlDestination = searchParams.get('destination');
-
+    
     const { allDestinations, destination, lodging } = useSelector((state) => state.allTravel);
     
+    // la destination a fetcher (si existe)
+    const [urlDestination, setUrlDestination] = useState(searchParams.get('destination'));
+    //console.log("urlDestination = "+searchParams.get('destination'));
     // stocker la valeur de l'input de la barre de recherche
     const [destinationInput, setDestinationInput] = useState("");
-
     // la destination a fetcher (si existe)
     const [searchDestination, setSearchDestination] = useState("");
+
 
     // afficher le containeur des résultats :
     const [showResults, setShowResults] = useState(false);
@@ -40,7 +41,7 @@ function Search() {
         setShowResults(false);
 
         if(!searchDestination){
-            console.log("searchDestination doesn't existe !");
+            //console.log("searchDestination doesn't existe !");
             if (urlDestination){
                 setSearchDestination(urlDestination);
             }
@@ -50,10 +51,9 @@ function Search() {
     // une fois la destination définie, on la vérifie et cache les suggestions :
     useEffect(() => {
         async function checkDestination(){
-            console.log("checkDestination called");
-            console.log("searchDestination (check) = "+searchDestination);
+            //console.log("checkDestination called");
             allDestinations.map((dest) => {
-                console.log("dest.toLowerCase() = "+dest.toLowerCase());
+                //console.log("dest.toLowerCase() = "+dest.toLowerCase());
                 if (dest.toLowerCase() === searchDestination) {
                     console.log("destinationFound est truefy. On va fetcher.");
                     fetchDestination(searchDestination);
@@ -82,7 +82,6 @@ function Search() {
     useEffect(() => {
         if (lodging !== undefined) {
             if (lodging.coordinates) {
-                //console.log("lodging.coordinates = "+lodging.coordinates);
                 formatCoordinates(lodging.coordinates);
             }  
         }
