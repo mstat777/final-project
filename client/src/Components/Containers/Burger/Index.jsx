@@ -30,30 +30,37 @@ function Burger() {
         <div className={`${styles.burger_menu} ${burgerOpen ? styles.show_burger_menu : styles.hide_burger_menu }`}>
 
             <div className={styles.burger_items_ctn}>
-                {userInfo.isLogged && (
-                        <>
-                            <button onClick={toggleBurgerOrLogin} className={styles.burger_cross_btn}>
-                                <FontAwesomeIcon icon={faXmark} className={styles.burger_cross}/>
-                            </button>
+                {userInfo.isLogged && 
+                    <>
+                        <button onClick={toggleBurgerOrLogin} className={styles.burger_cross_btn}>
+                            <FontAwesomeIcon icon={faXmark} className={styles.burger_cross}/>
+                        </button>
 
-                            <NavLink to={"/dashboard/user/infos"} className={styles.burger_item}>Info personnelles</NavLink>
-                            <NavLink to={"/dashboard/user/bookings"} className={styles.burger_item}>Mes réservations</NavLink>
-                            
-                            <NavLink to={"/user/signout"} className={styles.burger_item_signout} onClick={() => toggleBurgerOrLogin()}>déconnexion</NavLink>
-                        </>
-                    )}
+                        <NavLink to={"/dashboard/user/infos"} className={styles.burger_item}>Info personnelles</NavLink>
+                        <NavLink to={"/dashboard/user/bookings"} className={styles.burger_item}>Mes réservations</NavLink>
+
+                        {(userInfo.accountType === "admin" || userInfo.accountType === "superadmin") && 
+                        <>
+                            <NavLink to={"/dashboard/admin/bookings"} className={styles.burger_item}>Réservations</NavLink>
+                            <NavLink to={"/dashboard/admin/destinations"} className={styles.burger_item}>Destinations</NavLink>
+                            <NavLink to={"/dashboard/admin/packs"} className={styles.burger_item}>Packs</NavLink>
+                            <NavLink to={"/dashboard/admin/users"} className={styles.burger_item}>Clients</NavLink>
+                        </>}
+                        
+                        <NavLink to={"/user/signout"} className={styles.burger_item_signout} onClick={() => toggleBurgerOrLogin()}>déconnexion</NavLink>
+                    </>
+                }
             </div>
             
-     
-                <button 
-                onClick={toggleBurgerOrLogin} 
-                onMouseOver={handleMouseOver}
-                onMouseOut={handleMouseOut}
-                className={`${styles.burger_icon} ${burgerOpen ? styles.hide : styles.show}`} 
-                title="Espace utilisateur">
-                    {(isHovering && !userInfo.isLogged) && <span>CONNEXION&nbsp;</span>}
-                    <FontAwesomeIcon icon={faUser} className={styles.burger_icon_fawesome}/>
-                </button>
+            <button 
+            onClick={toggleBurgerOrLogin} 
+            onMouseOver={handleMouseOver}
+            onMouseOut={handleMouseOut}
+            className={`${styles.burger_icon} ${burgerOpen ? styles.hide : styles.show}`} 
+            title="Espace utilisateur">
+                {(isHovering && !userInfo.isLogged) && <span>CONNEXION&nbsp;</span>}
+                <FontAwesomeIcon icon={faUser} className={styles.burger_icon_fawesome}/>
+            </button>
 
         </div>
     )

@@ -7,10 +7,6 @@ const app = express();
 const PORT = process.env.PORT || process.env.LOCAL_PORT;
 
 // --------------------- Middleware : ---------------------- //
-// le dossier contenant les fichiers .ejs :
-app.set("views", "./src/views");
-// set the view engine to ejs :
-app.set("view engine", "ejs");
 // use 'express.static' to serve images, CSS files, and JavaScript files in a directory named 'public'
 app.use(express.static("public"));
 app.use(express.static("../../client/build"));

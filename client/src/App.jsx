@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
 
 // HOCs
 import WithAuth from "./Components/HOC/WithAuth/Index";
+import WithAdminAuth from "./Components/HOC/WithAdminAuth/Index";
 import WithFetch from "./Components/HOC/WithFetch/Index";
 
 // Containeurs et pages
@@ -23,8 +24,13 @@ import Confirmation from "./Components/Pages/Confirmation/Index";
 import Signin from "./Components/Pages/user/Signin";
 import Signup from "./Components/Pages/user/Signup";
 import Signout from "./Components/Pages/user/Signout";
+
 import UserDashboardInfos from "./Components/Pages/user/dashboard/Infos";
-import UserDashboardBookings from "./Components/Pages/user/dashboard/Bookings";
+import UserDashboardBookings from "./Components/Pages/user/dashboard/MyBookings";
+import AdminDashboardBookings from './Components/Pages/user/dashboard/admin/Bookings';
+import AdminDashboardDestinations from './Components/Pages/user/dashboard/admin/Bookings';
+import AdminDashboardPacks from './Components/Pages/user/dashboard/admin/Bookings';
+import AdminDashboardUsers from './Components/Pages/user/dashboard/admin/Users';
 
 import NotFound from "./Components/Pages/NotFound/Index";
 
@@ -76,7 +82,14 @@ function App() {
 
         <Route path="/dashboard/user" element={<UserDashboardLayout/>}>
             <Route path="infos" element={<WithAuth child={UserDashboardInfos} auth="true"/>}/>
-            <Route path="bookings" element={<WithAuth child={UserDashboardBookings} auth="true"/>}/>
+            <Route path="mybookings" element={<WithAuth child={UserDashboardBookings} auth="true"/>}/>
+        </Route>
+
+        <Route path="/dashboard/admin" element={<UserDashboardLayout/>}>
+            <Route path="bookings" element={<WithAdminAuth child={AdminDashboardBookings} auth="true" adminAuth="true"/>}/>
+            <Route path="destinations" element={<WithAdminAuth child={AdminDashboardDestinations} auth="true" adminAuth="true"/>}/>
+            <Route path="packs" element={<WithAdminAuth child={AdminDashboardPacks} auth="true" adminAuth="true"/>}/>
+            <Route path="users" element={<WithAdminAuth child={AdminDashboardUsers} auth="true" adminAuth="true"/>}/>
         </Route>
 
       </Routes>

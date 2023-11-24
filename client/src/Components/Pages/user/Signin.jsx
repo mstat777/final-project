@@ -30,9 +30,7 @@ function Signin(){
         if(res.status === 200){
             localStorage.setItem("auth", json.TOKEN);
             console.log("le token a été créé dans localhost");
-            console.log("json.userID = "+json.userID);
-            const userID = json.userID;
-            dispatch(signin({email, userID}));
+            dispatch(signin(json));
             console.log("userInfo.chosenPackID ="+userInfo.chosenPackID);
             // si on n'a pas encore trouvé un pack :
             if (!userInfo.chosenPackID) { 

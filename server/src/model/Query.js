@@ -14,6 +14,10 @@ class Query{
     static async findByValueMultipleTables(query, value){
         return await pool.query({sql: query, nestTables: true}, [value]);
     }
+
+    static async findByDatas(query, datas){
+        return await pool.query(query, [...Object.values(datas)]);
+    }
     
     static async write(query, data) {
         return await pool.query(query, [...Object.values(data)]);

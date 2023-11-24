@@ -1,27 +1,77 @@
 .user_db_header {
-    height: 40px;
-    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--secondary-color);
+}
+
+.user_db_header > div {
+    display: none;
+}
+
+.user_db_nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: .5em;
+    background-color: unset;
+}
+
+.user_db_nav > .user_db_image_ctn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    width: 30px;
+    margin-bottom: .5em;
+    border-radius: 15px;
+    background-color: rgb(122, 191, 141);
+}
+
+.user_db_nav .user_db_image {
+    font-size: 1.4rem;
+}
+
+.user_db_nav > span {
+    display: inline-block;
+    margin-left: 1em;
+    font-size: 2rem;
+    color: rgb(0, 0, 0);
+}
+
+.user_db_nav > .link_signout,
+.user_db_nav > .link {
+    display: inline-block;
+    width: 90%;
+    margin: 0 auto;
+    padding: .5em 1em;
+    font-weight: 500;
+    color: var(--teriary-color);
+    text-align: center;
+    background-color: var(--primary-color);
+}
+
+.user_db_nav > .link_home {
+    margin-top: .5em;
+    padding: .5em 1em;
+    color: white;
+    background-color: black;
+}
+
+.user_db_nav > .link_signout {
+    color: brown;
 }
 
 /******************************************************************/
 /* ----------------------- VERSION DESKTOP ---------------------- */
 /******************************************************************/
 @media screen and (min-width: 1200px) {
-    body > div {
-        /*flex-direction: row;*/
-        /*background-color: aquamarine;*/
-    }
-
     .user_db_header {
         position: fixed;
         top: 0;
         left: 0;
         bottom: 0;
-        display: flex;
-        flex-direction: column;
         height: 100vh;
         width: 25%; /* 300px;*/
-        background-color: var(--secondary-color);
     }
 
     .user_db_header > div {
@@ -34,12 +84,7 @@
     }
 
     .user_db_nav {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
         margin: 2em 1em;
-        background-color: unset;
-        /*background-color: rgb(179, 222, 217);*/
     }
 
     .user_db_nav > .user_db_image_ctn {
@@ -58,6 +103,7 @@
     }
     
     .user_db_nav > span {
+        display: block;
         margin: 1em auto 2em;
         color: white;
     }

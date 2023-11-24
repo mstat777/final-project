@@ -1,5 +1,5 @@
 .user_db_main {
-    
+    margin-top: 1em;
 }
 
 .user_db_form {
@@ -57,8 +57,8 @@
 @media screen and (min-width: 1200px) {
     .user_db_main {
         display: inline-block;
-        /*height: 100vh;*/
         width: 75%;
+        margin-top: 0;
         margin-left: 25%; /* 300px;*/
         padding: 80px 200px;
         /*background-color: rgb(138, 122, 103);*/
@@ -69,7 +69,6 @@
     }
 
     .user_db_form {
-        
         max-width: 600px;
     }
 }

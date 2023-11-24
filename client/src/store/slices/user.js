@@ -5,7 +5,8 @@ const initialState = {
         isLogged: false,
         email: "johndoe@johndoe.com",
         userID: 0,
-        chosenPackID: 0
+        chosenPackID: 0,
+        accountType: ""
     }
 }
 
@@ -17,7 +18,8 @@ export const userSlice = createSlice({
             state.userInfo = {
                 isLogged: true, 
                 email: action.payload.email,
-                userID: action.payload.userID
+                userID: action.payload.userID,
+                accountType: action.payload.accountType
             }
         },
         signout: (state, action) => {
@@ -25,6 +27,7 @@ export const userSlice = createSlice({
                 isLogged: false,
                 email: "johndoe@johndoe.com",
                 userID: 0,
+                accountType: "",
                 chosenPackID: 0
             }
         },
@@ -33,7 +36,6 @@ export const userSlice = createSlice({
         }
     }
 });
-
 
 export const {
     signin, 

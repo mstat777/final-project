@@ -10,9 +10,9 @@ const SALT = 10;
 // vérifier le token
 const checkToken = async (req, res) => {
     try {
-        const queryUser = "SELECT email FROM users WHERE email = ?";
-        await Query.findByValue(queryUser, req.params.email);
-        res.status(200).json({ msg: "authentifié", id: queryUser.email })
+        const queryUser = "SELECT email, account_type FROM users WHERE email = ? AND account_type = ?";
+        await Query.findByDatas(queryUser, req.params);
+        res.status(200).json({ msg: "authentifié", email: queryUser.email, accountType: queryUser.accountType});
     } catch(err) {
         throw Error(err);
     }
@@ -21,19 +21,22 @@ const checkToken = async (req, res) => {
 const userSignIn = async (req, res) => {
     try {
         let msg = "";
-        const queryUser = "SELECT * FROM users WHERE email = ?";
+        const queryUser = "SELECT id, email, account_type, password FROM users WHERE email = ?";
         console.log("req.body.email = " + req.body.email);
         const [user] = await Query.findByValue(queryUser, req.body.email);
-        //console.log("user.email = "+user[0].email);
+        //si l'utilisateur est trouvé dans la BDD :
         if (user.length) {
-
             const same = await compare(req.body.password, user[0].password);
 
             if (same) {
-                msg = "utilisateur trouvé";
-                console.log("server - utilisateur trouvé");
-                const TOKEN = sign({ email: user[0].email}, SK);
-                res.status(200).json({ msg, TOKEN, userID: user[0].id });
+                msg = "utilisateur trouvé. mdp OK.";
+                console.log(`server: ${msg}`);
+                const TOKEN = sign({email: user[0].email, accountType: user[0].account_type}, SK);
+                res.status(200).json({ 
+                    msg, 
+                    TOKEN, 
+                    userID: user[0].id, 
+                    accountType: user[0].account_type });
             } else {
                 msg = "Mot de passe erroné. Contactez l'administrateur";
                 res.status(409).json({ msg });

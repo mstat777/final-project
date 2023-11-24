@@ -20,6 +20,7 @@ export const auth = (req, res, next) => {
                 return;
             } else {
                 req.params.email = decoded.email;
+                req.params.accountType = decoded.accountType;
                 next();
             }
         })
