@@ -80,12 +80,12 @@ function App() {
             <Route path="not-found" element={<NotFound/>}/>
         </Route>
 
-        <Route path="/dashboard/user" element={<UserDashboardLayout/>}>
+        <Route path="/user" element={<UserDashboardLayout/>}>
             <Route path="infos" element={<WithAuth child={UserDashboardInfos} auth="true"/>}/>
-            <Route path="mybookings" element={<WithAuth child={UserDashboardBookings} auth="true"/>}/>
+            <Route path="mybookings/:id" element={<WithAuth child={UserDashboardBookings} auth="true"/>}/>
         </Route>
 
-        <Route path="/dashboard/admin" element={<UserDashboardLayout/>}>
+        <Route path="/admin" element={<UserDashboardLayout/>}>
             <Route path="bookings" element={<WithAdminAuth child={AdminDashboardBookings} auth="true" adminAuth="true"/>}/>
             <Route path="destinations" element={<WithAdminAuth child={AdminDashboardDestinations} auth="true" adminAuth="true"/>}/>
             <Route path="packs" element={<WithAdminAuth child={AdminDashboardPacks} auth="true" adminAuth="true"/>}/>
