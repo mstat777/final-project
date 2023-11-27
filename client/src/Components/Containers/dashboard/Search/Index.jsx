@@ -1,41 +1,43 @@
 import styles from './search.module.css';
 import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import { fetchBookingByLastName } from '../../../Functions/adminFetchData';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchBookings } from '../../../Functions/adminFetchData';
+import { setResults } from '../../../../store/slices/dashboard';
 
 function Search(){
+    const dispatch = useDispatch();
     const { results } = useSelector((state) => state.dashboard);
 
-    const [inputStates, setInputStates] = useState({
-        lastName: "",
-        firstName: "",
-        email: "",
-        reference: "",
-        bookingDate: ""
-    })
-    
+    // afficher le containeur des résultats :
+    const [showResults, setShowResults] = useState(false);
+
+    const [lastName, setLastName] = useState("");
+    const [firstName, setFirstName] = useState("");
+    const [email, setEmail] = useState("");
+    const [reference, setReference] = useState("");
+    const [bookingDate, setBookingDate] = useState("");
+
     // afficher un message si la destination n'est pas trouvée  
     const [msg, setMsg] = useState("");
-
-    async function searchBooking(){
-        console.log("searchBooking() called");
-        console.log("inputStates.lastName = "+inputStates.lastName);
-        await fetchBookingByLastName(inputStates.lastName);
-    }
-
-    // lors du changement du texte dans la barre de recherche :
-    function handleChange(e){
-        setInputStates({
-            ...inputStates,
-            [e.target.name]: e.target.value
-        });
-    }
     
     // en cliquant le bouton "RECHERCHER" :
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault();
         console.log("handleSubmit() called");
-        searchBooking();
+
+        const res = await fetch("/api/v.0.1/admin/bookings", {
+            method: "post",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({lastName})
+        });
+        const json = await res.json();
+        if(res.status === 200){
+            console.log("fetch successfull");
+            dispatch(setResults(json));
+            setShowResults(true);
+        } else {
+            console.log("res.status n'est pas OK!!!");
+        }
     }
 
     return <>
@@ -43,32 +45,32 @@ function Search(){
             <input type="text" 
                     id="lastName" 
                     name="lastName" 
-                    value={inputStates.lastName}
-                    onChange={handleChange}
+                    value={lastName}
+                    onChange={(e) => setLastName(e.target.value)}
                     placeholder="Nom de famille"/>
             <input type="text" 
                     id="firstName" 
                     name="firstName" 
-                    value={inputStates.firstName}
-                    onChange={handleChange}
+                    value={firstName}
+                    onChange={(e) => setFirstName(e.target.value)}
                     placeholder="Prénom"/>  
             <input type="email" 
                     id="email" 
                     name="email" 
-                    value={inputStates.email}
-                    onChange={handleChange}
-                    placeholder="Prénom"/>     
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder="Email"/>     
             <input type="number" 
                     id="reference" 
                     name="reference" 
-                    value={inputStates.reference}
-                    onChange={handleChange}
+                    value={reference}
+                    onChange={(e) => setReference(e.target.value)}
                     placeholder="Num. Réf."/> 
             <input type="date" 
                     id="bookingDate" 
                     name="bookingDate"
-                    value={inputStates.bookingDate}
-                    onChange={handleChange}/>
+                    value={bookingDate}
+                    onChange={(e) => setBookingDate(e.target.value)}/>
 
             <button type="submit">rechercher</button>
         </form>

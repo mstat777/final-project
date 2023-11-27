@@ -36,15 +36,17 @@ function Burger() {
                             <FontAwesomeIcon icon={faXmark} className={styles.burger_cross}/>
                         </button>
 
-                        <NavLink to={"/dashboard/user/infos"} className={styles.burger_item}>Info personnelles</NavLink>
-                        <NavLink to={"/dashboard/user/bookings"} className={styles.burger_item}>Mes réservations</NavLink>
+                        <NavLink to={"/user/infos"} className={styles.burger_item}>Info personnelles</NavLink>
+                        <NavLink to={`/user/mybookings/${userInfo.userID}`} className={styles.burger_item}>Mes réservations</NavLink>
 
                         {(userInfo.accountType === "admin" || userInfo.accountType === "superadmin") && 
                         <>
-                            <NavLink to={"/dashboard/admin/bookings"} className={styles.burger_item}>Réservations</NavLink>
-                            <NavLink to={"/dashboard/admin/destinations"} className={styles.burger_item}>Destinations</NavLink>
-                            <NavLink to={"/dashboard/admin/packs"} className={styles.burger_item}>Packs</NavLink>
-                            <NavLink to={"/dashboard/admin/users"} className={styles.burger_item}>Clients</NavLink>
+                            <hr/>
+                            <NavLink to={"/admin/bookings"} className={styles.burger_item}>Réservations</NavLink>
+                            <NavLink to={"/admin/destinations"} className={styles.burger_item}>Destinations</NavLink>
+                            <NavLink to={"/admin/lodgings"} className={styles.burger_item}>Hébérgements</NavLink>
+                            <NavLink to={"/admin/packs"} className={styles.burger_item}>Packs</NavLink>
+                            <NavLink to={"/admin/users"} className={styles.burger_item}>Clients</NavLink>
                         </>}
                         
                         <NavLink to={"/user/signout"} className={styles.burger_item_signout} onClick={() => toggleBurgerOrLogin()}>déconnexion</NavLink>

@@ -6,22 +6,22 @@
 }
 
 .nav {
-    display: flex;
-    flex-direction: column;
-    padding: .5em;
-    background-color: var(--primary-color);
-}
-
-.nav_upper {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
     display: flex;
+    flex-direction: column;
+    padding: .5em 1.5em .5em;
+    background-color: var(--primary-color);
+    z-index: 100;
+}
+
+.nav_upper {
+    display: flex;
     justify-content: space-between;
     align-items: center;
     background-color: var(--primary-color);
-    z-index: 100;
 }
 
 .nav_upper_button {
@@ -31,12 +31,12 @@
 }
 
 .nav_lower {
-    margin-top: 3em;
+    /*margin-top: 3em;*/
 }
 
 .nav_lower > a {
     display: block;
-    margin: .5em;
+    margin: .5em 0;
     padding: .5em 1em;
     font-weight: 600;
     letter-spacing: .2em;
@@ -53,22 +53,10 @@
 /* ---------------------- VERSION TABLETTE ---------------------- */
 /******************************************************************/
 @media screen and (min-width: 768px) {
-
-}
-
-
-/******************************************************************/
-/* ----------------------- VERSION DESKTOP ---------------------- */
-/******************************************************************/
-@media screen and (min-width: 1200px) {
     .nav {
         flex-direction: row;
         align-items: center;
         padding: 0 2em;
-    }
-
-    .nav_upper {
-        /*z-index: 0;*/
     }
 
     .nav_upper_button {
@@ -77,13 +65,9 @@
     }
 
     .nav_lower {
-        position: fixed;
-        top: 0;
-        left: 10em;
-        right: 0;
         display: flex;
-        margin-top: .3em;
-        margin-left: 1em;
+        margin-left: auto;
+        margin-right: auto;
         z-index: 100;
     }
 
@@ -103,5 +87,17 @@
     .nav_logo {
         margin-left: 4em;
         margin-right: 5em;
+    }
+}
+
+/******************************************************************/
+/* ----------------------- VERSION DESKTOP ---------------------- */
+/******************************************************************/
+@media screen and (min-width: 1100px) {
+    .nav_lower {
+        left: 250px;
+        right: 250px;
+        display: flex;
+        justify-content: center;
     }
 }

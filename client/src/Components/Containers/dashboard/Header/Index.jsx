@@ -17,15 +17,16 @@ function UserDashboardHeader(){
                 </div>
                 {console.log(userInfo.email)}
                 <span>{userInfo.email}</span>
-                <NavLink to={"/dashboard/user/infos"} className={styles.link}>Info personnelles</NavLink>
-                <NavLink to={"/dashboard/user/mybookings"} className={styles.link}>Mes réservations</NavLink>
+                <NavLink to={"/user/infos"} className={styles.link}>Info personnelles</NavLink>
+                <NavLink to={`/user/mybookings/${userInfo.userID}`} className={styles.link}>Mes réservations</NavLink>
 
                 {(userInfo.accountType === "admin" || userInfo.accountType === "superadmin") && 
-                <>
-                    <NavLink to={"/dashboard/admin/bookings"} className={styles.link}>Réservations</NavLink>
-                    <NavLink to={"/dashboard/admin/destinations"} className={styles.link}>Destinations</NavLink>
-                    <NavLink to={"/dashboard/admin/packs"} className={styles.link}>Packs</NavLink>
-                    <NavLink to={"/dashboard/admin/users"} className={styles.link}>Clients</NavLink>
+                <>  
+                    <NavLink to={"/admin/bookings"} className={styles.link}>Réservations</NavLink>
+                    <NavLink to={"/admin/destinations"} className={styles.link}>Destinations</NavLink>
+                    <NavLink to={"/admin/lodgings"} className={styles.link}>Hébérgements</NavLink>
+                    <NavLink to={"/admin/packs"} className={styles.link}>Packs</NavLink>
+                    <NavLink to={"/admin/users"} className={styles.link}>Clients</NavLink>
                 </>}
 
                 <NavLink to={"/user/signout"} className={styles.link_signout}>déconnexion</NavLink>
