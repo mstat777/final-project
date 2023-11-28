@@ -44,7 +44,7 @@ function Signin(){
     }
 
     return(
-        <main id="signin">
+        <main id="signin" className={styles.sign_main}>
             {msg && <p className={styles.msg}>{msg}</p>}
             <form onSubmit={handleSubmit} className={styles.sign_form}>
                 <input type="email" 

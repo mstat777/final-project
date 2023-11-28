@@ -32,7 +32,6 @@
     letter-spacing: .1em;
     text-transform: uppercase;
     background-color: var(--tertiary-color);
-    cursor: pointer;
 }
 .search_form > button:hover {
     cursor: pointer;

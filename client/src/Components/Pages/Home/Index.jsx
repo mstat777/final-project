@@ -23,7 +23,7 @@ function Home() {
 
     return (
         <main id="home" className={styles.home_main}>
-            <img src={banner} alt="banner"/>
+            <img src={banner} className={styles.home_banner} alt="banner"/>
             <Search/>
             {pathname.slice(1) !== "search" && 
                 <>
