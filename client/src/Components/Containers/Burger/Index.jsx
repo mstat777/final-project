@@ -36,17 +36,28 @@ function Burger() {
                             <FontAwesomeIcon icon={faXmark} className={styles.burger_cross}/>
                         </button>
 
-                        <NavLink to={"/user/infos"} className={styles.burger_item}>Info personnelles</NavLink>
-                        <NavLink to={`/user/mybookings/${userInfo.userID}`} className={styles.burger_item}>Mes réservations</NavLink>
+                        {(userInfo.accountType === "client") && 
+                        <>
+                            <NavLink to={"/db/user/infos"} className={styles.burger_item}>Info personnelles</NavLink>
+                            <NavLink to={`/db/user/mybookings/${userInfo.userID}`} className={styles.burger_item}>Mes réservations</NavLink>
+                        </>}
 
                         {(userInfo.accountType === "admin" || userInfo.accountType === "superadmin") && 
                         <>
+                            <NavLink to={"/db/admin/infos"} className={styles.burger_item}>Info personnelles</NavLink>
+                            <NavLink to={`/db/admin/mybookings/${userInfo.userID}`} className={styles.burger_item}>Mes réservations</NavLink>
                             <hr/>
-                            <NavLink to={"/admin/bookings"} className={styles.burger_item}>Réservations</NavLink>
-                            <NavLink to={"/admin/destinations"} className={styles.burger_item}>Destinations</NavLink>
-                            <NavLink to={"/admin/lodgings"} className={styles.burger_item}>Hébérgements</NavLink>
-                            <NavLink to={"/admin/packs"} className={styles.burger_item}>Packs</NavLink>
-                            <NavLink to={"/admin/users"} className={styles.burger_item}>Clients</NavLink>
+                            <NavLink to={"/db/admin/bookings"} className={styles.burger_item}>Réservations</NavLink>
+                            <NavLink to={"/db/admin/destinations"} className={styles.burger_item}>Destinations</NavLink>
+                            <NavLink to={"/db/admin/lodgings"} className={styles.burger_item}>Hébérgements</NavLink>
+                            <NavLink to={"/db/admin/packs"} className={styles.burger_item}>Packs</NavLink>
+                            <NavLink to={"/db/admin/users"} className={styles.burger_item}>Clients</NavLink>
+                        </>}
+
+                        {(userInfo.accountType === "superadmin") && 
+                        <>
+                            <hr/>
+                            <NavLink to={"/db/admin/new-offer"} className={styles.burger_item}>Créer offre</NavLink>
                         </>}
                         
                         <NavLink to={"/user/signout"} className={styles.burger_item_signout} onClick={() => toggleBurgerOrLogin()}>déconnexion</NavLink>

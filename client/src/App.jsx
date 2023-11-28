@@ -9,7 +9,8 @@ import WithFetch from "./Components/HOC/WithFetch/Index";
 // Containeurs et pages
 import Header from "./Components/Containers/Header/Index";
 import Footer from "./Components/Containers/Footer/Index";
-import UserDashboardHeader from "./Components/Containers/dashboard/Header/Index";
+import UserDashboardHeader from "./Components/Containers/dashboard/UserHeader/Index";
+import AdminDashboardHeader from "./Components/Containers/dashboard/AdminHeader/Index";
 
 import Home from "./Components/Pages/Home/Index";
 import Holidays from "./Components/Pages/Holidays/Index";
@@ -53,6 +54,15 @@ function UserDashboardLayout() {
   )
 }
 
+function AdminDashboardLayout() {
+  return (
+    <>
+      <AdminDashboardHeader/>
+      <Outlet/>
+    </>
+  )
+}
+
 function App() {
   return (
     <BrowserRouter>
@@ -80,12 +90,14 @@ function App() {
             <Route path="not-found" element={<NotFound/>}/>
         </Route>
 
-        <Route path="/user" element={<UserDashboardLayout/>}>
+        <Route path="/db/user" element={<UserDashboardLayout/>}>
             <Route path="infos" element={<WithAuth child={UserDashboardInfos} auth="true"/>}/>
             <Route path="mybookings/:id" element={<WithAuth child={UserDashboardBookings} auth="true"/>}/>
         </Route>
 
-        <Route path="/admin" element={<UserDashboardLayout/>}>
+        <Route path="/db/admin" element={<AdminDashboardLayout/>}>
+            <Route path="infos" element={<WithAuth child={UserDashboardInfos} auth="true" adminAuth="true"/>}/>
+            <Route path="mybookings/:id" element={<WithAuth child={UserDashboardBookings} auth="true" adminAuth="true"/>}/>
             <Route path="bookings" element={<WithAdminAuth child={AdminDashboardBookings} auth="true" adminAuth="true"/>}/>
             <Route path="destinations" element={<WithAdminAuth child={AdminDashboardDestinations} auth="true" adminAuth="true"/>}/>
             <Route path="packs" element={<WithAdminAuth child={AdminDashboardPacks} auth="true" adminAuth="true"/>}/>

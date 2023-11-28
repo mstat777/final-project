@@ -1,11 +1,10 @@
+/******************************************************************/
+/* ----------------------- VERSION MOBILE ----------------------- */
+/******************************************************************/
 .user_db_header {
     display: flex;
     flex-direction: column;
     background-color: var(--secondary-color);
-}
-
-.user_db_header > div {
-    display: none;
 }
 
 .user_db_nav {
@@ -44,6 +43,7 @@
     width: 90%;
     margin: 0 auto;
     padding: .5em 1em;
+    font-size: 1.4rem;
     font-weight: 500;
     color: var(--teriary-color);
     text-align: center;
@@ -62,29 +62,19 @@
 }
 
 /******************************************************************/
+/* ---------------------- VERSION TABLETTE ---------------------- */
+/******************************************************************/
+@media screen and (min-width: 768px) {
+
+}
+
+/******************************************************************/
 /* ----------------------- VERSION DESKTOP ---------------------- */
 /******************************************************************/
-@media screen and (min-width: 1200px) {
-    .user_db_header {
-        position: fixed;
-        top: 0;
-        left: 0;
-        bottom: 0;
-        height: 100vh;
-        width: 25%; /* 300px;*/
-    }
-
-    .user_db_header > div {
-        display: block;
-        width: 100%;
-        color: var(--primary-color);
-        text-align: center;
-        align-items: center;
-        background-color: black;
-    }
-
+@media screen and (min-width: 1100px) {
     .user_db_nav {
-        margin: 2em 1em;
+        flex-direction: row;
+        align-items: center;
     }
 
     .user_db_nav > .user_db_image_ctn {
@@ -109,20 +99,18 @@
     }
 
     .user_db_nav > .link_signout,
+    .user_db_nav > .link_home,
     .user_db_nav > .link {
         display: inline-block;
-        width: 90%;
-        margin: 1em auto;
         padding: .5em 1em;
         font-weight: 500;
         color: var(--teriary-color);
-        text-align: center;
+        /*text-align: center;*/
         background-color: var(--primary-color);
     }
 
     .user_db_nav > .link_home {
-        margin-top: 4em;
-        padding: .5em 1em;
+        margin-top: 0;
         color: white;
         background-color: black;
     }

@@ -1,0 +1,117 @@
+/******************************************************************/
+/* ----------------------- VERSION MOBILE ----------------------- */
+/******************************************************************/
+.admin_db_header {
+    background-color: var(--secondary-color);
+}
+
+.admin_db_nav {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: .5em 2em;
+    overflow: hidden;
+}
+
+.admin_db_image_ctn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 30px;
+    width: 30px;
+    margin-bottom: .5em;
+    border-radius: 15px;
+    background-color: rgb(122, 191, 141);
+    cursor: pointer;
+}
+
+.admin_db_image {
+    font-size: 1.4rem;
+}
+
+.admin_db_email {
+    display: inline-block;
+    margin-left: 1em;
+    font-size: 2rem;
+    color: rgb(0, 0, 0);
+}
+
+.link_signout,
+.link {
+    display: inline-block;
+    padding: .5em 1em;
+    font-size: 1.4rem;
+    font-weight: 500;
+    color: var(--teriary-color);
+    text-align: center;
+    background-color: var(--primary-color);
+    transition: color .4s, background-color .4s;
+}
+
+.link_home {
+    margin-top: .5em;
+    padding: .5em 1em;
+    color: white;
+    background-color: black;
+    transition: color .4s, background-color .4s;
+}
+
+.link_signout {
+    color: brown;
+}
+
+/* Le menu déroulant dans la nav */
+.admin_db_dropdown {
+    overflow: hidden;
+}
+/* Dropdown content ("hidden" par défaut) */
+.admin_db_dropdown_ctn {
+    position: absolute;
+    display: none;
+    overflow: hidden;
+    z-index: 1;
+}
+/* Les liens dans le dropdown content */
+.admin_db_dropdown_ctn > .link,
+.admin_db_dropdown_ctn > .link_signout {
+    display: block;
+    text-align: left;
+}
+/* Changer la couleur au survol sur un lien */ 
+.admin_db_nav a:hover {
+    color: white;
+    background-color: var(--tertiary-color);
+}
+/* Afficher le menu déroulant au survol */ 
+.admin_db_dropdown:hover .admin_db_dropdown_ctn {
+    display: block;
+}
+
+/******************************************************************/
+/* ---------------------- VERSION TABLETTE ---------------------- */
+/******************************************************************/
+@media screen and (min-width: 768px) {
+    .admin_db_nav {
+        flex-direction: row;
+        justify-content: space-between;
+        margin: .5em 2em;
+    }
+
+    .admin_db_image_ctn {
+        height: 40px;
+        width: 40px;
+        margin-bottom: 0;
+        border-radius: 50%;
+    }
+
+    .admin_db_image {
+        font-size: 2rem;
+    }
+}
+
+/******************************************************************/
+/* ----------------------- VERSION DESKTOP ---------------------- */
+/******************************************************************/
+@media screen and (min-width: 1100px) {
+    
+}

@@ -16,7 +16,7 @@ function UserDashboardBookings(){
         // on récupère les données des réservations effectuées par l'utilisateur :
         async function fetchBookings() {
             try {
-                const dataBookings = await (await fetch(`/api/v.0.1/user/bookings/${userInfo.userID}`)).json();
+                const dataBookings = await (await fetch(`/api/v.0.1/user/mybookings/${userInfo.userID}`)).json();
                 setUserBookings(dataBookings.datas);
             } catch (error) {
                 console.log(error);
@@ -40,6 +40,7 @@ function UserDashboardBookings(){
                     </tr>
                 </thead>
                 <tbody>  
+                    { console.log(userBookings)}
                     { userBookings.map((booking, index) => 
                         <tr key={index}>
                             <td>{index+1}</td>
