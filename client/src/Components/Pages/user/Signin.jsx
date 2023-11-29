@@ -7,7 +7,7 @@ import { signin } from '../../../store/slices/user';
 import styles from './user.module.css';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faLock, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 function Signin(){
     const navigate = useNavigate();
@@ -61,18 +61,23 @@ function Signin(){
     }
 
     return(
-        <main id="signin" className={styles.sign_main}>
+        <main id="signin" className={styles.signin_main}>
             {msg && <p className={styles.msg}>{msg}</p>}
             <form onSubmit={handleSubmit} className={styles.sign_form}>
 
-                <input type="email" 
-                        name="email" 
-                        placeholder="Votre adresse mail"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        className={styles.email_input}/>
+                <div className={styles.input_ctn}> 
+                    <FontAwesomeIcon icon={faUser} className={styles.input_icon}/>
+                    <input type="email" 
+                            name="email" 
+                            placeholder="Votre adresse mail"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
+                            className={styles.sign_input}/>
 
-                <div className={styles.pass_ctn}> 
+                </div>
+
+                <div className={styles.input_ctn}> 
+                    <FontAwesomeIcon icon={faLock} className={styles.input_icon}/>
                     <input type={passInputType} 
                             name="password" 
                             placeholder="Votre mot de passe"
@@ -82,6 +87,7 @@ function Signin(){
                     <span className={styles.pass_icon_ctn} onClick={handlePassIconToggle}>
                         <FontAwesomeIcon icon={passIcon} className={styles.pass_icon}/>
                     </span>
+                    
                 </div>
                 
                 <button type="submit">se connecter</button>

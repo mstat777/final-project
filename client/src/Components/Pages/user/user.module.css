@@ -1,17 +1,16 @@
 /******************************************************************/
 /* ----------------------- VERSION MOBILE ----------------------- */
 /******************************************************************/
-.sign_main {
-    padding-top: 3em;
-    padding-bottom: 3em;
+.signin_main {
+    padding: 3em auto;
 }
 
 .sign_form {
     display: flex;
     flex-direction: column;
     max-width: 500px;
-    margin: 2em auto 1em; 
-    padding: 1em;
+    margin: 2em auto; 
+    padding: 1.5em;
     background-color: var(--secondary-color);
 }
 
@@ -21,27 +20,86 @@
     border: none;
 }
 
+.input_ctn {
+    position: relative;
+    padding: 0;
+}
+
+.sign_input,
+.sign_textarea,
+.pass_input {
+    width: 100%;
+    padding: .4em 2.4em;
+    font-weight: 500;
+}
+.sign_input {
+    padding-right: .8em;
+}
+.sign_textarea {
+    resize: none;
+}
+
+/* agrandir les points de mdp */ 
+.sign_form  input[type="password"]:not(:placeholder-shown) {
+    /*font-family: caption;*/
+    font-family: Verdana, sans-serif;
+}
+
+.input_icon {
+    position: absolute;
+    left: .8em;
+    top: .5em;
+    font-size: 1.6rem;
+    color: var(--tertiary-color)
+}
+
+/* l'oeil d'affichage du mdp */
+.pass_icon_ctn {
+    position: absolute;
+    right: .2em;
+    top: 0;
+    height: 2.1em;
+    width: 2.1em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.pass_icon_ctn:hover {
+    cursor: pointer;
+}
+.pass_icon {
+    font-size: 1.6rem;
+    color: var(--tertiary-color)
+}
+
 .sign_form  > button {
     display: block;
     margin: 0 auto;
     padding: .5em .7em .4em;
     border: none;
+    border-radius: .4em;
     font-weight: 500;
     color: white;
     letter-spacing: .1em;
     text-transform: uppercase;
     background-color: var(--tertiary-color);
 }
-
 .sign_form  > button:hover {
     cursor: pointer;
+}
+
+/* le lien pour créer un compte */
+.sign_main a {
+    margin-left: .5em;
+    font-weight: 500;
+    color: var(--highlight-color);
 }
 
 /******************************************************************/
 /* ---------------------- VERSION TABLETTE ---------------------- */
 /******************************************************************/
 @media screen and (min-width: 768px) {
-    .sign_main {
+    .signin_main {
         padding-top: 7em;
         padding-bottom: 10em;
     }

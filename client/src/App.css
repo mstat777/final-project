@@ -2,102 +2,102 @@
 /* ----------------------- GENERALES ----------------------- */
 /*************************************************************/
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 :root {
-  /* pour les fonds (forms, backgrounds) */
-  --primary-color: #dee8f2;  /* 60% */
-  /* pour les fonds (header, footer) */
-  --secondary-color: #3F9AE9;  /* 30% */
-  /* pour les boutons */
-  --tertiary-color: rgb(47, 74, 122);  /* 10% */
-  /* pour souligner certains textes, afficher des erreurs */
-  --highlight-color: rgb(151, 10, 10);
-  /* pour les textes de saisie (input, textarea, select) */
-  --darkgrey-color: #333; 
-  /* pour ........ */
-  --grey-color: grey;
-  /* pour les bordures des champs et des tableaux */
-  --lightgrey-color: rgb(204, 204, 204);
-  /* pour distinguer les lignes de tableau */
-  --verylightgrey-color: #eee;
-  /* la police principale */
-  --main-font: 'Montserrat', sans-serif;
+    /* pour les fonds (forms, backgrounds) */
+    --primary-color: #dee8f2;  /* 60% */
+    /* pour les fonds (header, footer) */
+    --secondary-color: #3F9AE9;  /* 30% */
+    /* pour les boutons */
+    --tertiary-color: rgb(47, 74, 122);  /* 10% */
+    /* pour souligner certains textes, afficher des erreurs */
+    --highlight-color: rgb(151, 10, 10);
+    /* pour les textes de saisie (input, textarea, select) */
+    --darkgrey-color: #333; 
+    /* pour ........ */
+    --grey-color: grey;
+    /* pour les bordures des champs et des tableaux */
+    --lightgrey-color: rgb(204, 204, 204);
+    /* pour distinguer les lignes de tableau */
+    --verylightgrey-color: #eee;
+    /* la police principale */
+    --main-font: 'Montserrat', sans-serif;
 }
 
 html {
-  font-size: 62.5%;
+    font-size: 62.5%;
 }
 
 body{
-  font-size: 1.6rem;
-  font-family: var(--main-font);  
-  background-color: white;
+    font-size: 1.6rem;
+    font-family: var(--main-font);  
+    background-color: white;
 }
 
 body > div {
-  min-height: 100vh; /* pour positionner le footer toujours en bas de la page */
-  display: flex;
-  flex-direction: column;
+    min-height: 100vh; /* pour positionner le footer toujours en bas de la page */
+    display: flex;
+    flex-direction: column;
 }
 
 /********* HEADINGS *********/
 h1 {
 	font-weight: 500;
 	font-size: 3.6rem;
-  margin: 3rem;
+    margin: 3rem;
 	color: var(--tertiary-color);
 }
 
 h2 {
 	font-weight: 500;
 	font-size: 2.5rem;
-  margin: 2rem;
-  color: var(--tertiary-color);
+    margin: 2rem;
+    color: var(--tertiary-color);
 }
 
 h3 {
 	font-weight: 500;
 	font-size: 2.2rem;
-  margin: 1.6rem;
-  color: var(--tertiary-color);
+    margin: 1.6rem;
+    color: var(--tertiary-color);
 }
 
 h4 {
 	font-weight: 600;
 	font-size: 1.8rem;
-  margin: 1.2rem;
-  color: var(--highlight-color);
+    margin: 1.2rem;
+    color: var(--highlight-color);
 }
 
 a {
-  text-decoration: none;
-  text-transform: uppercase;
-  display: inline-block;
+    text-decoration: none;
+    text-transform: uppercase;
+    display: inline-block;
 }
 
 li {
-  list-style: none;
+    list-style: none;
 }
 
 p {
-  margin: 10px 0;
+    margin: 10px 0;
 }
 
 img {
-  display: block;
-  width: 100%;
-  max-height: 100%;
+    display: block;
+    width: 100%;
+    max-height: 100%;
 }
 
 /********* TABLES *********/
 table {
 	border-collapse: collapse;
 	/*width: 100%;*/
-  font-size: 1.4rem;
+    font-size: 1.4rem;
 }
 
 table th, 
@@ -110,9 +110,9 @@ thead {
 }
 
 thead th {
-  padding: 1em;
+    padding: 1em;
 	border-bottom: 1px solid var(--grey-color);
-  font-weight: 400;
+    font-weight: 400;
 }
 
 tfoot th {
@@ -120,7 +120,7 @@ tfoot th {
 }
 
 table > tbody > tr:nth-child(odd) td {
-  background-color: var(--verylightgrey-color);
+    background-color: var(--verylightgrey-color);
 }
 
 /********* FORM ELEMENTS *********/
@@ -129,13 +129,14 @@ input[type="password"],
 input[type="search"],
 input[type="email"],
 input[type="tel"],
+input[type="date"],
 input[type="number"],
 input[type*="date"],
 select,
 textarea {
 	display: inline-block;
 	font-size: 1.6rem;
-  font-family: var(--main-font); 
+    font-family: var(--main-font); 
 	color: var(--darkgrey-color); 
 	border: 1px solid var(--lightgrey-color);
 	border-radius: 0.4em;
@@ -144,12 +145,16 @@ textarea {
 	display: block;
 }
 
+::placeholder {
+    font-weight: 400;
+	color: var(--grey-color); 
+}
 /******************************************************************/
 /* ----------------------- VERSION MOBILE ----------------------- */
 /******************************************************************/
 main {
 	width: 100%;
-  margin-top: 230px;
+    margin-top: 230px;
 	text-align: center;
 }
 
@@ -157,9 +162,9 @@ main {
 /* ---------------------- VERSION TABLETTE ---------------------- */
 /******************************************************************/
 @media screen and (min-width: 768px) {
-  main {
-    margin-top: 60px;
-  }
+    main {
+        margin-top: 60px;
+    }
 }
 
 /******************************************************************/
