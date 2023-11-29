@@ -19,8 +19,8 @@ function AdminDashboardHeader(){
                     {console.log(userInfo.email)} 
                     <div className={styles.admin_db_dropdown_ctn}>
                         <span className={styles.admin_db_email}>{userInfo.email}</span>
-                        <NavLink to={"/db/admin/infos"} className={styles.link}>Info personnelles</NavLink>
-                        <NavLink to={`/db/admin/mybookings/${userInfo.userID}`} className={styles.link}>Mes réservations</NavLink>
+                        <NavLink to={"/db/admin/my-infos"} className={styles.link}>Info personnelles</NavLink>
+                        <NavLink to={`/db/admin/my-bookings/${userInfo.userID}`} className={styles.link}>Mes réservations</NavLink>
                         <NavLink to={"/user/signout"} className={styles.link_signout}>déconnexion</NavLink>
                         <NavLink to={"/"} className={styles.link_home}>Accueil</NavLink>
                     </div>   
@@ -58,13 +58,25 @@ function AdminDashboardHeader(){
                     </div>
                 </div>
 
-                <div className={styles.admin_db_dropdown_ctn}> 
+                <div className={styles.admin_db_dropdown}> 
+                    <NavLink to={"/db/admin/activities"} className={styles.link}>Activités</NavLink>
+                    <div className={styles.admin_db_dropdown_ctn}>
+                        <NavLink to={"/db/admin/activities/search"} className={styles.link}>Trouver activité</NavLink>
+                        <NavLink to={"/db/admin/activities/create"} className={styles.link}>Créer activité</NavLink>
+                    </div>
+                </div>
+
+                <div className={styles.admin_db_dropdown}> 
                     <NavLink to={"/db/admin/users"} className={styles.link}>Clients</NavLink>
+                    <div className={styles.admin_db_dropdown_ctn}>
+                        <NavLink to={"/db/admin/users/search"} className={styles.link}>Trouver client</NavLink>
+                        <NavLink to={"/db/admin/users/create"} className={styles.link}>Créer compte</NavLink>
+                    </div>
                 </div>
 
                 {(userInfo.accountType === "superadmin") && 
-                            <NavLink to={"/db/admin/new-offer"} className={styles.link}>Créer offre</NavLink>
-                        }
+                    <NavLink to={"/db/admin/new-offer"} className={styles.link}>Créer offre</NavLink>
+                }
             </nav>
         </header>
     )

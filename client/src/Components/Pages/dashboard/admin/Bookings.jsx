@@ -1,7 +1,7 @@
 import styles from '../dashboard.module.css';
 
-import Search from '../../../../Containers/dashboard/Search/Index';
-import DashboardResults from '../../../../Containers/dashboard/Results/Index';
+import Search from '../../../Containers/dashboard/Search/Index';
+import DashboardResults from '../../../Containers/dashboard/Results/Index';
 
 function AdminDashboardBookings(){
 

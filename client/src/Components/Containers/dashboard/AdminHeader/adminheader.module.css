@@ -57,7 +57,7 @@
 }
 
 .link_signout {
-    color: brown;
+    color: var(--highlight-color);
 }
 
 /* Le menu déroulant dans la nav */

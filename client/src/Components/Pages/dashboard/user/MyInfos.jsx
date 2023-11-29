@@ -1,12 +1,8 @@
-import styles from './dashboard.module.css';
+import styles from '../dashboard.module.css';
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/free-regular-svg-icons';
-
-function UserDashboardInfos(){
+function UserDashboardMyInfos(){
     // pour récuperer l'ID de l'utilisateur
     const { userInfo } = useSelector(state => state.user);
 
@@ -19,14 +15,6 @@ function UserDashboardInfos(){
         birthDate: "",
         occupation: ""
     });
-
-    /*const [lastName, setLastName] = useState("");
-    const [firstName, setFirstName] = useState("");
-    const [email, setEmail] = useState("");
-    const [tel, setTel] = useState("");
-    const [addresse, setAddresse] = useState("");
-    const [birthDate, setBirthDate] = useState("");
-    const [occupation, setOccupation] = useState("");*/
 
     const [msg, setMsg] = useState(null);
 
@@ -60,44 +48,43 @@ function UserDashboardInfos(){
         e.preventDefault();
     }
 
-    return(
-        <main className={styles.user_db_main}>
-            <h2>nes informations personnelles</h2>
+    return <main className={styles.user_db_main}>
+            <h2>mes informations personnelles</h2>
 
-            <form onSubmit={handleSubmit} className={styles.user_db_form}>
-                <label>
+            <form onSubmit={handleSubmit} className={styles.user_db_account_form}>
+                <label className={styles.user_db_label}>
                     <span>Votre nom : </span>
                     <input type="text" 
                         name="lastName" 
                         value={formData.lastName}
                         onChange={handleChange}/>
                 </label>
-                <label>
+                <label className={styles.user_db_label}>
                     <span>Votre prénom : </span>
                     <input type="text" 
                         name="firstName" 
                         value={formData.firstName}
                         onChange={handleChange}/>
                 </label>
-                <label>
+                <label className={styles.user_db_label}>
                     <span>Votre prénom : </span>
                     <span className={styles.email}>{formData.email}</span>
                 </label>
-                <label>
+                <label className={styles.user_db_label}>
                     <span>Votre numéro de téléphone : </span>
                     <input type="tel" 
                         name="tel" 
                         value={formData.tel}
                         onChange={handleChange}/>
                 </label>
-                <label>
+                <label className={styles.user_db_label}>
                     <span>Votre adresse : </span>
                     <textarea type="text" 
                         name="addresse" 
                         value={formData.addresse}
                         onChange={handleChange}/>
                 </label>
-                <label>
+                <label className={styles.user_db_label}>
                     <span>Votre date de naissance : </span>
                     <input type="date" 
                         name="birthDate" 
@@ -105,7 +92,7 @@ function UserDashboardInfos(){
                         value={formData.birthDate}
                         onChange={handleChange}/>
                 </label>
-                <label>
+                <label className={styles.user_db_label}>
                     <span>Votre métier : </span>
                     <input type="text" 
                         name="occupation" 
@@ -115,7 +102,6 @@ function UserDashboardInfos(){
                 <button type="submit">modifier</button>
             </form>
         </main>
-    )
 }
 
-export default UserDashboardInfos;
+export default UserDashboardMyInfos;

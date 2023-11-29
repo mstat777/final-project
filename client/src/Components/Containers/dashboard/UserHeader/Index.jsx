@@ -16,8 +16,8 @@ function UserDashboardHeader(){
                 </div>
                 <span>{userInfo.email}</span>
                 {console.log(userInfo.email)}   
-                <NavLink to={"/db/user/infos"} className={styles.link}>Info personnelles</NavLink>
-                <NavLink to={`/db/user/mybookings/${userInfo.userID}`} className={styles.link}>Mes réservations</NavLink>
+                <NavLink to={"/db/user/my-infos"} className={styles.link}>Info personnelles</NavLink>
+                <NavLink to={`/db/user/my-bookings/${userInfo.userID}`} className={styles.link}>Mes réservations</NavLink>
 
                 <NavLink to={"/user/signout"} className={styles.link_signout}>déconnexion</NavLink>
 

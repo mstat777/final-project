@@ -1,12 +1,8 @@
-import styles from './dashboard.module.css';
+import styles from '../dashboard.module.css';
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser } from '@fortawesome/free-regular-svg-icons';
-
-function UserDashboardBookings(){
+function UserDashboardMyBookings(){
 
     const { userInfo } = useSelector(state => state.user);
 
@@ -59,4 +55,4 @@ function UserDashboardBookings(){
     )
 }
 
-export default UserDashboardBookings;
+export default UserDashboardMyBookings;
