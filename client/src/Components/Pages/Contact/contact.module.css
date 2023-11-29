@@ -1,3 +1,43 @@
+/******************************************************************/
+/* ----------------------- VERSION MOBILE ----------------------- */
+/******************************************************************/
 .contact_section {
-    /*background-color: var(--primary-color);*/
+    margin: 2em;
+}
+
+.text_tel {
+    margin-top: .8em;
+    margin-bottom: 0;
+    font-size: 3rem;
+    color: var(--highlight-color);
+}
+
+.phone_icon {
+    font-size: 2.8rem;
+    margin-right: .5em;
+}
+
+.text_small {
+    margin-top: 0;
+    margin-bottom: 1.5em;
+    font-size: 1.2rem;
+}
+
+
+/******************************************************************/
+/* ---------------------- VERSION TABLETTE ---------------------- */
+/******************************************************************/
+@media screen and (min-width: 768px) {
+    .contact_section {
+        margin: 4em;
+    }
+}
+
+/******************************************************************/
+/* ----------------------- VERSION DESKTOP ---------------------- */
+/******************************************************************/
+@media screen and (min-width: 1100px) {
+    .contact_section {
+        margin: 8em;
+    }
 }

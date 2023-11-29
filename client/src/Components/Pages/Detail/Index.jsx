@@ -62,7 +62,7 @@ function Detail(){
                 <Slider type="lodging"/>
                 <h4>{lodging.name}</h4>
                 <h3>{destination.name}</h3>
-                <table className={styles.packs_div}>
+                <table className={styles.packs_table}>
                     <thead>
                         <tr> 
                             <th>date de départ</th> 
@@ -79,8 +79,8 @@ function Detail(){
                                 <td>{pack.departure_date.slice(0, pack.departure_date.indexOf('T'))}</td>
                                 <td>{pack.return_date.slice(0, pack.return_date.indexOf('T'))}</td> 
                                 <td>{pack.duration+1}J/{pack.duration}N</td>  
-                                <td>{pack.price_adults}</td> 
-                                <td>{pack.price_children}</td> 
+                                <td>{pack.price_adults} &euro;</td> 
+                                <td>{pack.price_children} &euro;</td> 
                                 <td>
                                     <button 
                                     onClick={() => {

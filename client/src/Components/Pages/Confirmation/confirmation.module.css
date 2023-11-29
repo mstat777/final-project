@@ -1,7 +1,10 @@
+/******************************************************************/
+/* ----------------------- VERSION MOBILE ----------------------- */
+/******************************************************************/
 .confirmation_section {
     display: flex;
     flex-direction: column;
     margin: 1em;
-    border: 1px solid lightgray;
+    border: 1px solid var(--lightgrey-color);
     /*background-color: var(--primary-color);*/
 }

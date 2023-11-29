@@ -11,7 +11,6 @@
 }
 
 .note_circle {
-    /*display: flex;*/
     height: .7em;
     width: .7em;
     margin: 3px;
@@ -24,6 +23,5 @@
 .note_circle_fill {
     height: .7em;
     width: .7em;
-    /*border-radius: 50%;*/
     background-color: rgb(25,171,106);
 }

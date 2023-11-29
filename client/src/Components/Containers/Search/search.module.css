@@ -1,10 +1,13 @@
+/******************************************************************/
+/* ----------------------- VERSION MOBILE ----------------------- */
+/******************************************************************/
 .search_form {
     position: relative;
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     max-width: 600px;
-    margin: 2em;
+    margin: 2em auto;
     padding: 1em;
     background-color: var(--secondary-color);
 }
@@ -27,6 +30,7 @@
     margin: 0 auto;
     padding: .5em .7em .4em;
     border: none;
+    border-radius: 6px;
     font-weight: 500;
     color: white;
     letter-spacing: .1em;
@@ -42,12 +46,8 @@
 .suggestions_box {
     position: absolute;
     top: 2.8em;
-    /*display: none;
-    /*height: 200px;
-    width: 300px;
-    padding: .3em;*/
-    border: 1px solid grey;
-    background-color: rgb(255, 255, 255);
+    border: 1px solid var(--grey-color);
+    background-color: white;
 }
 
 .suggestions_box > li {
@@ -59,12 +59,12 @@
     cursor: pointer;
 }
 .suggestions_box > li:hover {
-    color: red;
+    color: var(--highlight-color);
     font-weight: 500;
 }
 
 /* Messages (d'erreur) */
 .msg {
     margin-top: 0;
-    color: brown;
+    color: var(--highlight-color);
 }

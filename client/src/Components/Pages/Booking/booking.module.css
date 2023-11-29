@@ -1,9 +1,18 @@
+/******************************************************************/
+/* ----------------------- VERSION MOBILE ----------------------- */
+/******************************************************************/
 .booking_section {
     display: flex;
     flex-direction: column;
     margin: 1em;
-    border: 1px solid lightgray;
-    /*background-color: var(--primary-color);*/
+    border: 1px solid var(--lightgrey-color);
+}
+
+/* Cacher les flêches des boutons spinner */
+.booking_section input[type='number']::-webkit-inner-spin-button, 
+.booking_section input[type='number']::-webkit-outer-spin-button { 
+    -webkit-appearance: none;
+    margin: 0;
 }
 
 .booking_pack_ctn {
@@ -28,9 +37,18 @@
 }
 
 .booking_inputs {
-    margin: 1em 2em;
+    margin: .5em 2em;
     text-align: left;
 }
+
+.booking_inputs,
+.booking_activity_inputs {
+    display: flex;
+    align-items: center;
+    vertical-align: middle;
+}
+
+
 /*** styler les activités ***/
 .booking_activities_ctn {
     text-align: left;
@@ -44,55 +62,62 @@
 .booking_activity {
     margin: .5em 1em;
     padding: 1em;
-    border: 1px solid lightgrey;
+    border: 1px solid var(--lightgrey-color);
 }
 
 .booking_activity_title {
-    margin: 1em;
+    /*display: flex;
+    align-items: start;*/
+    margin: 1em .5em;
 }
 
-.booking_activity_title input {
-    display: inline-block;
-}
-
-.booking_activity_title label {
-    display: inline-block;
-    margin-left: 1em;
+.booking_activity_title > label {
+    /*display: inline-block;*/
     font-weight: 500;
 }
 
-/*
-.booking_activity_inputs {
-    display: none;
-}*/
+.booking_activity_title > label > input {
+    /*display: inline-block;*/
+    /*float: left;*/
+    vertical-align: middle;
+    margin-right: .5em;
+    margin-bottom: .18em;
+    /*accent-color: var(--secondary-color);*/
+}
 
 .booking_inputs > span,
 .booking_activity_inputs > span {
     display: inline-block;
+    margin-right: .5em;
 }
 
 .booking_inputs > button,
 .booking_activity_inputs > button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
     width: 1.5em;
     height: 1.5em;
-    text-align: center;
-    font-weight: 700;
+    border: none;
+    border-radius: 50%;
+}
+
+.fa_circle {
+    height: 100%;
+    width: auto;
+    color: var(--secondary-color);
 }
 
 .booking_inputs > input,
 .booking_activity_inputs > input {
-    width: 3em;
+    width: 2.5em;
     height: 1.5em;
-    text-align: right;
+    padding: 0 auto;
+    text-align: center;
 }
 
 .booking_activity p {
     padding: 0;
-}
-
-.show {
-    display: block;
-    color: blue;
 }
 
 /* le bouton "réserver */
@@ -102,7 +127,8 @@
     padding: .5em 1em;
     border: none;
     border-radius: 6px;
-    font-weight: 500;   
+    font-weight: 500;  
+    letter-spacing: .1em; 
     text-transform: uppercase;
     color: white;
     background-color: var(--tertiary-color);
@@ -113,5 +139,5 @@
 
 .error_ctn {
     margin: 0 2em 1em;
-    color: red;
+    color: var(--highlight-color);
 }

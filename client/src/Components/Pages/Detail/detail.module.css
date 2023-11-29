@@ -1,9 +1,11 @@
+/******************************************************************/
+/* ----------------------- VERSION MOBILE ----------------------- */
+/******************************************************************/
 .detail_section {
     display: flex;
     flex-direction: column;
     margin: 1em;
-    border: 1px solid lightgray;
-    /*background-color: var(--primary-color);*/
+    border: 1px solid var(--lightgrey-color);
 }
 
 .detail_section > p {
@@ -14,7 +16,7 @@
 }
 
 .detail_section > p + p {
-    border-top: 1px solid lightgrey;
+    border-top: 1px solid var(--lightgrey-color);
 }
 
 .detail_section > p > span {
@@ -25,6 +27,7 @@
 }
 
 .book_btn {
+    margin: .2em;
     padding: .3em .7em;
     border: none;
     border-radius: 4px;
@@ -66,7 +69,7 @@
 .activity {
     margin: .5em 1em;
     padding: 1em;
-    border: 1px solid lightgrey;
+    border: 1px solid var(--lightgrey-color);
 }
 
 .activity p {
@@ -79,4 +82,13 @@
     display: block;
     margin: 0 1em 1em;
     font-weight: 500;
+}
+
+/******************************************************************/
+/* ---------------------- VERSION TABLETTE ---------------------- */
+/******************************************************************/
+@media screen and (min-width: 768px) {
+    .packs_table {
+        margin: 0 2em;
+    }
 }

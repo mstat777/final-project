@@ -68,8 +68,7 @@ function Signup(){
                         placeholder="Votre numéro de téléphone"
                         value={tel}
                         onChange={(e) => setTel(e.target.value)}/>    
-                <textarea type="text" 
-                        name="addresse" 
+                <textarea name="addresse" 
                         placeholder="Votre adresse postale"
                         value={addresse}
                         onChange={(e) => setAddresse(e.target.value)}></textarea>

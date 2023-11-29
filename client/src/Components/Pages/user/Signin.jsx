@@ -6,15 +6,32 @@ import { signin } from '../../../store/slices/user';
 
 import styles from './user.module.css';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+
 function Signin(){
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
+    const { userInfo } =  useSelector((state) => state.user);
+
+    const [msg, setMsg] = useState(null);
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [msg, setMsg] = useState(null);
 
-    const { userInfo } =  useSelector((state) => state.user);
+    /* pour l'oeil d'affichage du mdp */
+    const [passInputType, setPassInputType] = useState("password");
+    const [passIcon, setPassIcon] = useState(faEyeSlash);
+
+    function handlePassIconToggle() {
+        if (passInputType === "password") {
+            setPassIcon(faEye);
+            setPassInputType('text')
+         } else {
+            setPassIcon(faEyeSlash)
+            setPassInputType('password')
+         }
+    }
     
     async function handleSubmit(e){
         e.preventDefault();
@@ -47,18 +64,29 @@ function Signin(){
         <main id="signin" className={styles.sign_main}>
             {msg && <p className={styles.msg}>{msg}</p>}
             <form onSubmit={handleSubmit} className={styles.sign_form}>
+
                 <input type="email" 
                         name="email" 
                         placeholder="Votre adresse mail"
                         value={email}
-                        onChange={(e) => setEmail(e.target.value)}/>
-                <input type="password" 
-                        name="password" 
-                        placeholder="Votre mot de passe"
-                        value={password}
-                        onChange={(e) => setPassword(e.target.value)}/>
+                        onChange={(e) => setEmail(e.target.value)}
+                        className={styles.email_input}/>
+
+                <div className={styles.pass_ctn}> 
+                    <input type={passInputType} 
+                            name="password" 
+                            placeholder="Votre mot de passe"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
+                            className={styles.pass_input}/>
+                    <span className={styles.pass_icon_ctn} onClick={handlePassIconToggle}>
+                        <FontAwesomeIcon icon={passIcon} className={styles.pass_icon}/>
+                    </span>
+                </div>
+                
                 <button type="submit">se connecter</button>
             </form>
+
             <p>Vous n'avez pas encore de compte ? <Link to="/user/signup">En créer un</Link></p>
         </main>
     )

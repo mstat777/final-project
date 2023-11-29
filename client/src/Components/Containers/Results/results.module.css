@@ -1,14 +1,15 @@
+/******************************************************************/
+/* ----------------------- VERSION MOBILE ----------------------- */
+/******************************************************************/
 .results_section {
     margin: 2em;
-    /*background-color: lightgrey;*/
 }
 
 .results_section > article {
     display: flex;
     flex-direction: column;
     margin: 1em;
-    border: 1px solid lightgray;
-    /*background-color: rgb(184, 255, 222);*/
+    border: 1px solid var(--lightgrey-color);
 }
 
 .results_section > article > p {

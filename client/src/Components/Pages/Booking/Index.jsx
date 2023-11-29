@@ -14,6 +14,9 @@ import { calculatePrices,
     } from "../../../store/slices/booking";
 import { verifyBooking } from '../../Functions/verifyBooking';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCirclePlus, faCircleMinus } from '@fortawesome/free-solid-svg-icons';
+
 function Booking(){
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -130,54 +133,73 @@ function Booking(){
                     <p>Date de départ : <span>{packs[id].departure_date.slice(0, packs[id].departure_date.indexOf('T'))}</span></p>
                     <p>Date de retour : <span>{packs[id].return_date.slice(0, packs[id].return_date.indexOf('T'))}</span></p> 
                     <p>Durée : <span>{packs[id].duration+1}</span> jours / <span>{packs[id].duration}</span> nuits</p>  
-                    <p>Prix/TTC/adulte : {packs[id].price_adults} &euro;</p> 
-                    <p>Prix/TTC/enfant : {packs[id].price_children} &euro;</p> 
+                    <p>Prix/TTC/adulte : <span>{packs[id].price_adults}</span> &euro;</p> 
+                    <p>Prix/TTC/enfant : <span>{packs[id].price_children}</span> &euro;</p> 
                 </div>
 
                 <p>Veuillez indiquer le nombre d'adultes et d'enfants pour lesquels vous réservez :</p>
                 <div className={styles.booking_inputs}>
-                    <span>Nombre d'adultes :&nbsp;</span>
-                    <button onClick={()=>{dispatch(increaseNumberAdultsPack())}}>+</button>
-                    <input type="number" value={bookingInfo.nb_adults.pack} />
-                    <button onClick={()=>{dispatch(decreaseNumberAdultsPack())}}>-</button>
+                    <span>Nombre d'adultes :</span>
+                    <button onClick={()=>{dispatch(increaseNumberAdultsPack())}}>
+                        <FontAwesomeIcon icon={faCirclePlus} className={styles.fa_circle}/>
+                    </button>
+                    <input type="number" value={bookingInfo.nb_adults.pack}/>
+                    <button onClick={()=>{dispatch(decreaseNumberAdultsPack())}}>
+                        <FontAwesomeIcon icon={faCircleMinus} className={styles.fa_circle}/>
+                    </button>
                 </div>
                 <div className={styles.booking_inputs}>
-                    <span>Nombre d'enfants :&nbsp;</span>
-                    <button onClick={()=>{dispatch(increaseNumberChildrenPack())}}>+</button>
-                    <input type="number" value={bookingInfo.nb_children.pack} />
-                    <button onClick={()=>{dispatch(decreaseNumberChildrenPack())}}>-</button>
+                    <span>Nombre d'enfants :</span>
+                    <button onClick={()=>{dispatch(increaseNumberChildrenPack())}}>
+                        <FontAwesomeIcon icon={faCirclePlus} className={styles.fa_circle}/>
+                    </button>
+                    <input type="number" value={bookingInfo.nb_children.pack}/>
+                    <button onClick={()=>{dispatch(decreaseNumberChildrenPack())}}>
+                        <FontAwesomeIcon icon={faCircleMinus} className={styles.fa_circle}/>
+                    </button>
                 </div>
 
                 <div className={styles.booking_activities_ctn}>
                     <span>Veuillez choisir entre les activités suivantes :</span>
                     {activities.map((activity, index) => 
                         <div className={styles.booking_activity} key={index}>
-                            <div className={styles.booking_activity_title} >
-                                <input type="checkbox" 
+                            <div className={styles.booking_activity_title}>
+                                <label for={activity.id}>
+                                    <input type="checkbox" 
                                         //name={activity.id}
                                         checked={ checkBoxes[index] } 
                                         onChange={() => handleChange(index)}/>
-                                <label for={activity.id}>{activity.name}</label>
+                                    {activity.name}
+                                </label>
                             </div>
 
                             { checkBoxes[index] && 
                             <div className={styles.booking_activity_inputs}>
-                                <span>Adultes : </span>
-                                <button onClick={()=>{dispatch(increaseNumberAdultsActivity(index))}}>+</button>
+                                <span>Adultes :</span>
+                                <button onClick={()=>{dispatch(increaseNumberAdultsActivity(index))}}>
+                                    <FontAwesomeIcon icon={faCirclePlus} className={styles.fa_circle}/>
+                                </button>
                                 <input type="number" value={bookingInfo.nb_adults.activities[index]} />
-                                <button onClick={()=>{dispatch(decreaseNumberAdultsActivity(index))}}>-</button>
+                                <button onClick={()=>{dispatch(decreaseNumberAdultsActivity(index))}}>
+                                    <FontAwesomeIcon icon={faCircleMinus} className={styles.fa_circle}/>
+                                </button>
 
-                                <span>Children : </span>
-                                <button onClick={()=>{dispatch(increaseNumberChildrenActivity(index))}}>+</button>
+                                <span>Children :</span>
+                                <button onClick={()=>{dispatch(increaseNumberChildrenActivity(index))}}>
+                                    <FontAwesomeIcon icon={faCirclePlus} className={styles.fa_circle}/>
+                                </button>
                                 <input type="number" value={bookingInfo.nb_children.activities[index]} />
-                                <button onClick={()=>{dispatch(decreaseNumberChildrenActivity(index))}}>-</button>
+                                <button onClick={()=>{dispatch(decreaseNumberChildrenActivity(index))}}>
+                                    <FontAwesomeIcon icon={faCircleMinus} className={styles.fa_circle}/>
+                                </button>
                             </div>}
 
                             <div>
-                                <p>Type: {activity.type}</p>
-                                <p>Prix: adultes: {activity.price_adults}&euro;, enfants: {activity.price_children}&euro;</p>
+                                <p>Type : {activity.type}</p>
+                                <p>Prix : adultes: {activity.price_adults}&euro;, enfants : {activity.price_children}&euro;</p>
+                                <p>{activity.overview}</p>
                             </div> 
-                            <p>{activity.overview}</p>
+                            
                         </div>
                     )}
                 </div>

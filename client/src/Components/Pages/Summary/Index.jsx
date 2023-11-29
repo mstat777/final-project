@@ -1,10 +1,9 @@
 import styles from './summary.module.css';
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 function Summary(){
-    const dispatch = useDispatch();
     const navigate = useNavigate();
 
     let { id } = useParams();
@@ -15,8 +14,6 @@ function Summary(){
     const { activities } =  useSelector((state) => state.allTravel);
     const { bookingInfo } = useSelector((state) => state.booking);
     const { userInfo } =  useSelector((state) => state.user);
-
-    const [msg, setMsg] = useState(null);
 
     const [bookedActivities, setBookedActivities] = useState([]);
 
@@ -65,16 +62,6 @@ function Summary(){
         });
         console.log(activitiesForDB);
 
-        /*  ici pour tester qqch :
-        const test = 2;
-        let newArray = [];
-        activitiesForDB.forEach(el => {
-            el = [...el, test];
-            newArray.push(el);
-            console.log(el);
-        });
-        console.log(newArray); */
-
         const res = await fetch("/api/v.0.1/user/booking", {
             method: "post",
             headers: { "Content-Type": "application/json" },
@@ -89,7 +76,6 @@ function Summary(){
             })
         });
         const json = await res.json();
-        setMsg(json.msg);
         
         if ( res.status === 201) {
             navigate("/confirmation");
@@ -101,7 +87,7 @@ function Summary(){
 
             <div className={styles.summary_section}>
 
-                <p>Voici le récapitulatif de votre réservation :</p>
+                <h3>Voici le récapitulatif de votre réservation :</h3>
                 <div className={styles.summary_ctn}>
                     <p>Nom et pays de la destination : <span>{destination.name}</span>, <span>{destination.country}</span></p>
                     <p>Nom de l'hébérgement : <span>{lodging.name}</span></p>

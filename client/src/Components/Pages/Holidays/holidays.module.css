@@ -6,7 +6,9 @@
     /*background-color: var(--primary-color);*/
 }
 
-
+.holidays_destination {
+    color: var(--highlight-color);
+}
 
 /******************************************************************/
 /* ---------------------- VERSION TABLETTE ---------------------- */

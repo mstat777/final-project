@@ -38,19 +38,20 @@ function Burger() {
 
                         {(userInfo.accountType === "client") && 
                         <>
-                            <NavLink to={"/db/user/infos"} className={styles.burger_item}>Info personnelles</NavLink>
-                            <NavLink to={`/db/user/mybookings/${userInfo.userID}`} className={styles.burger_item}>Mes réservations</NavLink>
+                            <NavLink to={"/db/user/my-infos"} className={styles.burger_item}>Info personnelles</NavLink>
+                            <NavLink to={`/db/user/my-bookings/${userInfo.userID}`} className={styles.burger_item}>Mes réservations</NavLink>
                         </>}
 
                         {(userInfo.accountType === "admin" || userInfo.accountType === "superadmin") && 
                         <>
-                            <NavLink to={"/db/admin/infos"} className={styles.burger_item}>Info personnelles</NavLink>
-                            <NavLink to={`/db/admin/mybookings/${userInfo.userID}`} className={styles.burger_item}>Mes réservations</NavLink>
+                            <NavLink to={"/db/admin/my-infos"} className={styles.burger_item}>Info personnelles</NavLink>
+                            <NavLink to={`/db/admin/my-bookings/${userInfo.userID}`} className={styles.burger_item}>Mes réservations</NavLink>
                             <hr/>
                             <NavLink to={"/db/admin/bookings"} className={styles.burger_item}>Réservations</NavLink>
                             <NavLink to={"/db/admin/destinations"} className={styles.burger_item}>Destinations</NavLink>
                             <NavLink to={"/db/admin/lodgings"} className={styles.burger_item}>Hébérgements</NavLink>
                             <NavLink to={"/db/admin/packs"} className={styles.burger_item}>Packs</NavLink>
+                            <NavLink to={"/db/admin/activities"} className={styles.burger_item}>Activités</NavLink>
                             <NavLink to={"/db/admin/users"} className={styles.burger_item}>Clients</NavLink>
                         </>}
 
@@ -71,7 +72,7 @@ function Burger() {
             onMouseOut={handleMouseOut}
             className={`${styles.burger_icon} ${burgerOpen ? styles.hide : styles.show}`} 
             title="Espace utilisateur">
-                {(isHovering && !userInfo.isLogged) && <span>CONNEXION&nbsp;</span>}
+                {(isHovering && !userInfo.isLogged) && <span className={styles.burger_icon_text}>CONNEXION&nbsp;</span>}
                 <FontAwesomeIcon icon={faUser} className={styles.burger_icon_fawesome}/>
             </button>
 

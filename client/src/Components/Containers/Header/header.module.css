@@ -60,13 +60,9 @@
 
     .nav_lower {
         position: absolute;
-        /*left: 100px;
-        right: 100px;*/
         left: 50%;
         transform: translate(-50%, 0);
         flex-direction: row;
-        /*margin-left: auto;
-        margin-right: auto;*/
     }
 
     .nav_lower > a {

@@ -1,3 +1,6 @@
+/*************************************************************/
+/* ----------------------- GENERALES ----------------------- */
+/*************************************************************/
 * {
   margin: 0;
   padding: 0;
@@ -5,9 +8,24 @@
 }
 
 :root {
-  --primary-color:   #dee8f2 ;  /* 60% */
-  --secondary-color: #3F9AE9 ;  /* 30% */
-  --tertiary-color:  #2f4a7a ;  /* 10% */
+  /* pour les fonds (forms, backgrounds) */
+  --primary-color: #dee8f2;  /* 60% */
+  /* pour les fonds (header, footer) */
+  --secondary-color: #3F9AE9;  /* 30% */
+  /* pour les boutons */
+  --tertiary-color: rgb(47, 74, 122);  /* 10% */
+  /* pour souligner certains textes, afficher des erreurs */
+  --highlight-color: rgb(151, 10, 10);
+  /* pour les textes de saisie (input, textarea, select) */
+  --darkgrey-color: #333; 
+  /* pour ........ */
+  --grey-color: grey;
+  /* pour les bordures des champs et des tableaux */
+  --lightgrey-color: rgb(204, 204, 204);
+  /* pour distinguer les lignes de tableau */
+  --verylightgrey-color: #eee;
+  /* la police principale */
+  --main-font: 'Montserrat', sans-serif;
 }
 
 html {
@@ -16,7 +34,7 @@ html {
 
 body{
   font-size: 1.6rem;
-  font-family: 'Montserrat', sans-serif;  
+  font-family: var(--main-font);  
   background-color: white;
 }
 
@@ -26,7 +44,7 @@ body > div {
   flex-direction: column;
 }
 
-/* ----- */
+/********* HEADINGS *********/
 h1 {
 	font-weight: 500;
 	font-size: 3.6rem;
@@ -52,7 +70,7 @@ h4 {
 	font-weight: 600;
 	font-size: 1.8rem;
   margin: 1.2rem;
-  color: rgb(151, 10, 10);
+  color: var(--highlight-color);
 }
 
 a {
@@ -75,25 +93,16 @@ img {
   max-height: 100%;
 }
 
-/******************************************************************/
-/* ----------------------- VERSION MOBILE ----------------------- */
-/******************************************************************/
-main {
-	width: 100%;
-  margin-top: 230px;
-	text-align: center;
-}
-
 /********* TABLES *********/
 table {
 	border-collapse: collapse;
-	width: 100%;
+	/*width: 100%;*/
   font-size: 1.4rem;
 }
 
 table th, 
 table td {
-	border: 1px solid #ddd;
+	border: 1px solid var(--lightgrey-color);
 }
 
 thead {
@@ -102,16 +111,46 @@ thead {
 
 thead th {
   padding: 1em;
-	border-bottom: 1px solid grey;
+	border-bottom: 1px solid var(--grey-color);
   font-weight: 400;
 }
 
 tfoot th {
-	border-top: 1px solid grey;
+	border-top: 1px solid var(--grey-color);
 }
 
 table > tbody > tr:nth-child(odd) td {
-  background-color: #eee;
+  background-color: var(--verylightgrey-color);
+}
+
+/********* FORM ELEMENTS *********/
+input[type="text"],
+input[type="password"],
+input[type="search"],
+input[type="email"],
+input[type="tel"],
+input[type="number"],
+input[type*="date"],
+select,
+textarea {
+	display: inline-block;
+	font-size: 1.6rem;
+  font-family: var(--main-font); 
+	color: var(--darkgrey-color); 
+	border: 1px solid var(--lightgrey-color);
+	border-radius: 0.4em;
+}
+textarea {
+	display: block;
+}
+
+/******************************************************************/
+/* ----------------------- VERSION MOBILE ----------------------- */
+/******************************************************************/
+main {
+	width: 100%;
+  margin-top: 230px;
+	text-align: center;
 }
 
 /******************************************************************/

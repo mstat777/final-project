@@ -25,7 +25,7 @@ function Holidays(){
                                     .map((dest, index) => {
                                         return(
                                             <li key={index}>
-                                                <Link to={`/search?destination=${dest.name.toLowerCase()}`}>{dest.name}</Link>        
+                                                <Link to={`/search?destination=${dest.name.toLowerCase()}`} className={styles.holidays_destination}>{dest.name}</Link>        
                                             </li>
                                         )
                                     })}

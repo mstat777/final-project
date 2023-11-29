@@ -6,29 +6,37 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: .6em;
-    border: none;
-    border-radius: 1.5em;
+    height: 2.2em;
+    width: 2.2em;
+    /*padding: .6em;*/
+    border: 2px solid var(--tertiary-color);
+    border-radius: 1.1em;
+    box-sizing: border-box;
+    overflow: hidden;
     font-size: 1.6rem;
     color: var(--primary-color);
-    background: var(--tertiary-color);
+    background-color: var(--tertiary-color);
     transition: color .5s, background-color .5s, width .5s, content .5s;
 }
 
 .burger_icon:hover {
     cursor: pointer;   
-    justify-content: right;
-    outline: 2px solid var(--tertiary-color);
+    /*justify-content: right;*/
+    width: 9em;
     color: var(--tertiary-color);
-    background: white; /* var(--primary-color);*/
+    background-color: white; 
 }
 
-.burger_icon:hover::before {
-    margin-right: .5em;
+.burger_icon_text {
+    color: rgba(47, 74, 122, 0);
+    transition: color 3s;
 }
 
-.burger_icon:hover > .burger_icon_fawesome {
-    margin-bottom: .15em;
+.burger_icon:hover .burger_icon_text {
+    /*position: absolute;
+    right: 1.8em;
+    padding: .6em;*/
+    color: var(--tertiary-color);
 }
 
 .burger_icon:focus {
@@ -84,7 +92,7 @@
     width: 200px;
     padding: 4em 1.7em 0;
     font-size: 1.5rem;
-    background: #b8bfda;
+    background-color: #b8bfda;
     visibility: hidden;
     transition: all 1s ease-out;
     z-index: 200;
@@ -93,7 +101,6 @@
 .show_burger_menu .burger_items_ctn {
     right: 0;
     visibility: visible;
-    /*transform: translateX(-200px);*/
     transition: all 1s ease-out;
 }
 
@@ -118,7 +125,7 @@
     padding: .4em .8em;
     border-radius: .4em;
     color: var(--primary-color);
-    background-color: rgb(71, 71, 71);
+    background-color: var(--darkgrey-color);
     text-align: center;
 }
 
@@ -126,7 +133,7 @@
     margin-top: 1.5em;
     margin-bottom: .8em;
     margin-left: .5em;
-    border: 1px solid rgb(109, 109, 109);
+    border: 1px solid var(--grey-color);
 }
 
 /* Afficher et cacher des éléments */
