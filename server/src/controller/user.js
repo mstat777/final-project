@@ -62,7 +62,6 @@ const createUserAccount = async (req, res) => {
         if (user.length) {
             msg = "un utilisateur avec cette adresse mail existe déjà";
             res.status(409).json({ msg });
-
         } else if (!user.length){
             const datas = {
                 lastName: req.body.lastName,
@@ -89,7 +88,7 @@ const getUserById = async (req, res) => {
     try {
         const query = "SELECT * FROM users WHERE id = ?";
         const [datas] = await Query.findByValue(query, req.params.id);
-        res.status(200).json({ datas });
+        res.status(200).json({datas});
     } catch (err) {
         throw Error(err)
     }
@@ -97,7 +96,7 @@ const getUserById = async (req, res) => {
 // trouver toutes les réservations d'un utilisateur :
 const getAllUserBookings = async (req, res) => {
     try {
-        const query = "SELECT * FROM bookings AS b JOIN packs AS p ON b.pack_id = p.id JOIN destinations AS d ON p.destination_id = d.id WHERE user_id = ?";
+        const query = "SELECT * FROM bookings AS b JOIN packs AS p ON b.pack_id = p.id JOIN destinations AS d ON p.destination_id = d.id WHERE b.user_id = ?";
         const [datas] = await Query.findByValueMultipleTables(query, req.params.id);
         res.status(200).json({ datas });
     } catch (err) {

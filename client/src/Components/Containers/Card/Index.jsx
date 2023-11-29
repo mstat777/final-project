@@ -22,7 +22,7 @@ function Card({type, data}){
 
     // formatter les coordonnées de l'hébérgement :
     useEffect(() => {
-        if (lodging != undefined) {
+        if (lodging !== undefined) {
             if (lodging.coordinates) {
                 //console.log("lodging.coordinates = "+lodging.coordinates);
                 formatCoordinates(lodging.coordinates);

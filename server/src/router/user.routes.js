@@ -23,7 +23,7 @@ router.post("/signin", userSignIn);
 router.get("/:id", getUserById);
 
 // trouver toutes les réservations par l'ID de l'utilisateur :
-router.get("/bookings/:id", getAllUserBookings);
+router.get("/mybookings/:id", getAllUserBookings);
 
 // créer une réservation (confirmer sur la page Sommaire("Summary"))
 router.post("/booking", makeBooking);

@@ -16,14 +16,26 @@ class Query{
     }
 
     static async findByDatas(query, datas){
-        return await pool.query(query, [...Object.values(datas)]);
+        return await pool.query({sql: query, nestTables: true}, [...Object.values(datas)]);
+    }
+
+    static async findByArrayDatas(query, datas){
+        return await pool.query({sql: query, nestTables: true}, datas);
     }
     
     static async write(query, data) {
+        //console.log([...Object.values(data)]);
         return await pool.query(query, [...Object.values(data)]);
     }
 
-    // Insérer plusieurs lignes dans la BDD en rajoutant un id en tant que dernier élément de chaque ligne. 'data' est un tableau de tableaux.
+    // on passe un tableau (array) en tant que data :
+    static async writeAllColumnsWithArray(query, data) {
+        //console.log(...data);
+        return await pool.query(query, data);
+    }
+
+    // Insérer plusieurs lignes dans un tableau dépendant en rajoutant un id en tant que dernier élément de chaque ligne. 
+    // 'data' est un tableau de tableaux.
     static async writeAndAddId(query, data, id) {
         console.log(data);
         let newData = [];

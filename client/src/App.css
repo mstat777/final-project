@@ -143,12 +143,14 @@ textarea {
 }
 textarea {
 	display: block;
+    resize: none;
 }
 
 ::placeholder {
     font-weight: 400;
 	color: var(--grey-color); 
 }
+
 /******************************************************************/
 /* ----------------------- VERSION MOBILE ----------------------- */
 /******************************************************************/
@@ -173,3 +175,4 @@ main {
 @media screen and (min-width: 1100px) {
 
 }
+

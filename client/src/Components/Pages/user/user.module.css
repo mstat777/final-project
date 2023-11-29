@@ -35,9 +35,6 @@
 .sign_input {
     padding-right: .8em;
 }
-.sign_textarea {
-    resize: none;
-}
 
 /* agrandir les points de mdp */ 
 .sign_form  input[type="password"]:not(:placeholder-shown) {

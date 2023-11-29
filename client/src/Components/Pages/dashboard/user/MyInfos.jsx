@@ -2,6 +2,9 @@ import styles from '../dashboard.module.css';
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPencil } from '@fortawesome/free-solid-svg-icons';
+
 function UserDashboardMyInfos(){
     // pour récuperer l'ID de l'utilisateur
     const { userInfo } = useSelector(state => state.user);
@@ -53,51 +56,69 @@ function UserDashboardMyInfos(){
 
             <form onSubmit={handleSubmit} className={styles.user_db_account_form}>
                 <label className={styles.user_db_label}>
-                    <span>Votre nom : </span>
+                    <span>Votre nom :</span>
                     <input type="text" 
                         name="lastName" 
                         value={formData.lastName}
                         onChange={handleChange}/>
+                    <button onClick={() => {}}>
+                        <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
+                    </button>
                 </label>
                 <label className={styles.user_db_label}>
-                    <span>Votre prénom : </span>
+                    <span>Votre prénom :</span>
                     <input type="text" 
                         name="firstName" 
                         value={formData.firstName}
                         onChange={handleChange}/>
+                    <button onClick={() => {}}>
+                        <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
+                    </button>
                 </label>
                 <label className={styles.user_db_label}>
-                    <span>Votre prénom : </span>
+                    <span>Votre adresse mail :</span>
                     <span className={styles.email}>{formData.email}</span>
                 </label>
                 <label className={styles.user_db_label}>
-                    <span>Votre numéro de téléphone : </span>
+                    <span>Votre numéro de téléphone :</span>
                     <input type="tel" 
                         name="tel" 
                         value={formData.tel}
                         onChange={handleChange}/>
+                    <button onClick={() => {}}>
+                        <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
+                    </button>
                 </label>
                 <label className={styles.user_db_label}>
-                    <span>Votre adresse : </span>
+                    <span>Votre adresse :</span>
                     <textarea type="text" 
                         name="addresse" 
                         value={formData.addresse}
                         onChange={handleChange}/>
+                    <button onClick={() => {}}>
+                        <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
+                    </button>
                 </label>
                 <label className={styles.user_db_label}>
-                    <span>Votre date de naissance : </span>
+                    <span>Votre date de naissance :</span>
                     <input type="date" 
                         name="birthDate" 
                         min="1923-01-01"
                         value={formData.birthDate}
                         onChange={handleChange}/>
+                    <button onClick={() => {}}>
+                        <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
+                    </button>
                 </label>
                 <label className={styles.user_db_label}>
-                    <span>Votre métier : </span>
+                    <span>Votre métier :</span>
                     <input type="text" 
                         name="occupation" 
                         value={formData.occupation}
                         onChange={handleChange}/>
+                    <button onClick={() => {}}>
+                        <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
+                    </button>
                 </label>
                 <button type="submit">modifier</button>
             </form>

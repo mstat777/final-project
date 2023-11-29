@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom';
 
 import styles from './header.module.css';
 import logo from '../../../assets/img/logo-dimitravel-02-90p45p.png';
-import Burger from '../Burger/Index';
+import Burger from '../buttons/Burger/Index';
  
 function Header() {
 

@@ -1,54 +1,133 @@
 import styles from '../dashboard.module.css';
 import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 function AdminDashboardDestinationsCreate(){
+    const navigate = useNavigate();
 
-    const { userInfo } = useSelector(state => state.user);
+    const [reference, setReference] = useState("");
+    const [nameDest, setNameDest] = useState("");
+    const [country, setCountry] = useState("");
+    const [continent, setContinent] = useState("");
+    const [overview, setOverview] = useState("");
+    const [departurePlace, setDeparturePlace] = useState("");
+    const [urlInitialImage, setUrlInitialImage] = useState("");
+    const [lodgingID, setLodgingID] = useState("");
 
-    const [ userBookings, setUserBookings] = useState([]);
+    const [msg, setMsg] = useState(null);
 
+    // on récupère la liste de tous les hébérgements (array of objects) présent dans la BDD ('nom' et 'id') :
+    const [lodgings, setLodgings] = useState([]);
     useEffect(() => {
-        // on récupère les données des réservations effectuées par l'utilisateur :
-        async function fetchBookings() {
-            try {
-                const dataBookings = await (await fetch(`/api/v.0.1/user/bookings/${userInfo.userID}`)).json();
-                setUserBookings(dataBookings.datas);
-            } catch (error) {
-                console.log(error);
-            }
+        async function getAllLodgings(){
+            const result = await(await fetch(`/api/v.0.1/admin/lodgings/id/all`)).json();
+            setLodgings(result.datas);
         }
-        fetchBookings();
-    }, []);
+
+        getAllLodgings();
+    },[])
+
+    async function handleSubmit(e) {
+        e.preventDefault();
+        console.log("Admin DB create form sent!");
+        const res = await fetch("/api/v.0.1/admin/destinations/create", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ 
+                reference,
+                nameDest,
+                country, 
+                continent,
+                overview,
+                departurePlace,
+                urlInitialImage,
+                lodgingID})
+        });
+        const json = await res.json();
+        
+        if (res.status === 200) {
+            setMsg(json.msg);
+            //navigate("/db/admin/my-infos");
+        } else {
+            console.log("res.status = "+res.status);
+        }
+    }
 
     return(
         <main className={styles.user_db_main}>
-            <h2>réservations</h2>
+            <h2>Créer une nouvelle destination</h2>
 
-            <table className={styles.booking_table}>
-                <thead>
-                    <tr> 
-                        <th>N&deg;</th> 
-                        <th>date</th>
-                        <th>destination</th>
-                        <th>prix total</th>
-                        <th>modifier</th>
-                    </tr>
-                </thead>
-                <tbody>  
-                    { userBookings.map((booking, index) => 
-                        <tr key={index}>
-                            <td>{index+1}</td>
-                            <td>{booking.b.date_created.slice(0, booking.b.date_created.indexOf('T'))}</td>
-                            <td>{booking.d.name}</td>
-                            <td>{booking.b.price_total_booking} &euro;</td>
-                            <td>
-                                <button>modifier</button>
-                            </td>
-                        </tr>
-                    )}
-                </tbody>
-            </table>
+            <form onSubmit={handleSubmit} className={styles.db_create_form}>
+                <p className={styles.msg_instructions}>IMPORTANT : Veuillez associer d'abord l'hébérgement correspondant à cette destination. S'il n'est pas encore créé, merci de le créer d'abord avant de créer cette nouvelle destination.</p>
+
+                <label>
+                    <span>Hébérgement correspondant :</span>
+                    <select value={lodgingID} 
+                            onChange={(e) => setLodgingID(e.target.value)}>
+                        {lodgings.map((lodg) => (
+                            <option value={lodg.id} key={lodg.id}>{lodg.name}</option>
+                        ))}
+                    </select>
+                </label>
+
+                <label>
+                    <span>Nom de la destination :</span>
+                    <input type="text" 
+                        name="nameDest" 
+                        value={nameDest}
+                        onChange={(e) => setNameDest(e.target.value)}/>  
+                </label>
+
+                <label>  
+                    <span>Numéro de référence :</span>
+                    <input type="text" 
+                        name="reference" 
+                        value={reference}
+                        onChange={(e) => setReference(e.target.value)}/> 
+                </label>
+
+                <label>  
+                    <span>Pays :</span>
+                    <input type="text" 
+                        name="country" 
+                        value={country}
+                        onChange={(e) => setCountry(e.target.value)}/>
+                </label>
+
+                <label>  
+                    <span>Continent :</span>
+                    <input type="text" 
+                        name="continent" 
+                        value={continent}
+                        onChange={(e) => setContinent(e.target.value)}/>
+                </label>
+
+                <label>  
+                    <span>Description :</span>
+                    <textarea name="overview" 
+                        value={overview}
+                        onChange={(e) => setOverview(e.target.value)}></textarea>
+                </label>
+
+                <label>  
+                    <span>Point(s) de départ :</span>
+                    <textarea name="departurePlace" 
+                        value={departurePlace}
+                        onChange={(e) => setDeparturePlace(e.target.value)}></textarea>  
+                </label>
+
+                <label>  
+                    <input type="file" 
+                        name="urlInitialImage" 
+                        accept="image/jpg"
+                        multiple={false}
+                        value={urlInitialImage}
+                        onChange={(e) => setUrlInitialImage(e.target.value)}/>
+                </label>
+                
+                <button type="submit">créer</button>
+            </form>
+            {msg && <p className={styles.msg}>{msg}</p>}
 
         </main>
     )

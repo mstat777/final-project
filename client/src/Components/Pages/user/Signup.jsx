@@ -59,7 +59,7 @@ async function handleSubmit(e) {
     setMsg(json.msg);
     
     if ( res.status === 201) {
-    navigate("/user/signin");
+        navigate("/user/signin");
     }
 }
 
