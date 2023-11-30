@@ -38,11 +38,11 @@ const userSignIn = async (req, res) => {
                     userID: user[0].id, 
                     accountType: user[0].account_type });
             } else {
-                msg = "Mot de passe erroné. Contactez l'administrateur";
+                msg = "Mot de passe erroné. Contactez l'administrateur.";
                 res.status(409).json({ msg });
             }
         } else if (!user.length){
-            msg = "mauvais identifiant";
+            msg = "Mauvais identifiant";
             res.status(409).json({ msg });
         }
     } catch (err) {
@@ -60,7 +60,7 @@ const createUserAccount = async (req, res) => {
         const [user] = await Query.findByValue(queryUser, datas);
 
         if (user.length) {
-            msg = "un utilisateur avec cette adresse mail existe déjà";
+            msg = "Un utilisateur avec cette adresse mail existe déjà !";
             res.status(409).json({ msg });
         } else if (!user.length){
             const datas = {

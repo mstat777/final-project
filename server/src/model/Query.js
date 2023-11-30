@@ -10,15 +10,16 @@ class Query{
         return await pool.query(query, [value]);
     }
 
-    // la même fonction, mais dans le cas on joint plusieurs tables. "nestTables: true" pour éviter l'écrasement de données dont les colonnes ont le même nom
+    // la même fonction, mais dans le cas on joint plusieurs tables. "nestTables: true" pour éviter l'écrasement de données dont les colonnes ont les mêmes noms
     static async findByValueMultipleTables(query, value){
         return await pool.query({sql: query, nestTables: true}, [value]);
     }
 
+    // 'datas' est un objet
     static async findByDatas(query, datas){
         return await pool.query({sql: query, nestTables: true}, [...Object.values(datas)]);
     }
-
+    // 'datas' est un array
     static async findByArrayDatas(query, datas){
         return await pool.query({sql: query, nestTables: true}, datas);
     }
@@ -28,8 +29,8 @@ class Query{
         return await pool.query(query, [...Object.values(data)]);
     }
 
-    // on passe un tableau (array) en tant que data :
-    static async writeAllColumnsWithArray(query, data) {
+    // 'datas' est un array
+    static async writeWithArray(query, data) {
         //console.log(...data);
         return await pool.query(query, data);
     }
