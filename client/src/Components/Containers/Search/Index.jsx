@@ -13,13 +13,17 @@ import { useNavigate, useSearchParams } from 'react-router-dom';
 function Search() {
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
-    //console.log(searchParams);
+
+    const [maxPrice, setMaxPrice] = useState("");
+    const [departureDate, setDepartureDate] = useState("");
+    // afficher le placeholder de la date de naissance :
+    const [inputDateType, setInputDateType] = useState("text");
     
     const { allDestinations, destination, lodging } = useSelector((state) => state.allTravel);
     
     // la destination a fetcher (si existe)
     const [urlDestination, setUrlDestination] = useState(searchParams.get('destination'));
-    //console.log("urlDestination = "+searchParams.get('destination'));
+
     // stocker la valeur de l'input de la barre de recherche
     const [destinationInput, setDestinationInput] = useState("");
     // la destination a fetcher (si existe)
@@ -104,21 +108,27 @@ function Search() {
     return (
         <>
             <form onSubmit={handleSubmit} className={styles.search_form}>
-                <input type="text" 
-                        id="destination" 
-                        name="destination" 
-                        value={destinationInput}
-                        onChange={handleChange}
-                        placeholder="Destination (pays, ville)"/>
-                <input type="date" 
-                        id="departureDate" 
-                        name="departureDate" 
-                        placeholder="Date de départ"/>
-                <input type="number" 
-                        id="maxPrice" 
+                <div className={styles.inputs_ctn}>
+                    <input type="text" 
+                            name="destination" 
+                            value={destinationInput}
+                            onChange={handleChange}
+                            placeholder="Destination"/>
+                    <input type={inputDateType}  
+                            name="departureDate" 
+                            value={departureDate}
+                            onChange={(e) => setDepartureDate(e.target.value)}
+                            onFocus={() => setInputDateType("date")}
+                            placeholder="Date de départ"/>
+                    <input type="number" 
                         name="maxPrice" 
+                        value={maxPrice}
+                        onChange={(e) => setMaxPrice(e.target.value)}
                         placeholder="Prix maximal"/>
-                <button type="submit">rechercher</button>
+                </div>
+                <div className={styles.button_ctn}>
+                    <button type="submit">rechercher</button>
+                </div>
                 <Suggestions 
                 destinationInput={destinationInput} 
                 setDestinationInput={setDestinationInput}

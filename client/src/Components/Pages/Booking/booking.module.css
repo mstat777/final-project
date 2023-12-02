@@ -4,8 +4,12 @@
 .booking_section {
     display: flex;
     flex-direction: column;
-    margin: 1em;
-    border: 1px solid var(--lightgrey-color);
+    margin: 1em auto;
+}
+
+.main_img {
+    width: auto;
+    margin: 1em 2em;
 }
 
 /* Cacher les flêches des boutons spinner */
@@ -140,4 +144,24 @@
 .error_ctn {
     margin: 0 2em 1em;
     color: var(--highlight-color);
+}
+
+/******************************************************************/
+/* ---------------------- VERSION TABLETTE ---------------------- */
+/******************************************************************/
+@media screen and (min-width: 768px) {
+    .booking_section {
+        max-width: 1000px;
+    }
+}
+
+/******************************************************************/
+/* ----------------------- VERSION DESKTOP ---------------------- */
+/******************************************************************/
+@media screen and (min-width: 1100px) {
+    .booking_section {
+        margin-top: 2em;
+        padding: 2em;
+        border: 1px solid var(--lightgrey-color);
+    }
 }

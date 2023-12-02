@@ -124,7 +124,7 @@ function Booking(){
         <main id="booking">
             { (destination && lodging && activities) &&
             <div className={styles.booking_section}>
-                <img src={"../../img/lodgings/"+lodging.url_initial_image} alt="" />
+                <img src={"../../img/lodgings/"+lodging.url_initial_image} alt="" className={styles.main_img}/>
                 <h4>{lodging.name}</h4>
                 <h3>{destination.name}</h3>
     

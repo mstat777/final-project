@@ -10,7 +10,6 @@ import L from 'leaflet';
 import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 // ------------------------------------------------------------
-import { formatCoordinates } from '../../Functions/utils.js';
 
 import { choosePack } from "../../../store/slices/user";  
 
@@ -46,20 +45,16 @@ function Detail(){
     useEffect(() => {
         fetchActivities(destination.id);
     }, [destination]);
-/*
-    useEffect(() => {
-        console.log("lodging.coordinates = "+lodging.coordinates);
-        if (lodging.coordinates) {
-            formatCoordinates(lodging.coordinates);
-        }   
-    }, [lodging.coordinates]);*/
 
     return (
         <main id="detail">
             { (destination && lodging && activities) &&
             <div className={styles.detail_section}>
-                { console.log("lodging = "+lodging)}
-                <Slider type="lodging"/>
+                {/*console.log("lodging = "+lodging)*/}
+                <div className={styles.slider_ctn}>
+                    <Slider type="lodging"/>
+                </div>
+                
                 <h4>{lodging.name}</h4>
                 <h3>{destination.name}</h3>
                 <table className={styles.packs_table}>

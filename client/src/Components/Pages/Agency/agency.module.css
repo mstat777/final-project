@@ -2,10 +2,43 @@
 /* ----------------------- VERSION MOBILE ----------------------- */
 /******************************************************************/
 .agency_section {
-    padding: 2em;
-    /*background-color: var(--primary-color);*/
+    height: auto;
+    margin: 2em;
+    padding-bottom: 2em;
 }
 
 .agency_section > p {
     text-align: justify;
+}
+
+/******************************************************************/
+/* ---------------------- VERSION TABLETTE ---------------------- */
+/******************************************************************/
+@media screen and (min-width: 768px) {
+    .agency_section {
+        max-width: 900px;
+        margin: 3em;
+    }
+
+    .agency_section > img {
+        float: left;
+        width: 50%;
+        /*height: auto;*/
+        margin-right: 2em;
+    }
+
+    .agency_section > h2 {
+        display: inline-block;
+        margin: .3em auto;
+    }
+}
+
+/******************************************************************/
+/* ----------------------- VERSION DESKTOP ---------------------- */
+/******************************************************************/
+@media screen and (min-width: 1100px) {
+    .agency_section {
+        max-width: 900px;
+        margin: 3em auto;
+    }
 }

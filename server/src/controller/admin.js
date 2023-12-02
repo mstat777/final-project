@@ -6,48 +6,58 @@ const getBookingByLastName = async (req, res) => {
     const [datas] = await Query.findByValue(query, req.params.name);
     res.status(200).json({datas});
 } 
+
 // trouver une réservation par plusieurs critères :
 const getBookingByMultipleInputs = async (req, res) => {
     try {
-        /*let queryEnding = "";
-        let areMultipleInputs = false;*/
-        console.log("req.body.lastName = "+req.body.lastName);
-        /*const inputsObject = {
-            lastName: req.body.lastName, 
-            firstName: req.body.firstName,
-            email: req.body.email,
-            reference: req.body.reference,
-            bookingDate: req.body.bookingDate
-        }*/
-        //const inputsObject = req.body.inputStates;
-/*
-        if (req.body.lastName !== ""){
-        if (areMultipleInputs) { queryEnding += " AND"; }
-        queryEnding += " u.last_name = ?";
-        areMultipleInputs = true;
-        } else if (req.body.firstName !== ""){
-        if (areMultipleInputs) { queryEnding += " AND"; }
-        queryEnding += " u.firstName = ?";
-        areMultipleInputs = true;
-        } else if (req.body.email !== ""){
-        if (areMultipleInputs) { queryEnding += " AND"; }
-        queryEnding += " u.email = ?";
-        areMultipleInputs = true;
-        } else if (req.body.reference !== ""){
-        if (areMultipleInputs) { queryEnding += " AND"; }
-        queryEnding += " p.reference = ?";
-        areMultipleInputs = true;
-        } else if (req.body.bookingDate !== ""){
-        if (areMultipleInputs) { queryEnding += " AND"; }
-        queryEnding += " b.date_created = ?";
-        areMultipleInputs = true;
+        let queryEnding = "";
+        let areMultipleInputs = false;
+        const bodyData = [];
+        console.log(req.body.lastName);
+        console.log(req.body.firstName);
+        console.log(req.body.email);
+        console.log(req.body.reference);
+        console.log(req.body.bookingDate);
+
+        if (req.body.lastName !== ''){
+            if (areMultipleInputs) { queryEnding += " AND"; }
+            queryEnding += " u.last_name = ?";
+            bodyData.push(req.body.lastName);
+            areMultipleInputs = true;
         }
+        if (req.body.firstName !== ''){
+            if (areMultipleInputs) { queryEnding += " AND"; }
+            queryEnding += " u.first_name = ?";
+            bodyData.push(req.body.firstName);
+            areMultipleInputs = true;
+        }
+        if (req.body.email !== ''){
+            if (areMultipleInputs) { queryEnding += " AND"; }
+            queryEnding += " u.email = ?";
+            bodyData.push(req.body.email);
+            areMultipleInputs = true;
+        }
+        if (req.body.reference !== ''){
+            if (areMultipleInputs) { queryEnding += " AND"; }
+            queryEnding += " p.reference = ?";
+            bodyData.push(req.body.reference);
+            areMultipleInputs = true;
+        }
+        if (req.body.bookingDate !== ''){
+            if (areMultipleInputs) { queryEnding += " AND"; }
+            queryEnding += " b.date_created = ?";
+            bodyData.push(req.body.bookingDate);
+            areMultipleInputs = true;
+        }
+
+        console.log(bodyData);
+        console.log(typeof(bodyData));
         console.log("queryEnding = "+queryEnding);
+    
         const query = "SELECT b.id, b.nb_adults, b.nb_children, b.price_total_booking, b.payment_type, b.status, b.date_created, u.first_name, u.last_name, u.email, u.tel, p.reference, p.departure_date, p.return_date, p.duration, d.name, d.country, d.departure_place FROM bookings AS b JOIN users AS u ON u.id = b.user_id JOIN packs AS p ON p.id = b.pack_id JOIN destinations AS d ON d.id = p.destination_id WHERE"+queryEnding;
-        console.log("query = "+query);
-        const query = "SELECT b.id, b.nb_adults, b.nb_children, b.price_total_booking, b.payment_type, b.status, b.date_created, u.first_name, u.last_name, u.email, u.tel, p.reference, p.departure_date, p.return_date, p.duration, d.name, d.country, d.departure_place FROM bookings AS b JOIN users AS u ON u.id = b.user_id JOIN packs AS p ON p.id = b.pack_id JOIN destinations AS d ON d.id = p.destination_id WHERE u.last_name = ?";*/
-        const query = "SELECT * FROM users WHERE last_name = ?";
-        const [datas] = await Query.findByValue(query, req.body.lastName);
+        //console.log("query = "+query);
+        const [datas] = await Query.findByArrayDatas(query, bodyData);
+
         res.status(200).json({datas});
     } catch (err) {
         throw Error(err);

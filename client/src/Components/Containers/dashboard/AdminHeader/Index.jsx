@@ -39,6 +39,7 @@ function AdminDashboardHeader(){
                     <div className={styles.admin_db_dropdown_ctn}>
                         <NavLink to={"/db/admin/destinations/search"} className={styles.link}>Trouver destination</NavLink>
                         <NavLink to={"/db/admin/destinations/create"} className={styles.link}>Créer destination</NavLink>
+                        <NavLink to={"/db/admin/destinations/delete"} className={styles.link}>Supprimer destination</NavLink>
                     </div>
                 </div>
 

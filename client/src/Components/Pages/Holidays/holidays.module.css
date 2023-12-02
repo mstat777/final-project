@@ -2,7 +2,8 @@
 /* ----------------------- VERSION MOBILE ----------------------- */
 /******************************************************************/
 .holidays_section {
-    padding: 1em;
+    margin-bottom: 2em;
+    padding: .5em 1em 1em;
     /*background-color: var(--primary-color);*/
 }
 
@@ -10,12 +11,20 @@
     color: var(--highlight-color);
 }
 
+h2 {
+    margin-top: 1em;
+}
+
+.holidays_section li {
+    font-weight: 500;
+}
+
 /******************************************************************/
 /* ---------------------- VERSION TABLETTE ---------------------- */
 /******************************************************************/
 @media screen and (min-width: 768px) {
     .holidays_section {
-        margin: 2em auto;
+        margin: 1em auto;
     }
 }
 
@@ -23,5 +32,7 @@
 /* ----------------------- VERSION DESKTOP ---------------------- */
 /******************************************************************/
 @media screen and (min-width: 1100px) {
-    
+    .holidays_section {
+        max-width: 1000px;
+    }
 }

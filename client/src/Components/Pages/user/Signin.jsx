@@ -62,38 +62,45 @@ function Signin(){
 
     return(
         <main id="signin" className={styles.signin_main}>
-            {msg && <p className={styles.msg}>{msg}</p>}
-            <form onSubmit={handleSubmit} className={styles.sign_form}>
 
-                <div className={styles.input_ctn}> 
-                    <FontAwesomeIcon icon={faUser} className={styles.input_icon}/>
-                    <input type="email" 
-                            name="email" 
-                            placeholder="Votre adresse mail"
-                            value={email}
-                            onChange={(e) => setEmail(e.target.value)}
-                            className={styles.sign_input}/>
+            <div>
+                <h2>Je me connecte</h2>
+                <form onSubmit={handleSubmit} className={styles.sign_form}>
 
-                </div>
+                    <div className={styles.input_ctn}> 
+                        <FontAwesomeIcon icon={faUser} className={styles.input_icon}/>
+                        <input type="email" 
+                                name="email" 
+                                placeholder="Votre adresse mail"
+                                value={email}
+                                onChange={(e) => setEmail(e.target.value)}
+                                className={styles.sign_input}/>
 
-                <div className={styles.input_ctn}> 
-                    <FontAwesomeIcon icon={faLock} className={styles.input_icon}/>
-                    <input type={passInputType} 
-                            name="password" 
-                            placeholder="Votre mot de passe"
-                            value={password}
-                            onChange={(e) => setPassword(e.target.value)}
-                            className={styles.pass_input}/>
-                    <span className={styles.pass_icon_ctn} onClick={handlePassIconToggle}>
-                        <FontAwesomeIcon icon={passIcon} className={styles.pass_icon}/>
-                    </span>
+                    </div>
+
+                    <div className={styles.input_ctn}> 
+                        <FontAwesomeIcon icon={faLock} className={styles.input_icon}/>
+                        <input type={passInputType} 
+                                name="password" 
+                                placeholder="Votre mot de passe"
+                                value={password}
+                                onChange={(e) => setPassword(e.target.value)}
+                                className={styles.pass_input}/>
+                        <span className={styles.pass_icon_ctn} onClick={handlePassIconToggle}>
+                            <FontAwesomeIcon icon={passIcon} className={styles.pass_icon}/>
+                        </span>
+                        
+                    </div>
                     
-                </div>
-                
-                <button type="submit">se connecter</button>
-            </form>
+                    <button type="submit">se connecter</button>
+                </form>
 
-            <p>Vous n'avez pas encore de compte ? <Link to="/user/signup">En créer un</Link></p>
+                { (msg && !email && !password) && 
+                        <p className={styles.msg}>{msg}</p> }
+
+                <p>Vous n'avez pas encore de compte ? <Link to="/user/signup">En créer un</Link></p>
+            </div>
+
         </main>
     )
 }

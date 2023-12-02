@@ -19,13 +19,20 @@ function Results() {
     return (
         <section id="resultsContainer" className={styles.results_section}>
             <article>
-                {destinationImages[0] ? <Slider type="destination"/> : <p></p>}
-                <h3>{destination.name}</h3>
-                <p>Pays : {destination.country}</p>
-                <p><i>Réf. : {destination.reference}</i></p>
-                <p>Info : {destination.overview}</p>
-                <p>dès {packs[0] && cheapestPack(packs)}&euro; TTC/adulte</p>
-                <Link to={`/detail/${destination.name}`} className={styles.discover_btn}>découvrir</Link>
+
+                <div className={styles.slider_ctn}>
+                    {destinationImages[0] && 
+                    <Slider type="destination"/>}
+                </div>
+    
+                <div>
+                    <h3>{destination.name}</h3>
+                    <h4>{destination.country}</h4>
+                    <p className={styles.justify}>{destination.overview}</p>
+                    <p>dès <span className={styles.price}>{packs[0] && cheapestPack(packs)}&euro;</span> TTC/adulte</p>
+                    <Link to={`/detail/${destination.name}`} className={styles.discover_btn}>découvrir</Link>
+                </div>
+
             </article>
         </section>
     )

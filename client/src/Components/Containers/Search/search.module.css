@@ -4,28 +4,42 @@
 .search_form {
     position: relative;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    flex-direction: column;
     max-width: 600px;
-    margin: 2em auto;
+    margin: 2em auto 1em;
     padding: 1em;
     background-color: var(--secondary-color);
 }
 
-.search_form > input {
+.search_form input {
     display: inline-block;
-    width: 100%;
     margin-bottom: 1em;
-    padding: .5em;
+    padding: .4em;
     border: none;
+    font-weight: 500;
 }
 
-.search_form > input[type=date],
-.search_form > input[type=number] {
-    width: 49%;
+.inputs_ctn {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 100%;
 }
 
-.search_form > button {
+.inputs_ctn > *:first-child {
+    width: 100%;
+}
+
+.inputs_ctn > *:nth-child(2),
+.inputs_ctn > *:nth-child(3) {
+    width: calc(50% - .5em);
+}
+
+.button_ctn {
+    display: block;
+}
+
+.button_ctn > button {
     display: block;
     margin: 0 auto;
     padding: .5em .7em .4em;
@@ -38,14 +52,14 @@
     background-color: var(--tertiary-color);
     cursor: pointer;
 }
-.search_form > button:hover {
+.button_ctn > button:hover {
     cursor: pointer;
 }
 
 /* Suggestions */ 
 .suggestions_box {
     position: absolute;
-    top: 2.8em;
+    top: 3.2em;
     border: 1px solid var(--grey-color);
     background-color: white;
 }
@@ -67,4 +81,43 @@
 .msg {
     margin-top: 0;
     color: var(--highlight-color);
+}
+
+/******************************************************************/
+/* ---------------------- VERSION TABLETTE ---------------------- */
+/******************************************************************/
+@media screen and (min-width: 768px) {
+
+}
+
+/******************************************************************/
+/* ----------------------- VERSION DESKTOP ---------------------- */
+/******************************************************************/
+@media screen and (min-width: 1100px) {
+    .search_form {
+        flex-direction: row;
+        align-items: center;
+        width: 90%;
+        max-width: 1200px;
+    }
+
+    .search_form input {
+        margin-bottom: 0;
+    }
+
+    .inputs_ctn > *:first-child {
+        width: calc(50% - .5em);
+    }
+    .inputs_ctn > *:nth-child(2) {
+        width: calc(25% - 1em);
+    }
+    .inputs_ctn > *:nth-child(3) {
+        width: calc(25% - .5em);
+    }
+
+    .button_ctn {
+        display: inline-block;
+        margin-left: 1em;
+        margin-right: 0;
+    }
 }

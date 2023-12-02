@@ -37,22 +37,38 @@ function Card({type, data}){
     }
 
     if (type === "promo"){
+
         return <div className={styles.card_ctn}>
                     <img src={`../../img/destinations/${data.url_initial_image}`} alt=""/>
                     <div className={styles.card_info}> 
                         <h4>{data.country}</h4>
                         <h3>{data.name}</h3>
-                        <p>A partir de :</p>
+                        <div className={styles.price_percent_ctn}>
+                            <div className={styles.percent_ctn}>
+                                <span>-{data.max_discount}</span><sup>%</sup>
+                            </div>
+                            <div className={styles.price_ctn}>
+                                à partir de <span>{data.price_adults.slice(0,data.price_adults.lastIndexOf('.'))}</span><sup>&euro;</sup>
+                            </div> 
+                        </div>
                         <button onClick={() => handleClick(data.name, data.id)} className={styles.discover_btn}>découvrir</button>
                     </div>
                 </div>
+
     } else if (type === "topOffer"){
+
         return <div className={styles.card_ctn}>
                     <img src={`../../img/destinations/${data.url_initial_image}`} alt=""/>
                     <div className={styles.card_info}> 
                         <h4>{data.country}</h4>
                         <h3>{data.name}</h3>
-                        <p>A partir de :</p>
+
+                        <div className={styles.price_percent_ctn}>
+                            <div className={styles.price_ctn}>
+                                à partir de <span>{data.price_adults.slice(0,data.price_adults.lastIndexOf('.'))}</span><sup>&euro;</sup>
+                            </div> 
+                        </div>
+
                         <button onClick={() => handleClick(data.name, data.id)} className={styles.discover_btn}>découvrir</button>
                     </div>
                 </div>

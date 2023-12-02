@@ -56,7 +56,7 @@ function UserDashboardMyInfos(){
 
             <form onSubmit={handleSubmit} className={styles.user_db_account_form}>
                 <label className={styles.user_db_label}>
-                    <span>Votre nom :</span>
+                    <span>Nom :</span>
                     <input type="text" 
                         name="lastName" 
                         value={formData.lastName}
@@ -66,7 +66,7 @@ function UserDashboardMyInfos(){
                     </button>
                 </label>
                 <label className={styles.user_db_label}>
-                    <span>Votre prénom :</span>
+                    <span>Prénom :</span>
                     <input type="text" 
                         name="firstName" 
                         value={formData.firstName}
@@ -76,11 +76,11 @@ function UserDashboardMyInfos(){
                     </button>
                 </label>
                 <label className={styles.user_db_label}>
-                    <span>Votre adresse mail :</span>
+                    <span>Email :</span>
                     <span className={styles.email}>{formData.email}</span>
                 </label>
                 <label className={styles.user_db_label}>
-                    <span>Votre numéro de téléphone :</span>
+                    <span>Numéro de téléphone :</span>
                     <input type="tel" 
                         name="tel" 
                         value={formData.tel}
@@ -90,7 +90,7 @@ function UserDashboardMyInfos(){
                     </button>
                 </label>
                 <label className={styles.user_db_label}>
-                    <span>Votre adresse :</span>
+                    <span>Adresse postale :</span>
                     <textarea type="text" 
                         name="addresse" 
                         value={formData.addresse}
@@ -100,7 +100,7 @@ function UserDashboardMyInfos(){
                     </button>
                 </label>
                 <label className={styles.user_db_label}>
-                    <span>Votre date de naissance :</span>
+                    <span>Date de naissance :</span>
                     <input type="date" 
                         name="birthDate" 
                         min="1923-01-01"
@@ -111,7 +111,7 @@ function UserDashboardMyInfos(){
                     </button>
                 </label>
                 <label className={styles.user_db_label}>
-                    <span>Votre métier :</span>
+                    <span>Métier :</span>
                     <input type="text" 
                         name="occupation" 
                         value={formData.occupation}

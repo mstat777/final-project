@@ -4,9 +4,9 @@
 .card_ctn {
     display: flex;
     height: 200px;
-    width: 90%;
-    max-width: 600px;
+    width: 600px;
     margin-bottom: 1em;
+    border: 1px solid var(--primary-color);
     border-radius: 5px;
     box-shadow: 2px 2px 6px var(--primary-color);
     overflow: hidden;
@@ -17,18 +17,60 @@
     height: 100%;
     width: auto;
     object-fit: cover;
+    object-position: center;
 }
 
 .card_info {
-    width: 300px;
     display: inline-block;
+    width: 50%;
     padding: 1em;
 }
+
+.card_info > h3,
+.card_info > h4 {
+    margin: .3em auto;
+}
+
+.card_info > h3 {
+    font-weight: 600;
+}
+
+.price_percent_ctn {
+    display: flex;
+    justify-content: center;
+    margin: 1em auto;
+}
+
+.percent_ctn {
+    display: inline-block;
+    margin-right: 10px;
+    padding: .2em .4em;
+    font-size: 1.2rem;
+    color: white;
+    background-color: var(--secondary-color);
+}
+.percent_ctn > span {
+    margin: 0 .2em;
+    font-size: 2rem;
+    font-weight: 500;
+}
+
+.price_ctn {
+    display: inline-block;
+    font-size: 1.2rem;
+}
+.price_ctn > span {
+    margin: 0 .2em;
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: var(--highlight-color);
+}
+
 
 /* le bouton "découvrir" */
 .discover_btn {
     display: block;
-    margin: 2em auto 1em;
+    margin: 1em auto;
     padding: .5em .7em .4em;
     border: none;
     border-radius: 6px;
@@ -50,5 +92,21 @@
 /* ----------------------- VERSION DESKTOP ---------------------- */
 /******************************************************************/
 @media screen and (min-width: 1100px) {
+    .card_ctn {
+        flex-direction: column;
+        width: 300px;
+        /*aspect-ratio: 4/3;*/
+        height: 380px;
+    }
 
+    .card_ctn > img {
+        height: 200px;
+    }
+
+    .card_info {
+        display: block;
+        height: 180px;
+        width: 100%;
+        padding: .3em;
+    }
 }

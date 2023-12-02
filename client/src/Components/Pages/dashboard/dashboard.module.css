@@ -62,18 +62,23 @@
     border: none;
     /*background-color: antiquewhite;*/
 }
+
+/*** les textes ***/
 .user_db_label > *:first-child {
     display: inline-block;
     width: 42%;
     padding-right: .5em;
     text-align: right;
 }
+/*** les saisies ***/
 .user_db_label > *:nth-child(2) {
     display: inline-block;
     width: 50%;
     padding: .2em .5em;
     font-size: 1.6rem;
+    font-weight: 500;
 }
+/*** les boutons Modif ***/
 .user_db_label > *:nth-child(3) {
     display: inline-block;
     align-items: center;

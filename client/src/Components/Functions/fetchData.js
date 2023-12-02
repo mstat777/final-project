@@ -1,6 +1,6 @@
 import { store } from "../../store";
-import { setBestPromo, 
-        setTopDestination,
+import { setBestPromos, 
+        setTopDestinations,
         setAllContinents,
         setAllDestinations,
         setDestinationsWithContinents,
@@ -141,7 +141,7 @@ async function fetchLodgingImages(lodgingID){
 async function fetchBestPromoPack(){
     try {
         const result = await(await fetch(`/api/v.0.1/travel/pack/best-promo`)).json();
-        store.dispatch(setBestPromo(result.datas[0]));
+        store.dispatch(setBestPromos(result.datas));
     } catch (error) {
         console.log(error);
     }
@@ -150,7 +150,7 @@ async function fetchBestPromoPack(){
 async function fetchTopDestination(){
     try {
         const result = await(await fetch(`/api/v.0.1/travel/destination/top-offer`)).json();
-        store.dispatch(setTopDestination(result.datas[0]));
+        store.dispatch(setTopDestinations(result.datas));
     } catch (error) {
         console.log(error);
     }

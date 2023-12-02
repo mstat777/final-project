@@ -4,8 +4,8 @@ const initialState = {
     allContinents: [],
     allDestinations: [],
     destinationsWithContinents: [],
-    topDestination: {},
-    bestPromo: {},
+    topDestinations: [],
+    bestPromos: [],
     destination: {},
     lodging: {},
     destinationImages: [],
@@ -28,11 +28,11 @@ export const allTravelSlice = createSlice({
         setDestinationsWithContinents: (state, action) => {
             state.destinationsWithContinents = action.payload;
         },
-        setTopDestination: (state, action) => {
-            state.topDestination = action.payload;
+        setTopDestinations: (state, action) => {
+            state.topDestinations = action.payload;
         },
-        setBestPromo: (state, action) => {
-            state.bestPromo = action.payload;
+        setBestPromos: (state, action) => {
+            state.bestPromos = action.payload;
         },
         setDestination: (state, action) => {
             state.destination = action.payload;
@@ -62,8 +62,8 @@ export const {
     setAllContinents,
     setAllDestinations,
     setDestinationsWithContinents,
-    setTopDestination,
-    setBestPromo,
+    setTopDestinations,
+    setBestPromos,
     setDestination,
     setLodging,
     setDestinationImages,

@@ -1,20 +1,33 @@
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import styles from './results.module.css';
+import { useState, useEffect } from 'react';
 
 function DashboardResults(){
     const { results } = useSelector((state) => state.dashboard);
     const navigate = useNavigate();
 
+    // afficher le containeur des résultats :
+    const [showResults, setShowResults] = useState(false);
+
+    // si des résultats trouvés, afficher le containeur :
+    useEffect(() => {
+        if (results.length) {
+            setShowResults(true);
+        }
+    },[results.length])
+
     return <>
         { console.log(results)}
-        { results[0] !== undefined && 
+        { console.log("showResults = "+showResults)}
+        { showResults && 
         <>
-        <h3>Results</h3>
-        <table>
+        {results[0] ? <>
+        <h3>Résultats</h3>
+        <table className={styles.results_table}>
             <thead>
                 <tr>
-                    <th>Réf. pack</th>
+                    <th>Réf. pack &#35;</th>
                     <th>Destination</th>
                     <th>Pays</th>
                     <th>Date départ</th>
@@ -34,13 +47,13 @@ function DashboardResults(){
             {console.log(results)}
             {results.map((result, index) => 
                 <tr key={index}>
-                    <td>&num;{result.p.reference}</td> 
+                    <td>{result.p.reference}</td> 
                     <td>{result.d.name}</td> 
                     <td>{result.d.country}</td> 
                     <td>{result.p.departure_date.slice(0, result.p.departure_date.indexOf('T'))}</td>
                     <td>{result.p.return_date.slice(0, result.p.return_date.indexOf('T'))}</td>
                     <td>{result.p.duration+1}J/{result.p.duration}N</td>  
-                    <td>{result.p.price_total_booking} &euro;</td> 
+                    <td>{result.b.price_total_booking} &euro;</td> 
                     <td>{result.u.last_name}</td> 
                     <td>{result.u.first_name}</td> 
                     <td>{result.u.tel}</td> 
@@ -57,7 +70,10 @@ function DashboardResults(){
                 </tr>
                 )}
             </tbody>
-        </table>
+        </table> 
+        </>
+        : <p className={styles.msg_nok}>Aucun résultat trouvé</p>
+        }
         </>}
     </>
 }

@@ -9,13 +9,13 @@
 
 :root {
     /* pour les fonds (forms, backgrounds) */
-    --primary-color: #dee8f2;  /* 60% */
+    --primary-color: #def;  /* 60% */
     /* pour les fonds (header, footer) */
-    --secondary-color: #3F9AE9;  /* 30% */
+    --secondary-color: #3f9ae9;  /* 30% */
     /* pour les boutons */
     --tertiary-color: rgb(47, 74, 122);  /* 10% */
     /* pour souligner certains textes, afficher des erreurs */
-    --highlight-color: rgb(151, 10, 10);
+    --highlight-color: rgb(231, 19, 105);
     /* pour les textes de saisie (input, textarea, select) */
     --darkgrey-color: #333; 
     /* pour ........ */
@@ -23,7 +23,7 @@
     /* pour les bordures des champs et des tableaux */
     --lightgrey-color: rgb(204, 204, 204);
     /* pour distinguer les lignes de tableau */
-    --verylightgrey-color: #eee;
+    --verylightgrey-color: #f9f9f9;
     /* la police principale */
     --main-font: 'Montserrat', sans-serif;
 }
@@ -156,7 +156,7 @@ textarea {
 /******************************************************************/
 main {
 	width: 100%;
-    margin-top: 230px;
+    margin-top: 240px;
 	text-align: center;
 }
 
