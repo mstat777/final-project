@@ -1,5 +1,7 @@
 server/node_modules
 server/.env
+server/not_to_build
 client/node_modules
+client/not_to_build
 backup
 .vscode
