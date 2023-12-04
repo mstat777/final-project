@@ -13,7 +13,7 @@ function Signin(){
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
-    const { userInfo } =  useSelector((state) => state.user);
+    const { userInfo, logMessage } =  useSelector((state) => state.user);
 
     const [msg, setMsg] = useState(null);
     const [email, setEmail] = useState("");
@@ -47,10 +47,11 @@ function Signin(){
         if(res.status === 200){
             localStorage.setItem("auth", json.TOKEN);
             console.log("le token a été créé dans localhost");
+            console.log("json.msg = "+json.msg);
             dispatch(signin(json));
             console.log("userInfo.chosenPackID ="+userInfo.chosenPackID);
-            // si on n'a pas encore trouvé un pack :
-            if (!userInfo.chosenPackID) { 
+            // si on n'a pas encore séléctionné un pack, on sera dirigé vers la page d'accueil :
+            if (userInfo.chosenPackID === -1) { 
                 navigate("/");
             } else {
                 navigate(`/booking/${userInfo.chosenPackID}`);
@@ -61,9 +62,13 @@ function Signin(){
     }
 
     return(
-        <main id="signin" className={styles.signin_main}>
+        <main id="signin">
 
-            <div>
+            <div className={styles.signin_div}>
+                {/* afficher le message de confirmation après avoir créé un nouveau compte */}
+                { (logMessage && !email && !password) && 
+                    <p className={styles.ok_msg}>{logMessage}</p> }
+                
                 <h2>Je me connecte</h2>
                 <form onSubmit={handleSubmit} className={styles.sign_form}>
 
@@ -74,7 +79,8 @@ function Signin(){
                                 placeholder="Votre adresse mail"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                className={styles.sign_input}/>
+                                className={styles.sign_input}
+                                required/>
 
                     </div>
 
@@ -85,7 +91,8 @@ function Signin(){
                                 placeholder="Votre mot de passe"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
-                                className={styles.pass_input}/>
+                                className={styles.pass_input}
+                                required/>
                         <span className={styles.pass_icon_ctn} onClick={handlePassIconToggle}>
                             <FontAwesomeIcon icon={passIcon} className={styles.pass_icon}/>
                         </span>
@@ -96,7 +103,7 @@ function Signin(){
                 </form>
 
                 { (msg && !email && !password) && 
-                        <p className={styles.msg}>{msg}</p> }
+                        <p className={styles.err_msg}>{msg}</p> }
 
                 <p>Vous n'avez pas encore de compte ? <Link to="/user/signup">En créer un</Link></p>
             </div>

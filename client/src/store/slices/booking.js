@@ -50,6 +50,9 @@ export const bookingSlice = createSlice({
                 // calculer la somme des prix totaux de tous les activités pour tous les enfants
                 sum_children += state.bookingInfo.prices.total_children[i];
             }
+            console.log("sum_adults = "+sum_adults);
+            console.log("sum_children = "+sum_children);
+
             state.bookingInfo.prices.total_activities = sum_adults + sum_children;
             console.log("state.bookingInfo.prices.total_activities = "+state.bookingInfo.prices.total_activities);
 

@@ -2,8 +2,6 @@
 /* ----------------------- VERSION MOBILE ----------------------- */
 /******************************************************************/
 .user_db_header {
-    display: flex;
-    flex-direction: column;
     background-color: var(--secondary-color);
 }
 
@@ -11,23 +9,22 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: .5em;
-    background-color: unset;
+    margin: 1em;
 }
 
 .user_db_nav > .user_db_image_ctn {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 30px;
-    width: 30px;
+    height: 40px;
+    width: 40px;
     margin-bottom: .5em;
-    border-radius: 15px;
+    border-radius: 50%;
     background-color: rgb(122, 191, 141);
 }
 
 .user_db_nav .user_db_image {
-    font-size: 1.4rem;
+    font-size: 1.6rem;
 }
 
 .user_db_nav > span {
@@ -37,35 +34,78 @@
     color: rgb(0, 0, 0);
 }
 
-.user_db_nav > .link_signout,
-.user_db_nav > .link {
-    display: inline-block;
-    width: 90%;
-    margin: 0 auto;
-    padding: .5em 1em;
-    font-size: 1.4rem;
-    font-weight: 500;
-    color: var(--tertiary-color);
-    text-align: center;
-    background-color: var(--primary-color);
+.user_db_nav > div {
+    display: flex;
+    flex-direction: column;
 }
 
-.user_db_nav > .link_home {
+.user_db_nav .link_signout,
+.user_db_nav .link {
+    display: block;
+    width: 100%;
+    margin-bottom: .5em;
+    padding: .5em 1em;
+    font-weight: 500;
+    color: white;
+    text-align: center;
+}
+
+.user_db_nav .link_home {
     margin-top: .5em;
     padding: .5em 1em;
     color: white;
     background-color: black;
 }
 
-.user_db_nav > .link_signout {
+.user_db_nav .link_signout {
+    display: inline-block;
+    width: unset;
     color: var(--highlight-color);
+    background-color: var(--primary-color);
+}
+
+.user_db_nav .link_signout:hover,
+.user_db_nav .link_home:hover,
+.user_db_nav .link:hover {
+    cursor: pointer;
 }
 
 /******************************************************************/
 /* ---------------------- VERSION TABLETTE ---------------------- */
 /******************************************************************/
 @media screen and (min-width: 768px) {
+    .user_db_nav {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        margin: .5em 2em;
+    }
 
+    .user_db_nav > .user_db_image_ctn {
+        height: 36px;
+        width: 36px;
+        margin-bottom: 0;
+    }
+
+    .user_db_nav > div {
+        flex-direction: row;
+    }
+
+    .user_db_nav .link {
+        color: var(--tertiary-color);
+        background-color: var(--primary-color);
+    }
+    
+    .user_db_nav .link,
+    .user_db_nav .link_signout {
+        /*display: inline-block;*/
+        width: unset;
+        margin-bottom: 0;
+    }
+
+    .user_db_nav .link_home {
+        margin-top: 0;
+    }
 }
 
 /******************************************************************/
@@ -75,40 +115,27 @@
     .user_db_nav {
         flex-direction: row;
     }
-
-    .user_db_nav > .user_db_image_ctn {
-        height: 80px;
-        width: 80px;
-        border-radius: 40px;
-    }
-
-    .user_db_nav .user_db_image {
-        font-size: 4rem;
-    }
     
     .user_db_nav > span {
         display: block;
-        margin: 1em auto 2em;
+        /*margin: 1em auto 2em;*/
         color: white;
     }
 
-    .user_db_nav > .link_signout,
-    .user_db_nav > .link_home,
-    .user_db_nav > .link {
-        display: inline-block;
-        padding: .5em 1em;
-        font-weight: 500;
-        color: var(--tertiary-color);
-        background-color: var(--primary-color);
+    .user_db_nav > div > * {
+        vertical-align: bottom;
     }
 
-    .user_db_nav > .link_home {
+    .user_db_nav .link_home {
+        display: inline-block;
         margin-top: 0;
+        padding: .5em 1em;
+        font-weight: 500;
         color: white;
         background-color: black;
     }
 
-    .user_db_nav > .link_signout {
+    .user_db_nav .link_signout {
         color: var(--highlight-color);
     }
 }

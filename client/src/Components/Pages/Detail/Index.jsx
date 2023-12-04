@@ -71,6 +71,7 @@ function Detail(){
                     <tbody>      
                         { packs.map((pack, index) => 
                             <tr key={index}>
+                                {/*console.log("index = "+index)*/}
                                 <td>{pack.departure_date.slice(0, pack.departure_date.indexOf('T'))}</td>
                                 <td>{pack.return_date.slice(0, pack.return_date.indexOf('T'))}</td> 
                                 <td>{pack.duration+1}J/{pack.duration}N</td>  
@@ -80,7 +81,7 @@ function Detail(){
                                     <button 
                                     onClick={() => {
                                         dispatch(choosePack(index));
-                                        console.log("index of pack = "+index);
+                                        //console.log("index of pack = "+index);
                                         navigate(`/booking/${index}`);
                                     }} 
                                     className={styles.book_btn}>réserver</button>
@@ -89,25 +90,49 @@ function Detail(){
                         )}
                     </tbody>
                 </table>
-                <p><span>Présentation</span>{lodging.overview}</p>
-                <p><span>Equipement</span>{lodging.facilities}</p>
-                <p><span>Logement</span>{lodging.rooms}</p>
-                <p><span>Restauration</span>{lodging.food_drink}</p>
-                <p><span>Formules</span>{lodging.meal_plans}</p>
-                <p><span>Loisirs</span>{lodging.entertainment}</p>
-                <p><span>Enfants</span>{lodging.children}</p>
-                <p>Tripadvisor : {lodging.tripadvisor}</p>
-                <TripadvisorNote note={lodging.tripadvisor}/>
+
+                <div className={styles.property_ctn}>
+                    <span>Présentation</span>
+                    <p>{lodging.overview}</p>
+                </div>
+                <div className={styles.property_ctn}>
+                    <span>Equipement</span>
+                    <p>{lodging.facilities}</p>
+                </div>
+                <div className={styles.property_ctn}>      
+                    <span>Logement</span>
+                    <p>{lodging.rooms}</p>
+                </div>
+                <div className={styles.property_ctn}>
+                    <span>Restauration</span>
+                    <p>{lodging.food_drink}</p>
+                </div>
+                <div className={styles.property_ctn}>
+                    <span>Formules</span>
+                    <p>{lodging.meal_plans}</p>
+                </div>
+                <div className={styles.property_ctn}>
+                    <span>Loisirs</span>
+                    <p>{lodging.entertainment}</p>     
+                </div>
+                <div className={styles.property_ctn}>
+                    <span>Enfants</span>
+                    <p>{lodging.children}</p>
+                </div>
+                <div className={styles.property_ctn}>
+                    <p>Tripadvisor : {lodging.tripadvisor}</p>
+                    <TripadvisorNote note={lodging.tripadvisor}/>
+                </div>
                 
                 <div className={styles.activities_ctn}>
                     <span>Activités optionnelles</span>
                     <p>Au départ de votre {lodging.name}, vous pouvez profitez des activités suivantes :</p>
-                    { console.log("activities = "+activities)}
-                    { console.log("type of activities = "+typeof activities)}
-                    {activities != undefined &&
+                    {/* console.log("activities = "+activities)*/}
+                    {/* console.log("type of activities = "+typeof activities)*/}
+                    {activities !== undefined &&
                     activities.map((activity, index) => 
                         <div className={styles.activity} key={index}>
-                            <strong>{activity.name}</strong>
+                            <span>{activity.name}</span>
                             <div>
                                 <p>Type: {activity.type}</p>
                                 <p>Prix: adultes: {activity.price_adults}&euro;, enfants: {activity.price_children}&euro;</p>

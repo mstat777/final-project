@@ -2,7 +2,7 @@
 /* ----------------------- VERSION MOBILE ----------------------- */
 /******************************************************************/
 .contact_section {
-    margin: 2em;
+    margin: 2em auto 3em;
 }
 
 .contact_section > div {
@@ -39,7 +39,7 @@
     justify-content: space-between;
     max-width: 500px;
     margin: 2em auto;
-    padding: 1.5em 1.5em 0;
+    padding: 1.5em 1.5em 1em;
     background-color: var(--secondary-color);
 }
 
@@ -52,10 +52,14 @@
     margin-bottom: 1em;
 }
 
+.contact_form > div {
+    margin-bottom: 0;
+}
+
 .contact_form > label > span {
     display: block;
     /*width: 35%;*/
-    margin-top: .2em;
+    margin-top: .3em;
     margin-right: .5em;
     white-space: nowrap;
     overflow: hidden;
@@ -65,19 +69,20 @@
 .contact_form > label > input,
 .contact_form > label > textarea {
     display: block;
-    width: 70%;
+    width: 75%;
     margin-left: .5em;
     margin-right: 0;
     padding: .4em;
+    font-weight: 500;
 }
 
 .contact_form > label > textarea {
-    height: 4em;
+    height: auto;
 }
 
 .contact_form > *:last-child > div {
     justify-self: flex-end;
-    width: 70%;
+    width: 75%;
 }
 
 .contact_form button {

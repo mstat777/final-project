@@ -14,10 +14,13 @@ function UserDashboardMyInfos(){
         firstName: "",
         email: "",
         tel: "",
-        addresse: "",
+        address: "",
         birthDate: "",
         occupation: ""
     });
+
+    // pour ne pas soumettre le formulaire, si les inputs ne sont pas valides:
+    const [isFormValidated, setIsFormValidated] = useState(false);
 
     const [msg, setMsg] = useState(null);
 
@@ -32,7 +35,7 @@ function UserDashboardMyInfos(){
                     firstName: dataUser.datas[0].first_name,
                     email: dataUser.datas[0].email,
                     tel: dataUser.datas[0].tel,
-                    addresse: dataUser.datas[0].addresse,
+                    address: dataUser.datas[0].address,
                     birthDate: dataUser.datas[0].birth_date,
                     occupation: dataUser.datas[0].occupation
                 });
@@ -47,8 +50,26 @@ function UserDashboardMyInfos(){
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
+    const checkFormValidation = () => {
+        
+    }
+
+    useEffect(() => {
+        if (isFormValidated === true) {
+            submitForm();
+        }
+    },[isFormValidated]);
+
+    async function submitForm() {
+        if (isFormValidated) {
+            console.log("User Data modif form sent!");
+        }
+    }
+
     async function handleSubmit(e) {
         e.preventDefault();
+        // vérifier si tous les champs sont valides :
+        checkFormValidation();
     }
 
     return <main className={styles.user_db_main}>
@@ -92,8 +113,8 @@ function UserDashboardMyInfos(){
                 <label className={styles.user_db_label}>
                     <span>Adresse postale :</span>
                     <textarea type="text" 
-                        name="addresse" 
-                        value={formData.addresse}
+                        name="address" 
+                        value={formData.address}
                         onChange={handleChange}/>
                     <button onClick={() => {}}>
                         <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
@@ -120,7 +141,7 @@ function UserDashboardMyInfos(){
                         <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
                     </button>
                 </label>
-                <button type="submit">modifier</button>
+                <button type="submit">enregistrer</button>
             </form>
         </main>
 }

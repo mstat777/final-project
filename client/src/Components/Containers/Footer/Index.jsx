@@ -10,7 +10,7 @@ function Footer() {
 
     async function handleSubmit(e) {
         e.preventDefault();
-        console.log("Contact form sent!");
+        console.log("Newsletter form sent!");
         const res = await fetch("/api/v.0.1/contact/newsletter", {
             method: "post",
             headers: { "Content-Type": "application/json" },
@@ -54,7 +54,8 @@ function Footer() {
                         <input type="email" 
                             name="userEmail" 
                             value={userEmail}
-                            onChange={(e) => setUserEmail(e.target.value)}/>
+                            onChange={(e) => setUserEmail(e.target.value)}
+                            required/>
                         <button type="submit">OK</button>
                     </form>
                     { (msg && !userEmail) && 

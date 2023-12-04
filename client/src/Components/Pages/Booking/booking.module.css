@@ -12,12 +12,12 @@
     margin: 1em 2em;
 }
 
-/* Cacher les flêches des boutons spinner */
+/* Cacher les flêches des boutons spinner
 .booking_section input[type='number']::-webkit-inner-spin-button, 
 .booking_section input[type='number']::-webkit-outer-spin-button { 
     -webkit-appearance: none;
     margin: 0;
-}
+}*/
 
 .booking_pack_ctn {
     margin-bottom: 1em;

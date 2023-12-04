@@ -15,7 +15,7 @@
 .card_ctn > img {
     display: inline-block;
     height: 100%;
-    width: auto;
+    width: 50%;
     object-fit: cover;
     object-position: center;
 }
@@ -29,6 +29,9 @@
 .card_info > h3,
 .card_info > h4 {
     margin: .3em auto;
+    overflow: hidden; 
+    white-space: nowrap; 
+    text-overflow: ellipsis;
 }
 
 .card_info > h3 {
@@ -101,12 +104,13 @@
 
     .card_ctn > img {
         height: 200px;
+        width: 100%;
     }
 
     .card_info {
         display: block;
         height: 180px;
         width: 100%;
-        padding: .3em;
+        padding: .5em;
     }
 }

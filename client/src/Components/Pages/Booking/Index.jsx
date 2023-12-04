@@ -18,6 +18,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCirclePlus, faCircleMinus } from '@fortawesome/free-solid-svg-icons';
 
 function Booking(){
+    /* limiter les inputs :
+    const minPeopleAllowed = 0;
+    const maxPeopleAllowed = 99;
+    */ 
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -33,6 +37,7 @@ function Booking(){
     // stocker les données de la réservation :
     const { bookingInfo } = useSelector((state) => state.booking);
 
+    //console.log(activities);
     // on récupère les prix tels qu'indiqués dans la BDD pour les passer au state :
     let prices_adults = [];
     let prices_children = [];
@@ -41,10 +46,10 @@ function Booking(){
         prices_adults[i] = activities[i].price_adults;
         prices_children[i] = activities[i].price_children;
         //console.log("prices_adults[i] = "+prices_adults[i]);
-        //console.log("prices_children[i] = "+prices_children[i]);
+        console.log("prices_children[i] = "+prices_children[i]);
     }
 
-    // stocker les prix du pack et des activités associées :
+    // initialiser les variables pour stocker les prix du pack et des activités associées :
     const [pricesList, setPricesList] = useState({
         price_adults_pack: 0,
         price_children_pack: 0,
@@ -61,22 +66,22 @@ function Booking(){
     useEffect(() => {
         const initInfoAndSetPrices = async () => { 
             //console.log("activities[0].price_adults = "+activities[0].price_adults);
-            //console.log("prices_adults = "+prices_adults);
-            //console.log("prices_children = "+prices_children);
-
             const setPrices = async () => {
+                console.log("prices_adults = "+prices_adults);
+                console.log("prices_children = "+prices_children);
                 setPricesList({
                     price_adults_pack: packs[id].price_adults,
                     price_children_pack: packs[id].price_children,
                     price_adults_activities: prices_adults,
                     price_children_activities: prices_children
-                })
-            }
-            await setPrices();
-            /*
-            const checkPrices = () => {
+                });
                 console.log("pricesList.price_adults_activities = "+pricesList.price_adults_activities);
                 console.log("pricesList.price_children_activities = "+pricesList.price_children_activities);
+            }
+            await setPrices();
+            
+            /*const checkPrices = () => {
+                
             }
             checkPrices();*/
         }
@@ -86,10 +91,13 @@ function Booking(){
 
     // calculer les prix selon le nb de personnes :
     useEffect(() => {
-        dispatch(calculatePrices(pricesList));
-        //console.log("packs[id].price_adults = "+packs[id].price_adults);
-        //console.log("bookingInfo.prices.total_pack = "+bookingInfo.prices.total_pack);
-        //console.log("bookingInfo.nb_adults.pack = "+bookingInfo.nb_adults.pack);
+        if (pricesList.price_adults_activities.length && 
+            pricesList.price_children_activities) {
+            dispatch(calculatePrices(pricesList));
+            //console.log("packs[id].price_adults = "+packs[id].price_adults);
+            //console.log("bookingInfo.prices.total_pack = "+bookingInfo.prices.total_pack);
+            //console.log("bookingInfo.nb_adults.pack = "+bookingInfo.nb_adults.pack);
+        }
     },[bookingInfo.nb_adults, bookingInfo.nb_children]);
 
     // pour stocker les états des checkboxes :
@@ -120,8 +128,7 @@ function Booking(){
         }
     }
 
-    return (
-        <main id="booking">
+    return <main id="booking">
             { (destination && lodging && activities) &&
             <div className={styles.booking_section}>
                 <img src={"../../img/lodgings/"+lodging.url_initial_image} alt="" className={styles.main_img}/>
@@ -143,7 +150,11 @@ function Booking(){
                     <button onClick={()=>{dispatch(increaseNumberAdultsPack())}}>
                         <FontAwesomeIcon icon={faCirclePlus} className={styles.fa_circle}/>
                     </button>
-                    <input type="number" value={bookingInfo.nb_adults.pack}/>
+                    <input type="text" 
+                        pattern="[0-9]{2}"
+                        /*min={minPeopleAllowed}
+                        max={maxPeopleAllowed}*/
+                        value={bookingInfo.nb_adults.pack}/>
                     <button onClick={()=>{dispatch(decreaseNumberAdultsPack())}}>
                         <FontAwesomeIcon icon={faCircleMinus} className={styles.fa_circle}/>
                     </button>
@@ -153,7 +164,11 @@ function Booking(){
                     <button onClick={()=>{dispatch(increaseNumberChildrenPack())}}>
                         <FontAwesomeIcon icon={faCirclePlus} className={styles.fa_circle}/>
                     </button>
-                    <input type="number" value={bookingInfo.nb_children.pack}/>
+                    <input type="text" 
+                        pattern="[0-9]{2}"
+                        /*min={minPeopleAllowed}
+                        max={maxPeopleAllowed}*/
+                        value={bookingInfo.nb_children.pack}/>
                     <button onClick={()=>{dispatch(decreaseNumberChildrenPack())}}>
                         <FontAwesomeIcon icon={faCircleMinus} className={styles.fa_circle}/>
                     </button>
@@ -164,7 +179,7 @@ function Booking(){
                     {activities.map((activity, index) => 
                         <div className={styles.booking_activity} key={index}>
                             <div className={styles.booking_activity_title}>
-                                <label for={activity.id}>
+                                <label htmlFor={activity.id}>
                                     <input type="checkbox" 
                                         //name={activity.id}
                                         checked={ checkBoxes[index] } 
@@ -179,7 +194,11 @@ function Booking(){
                                 <button onClick={()=>{dispatch(increaseNumberAdultsActivity(index))}}>
                                     <FontAwesomeIcon icon={faCirclePlus} className={styles.fa_circle}/>
                                 </button>
-                                <input type="number" value={bookingInfo.nb_adults.activities[index]} />
+                                <input type="text" 
+                                    pattern="[0-9]{2}"
+                                    /*min={minPeopleAllowed}
+                                    max={maxPeopleAllowed}*/
+                                    value={bookingInfo.nb_adults.activities[index]} />
                                 <button onClick={()=>{dispatch(decreaseNumberAdultsActivity(index))}}>
                                     <FontAwesomeIcon icon={faCircleMinus} className={styles.fa_circle}/>
                                 </button>
@@ -188,7 +207,11 @@ function Booking(){
                                 <button onClick={()=>{dispatch(increaseNumberChildrenActivity(index))}}>
                                     <FontAwesomeIcon icon={faCirclePlus} className={styles.fa_circle}/>
                                 </button>
-                                <input type="number" value={bookingInfo.nb_children.activities[index]} />
+                                <input type="text" 
+                                    pattern="[0-9]{2}"
+                                    /*min={minPeopleAllowed}
+                                    max={maxPeopleAllowed}*/
+                                    value={bookingInfo.nb_children.activities[index]} />
                                 <button onClick={()=>{dispatch(decreaseNumberChildrenActivity(index))}}>
                                     <FontAwesomeIcon icon={faCircleMinus} className={styles.fa_circle}/>
                                 </button>
@@ -221,7 +244,6 @@ function Booking(){
             </div>
             }
         </main>
-    )
 }
 
 export default Booking;

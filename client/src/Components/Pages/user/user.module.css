@@ -1,18 +1,23 @@
 /******************************************************************/
 /* ----------------------- VERSION MOBILE ----------------------- */
 /******************************************************************/
-.signin_main {
-    padding: 3em auto;
+.signin_div {
+    margin: 3em auto;
 }
+
+.signup_div {
+    margin: 1em auto 2em;
+}
+
 /* fond - image transparente : 
-.signin_main > div,
-.signup_main > div {
+.signin_div,
+.signup_div {
     position: relative;
     background-color: white;
 }
 
-.signin_main > div::before,
-.signup_main > div::before {
+.signin_div::before,
+.signup_div::before {
     content: ' ';
     display: block;
     position: absolute;
@@ -31,7 +36,7 @@
     display: flex;
     flex-direction: column;
     max-width: 500px;
-    margin: 2em auto; 
+    margin: 1em auto; 
     padding: 1.5em;
     background-color: var(--secondary-color);
 }
@@ -130,19 +135,39 @@
 }
 
 /* le lien pour créer un compte */
-.signin_main a {
+.signin_div a {
     margin-left: .5em;
     font-weight: 500;
     color: var(--highlight-color);
+}
+
+.ok_msg,
+.err_msg {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0 1em;
+    color: var(--highlight-color);
+    white-space: break-spaces;
+}
+
+.ok_msg {
+    font-size: 2rem;
+    font-weight: 500;
+    color: rgb(0, 143, 49);
 }
 
 /******************************************************************/
 /* ---------------------- VERSION TABLETTE ---------------------- */
 /******************************************************************/
 @media screen and (min-width: 768px) {
-    .signin_main {
-        padding-top: 7em;
-        padding-bottom: 10em;
+    .signin_div {
+        margin-top: 7em;
+        margin-bottom: 10em;
+    }
+
+    .signup_div {
+        margin-bottom: 3em;
     }
 }
 
@@ -150,5 +175,5 @@
 /* ----------------------- VERSION DESKTOP ---------------------- */
 /******************************************************************/
 @media screen and (min-width: 1100px) {
-
+    
 }

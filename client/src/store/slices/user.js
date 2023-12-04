@@ -5,9 +5,10 @@ const initialState = {
         isLogged: false,
         email: "johndoe@johndoe.com",
         userID: 0,
-        chosenPackID: 0,
+        chosenPackID: -1, // car packID #0 existe bien
         accountType: ""
-    }
+    },
+    logMessage: ""
 }
 
 export const userSlice = createSlice({
@@ -28,11 +29,15 @@ export const userSlice = createSlice({
                 email: "johndoe@johndoe.com",
                 userID: 0,
                 accountType: "",
-                chosenPackID: 0
+                chosenPackID: -1
             }
         },
         choosePack: (state, action) => {
             state.userInfo.chosenPackID = action.payload;
+            //console.log("state.userInfo.chosenPackID = "+state.userInfo.chosenPackID);
+        },
+        setLogMessage: (state, action) => {
+            state.logMessage = action.payload;
         }
     }
 });
@@ -40,7 +45,8 @@ export const userSlice = createSlice({
 export const {
     signin, 
     signout,
-    choosePack
+    choosePack,
+    setLogMessage
 } = userSlice.actions;
 
 export default userSlice.reducer;

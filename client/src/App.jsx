@@ -46,98 +46,98 @@ import AdminDashboardUsersCreate from './Components/Pages/dashboard/admin/UsersC
 import NotFound from "./Components/Pages/NotFound/Index";
 
 function BasicLayout() {
-  return (
-    <>
-      <Header/>
-      <Outlet/>
-      <Footer/>
-    </>
-  )
+    return (
+        <>
+        <Header/>
+        <Outlet/>
+        <Footer/>
+        </>
+    )
 }
 
 function UserDashboardLayout() {
-  return (
-    <>
-      <UserDashboardHeader/>
-      <Outlet/>
-    </>
-  )
+    return (
+        <>
+        <UserDashboardHeader/>
+        <Outlet/>
+        </>
+    )
 }
 
 function AdminDashboardLayout() {
-  return (
-    <>
-      <AdminDashboardHeader/>
-      <Outlet/>
-    </>
-  )
+    return (
+        <>
+        <AdminDashboardHeader/>
+        <Outlet/>
+        </>
+    )
 }
 
 function App() {
-  return (
-    <BrowserRouter>
-      <Routes>
+    return (
+        <BrowserRouter>
+        <Routes>
 
-        <Route path="/" element={<BasicLayout/>}>
-            <Route index element={<WithFetch child={Home}/>}/>
-            <Route path="search" element={<WithFetch child={Home}/>}/>
+            <Route path="/" element={<BasicLayout/>}>
+                <Route index element={<WithFetch child={Home}/>}/>
+                <Route path="search" element={<WithFetch child={Home}/>}/>
 
-            <Route path="holidays" element={<WithFetch child={Holidays}/>}/>
-            <Route path="agency" element={<Agency/>}/>
-            <Route path="contact" element={<Contact/>}/>
-            
-            <Route path="user">
-              <Route path="signin" element={<Signin/>}/>
-              <Route path="signup" element={<Signup/>}/>
-              <Route path="signout" element={<Signout/>}/> 
+                <Route path="holidays" element={<WithFetch child={Holidays}/>}/>
+                <Route path="agency" element={<Agency/>}/>
+                <Route path="contact" element={<Contact/>}/>
+                
+                <Route path="user">
+                <Route path="signin" element={<Signin/>}/>
+                <Route path="signup" element={<Signup/>}/>
+                <Route path="signout" element={<Signout/>}/> 
+                </Route>
+
+                <Route path="detail/:id" element={<Detail/>}/>
+                <Route path="booking/:id" element={<WithAuth child={Booking} auth="true"/>}/>
+                <Route path="summary/:id" element={<Summary/>}/>
+                <Route path="confirmation" element={<Confirmation/>}/>
+
+                <Route path="not-found" element={<NotFound/>}/>
             </Route>
 
-            <Route path="detail/:id" element={<Detail/>}/>
-            <Route path="booking/:id" element={<WithAuth child={Booking} auth="true"/>}/>
-            <Route path="summary/:id" element={<Summary/>}/>
-            <Route path="confirmation" element={<Confirmation/>}/>
+            <Route path="/db/user" element={<UserDashboardLayout/>}>
+                <Route path="my-infos" element={<WithAuth child={UserDashboardMyInfos} auth="true"/>}/>
+                <Route path="my-bookings/:id" element={<WithAuth child={UserDashboardMyBookings} auth="true"/>}/>
+            </Route>
 
-            <Route path="not-found" element={<NotFound/>}/>
-        </Route>
+            <Route path="/db/admin" element={<AdminDashboardLayout/>}>
+                <Route path="my-infos" element={<WithAuth child={UserDashboardMyInfos} auth="true" adminAuth="true"/>}/>
+                <Route path="my-bookings/:id" element={<WithAuth child={UserDashboardMyBookings} auth="true" adminAuth="true"/>}/>
 
-        <Route path="/db/user" element={<UserDashboardLayout/>}>
-            <Route path="my-infos" element={<WithAuth child={UserDashboardMyInfos} auth="true"/>}/>
-            <Route path="my-bookings/:id" element={<WithAuth child={UserDashboardMyBookings} auth="true"/>}/>
-        </Route>
+                <Route path="bookings" element={<WithAdminAuth child={AdminDashboardBookings} auth="true" adminAuth="true"/>}/>
+                <Route path="bookings/search" element={<WithAdminAuth child={AdminDashboardBookings} auth="true" adminAuth="true"/>}/>
+                <Route path="bookings/create" element={<WithAdminAuth child={AdminDashboardBookingsCreate} auth="true" adminAuth="true"/>}/>
 
-        <Route path="/db/admin" element={<AdminDashboardLayout/>}>
-            <Route path="my-infos" element={<WithAuth child={UserDashboardMyInfos} auth="true" adminAuth="true"/>}/>
-            <Route path="my-bookings/:id" element={<WithAuth child={UserDashboardMyBookings} auth="true" adminAuth="true"/>}/>
+                <Route path="destinations" element={<WithAdminAuth child={AdminDashboardDestinations} auth="true" adminAuth="true"/>}/>
+                <Route path="destinations/search" element={<WithAdminAuth child={AdminDashboardDestinations} auth="true" adminAuth="true"/>}/>
+                <Route path="destinations/create" element={<WithAdminAuth child={AdminDashboardDestinationsCreate} auth="true" adminAuth="true"/>}/>
 
-            <Route path="bookings" element={<WithAdminAuth child={AdminDashboardBookings} auth="true" adminAuth="true"/>}/>
-            <Route path="bookings/search" element={<WithAdminAuth child={AdminDashboardBookings} auth="true" adminAuth="true"/>}/>
-            <Route path="bookings/create" element={<WithAdminAuth child={AdminDashboardBookingsCreate} auth="true" adminAuth="true"/>}/>
+                <Route path="lodgings" element={<WithAdminAuth child={AdminDashboardLodgings} auth="true" adminAuth="true"/>}/>
+                <Route path="lodgings/search" element={<WithAdminAuth child={AdminDashboardLodgings} auth="true" adminAuth="true"/>}/>
+                <Route path="lodgings/create" element={<WithAdminAuth child={AdminDashboardLodgingsCreate} auth="true" adminAuth="true"/>}/>
 
-            <Route path="destinations" element={<WithAdminAuth child={AdminDashboardDestinations} auth="true" adminAuth="true"/>}/>
-            <Route path="destinations/search" element={<WithAdminAuth child={AdminDashboardDestinations} auth="true" adminAuth="true"/>}/>
-            <Route path="destinations/create" element={<WithAdminAuth child={AdminDashboardDestinationsCreate} auth="true" adminAuth="true"/>}/>
+                <Route path="packs" element={<WithAdminAuth child={AdminDashboardPacks} auth="true" adminAuth="true"/>}/>
+                <Route path="packs/search" element={<WithAdminAuth child={AdminDashboardPacks} auth="true" adminAuth="true"/>}/>
+                <Route path="packs/create" element={<WithAdminAuth child={AdminDashboardPacksCreate} auth="true" adminAuth="true"/>}/>
 
-            <Route path="lodgings" element={<WithAdminAuth child={AdminDashboardLodgings} auth="true" adminAuth="true"/>}/>
-            <Route path="lodgings/search" element={<WithAdminAuth child={AdminDashboardLodgings} auth="true" adminAuth="true"/>}/>
-            <Route path="lodgings/create" element={<WithAdminAuth child={AdminDashboardLodgingsCreate} auth="true" adminAuth="true"/>}/>
+                <Route path="activities" element={<WithAdminAuth child={AdminDashboardActivities} auth="true" adminAuth="true"/>}/>
+                <Route path="activities/search" element={<WithAdminAuth child={AdminDashboardActivities} auth="true" adminAuth="true"/>}/>
+                <Route path="activities/create" element={<WithAdminAuth child={AdminDashboardActivitiesCreate} auth="true" adminAuth="true"/>}/>
 
-            <Route path="packs" element={<WithAdminAuth child={AdminDashboardPacks} auth="true" adminAuth="true"/>}/>
-            <Route path="packs/search" element={<WithAdminAuth child={AdminDashboardPacks} auth="true" adminAuth="true"/>}/>
-            <Route path="packs/create" element={<WithAdminAuth child={AdminDashboardPacksCreate} auth="true" adminAuth="true"/>}/>
+                <Route path="users" element={<WithAdminAuth child={AdminDashboardUsers} auth="true" adminAuth="true"/>}/>
+                <Route path="users/search" element={<WithAdminAuth child={AdminDashboardUsers} auth="true" adminAuth="true"/>}/>
+                <Route path="users/create" element={<WithAdminAuth child={AdminDashboardUsersCreate} auth="true" adminAuth="true"/>}/>
 
-            <Route path="activities" element={<WithAdminAuth child={AdminDashboardActivities} auth="true" adminAuth="true"/>}/>
-            <Route path="activities/search" element={<WithAdminAuth child={AdminDashboardActivities} auth="true" adminAuth="true"/>}/>
-            <Route path="activities/create" element={<WithAdminAuth child={AdminDashboardActivitiesCreate} auth="true" adminAuth="true"/>}/>
+            </Route>
 
-            <Route path="users" element={<WithAdminAuth child={AdminDashboardUsers} auth="true" adminAuth="true"/>}/>
-            <Route path="users/search" element={<WithAdminAuth child={AdminDashboardUsers} auth="true" adminAuth="true"/>}/>
-            <Route path="users/create" element={<WithAdminAuth child={AdminDashboardUsersCreate} auth="true" adminAuth="true"/>}/>
-
-        </Route>
-
-      </Routes>
-    </BrowserRouter>
-  );
+        </Routes>
+        </BrowserRouter>
+    );
 }
 
 export default App;

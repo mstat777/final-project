@@ -11,18 +11,19 @@
     margin: 1em 2em;
 }
 
-.detail_section > p {
+.property_ctn {
     margin: 1em;
     padding: 1em;
     font-size: 1.4rem;
     text-align: justify;
+    white-space: break-spaces;
 }
 
-.detail_section > p + p {
+.property_ctn + .property_ctn {
     border-top: 1px solid var(--lightgrey-color);
 }
 
-.detail_section > p > span {
+.property_ctn > span {
     display: block;
     margin: 1rem;
 	font-weight: 500;
@@ -44,7 +45,7 @@
 
 /*** la carte Openstreetmap ***/
 .leaflet_container {
-    margin: 1em auto;
+    margin: 2em auto 1em;
     width: 90%;
     height: 300px;
     z-index: 0;
@@ -81,7 +82,7 @@
     text-align: justify;
 }
 
-.activity strong {
+.activity > span {
     display: block;
     margin: 0 1em 1em;
     font-weight: 500;
@@ -94,8 +95,14 @@
     .detail_section {
         max-width: 1000px;
     }
+
     .packs_table {
         margin: 0 2em;
+    }
+
+    /*** la carte Openstreetmap ***/
+    .leaflet_container {
+        width: 80%;
     }
 }
 
@@ -107,5 +114,18 @@
         margin-top: 2em;
         padding: 2em;
         border: 1px solid var(--lightgrey-color);
+    }
+
+    .property_ctn {
+        margin: 1em 2em;
+    }
+
+    .activities_ctn > p {
+        margin-left: 4em;
+    }
+
+    .activity {
+        margin: 1em 3em;
+        padding: 1em 2em;
     }
 }

@@ -28,7 +28,7 @@ function Results() {
                 <div>
                     <h3>{destination.name}</h3>
                     <h4>{destination.country}</h4>
-                    <p className={styles.justify}>{destination.overview}</p>
+                    <p className={styles.overview}>{destination.overview}</p>
                     <p>dès <span className={styles.price}>{packs[0] && cheapestPack(packs)}&euro;</span> TTC/adulte</p>
                     <Link to={`/detail/${destination.name}`} className={styles.discover_btn}>découvrir</Link>
                 </div>

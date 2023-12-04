@@ -37,10 +37,14 @@
     border: none;
     border-radius: 50%;
     color: white;
-    background-color: rgb(176, 176, 176);
-    opacity: 0.6;
+    background-color: rgba(176, 176, 176, 0.6);
     cursor: pointer;
+    transition: all .3s;
 }
+.slider_btn:hover {
+    cursor: pointer;
+    background-color: rgba(176, 176, 176, 0.8);
+}   
 
 .slider_btn > img {
     height: 30px;

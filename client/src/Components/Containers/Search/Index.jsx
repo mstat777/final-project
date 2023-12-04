@@ -11,6 +11,9 @@ import Suggestions from './Suggestions/Index';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
 function Search() {
+    // limiter les longueurs des inputs :
+    const maxNameLength = 50;
+    //
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
 
@@ -98,6 +101,11 @@ function Search() {
             setShowSuggestions(true);
         }
     }
+
+    // lors du changement du texte dans la barre de recherche :
+    function priceAlertMsg(e){
+        e.target.setCustomValidity("La valeur doit être entre 0 et 99999");
+    }
     
     // en cliquant le bouton "RECHERCHER" :
     function handleSubmit(e) {
@@ -113,18 +121,23 @@ function Search() {
                             name="destination" 
                             value={destinationInput}
                             onChange={handleChange}
-                            placeholder="Destination"/>
+                            maxLength={maxNameLength}
+                            placeholder="Destination"
+                            required/>
                     <input type={inputDateType}  
                             name="departureDate" 
                             value={departureDate}
                             onChange={(e) => setDepartureDate(e.target.value)}
                             onFocus={() => setInputDateType("date")}
                             placeholder="Date de départ"/>
-                    <input type="number" 
-                        name="maxPrice" 
-                        value={maxPrice}
-                        onChange={(e) => setMaxPrice(e.target.value)}
-                        placeholder="Prix maximal"/>
+                    <input type="text" 
+                            //pattern="[0-9]{5}"
+                            pattern="^(0(?!\.00)|[1-9]\d{0,6})\.\d{2}$"
+                            name="maxPrice" 
+                            value={maxPrice}
+                            onChange={(e) => setMaxPrice(e.target.value)}
+                            onInvalid={priceAlertMsg}
+                            placeholder="Prix maximal"/>
                 </div>
                 <div className={styles.button_ctn}>
                     <button type="submit">rechercher</button>

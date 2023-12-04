@@ -53,27 +53,26 @@ const userSignIn = async (req, res) => {
 const createUserAccount = async (req, res) => {
     try {
         let msg = "";
-        const datas = {
-            email: req.body.email
-        };
         const queryUser = "SELECT email FROM users WHERE email = ?";
-        const [user] = await Query.findByValue(queryUser, datas);
+        const [user] = await Query.findByValue(queryUser, req.body.email);
 
         if (user.length) {
             msg = "Un utilisateur avec cette adresse mail existe déjà !";
             res.status(409).json({ msg });
         } else if (!user.length){
+            console.log(user);
+            console.log("user.length = "+user.length);
             const datas = {
                 lastName: req.body.lastName,
                 firstName: req.body.firstName,
                 email: req.body.email,
                 tel: req.body.tel,
-                addresse: req.body.addresse,
+                address: req.body.address,
                 birthDate: req.body.birthDate,
                 occupation: req.body.occupation,
                 password: await hash(req.body.password, SALT)
             };
-            const query = "INSERT INTO users (last_name, first_name, email, tel, addresse, birth_date, occupation, account_type, account_created_by, date_created, password) VALUES (?, ?, ?, ?, ?, ?, ?, 'client', 'client', CURRENT_TIMESTAMP(), ?)";
+            const query = "INSERT INTO users (last_name, first_name, email, tel, address, birth_date, occupation, account_type, account_created_by, date_created, password) VALUES (?, ?, ?, ?, ?, ?, ?, 'client', 'client', CURRENT_TIMESTAMP(), ?)";
             await Query.write(query, datas);
 
             msg = "utilisateur créé";
@@ -115,10 +114,11 @@ const makeBooking = async (req, res) => {
             pack_id: req.body.pack_id,
             user_id: req.body.user_id
         };
+        //console.log(datasPack);
         /*console.log("req.body.activities.price_total_act = "+req.body.activities.price_total_act);*/
         const queryPack = "INSERT INTO bookings (nb_adults, nb_children, price_total_booking, payment_type, status, date_created, pack_id, user_id) VALUES (?, ?, ?, ?, 'en cours', CURRENT_TIMESTAMP(), ?, ?)";
         await Query.write(queryPack, datasPack);
-        // on a besoin de récupérer l'ID de la réservation pour pouvoir envoyer les données des activitées réservées dans la BDD :
+        // on a besoin de récupérer l'ID de la réservation que l'utilisateur vient de faire afin de pouvoir envoyer aussi les données des activitées réservées :
         const queryLastBooking = "SELECT id FROM bookings WHERE user_id = ? ORDER BY date_created DESC LIMIT 1";
         const [bookingData] = await Query.findByValue(queryLastBooking, req.body.user_id);
         console.log(bookingData[0].user_id);

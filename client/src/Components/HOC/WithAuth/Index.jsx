@@ -14,7 +14,7 @@ function WithAuth({child, auth}){
 
     const Child = child;
 
-    const { userInfo } = useSelector(state => state.user);
+    const { userInfo } = useSelector((state) => state.user);
 
     useEffect(() => {
         async function checkAuth() {
