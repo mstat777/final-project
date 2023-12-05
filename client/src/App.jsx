@@ -75,7 +75,7 @@ function AdminDashboardLayout() {
 
 function App() {
     return (
-        <BrowserRouter>
+        <BrowserRouter basename="/index.html">
         <Routes>
 
             <Route path="/" element={<BasicLayout/>}>
