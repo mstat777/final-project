@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { signout } from "../../../store/slices/user.js";
 
 function WithAuth({child, auth}){
-
+    const BASE_URL = process.env.REACT_APP_BASE_URL;
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -24,7 +24,7 @@ function WithAuth({child, auth}){
                     console.log("pas de token");
                 }
                 if (TOKEN) {
-                    const res = await fetch("/api/v.0.1/user/check-token", {
+                    const res = await fetch(`${BASE_URL}/api/v.0.1/user/check-token`, {
                         headers: { Authentication: "Bearer " + TOKEN }
                     });
                     console.log("token trouvé");

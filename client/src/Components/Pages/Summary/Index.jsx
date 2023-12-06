@@ -4,6 +4,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 function Summary(){
+    const BASE_URL = process.env.REACT_APP_BASE_URL;
     const navigate = useNavigate();
 
     let { id } = useParams();
@@ -62,7 +63,7 @@ function Summary(){
         });
         console.log(activitiesForDB);
 
-        const res = await fetch("/api/v.0.1/user/booking", {
+        const res = await fetch(`${BASE_URL}/api/v.0.1/user/booking`, {
             method: "post",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ 

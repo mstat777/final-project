@@ -3,6 +3,7 @@ import Search from "../../Containers/Search/Index";
 //import banner from '../../../assets/img/banner_02_big.jpg';
 import banner from '../../../assets/img/bg/pexels-asad-photo-maldives-1430677.jpg';
 import Card from "../../Containers/Card/Index";
+import Loading from "../../Containers/Loading/Index";
 
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
@@ -35,35 +36,42 @@ function Home() {
 
     return (
         <main id="home" className={styles.home_main}>
-            <img src={banner} className={styles.home_banner} alt="banner"/>
-            <Search/>
-            {/* Ne pas afficher les offes Promo et Top, si on a déjà cherché une destination */}
-            {pathname.slice(1) !== "search" && 
-                <>
-                    {showBestPromo && <>
-                        <h2>Offres promotionnelles</h2>
-                        {bestPromos[0] &&
-                            <div className={styles.cards_ctn}> 
-                            {bestPromos.map((promo, index) => 
-                                <Card type="promo" data={promo} key={index}/>
-                            )} 
-                            </div>
-                        }
-                    </>}
-        
-                    {showTopDestination && <>
-                        <h2>Top destinations</h2>
-                        {topDestinations[0] &&
-                            <div className={styles.cards_ctn}> 
-                            {topDestinations.map((dest, index) => 
-                                <Card type="topOffer" data={dest} key={index}/>
-                            )} 
-                            </div>
-                        }
-                    </>}
 
-                </>
-            }
+
+            {(!showBestPromo && !showTopDestination && !bestPromos[0] && !topDestinations[0]) ? 
+                <Loading /> : 
+            <>
+                <img src={banner} className={styles.home_banner} alt="banner"/>
+                <Search/>
+                {/* Ne pas afficher les offes Promo et Top, si on a déjà cherché une destination */}
+                {pathname.slice(1) !== "search" && 
+                    <>
+                        {showBestPromo && <>
+                            <h2>Offres promotionnelles</h2>
+                            {bestPromos[0] &&
+                                <div className={styles.cards_ctn}> 
+                                {bestPromos.map((promo, index) => 
+                                    <Card type="promo" data={promo} key={index}/>
+                                )} 
+                                </div>
+                            }
+                        </>}
+            
+                        {showTopDestination && <>
+                            <h2>Top destinations</h2>
+                            {topDestinations[0] &&
+                                <div className={styles.cards_ctn}> 
+                                {topDestinations.map((dest, index) => 
+                                    <Card type="topOffer" data={dest} key={index}/>
+                                )} 
+                                </div>
+                            }
+                        </>}
+
+                    </>
+                }
+            </>}
+
         </main>
     )
 }

@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux';
 import { formatCoordinates } from '../../Functions/utils';
 
 function Card({type, data}){
+    const IMG_URL = process.env.REACT_APP_IMG_URL;
     const navigate = useNavigate();
 
     const { destination, lodging } = useSelector((state) => state.allTravel);
@@ -39,7 +40,7 @@ function Card({type, data}){
     if (type === "promo"){
 
         return <div className={styles.card_ctn}>
-                    <img src={`../../img/destinations/${data.url_initial_image}`} alt=""/>
+                    <img src={`${IMG_URL}/img/destinations/${data.url_initial_image}`} alt=""/>
                     <div className={styles.card_info}> 
                         <h4>{data.country}</h4>
                         <h3>{data.name}</h3>

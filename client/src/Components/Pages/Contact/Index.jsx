@@ -7,7 +7,7 @@ import { faPhone } from '@fortawesome/free-solid-svg-icons';
 import { validateInput } from '../../Functions/sanitize';
 
 function Contact(){
-
+    const BASE_URL = process.env.REACT_APP_BASE_URL;
     const [userName, setUserName] = useState('');
     const [userEmail, setUserEmail] = useState('');
     const [userMessage, setUserMessage] = useState('');
@@ -38,7 +38,7 @@ function Contact(){
     async function submitForm() {
         console.log("Contact form sent!");
         /*
-        const res = await fetch("/api/v.0.1/contact/message", {
+        const res = await fetch(`${BASE_URL}/api/v.0.1/contact/message`, {
             method: "post",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ 

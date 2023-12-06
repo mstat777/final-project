@@ -12,6 +12,7 @@ import { sanitizeAllInputs, validateInput } from '../../Functions/sanitize';
 import { setLogMessage } from '../../../store/slices/user';
 
 function Signup(){
+    const BASE_URL = process.env.REACT_APP_BASE_URL;
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -110,7 +111,7 @@ function Signup(){
     async function submitForm() {
         if (isFormValidated) {
             console.log("Signup form sent!");
-            const res = await fetch("/api/v.0.1/user/signup", {
+            const res = await fetch(`${BASE_URL}/api/v.0.1/user/signup`, {
                 method: "post",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ 

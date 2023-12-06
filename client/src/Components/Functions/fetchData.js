@@ -15,6 +15,8 @@ import { resetCounters,
         initialiseCounters 
         } from "../../store/slices/booking";
 
+const BASE_URL = process.env.REACT_APP_BASE_URL;
+
 // fonction pour supprimer des clés du localstorage
 // on passe une liste de clés à supprimer dans un tableau
 function deleteLocStorageItems(arrayOfItems) {
@@ -27,7 +29,7 @@ function deleteLocStorageItems(arrayOfItems) {
 // trouver tous les continents :
 async function fetchAllContinents() {
     try {
-        const result = await (await fetch("/api/v.0.1/travel/continent/all")).json();
+        const result = await (await fetch(`${BASE_URL}/api/v.0.1/travel/continent/all`)).json();
         //console.log(result.datas);
         const resultArray = result.datas.map(el => el.continent);
         //console.log(resultArray);
@@ -40,7 +42,7 @@ async function fetchAllContinents() {
 // trouver toutes les destinations :
 async function fetchAllDestinations() {
     try {
-        const result = await (await fetch("/api/v.0.1/travel/destination/all")).json();
+        const result = await (await fetch(`${BASE_URL}/api/v.0.1/travel/destination/all`)).json();
         //console.log(result.datas);
         const resultArray = result.datas.map(el => el.name);
         //console.log(resultArray);
@@ -53,7 +55,7 @@ async function fetchAllDestinations() {
 //
 async function fetchAllContinentsAndDestinations() {
     try {
-        const result = await (await fetch("/api/v.0.1/travel/destination/all-with-continent")).json();
+        const result = await (await fetch(`${BASE_URL}/api/v.0.1/travel/destination/all-with-continent`)).json();
         //console.log(result.datas);
         store.dispatch(setDestinationsWithContinents(result.datas));
     } catch (error) {
@@ -64,7 +66,7 @@ async function fetchAllContinentsAndDestinations() {
 // trouver une destination par son nom :
 async function fetchDestination(destination){
     // on récupère les données de la destination :
-    const dataDest = await (await fetch(`/api/v.0.1/travel/destination/${destination}`)).json();
+    const dataDest = await (await fetch(`${BASE_URL}/api/v.0.1/travel/destination/${destination}`)).json();
 
     if(dataDest.datas[0]){
         console.log("la destination a été trouvée dans la BD");
@@ -86,7 +88,7 @@ async function fetchDestination(destination){
 // récupérer les données de l'hébérgement lié à la destination :
 async function fetchLodging(lodging_id) {
     try {
-        const dataLodg = await (await fetch(`/api/v.0.1/travel/lodging/${lodging_id}`)).json();
+        const dataLodg = await (await fetch(`${BASE_URL}/api/v.0.1/travel/lodging/${lodging_id}`)).json();
         localStorage.setItem("lodging", JSON.stringify(dataLodg.datas[0]));
         store.dispatch(setLodging(dataLodg.datas[0]));
     } catch (error) {
@@ -97,7 +99,7 @@ async function fetchLodging(lodging_id) {
 // récupérer les données des packs liées à la destination :
 async function fetchPacks(destination_id) {
     try {
-        const dataPack = await (await fetch(`/api/v.0.1/travel/pack/${destination_id}`)).json();
+        const dataPack = await (await fetch(`${BASE_URL}/api/v.0.1/travel/pack/${destination_id}`)).json();
         console.log("des packs ont été trouvés dans la BD");
         localStorage.setItem("packs", JSON.stringify(dataPack.datas));
         store.dispatch(setPacks(dataPack.datas));  
@@ -109,7 +111,7 @@ async function fetchPacks(destination_id) {
 // récupérer les données des activités liées à la destination :
 async function fetchActivities(destination_id) {
     try {
-        const result = await (await fetch(`/api/v.0.1/travel/activities/${destination_id}`)).json();
+        const result = await (await fetch(`${BASE_URL}/api/v.0.1/travel/activities/${destination_id}`)).json();
         localStorage.setItem("activities", JSON.stringify(result.datas));
         store.dispatch(setActivities(result.datas));
         store.dispatch(resetCounters());
@@ -122,7 +124,7 @@ async function fetchActivities(destination_id) {
 async function fetchDestinationImages(destinationID){
     try {
         //console.log("destinationID = "+destinationID);
-        const result = await(await fetch(`/api/v.0.1/travel/destination/img/all/${destinationID}`)).json();
+        const result = await(await fetch(`${BASE_URL}/api/v.0.1/travel/destination/img/all/${destinationID}`)).json();
         store.dispatch(setDestinationImages(result.datas));
     } catch (error) {
         console.log(error);
@@ -131,7 +133,7 @@ async function fetchDestinationImages(destinationID){
 
 async function fetchLodgingImages(lodgingID){
     try {
-        const result = await(await fetch(`/api/v.0.1/travel/lodging/img/all/${lodgingID}`)).json();
+        const result = await(await fetch(`${BASE_URL}/api/v.0.1/travel/lodging/img/all/${lodgingID}`)).json();
         store.dispatch(setLodgingImages(result.datas));
     } catch (error) {
         console.log(error);
@@ -140,7 +142,7 @@ async function fetchLodgingImages(lodgingID){
 
 async function fetchBestPromoPack(){
     try {
-        const result = await(await fetch(`/api/v.0.1/travel/pack/best-promo`)).json();
+        const result = await(await fetch(`${BASE_URL}/api/v.0.1/travel/pack/best-promo`)).json();
         store.dispatch(setBestPromos(result.datas));
     } catch (error) {
         console.log(error);
@@ -149,7 +151,7 @@ async function fetchBestPromoPack(){
 
 async function fetchTopDestination(){
     try {
-        const result = await(await fetch(`/api/v.0.1/travel/destination/top-offer`)).json();
+        const result = await(await fetch(`${BASE_URL}/api/v.0.1/travel/destination/top-offer`)).json();
         store.dispatch(setTopDestinations(result.datas));
     } catch (error) {
         console.log(error);

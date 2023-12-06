@@ -5,13 +5,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faTwitter, faInstagram, faYoutube } from '@fortawesome/free-brands-svg-icons';
 
 function Footer() {
+    const BASE_URL = process.env.REACT_APP_BASE_URL;
     const [userEmail, setUserEmail] = useState('');
     const [msg, setMsg] = useState('');
 
     async function handleSubmit(e) {
         e.preventDefault();
         console.log("Newsletter form sent!");
-        const res = await fetch("/api/v.0.1/contact/newsletter", {
+        const res = await fetch(`${BASE_URL}/api/v.0.1/contact/newsletter`, {
             method: "post",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ userEmail })

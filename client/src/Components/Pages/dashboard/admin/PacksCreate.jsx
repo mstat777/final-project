@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function AdminDashboardPacksCreate(){
+    const BASE_URL = process.env.REACT_APP_BASE_URL;
     const navigate = useNavigate();
 
     const [reference, setReference] = useState("");
@@ -23,7 +24,7 @@ function AdminDashboardPacksCreate(){
     const [destinations, setDestinations] = useState([]);
     useEffect(() => {
         async function getAllDestinations(){
-            const result = await(await fetch(`/api/v.0.1/admin/destinations/id/all`)).json();
+            const result = await(await fetch(`${BASE_URL}/api/v.0.1/admin/destinations/id/all`)).json();
             setDestinations(result.datas);
         }
 
@@ -33,7 +34,7 @@ function AdminDashboardPacksCreate(){
     async function handleSubmit(e) {
         e.preventDefault();
         console.log("Admin DB create form sent!");
-        const res = await fetch("/api/v.0.1/admin/packs/create", {
+        const res = await fetch(`${BASE_URL}/api/v.0.1/admin/packs/create`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ 

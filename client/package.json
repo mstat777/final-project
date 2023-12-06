@@ -1,5 +1,5 @@
 {
-  "proxy": "https://dimitravel.onrender.com",
+  "proxy": "http://localhost:9000",
   "name": "client",
   "version": "0.1.0",
   "private": true,
@@ -48,6 +48,5 @@
   },
   "engines": {
     "node": ">= 18.17.1"
-  },
-  "homepage": "."
+  }
 }

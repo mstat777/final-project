@@ -3,6 +3,7 @@ import styles from '../dashboard.module.css';
 import { useState } from 'react';
 
 function AdminDashboardLodgingsCreate(){
+    const BASE_URL = process.env.REACT_APP_BASE_URL;
     const navigate = useNavigate();
 
     const [nameLodg, setNameLodg] = useState("");
@@ -25,7 +26,7 @@ function AdminDashboardLodgingsCreate(){
     async function handleSubmit(e) {
         e.preventDefault();
         console.log("Admin DB create form sent!");
-        const res = await fetch("/api/v.0.1/admin/lodgings/create", {
+        const res = await fetch(`${BASE_URL}/api/v.0.1/admin/lodgings/create`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ 

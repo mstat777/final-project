@@ -19,7 +19,7 @@ function Confirmation(){
             <div className={styles.confirmation_section}>
 
                 <span>Merci pour votre réservation !</span>
-                <p>Dans quelques instants vous serez redigé vers la page d'Accueil.</p>
+                <p>Dans quelques instants vous serez redirigé vers la page d'Accueil.</p>
 
             </div>
 

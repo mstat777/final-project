@@ -5,6 +5,7 @@ import { fetchBookings } from '../../../Functions/adminFetchData';
 import { setResults } from '../../../../store/slices/dashboard';
 
 function Search(){
+    const BASE_URL = process.env.REACT_APP_BASE_URL;
     const dispatch = useDispatch();
 
     const [lastName, setLastName] = useState("");
@@ -30,7 +31,7 @@ function Search(){
             console.log(reference);
             console.log(bookingDate);
 
-            const res = await fetch("/api/v.0.1/admin/bookings", {
+            const res = await fetch(`${BASE_URL}/api/v.0.1/admin/bookings`, {
                 method: "post",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({

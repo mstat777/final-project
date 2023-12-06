@@ -18,6 +18,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCirclePlus, faCircleMinus } from '@fortawesome/free-solid-svg-icons';
 
 function Booking(){
+    const IMG_URL = process.env.REACT_APP_IMG_URL;
     /* limiter les inputs :
     const minPeopleAllowed = 0;
     const maxPeopleAllowed = 99;
@@ -131,7 +132,7 @@ function Booking(){
     return <main id="booking">
             { (destination && lodging && activities) &&
             <div className={styles.booking_section}>
-                <img src={"../../img/lodgings/"+lodging.url_initial_image} alt="" className={styles.main_img}/>
+                <img src={`${IMG_URL}/img/lodgings/${lodging.url_initial_image}`} alt="" className={styles.main_img}/>
                 <h4>{lodging.name}</h4>
                 <h3>{destination.name}</h3>
     

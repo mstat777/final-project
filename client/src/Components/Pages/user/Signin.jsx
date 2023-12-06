@@ -10,6 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faLock, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 function Signin(){
+    const BASE_URL = process.env.REACT_APP_BASE_URL;
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -37,7 +38,7 @@ function Signin(){
         e.preventDefault();
         //console.log("SignIN form sent!");
         console.log("email : "+email);
-        const res = await fetch("/api/v.0.1/user/signin", {
+        const res = await fetch(`${BASE_URL}/api/v.0.1/user/signin`, {
             method: "post",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email, password }),

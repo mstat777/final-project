@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencil } from '@fortawesome/free-solid-svg-icons';
 
 function UserDashboardMyInfos(){
+    const BASE_URL = process.env.REACT_APP_BASE_URL;
     // pour récuperer l'ID de l'utilisateur
     const { userInfo } = useSelector(state => state.user);
 
@@ -29,7 +30,7 @@ function UserDashboardMyInfos(){
         async function fetchUser() {
             try {
                 //console.log("userInfo.userID = "+userInfo.userID);
-                const dataUser = await (await fetch(`/api/v.0.1/user/${userInfo.userID}`)).json();
+                const dataUser = await (await fetch(`${BASE_URL}/api/v.0.1/user/${userInfo.userID}`)).json();
                 setFormData({
                     lastName: dataUser.datas[0].last_name,
                     firstName: dataUser.datas[0].first_name,
@@ -73,6 +74,7 @@ function UserDashboardMyInfos(){
     }
 
     return <main className={styles.user_db_main}>
+        
             <h2>mes informations personnelles</h2>
 
             <form onSubmit={handleSubmit} className={styles.user_db_account_form}>
