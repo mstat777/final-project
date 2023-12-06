@@ -1,19 +1,23 @@
 import styles from './search.module.css';
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
+
 import { setDestination } from "../../../store/slices/travel";
 import { fetchDestination, 
         fetchLodging,
         fetchPacks } from '../../Functions/fetchData';
 import { formatCoordinates } from '../../Functions/utils';
+
 import Results from '../Results/Index';
 import Suggestions from './Suggestions/Index';
-import { useNavigate, useSearchParams } from 'react-router-dom';
 
 function Search() {
     // limiter les longueurs des inputs :
     const maxNameLength = 50;
     //
+    const { pathname } = useLocation();
+    //console.log("pathname= "+pathname);
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
 
@@ -55,24 +59,31 @@ function Search() {
         }
     }, []);
 
-    // une fois la destination définie, on la vérifie et cache les suggestions :
+    // on prend l'entrée utilisateur et on vérifie si cette destination existe dans la BDD :
     useEffect(() => {
         async function checkDestination(){
+            // pour le résultat de la .map() ci-dessous :
+            let isFound = false;
             //console.log("checkDestination called");
             allDestinations.map((dest) => {
-                //console.log("dest.toLowerCase() = "+dest.toLowerCase());
+                // si la destination est trouvée :
                 if (dest.toLowerCase() === searchDestination) {
+                    isFound = true;
                     console.log("destinationFound est truefy. On va fetcher.");
                     fetchDestination(searchDestination);
                     setShowResults(true);
                     navigate(`/search?destination=${searchDestination}`);
                 }
             });
+            // afficher un msg si la destination n'a pas été trouvée :
+            !isFound ? setMsg("Aucun résultat trouvé") : setMsg('');
         }
-
+       
         if (searchDestination){
             console.log("searchDestination (init) = "+searchDestination);  
+            // on vérifie la destination :
             checkDestination();
+            // aussi on cache les suggestions :
             setShowSuggestions(false);
         }
     },[searchDestination]);
@@ -104,7 +115,7 @@ function Search() {
 
     // lors du changement du texte dans la barre de recherche :
     function priceAlertMsg(e){
-        e.target.setCustomValidity("La valeur doit être entre 0 et 99999");
+        e.target.setCustomValidity("Prix < 100000. Deux décimals max.");
     }
     
     // en cliquant le bouton "RECHERCHER" :
@@ -121,6 +132,7 @@ function Search() {
                             name="destination" 
                             value={destinationInput}
                             onChange={handleChange}
+                            onFocus={() => setMsg('')}
                             maxLength={maxNameLength}
                             placeholder="Destination"
                             required/>
@@ -128,15 +140,18 @@ function Search() {
                             name="departureDate" 
                             value={departureDate}
                             onChange={(e) => setDepartureDate(e.target.value)}
-                            onFocus={() => setInputDateType("date")}
+                            onFocus={() => {
+                                setInputDateType("date"); 
+                                setMsg('')}}
                             placeholder="Date de départ"/>
                     <input type="text" 
-                            //pattern="[0-9]{5}"
-                            pattern="^(0(?!\.00)|[1-9]\d{0,6})\.\d{2}$"
+                            pattern="^\d{0,5}(\.\d{1,2})?$"
                             name="maxPrice" 
                             value={maxPrice}
                             onChange={(e) => setMaxPrice(e.target.value)}
+                            onFocus={() => setMsg('')}
                             onInvalid={priceAlertMsg}
+                            onInput={(e) => e.target.setCustomValidity('')}
                             placeholder="Prix maximal"/>
                 </div>
                 <div className={styles.button_ctn}>
@@ -149,10 +164,13 @@ function Search() {
                 setShowSuggestions={setShowSuggestions}
                 setSearchDestination={setSearchDestination} />
             </form>
-            { (msg && !destinationInput) && 
+
+            { (msg) && 
                     <p className={styles.msg}>{msg}</p>}
 
-            { showResults && <Results/>}
+            {/* Si on est sur la page d'accueil, on n'affiche pas "Results". On l'affiche si l'URL contient 'search' */}
+            { (showResults && pathname.slice(1) === "search") && 
+                <Results/> }
         </>
     )
 }

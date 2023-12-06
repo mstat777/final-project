@@ -106,6 +106,21 @@ function validateInput(name, userData){
         }
     } 
 
+    // les inputs dont le nom contient 'Price/price' 
+    if (name.match(/Price/i)) {
+        //console.log("name contains 'tel'");
+        /*if (userData < 0) {
+            result.msg +="Le prix ne peut pas être négatif.\n";
+            result.isValid = false;
+        } */
+        //pattern="^(0(?!\.00)|[1-9]\d{0,6})\.\d{2}$"
+        // 5 chiffres + 2 décimals
+        if (!/^\d{0,5}(\.\d{1,2})?$/.test(userData)) {
+            result.msg +="Le numéro de téléphone doit commencer par un zéro ou un plus et doit contenir uniquement des chiffres.\n";
+            result.isValid = false;
+        }
+    } 
+
     return result;
 }
 

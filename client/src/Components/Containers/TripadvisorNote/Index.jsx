@@ -22,7 +22,7 @@ function TripadvisorNote({note}){
     }
     // on crée les cercles pas remplis et les stocke dans le tableau correspondant :
     for (let i = 0; i < maxNote - intPart; i++){
-        if (i != 0) {
+        if (i !== 0) {
             arrNotFullCircles.push(
                 <div key={maxNote+i} className={styles.note_circle}>
                     <div className={styles.note_circle_fill}></div>

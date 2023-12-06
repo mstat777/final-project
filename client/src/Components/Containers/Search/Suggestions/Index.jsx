@@ -21,7 +21,10 @@ function Suggestions(props){
     const [hide, setHide] = useState(false);
 
     useEffect(() => {
+        
+        console.log("destinationInput type e "+typeof(destinationInput));
         let tempArray = destinationInput.trim();
+        console.log("tempArray type e "+typeof(tempArray));
         tempArray = tempArray.charAt(0).toUpperCase() + tempArray.slice(1);
         setTextEntered(tempArray);
         setShowSuggestions(true);
