@@ -22,4 +22,5 @@ app.get("*", (req, res) => {
     res.sendFile("../../client/build", "index.html");
 });
 
-app.listen(PORT, () => console.log(`running on http://localhost:${PORT}`));
+app.listen(PORT);
+//app.listen(PORT, () => console.log(`running on http://localhost:${PORT}`));

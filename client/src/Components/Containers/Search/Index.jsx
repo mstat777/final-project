@@ -13,13 +13,16 @@ import Results from '../Results/Index';
 import Suggestions from './Suggestions/Index';
 
 function Search() {
-    // limiter les longueurs des inputs :
-    const maxNameLength = 50;
-    //
     const { pathname } = useLocation();
     //console.log("pathname= "+pathname);
     const navigate = useNavigate();
     const [searchParams] = useSearchParams();
+
+    // limiter les longueurs des inputs :
+    const maxNameLength = 50;
+    // limiter la date :
+    const today = new Date().toISOString().slice(0,10);
+    // console.log(today);
 
     const [maxPrice, setMaxPrice] = useState("");
     const [departureDate, setDepartureDate] = useState("");
@@ -106,16 +109,16 @@ function Search() {
     },[lodging]);
 
     // lors du changement du texte dans la barre de recherche :
+    function priceAlertMsg(e){
+        e.target.setCustomValidity("Prix < 100000. Deux décimals max.");
+    }
+
+    // lors du changement du texte dans la barre de recherche :
     function handleChange(e){
         setDestinationInput(e.target.value);
         if (e.target.value) {
             setShowSuggestions(true);
         }
-    }
-
-    // lors du changement du texte dans la barre de recherche :
-    function priceAlertMsg(e){
-        e.target.setCustomValidity("Prix < 100000. Deux décimals max.");
     }
     
     // en cliquant le bouton "RECHERCHER" :
@@ -139,10 +142,11 @@ function Search() {
                     <input type={inputDateType}  
                             name="departureDate" 
                             value={departureDate}
+                            min={today}
                             onChange={(e) => setDepartureDate(e.target.value)}
                             onFocus={() => {
                                 setInputDateType("date"); 
-                                setMsg('')}}
+                                setMsg('');}}
                             placeholder="Date de départ"/>
                     <input type="text" 
                             pattern="^\d{0,5}(\.\d{1,2})?$"

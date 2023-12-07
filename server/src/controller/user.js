@@ -22,7 +22,7 @@ const userSignIn = async (req, res) => {
     try {
         let msg = "";
         const queryUser = "SELECT id, email, account_type, password FROM users WHERE email = ?";
-        console.log("req.body.email = " + req.body.email);
+        //console.log("req.body.email = " + req.body.email);
         const [user] = await Query.findByValue(queryUser, req.body.email);
         //si l'utilisateur est trouvé dans la BDD :
         if (user.length) {
@@ -60,8 +60,8 @@ const createUserAccount = async (req, res) => {
             msg = "Un utilisateur avec cette adresse mail existe déjà !";
             res.status(409).json({ msg });
         } else if (!user.length){
-            console.log(user);
-            console.log("user.length = "+user.length);
+            //console.log(user);
+            //console.log("user.length = "+user.length);
             const datas = {
                 lastName: req.body.lastName,
                 firstName: req.body.firstName,
@@ -121,7 +121,7 @@ const makeBooking = async (req, res) => {
         // on a besoin de récupérer l'ID de la réservation que l'utilisateur vient de faire afin de pouvoir envoyer aussi les données des activitées réservées :
         const queryLastBooking = "SELECT id FROM bookings WHERE user_id = ? ORDER BY date_created DESC LIMIT 1";
         const [bookingData] = await Query.findByValue(queryLastBooking, req.body.user_id);
-        console.log(bookingData[0].user_id);
+        //console.log(bookingData[0].user_id);
         // on enregistre la réservation des activités dans la table 'booked_activities' :
         const queryActivities = "INSERT INTO booked_activities (nb_adults, nb_children, price_total_act, activity_id, booking_id) VALUES ?";
         await Query.writeAndAddId(queryActivities, req.body.activities, bookingData[0].id);

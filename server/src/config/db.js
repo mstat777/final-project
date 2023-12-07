@@ -9,8 +9,9 @@ const pool = mysql.createPool({
     port: process.env.DB_PORT
 });
 
-pool.getConnection().then( (res) =>
+pool.getConnection();
+/*pool.getConnection().then( (res) =>
     console.log("bien connecté à la BDD --> "+res.config.database)
-);
+);*/
 
 export default pool;

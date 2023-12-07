@@ -87,15 +87,15 @@ function App() {
                 <Route path="contact" element={<Contact/>}/>
                 
                 <Route path="user">
-                <Route path="signin" element={<Signin/>}/>
-                <Route path="signup" element={<Signup/>}/>
-                <Route path="signout" element={<Signout/>}/> 
+                    <Route path="signin" element={<Signin/>}/>
+                    <Route path="signup" element={<Signup/>}/>
+                    <Route path="signout" element={<Signout/>}/> 
                 </Route>
 
                 <Route path="detail/:id" element={<Detail/>}/>
                 <Route path="booking/:id" element={<WithAuth child={Booking} auth="true"/>}/>
-                <Route path="summary/:id" element={<Summary/>}/>
-                <Route path="confirmation" element={<Confirmation/>}/>
+                <Route path="summary/:id" element={<WithAuth child={Summary} auth="true"/>}/>
+                <Route path="confirmation" element={<WithAuth child={Confirmation} auth="true"/>}/>
 
                 <Route path="not-found" element={<NotFound/>}/>
             </Route>
