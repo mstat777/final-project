@@ -47,19 +47,19 @@ function DashboardResults(){
             {console.log(results)}
             {results.map((result, index) => 
                 <tr key={index}>
-                    <td>{result.p.reference}</td> 
-                    <td>{result.d.name}</td> 
-                    <td>{result.d.country}</td> 
-                    <td>{result.p.departure_date.slice(0, result.p.departure_date.indexOf('T'))}</td>
-                    <td>{result.p.return_date.slice(0, result.p.return_date.indexOf('T'))}</td>
-                    <td>{result.p.duration+1}J/{result.p.duration}N</td>  
-                    <td>{result.b.price_total_booking} &euro;</td> 
-                    <td>{result.u.last_name}</td> 
-                    <td>{result.u.first_name}</td> 
-                    <td>{result.u.tel}</td> 
-                    <td>{result.u.email}</td> 
-                    <td>{result.b.status}</td> 
-                    <td>{result.b.date_created.slice(0, result.b.date_created.indexOf('T'))}</td>
+                    <td>{result.reference}</td> 
+                    <td>{result.name}</td> 
+                    <td>{result.country}</td> 
+                    <td>{result.departure_date.slice(0, result.departure_date.indexOf('T'))}</td>
+                    <td>{result.return_date.slice(0, result.return_date.indexOf('T'))}</td>
+                    <td>{result.duration+1}J/{result.duration}N</td>  
+                    <td>{result.price_total_booking} &euro;</td> 
+                    <td>{result.last_name}</td> 
+                    <td>{result.first_name}</td> 
+                    <td>{result.tel}</td> 
+                    <td>{result.email}</td> 
+                    <td>{result.status}</td> 
+                    <td>{result.date_created.slice(0, result.date_created.indexOf('T'))}</td>
                     <td>
                         <button 
                         onClick={() => {

@@ -18,6 +18,78 @@ const getAllDestinations = async (req, res) => {
     const [datas] = await Query.find(query);
     res.status(200).json({datas});
 }
+
+
+// cherche une destination dont les packs correspondent aux critères de la barre de recherche :
+const getAllDataIfPacks = async (req, res) => {
+    //console.log(req.body);
+    const queryDest = "SELECT * FROM destinations WHERE name = ?";
+    const [datasDest] = await Query.findByValue(queryDest, req.body.searchDestination);
+
+    // pour faire une recherche nb d'inputs dynamique :
+    let queryEnding = "";
+    const bodyData = [datasDest[0].id];
+    //console.log(bodyData);
+
+    if (req.body.departureDate !== ''){
+        queryEnding += " AND departure_date >= ?";
+        bodyData.push(req.body.departureDate);
+    }
+    if (req.body.maxPrice !== ''){
+        queryEnding += " AND price_adults <= ?";
+        bodyData.push(req.body.maxPrice);
+    }
+    //console.log("queryEnding = "+queryEnding);
+
+    const queryPacks = "SELECT * FROM packs WHERE destination_id = ?" + queryEnding + " ORDER BY departure_date";
+    //console.log("queryPacks = "+queryPacks);
+    const [datasPacks] = await Query.findByArrayDatas(queryPacks, bodyData);
+
+    const queryLodg = "SELECT * FROM lodgings WHERE id = ?";
+    const [datasLodg] = await Query.findByValue(queryLodg, datasDest[0].lodging_id);
+
+    const queryDestImg = "SELECT url_image FROM destinations_images WHERE destination_id = ?";
+    const [datasDestImg] = await Query.findByValue(queryDestImg, datasDest[0].id);
+
+    const queryLodgImg = "SELECT url_image FROM lodgings_images WHERE lodging_id = ?";
+    const [datasLodgImg] = await Query.findByValue(queryLodgImg, datasLodg[0].id);
+
+    res.status(200).json({ msg: "packs trouvés", 
+                           datasDest,
+                           datasPacks,
+                           datasLodg,
+                           datasDestImg,
+                           datasLodgImg })
+}
+
+// cherche une destination avec tous les packs :
+const getAllDataAllPacks = async (req, res) => {
+    // récupérer les données de la destination et de l'hébérgement :
+    const queryDest = "SELECT * FROM destinations WHERE name = ?";
+    const [datasDest] = await Query.findByValue(queryDest, req.params.name);
+
+    // récupérer les données des packs :
+    const queryPacks = "SELECT * FROM packs WHERE destination_id = ?";
+    const [datasPacks] = await Query.findByValue(queryPacks, datasDest[0].id);
+
+    const queryLodg = "SELECT * FROM lodgings WHERE id = ?";
+    const [datasLodg] = await Query.findByValue(queryLodg, datasDest[0].lodging_id);
+
+    const queryDestImg = "SELECT url_image FROM destinations_images WHERE destination_id = ?";
+    const [datasDestImg] = await Query.findByValue(queryDestImg, datasDest[0].id);
+
+    const queryLodgImg = "SELECT url_image FROM lodgings_images WHERE lodging_id = ?";
+    const [datasLodgImg] = await Query.findByValue(queryLodgImg, datasLodg[0].id);
+
+    res.status(200).json({ msg: "packs trouvés",  
+                           datasDest,
+                           datasPacks,
+                           datasLodg,
+                           datasDestImg,
+                           datasLodgImg });
+}
+
+
 // chercher une destination par nom :
 const getDestinationByName = async (req, res) => {
     const query = "SELECT id, reference, name, country, continent, overview, departure_place, url_initial_image, lodging_id FROM destinations WHERE name = ?";
@@ -37,7 +109,7 @@ const getImagesLodging = async (req, res) => {
     res.status(200).json({ msg: "images trouvées", datas })
 } 
 // chercher un hébérgement par ID :
-const getHebergementById = async (req, res) => {
+const getLodgingById = async (req, res) => {
     const query = "SELECT * FROM lodgings WHERE id = ?";
     const [datas] = await Query.findByValue(query, req.params.id);
     res.status(200).json({ msg: "hébérgement trouvé", datas })
@@ -85,10 +157,12 @@ export {
     getAllContinentsAndDestinations,
     getAllContinents,
     getAllDestinations,
+    getAllDataIfPacks,
+    getAllDataAllPacks,
     getDestinationByName,
     getImagesDestination,
     getImagesLodging,
-    getHebergementById,
+    getLodgingById,
     getPacksByDestination,
     getActivitiesByDestination,
     getBestPromoPack,

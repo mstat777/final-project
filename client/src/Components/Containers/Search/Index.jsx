@@ -1,21 +1,26 @@
 import styles from './search.module.css';
 import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
 
-import { setDestination } from "../../../store/slices/travel";
-import { fetchDestination, 
-        fetchLodging,
-        fetchPacks } from '../../Functions/fetchData';
+import { setDestination, 
+            setPacks,
+            setLodging, 
+            setLodgingImages,
+            setDestinationImages 
+            } from "../../../store/slices/travel";
+import { deleteLocStorageItems } from '../../Functions/fetchData';
 import { formatCoordinates } from '../../Functions/utils';
 
 import Results from '../Results/Index';
 import Suggestions from './Suggestions/Index';
 
 function Search() {
+    const BASE_URL = process.env.REACT_APP_BASE_URL;
     const { pathname } = useLocation();
     //console.log("pathname= "+pathname);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const [searchParams] = useSearchParams();
 
     // limiter les longueurs des inputs :
@@ -24,33 +29,48 @@ function Search() {
     const today = new Date().toISOString().slice(0,10);
     // console.log(today);
 
+    // on récupère du Store : la liste de toutes les destinations, les données de la destination fetchée et de l'hébérgement fetché lié à cette destination
+    const { allDestinations, 
+            packs, 
+            destination, 
+            lodging,
+            destinationImages } = useSelector((state) => state.allTravel);
+
     const [maxPrice, setMaxPrice] = useState("");
     const [departureDate, setDepartureDate] = useState("");
     // afficher le placeholder de la date de naissance :
     const [inputDateType, setInputDateType] = useState("text");
     
-    const { allDestinations, destination, lodging } = useSelector((state) => state.allTravel);
-    
-    // la destination a fetcher (si existe)
+    // le nom de la destination demandée, si vient de l'URL
+    // c'est dans le cas on passe pas par la barre de recherche :
     const [urlDestination, setUrlDestination] = useState(searchParams.get('destination'));
 
     // stocker la valeur de l'input de la barre de recherche
     const [destinationInput, setDestinationInput] = useState("");
-    // la destination a fetcher (si existe)
-    const [searchDestination, setSearchDestination] = useState("");
 
+    // la destination à fetcher (soit venant de l'URL, soit de la barre de recherche) : 'urlDestination' ou 'destinationInput'. Une fois définie, on démarre la recherche :
+    const [searchDestination, setSearchDestination] = useState("");
+    const [searchDate, setSearchDate] = useState("");
+    const [searchPrice, setSearchPrice] = useState("");
+
+    // la destination est trouvée ? :
+    const [isFound, setIsFound] = useState(false);
 
     // afficher le containeur des résultats :
     const [showResults, setShowResults] = useState(false);
-    // aficher/cacher les suggestions :
-    const [showSuggestions, setShowSuggestions] = useState(false);
 
     // afficher un message si la destination n'est pas trouvée  
     const [msg, setMsg] = useState("");
 
-    // supprimer l'ancienne destination lors du rafraichissement, le message d'erreur, cacher les résultats, récupérer la destination de la requête URL (si existe) :
+    // supprimer l'ancienne destination lors du rafraichissement, le message d'erreur, cacher les résultats, récupérer le nom de destination de la requête URL (si existe) pour le chercher :
     useEffect(() => {
-        setDestination({});
+        /*dispatch(setDestination({}));
+        dispatch(setLodging({}));
+        dispatch(setPacks([]));
+        dispatch(setDestinationImages([]));
+        dispatch(setLodgingImages([]));*/
+
+        setIsFound(false);
         setMsg("");
         setShowResults(false);
 
@@ -62,51 +82,100 @@ function Search() {
         }
     }, []);
 
-    // on prend l'entrée utilisateur et on vérifie si cette destination existe dans la BDD :
+    // on vérifie si la destination demandée existe dans la BDD, chaque fois 'searchDestination' est modifié :
     useEffect(() => {
         async function checkDestination(){
-            // pour le résultat de la .map() ci-dessous :
-            let isFound = false;
-            //console.log("checkDestination called");
-            allDestinations.map((dest) => {
-                // si la destination est trouvée :
+            await allDestinations.map((dest) => {
+                console.log("dest= "+dest);
+                console.log("searchDestination= "+searchDestination);
+                // si le nom de destination existe dans la BDD :
                 if (dest.toLowerCase() === searchDestination) {
-                    isFound = true;
+                    setIsFound(true);
                     console.log("destinationFound est truefy. On va fetcher.");
-                    fetchDestination(searchDestination);
-                    setShowResults(true);
-                    navigate(`/search?destination=${searchDestination}`);
+                    console.log("isFound = "+isFound);
                 }
-            });
-            // afficher un msg si la destination n'a pas été trouvée :
-            !isFound ? setMsg("Aucun résultat trouvé") : setMsg('');
+            }); 
+            console.log("isFound = "+isFound);
         }
        
         if (searchDestination){
             console.log("searchDestination (init) = "+searchDestination);  
             // on vérifie la destination :
             checkDestination();
-            // aussi on cache les suggestions :
-            setShowSuggestions(false);
+            // afficher un msg si la destination n'a pas été trouvée :
+            console.log("isFound = "+isFound);
         }
-    },[searchDestination]);
+    },[searchDestination, searchDate, searchPrice]);
 
-    //
+    // si la destination est trouvée (existe), on cherche s'il y a des packs qui correspondent aux critères :
     useEffect(() => {
-        if (destination.lodging_id) {
-            fetchLodging(destination.lodging_id);
-            fetchPacks(destination.id);
+        async function searchPacks(){
+            const res = await fetch(`${BASE_URL}/api/v.0.1/travel/destinations-and-packs`, {
+                method: "post",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    searchDestination,
+                    departureDate,
+                    maxPrice
+                })
+            });
+            const json = await res.json();
+
+            if(res.status === 200){
+                console.log(json);
+                // s'il y a des packs trouvés :
+                if(json.datasPacks[0]){
+                    console.log("des packs ont été trouvée dans la BD pour cette destination");
+
+                    //deleteLocStorageItems(['lodging', 'packs', 'activities']);
+                    //localStorage.setItem("destination", JSON.stringify(json.datasDest));
+
+                    // on sauvegarde les données dans Store :
+                    dispatch(setDestination(json.datasDest[0]));
+                    dispatch(setPacks(json.datasPacks));
+                    dispatch(setLodging(json.datasLodg[0]));
+                    dispatch(setDestinationImages(json.datasDestImg));
+                    dispatch(setLodgingImages(json.datasLodgImg));
+                }  
+                // si aucun pack trouvé :
+                else {
+                    console.log("La dest. existe, mais aucun pack n'a été trouvé pour ces critères !!!");
+                    setMsg("Aucun pack n'a été trouvé pour ces critères.\nVeuillez modifier la date ou le prix maximal.");
+                    setShowResults(false);
+                }
+                navigate(`/search?destination=${searchDestination}`);
+
+            } else {
+                console.log("res.status n'est pas OK!!!");
+            }
         }
-    },[destination]);
 
-    // formatter les coordonnées de l'hébérgement :
+        if (isFound) {
+            setMsg('');
+            searchPacks();
+        } else if (searchDestination) {
+            setMsg("Aucun résultat trouvé");
+            setShowResults(false);
+            console.log("isFound = "+isFound);
+        }
+    },[isFound]);
+
+    // formatter les coordonnées OpenStreetMaps de l'hébérgement :
     useEffect(() => {
-        if (lodging !== undefined) {
+        if (lodging) {
             if (lodging.coordinates) {
                 formatCoordinates(lodging.coordinates);
             }  
         }
-    },[lodging]);
+    },[destination]);
+
+    // si on a les données de la destination et des packs enregistrées dans Store, on peut afficher les résultats :
+    useEffect(() => {
+        if (destination && packs[0] && destinationImages[0]) {
+            //console.log(packs);
+            setShowResults(true);
+        }
+    },[destination, packs[0], destinationImages[0]]);
 
     // lors du changement du texte dans la barre de recherche :
     function priceAlertMsg(e){
@@ -116,15 +185,18 @@ function Search() {
     // lors du changement du texte dans la barre de recherche :
     function handleChange(e){
         setDestinationInput(e.target.value);
-        if (e.target.value) {
-            setShowSuggestions(true);
-        }
     }
     
     // en cliquant le bouton "RECHERCHER" :
     function handleSubmit(e) {
         e.preventDefault();
+        console.log("isFound (on Submit)= "+isFound);
+        setIsFound(false);
+        console.log("isFound (on Submit)= "+isFound);
+        console.log("destinationInput= "+destinationInput);
         setSearchDestination(destinationInput.trim().toLowerCase());
+        setSearchDate(departureDate);
+        setSearchPrice(maxPrice);
     }
 
     return (
@@ -162,11 +234,8 @@ function Search() {
                     <button type="submit">rechercher</button>
                 </div>
                 <Suggestions 
-                destinationInput={destinationInput} 
-                setDestinationInput={setDestinationInput}
-                showSuggestions={showSuggestions}
-                setShowSuggestions={setShowSuggestions}
-                setSearchDestination={setSearchDestination} />
+                    destinationInput={destinationInput} 
+                    setDestinationInput={setDestinationInput}/>
             </form>
 
             { (msg) && 

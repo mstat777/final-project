@@ -52,14 +52,14 @@ function Slider({type}){
         <div className={styles.slider_ctn}>    
             { type === "destination" &&
             destinationImages.map((el, index) =>
-            <div key={el.id}
+            <div key={index}
                     className={slideIndex === index + 1 ? `${styles.slide} ${styles.active_anim}` : `${styles.slide}`}> 
                 <img src={`${IMG_URL}/img/destinations/${el.url_image}`} alt=""/>
             </div>
             )}
             { type === "lodging" &&
             lodgingImages.map((el, index) =>
-            <div key={el.id}
+            <div key={index}
                     className={slideIndex === index + 1 ? `${styles.slide} ${styles.active_anim}` : `${styles.slide}`}> 
                 <img src={`${IMG_URL}/img/lodgings/${el.url_image}`} alt=""/>
             </div>

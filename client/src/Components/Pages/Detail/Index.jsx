@@ -48,6 +48,7 @@ function Detail(){
 
     return (
         <main id="detail">
+            { console.log(packs) }
             { (destination && lodging && activities) &&
             <div className={styles.detail_section}>
                 {/*console.log("lodging = "+lodging)*/}

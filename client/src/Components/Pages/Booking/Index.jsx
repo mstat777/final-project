@@ -238,8 +238,8 @@ function Booking(){
                 <button onClick={handleSubmitBooking} className={styles.booking_btn}>réserver</button>
 
                 <div className={styles.error_ctn}>
-                {errors.map((activity, idx) => errors[idx] &&
-                <p>Erreur : {errors[idx]}</p>)}
+                {errors.map((el, idx) => el[idx] &&
+                    <p>Erreur : {errors[idx]}</p>)}
                 </div>
 
             </div>

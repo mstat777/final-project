@@ -1,39 +1,18 @@
 import styles from './card.module.css';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { fetchDestination, 
-        fetchLodging, 
-        fetchPacks } from '../../Functions/fetchData';
+import { fetchDestinationAllPacks } from '../../Functions/fetchData';
 import { useSelector } from 'react-redux';
-import { formatCoordinates } from '../../Functions/utils';
 
 function Card({type, data}){
     const IMG_URL = process.env.REACT_APP_IMG_URL;
     const navigate = useNavigate();
 
-    const { destination, lodging } = useSelector((state) => state.allTravel);
-    
-    //
-    useEffect(() => {
-        if (destination.lodging_id) {
-            fetchLodging(destination.lodging_id);
-            fetchPacks(destination.id);
-        }
-    },[destination]);
-
-    // formatter les coordonnées de l'hébérgement :
-    useEffect(() => {
-        if (lodging !== undefined) {
-            if (lodging.coordinates) {
-                //console.log("lodging.coordinates = "+lodging.coordinates);
-                formatCoordinates(lodging.coordinates);
-            }  
-        } 
-    },[lodging]);
+    const { destination } = useSelector((state) => state.allTravel);
 
     // on passe le nom et l'ID de la destination
-    async function handleClick(name, id){
-        await fetchDestination(name);
+    async function handleClick(name){
+        await fetchDestinationAllPacks(name);
         navigate(`/detail/${name}`);
     }
 
@@ -52,7 +31,9 @@ function Card({type, data}){
                                 à partir de <span>{data.price_adults.slice(0,data.price_adults.lastIndexOf('.'))}</span><sup>&euro;</sup>
                             </div> 
                         </div>
-                        <button onClick={() => handleClick(data.name, data.id)} className={styles.discover_btn}>découvrir</button>
+                        <button
+                            onClick={() => handleClick(data.name)}          
+                            className={styles.discover_btn}>découvrir</button>
                     </div>
                 </div>
 
@@ -70,7 +51,7 @@ function Card({type, data}){
                             </div> 
                         </div>
 
-                        <button onClick={() => handleClick(data.name, data.id)} className={styles.discover_btn}>découvrir</button>
+                        <button onClick={() => handleClick(data.name)} className={styles.discover_btn}>découvrir</button>
                     </div>
                 </div>
     }       

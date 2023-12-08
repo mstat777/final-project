@@ -96,7 +96,7 @@ const getUserById = async (req, res) => {
 const getAllUserBookings = async (req, res) => {
     try {
         const query = "SELECT * FROM bookings AS b JOIN packs AS p ON b.pack_id = p.id JOIN destinations AS d ON p.destination_id = d.id WHERE b.user_id = ?";
-        const [datas] = await Query.findByValueMultipleTables(query, req.params.id);
+        const [datas] = await Query.findByValueNTables(query, req.params.id);
         res.status(200).json({ datas });
     } catch (err) {
         throw Error(err)

@@ -63,6 +63,26 @@ async function fetchAllContinentsAndDestinations() {
     }
 }
 
+// récupérer les données de la destination et de tous ses packs :
+async function fetchDestinationAllPacks(destination){
+    try {
+        const dataAll = await (await fetch(`${BASE_URL}/api/v.0.1/travel/destinations-all-packs/${destination}`)).json();
+        console.log(dataAll);
+
+        //deleteLocStorageItems(['lodging', 'packs', 'activities']);
+        //localStorage.setItem("destination", JSON.stringify(dataAll.datasDest[0]));
+
+        store.dispatch(setDestination(dataAll.datasDest[0]));
+        store.dispatch(setPacks(dataAll.datasPacks));
+        store.dispatch(setLodging(dataAll.datasLodg[0]));
+        store.dispatch(setDestinationImages(dataAll.datasDestImg));
+        store.dispatch(setLodgingImages(dataAll.datasLodgImg));
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 // trouver une destination par son nom :
 async function fetchDestination(destination){
     // on récupère les données de la destination :
@@ -159,9 +179,11 @@ async function fetchTopDestination(){
 }
 
 export { 
+        deleteLocStorageItems,
         fetchAllContinents,
         fetchAllDestinations,
         fetchAllContinentsAndDestinations,
+        fetchDestinationAllPacks,
         fetchDestination,
         fetchLodging,
         fetchPacks,

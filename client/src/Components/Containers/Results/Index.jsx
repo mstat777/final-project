@@ -2,8 +2,8 @@ import styles from './results.module.css';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import Loading from '../Loading/Index';
 import Slider from '../Slider/Index';
-import { fetchPacks } from '../../Functions/fetchData'; 
 import { cheapestPack } from '../../Functions/utils.js';
 
 function Results() {
@@ -11,15 +11,13 @@ function Results() {
     const { packs } = useSelector((state) => state.allTravel);
     const { destinationImages } = useSelector((state) => state.allTravel);
 
-    useEffect(() => {
-        // on récupère les données des packs liées à la destination :
-        fetchPacks(destination.id);
-    }, []);
-
-    return (
+    return <>
+        {(!destination && !packs[0] && !destinationImages[0]) ? 
+            <Loading /> : 
         <section id="resultsContainer" className={styles.results_section}>
+            {console.log("destination.name = "+destination.name)}
+            {console.log(packs)}
             <article>
-
                 <div className={styles.slider_ctn}>
                     {destinationImages[0] && 
                     <Slider type="destination"/>}
@@ -34,8 +32,8 @@ function Results() {
                 </div>
 
             </article>
-        </section>
-    )
+        </section>}
+    </>
 }
 
 export default Results;

@@ -6,21 +6,30 @@ class Query{
         return await pool.query(query);
     }
 
+    // chercher par une seule valeur :
     static async findByValue(query, value){
         return await pool.query(query, [value]);
     }
-
-    // la même fonction, mais dans le cas on joint plusieurs tables. "nestTables: true" pour éviter l'écrasement de données dont les colonnes ont les mêmes noms
-    static async findByValueMultipleTables(query, value){
+    // une seule valeur dans le cas on joint plusieurs tables :
+    static async findByValueNTables(query, value){
         return await pool.query({sql: query, nestTables: true}, [value]);
     }
 
     // 'datas' est un objet
     static async findByDatas(query, datas){
+        return await pool.query(query, [...Object.values(datas)]);
+    }
+    // 'datas' est un objet dans le cas on joint plusieurs tables :
+    static async findByDatasNTables(query, datas){
         return await pool.query({sql: query, nestTables: true}, [...Object.values(datas)]);
     }
+
     // 'datas' est un array
     static async findByArrayDatas(query, datas){
+        return await pool.query(query, datas);
+    }
+    // 'datas' est un array dans le cas on joint plusieurs tables :
+    static async findByArrayDatasNTables(query, datas){
         return await pool.query({sql: query, nestTables: true}, datas);
     }
     

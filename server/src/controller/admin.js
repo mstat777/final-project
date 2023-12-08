@@ -56,7 +56,7 @@ const getBookingByMultipleInputs = async (req, res) => {
     
         const query = "SELECT b.id, b.nb_adults, b.nb_children, b.price_total_booking, b.payment_type, b.status, b.date_created, u.first_name, u.last_name, u.email, u.tel, p.reference, p.departure_date, p.return_date, p.duration, d.name, d.country, d.departure_place FROM bookings AS b JOIN users AS u ON u.id = b.user_id JOIN packs AS p ON p.id = b.pack_id JOIN destinations AS d ON d.id = p.destination_id WHERE"+queryEnding;
         //console.log("query = "+query);
-        const [datas] = await Query.findByArrayDatas(query, bodyData);
+        const [datas] = await Query.findByArrayDatasNTables(query, bodyData);
 
         res.status(200).json({datas});
     } catch (err) {
@@ -169,7 +169,7 @@ const createActivity= async (req, res) => {
 
         // on vérifie si une activité avec le même nom existe déjà :
         const queryCheck = "SELECT id FROM activities WHERE name = ?";
-        const [results] = await Query.findByDatas(queryCheck, req.body.nameAct);
+        const [results] = await Query.findByValue(queryCheck, req.body.nameAct);
 
         if (results.length) {
             msg = "Un activité avec ce nome existe déjà !";
