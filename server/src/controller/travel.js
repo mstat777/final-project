@@ -2,7 +2,7 @@ import Query from "../model/Query.js";
 
 // tous les contnents & destinations :
 const getAllContinentsAndDestinations = async (req, res) => {
-    const query = "SELECT name, continent FROM destinations ORDER BY name";
+    const query = "SELECT name, country, continent, country, url_initial_image FROM destinations ORDER BY name";
     const [datas] = await Query.find(query);
     res.status(200).json({datas});
 }

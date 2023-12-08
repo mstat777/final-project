@@ -9,33 +9,49 @@ function Holidays(){
 
     return (
         <main id="holidays">
+
         {!allContinents ? (
             <Loading />
         ) : ( 
             <>
-            <h2>Nos destinations</h2>
             {allContinents.length > 0 && 
             <div className={styles.holidays_section}>
+
+                <h2>Nos destinations</h2>
+
                 {allContinents.map((cont, index) => {
                     return <div key={index}>
-                        <h3>{cont}</h3>
-                        <ul key={index}>
+
+                        <h3 className={styles.continent_txt}>{cont}</h3>
+
+                        <ul key={index} className={styles.continent_ctn}>
                             {destinationsWithContinents
                             .filter((dest) => dest.continent === cont)
                             .map((dest, index) => {
                                 return(
                                     <li key={index}>
-                                        <Link to={`/search?destination=${dest.name.toLowerCase()}`} className={styles.holidays_destination}>{dest.name}</Link>        
+                                    <Link to={`/search?destination=${dest.name.toLowerCase()}`}
+                                          className={styles.destination_ctn}>
+                                        <img src={`../../img/destinations/${dest.url_initial_image}`} alt="" />
+                                    
+                                        <div className={styles.info_ctn}>
+                                            <p>{dest.country}</p>
+                                            <p className={styles.holidays_destination}>{dest.name}</p>                    
+                                        </div>
+                                    </Link>  
                                     </li>
                                 )
                             })}
                         </ul>
+
                     </div>
                 })}
+
             </div>
             }
             </>
         )}
+
         </main>
     )
 }

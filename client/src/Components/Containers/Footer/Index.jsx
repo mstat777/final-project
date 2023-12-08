@@ -9,6 +9,11 @@ function Footer() {
     const [userEmail, setUserEmail] = useState('');
     const [msg, setMsg] = useState('');
 
+    // pop-up erreur pour le champ maxPrice de la barre de recherche :
+    function emailAlertMsg(e){
+        e.target.setCustomValidity("Veuillez renseigner ce champ.");
+    }
+
     async function handleSubmit(e) {
         e.preventDefault();
         console.log("Newsletter form sent!");
@@ -56,6 +61,7 @@ function Footer() {
                             name="userEmail" 
                             value={userEmail}
                             onChange={(e) => setUserEmail(e.target.value)}
+                            onInvalid={emailAlertMsg}
                             required/>
                         <button type="submit">OK</button>
                     </form>

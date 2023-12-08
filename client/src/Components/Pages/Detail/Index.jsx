@@ -28,6 +28,15 @@ function Detail(){
     const { activities } = useSelector((state) => state.allTravel);
     const { coordinates } = useSelector((state) => state.allTravel);
 
+    // formatter les dates venantes de la BDD :
+    function formatDate(date) {
+        const dateParts = date.split("-");
+        //console.log(dateParts);
+        const newDate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2].substr(0,2)).toLocaleDateString();
+        //console.log(newDate);
+        return newDate;
+    }
+
     // ----- Corriger le bug d'Openstreetmap ------
     let DefaultIcon = L.icon({
         iconUrl: icon,
@@ -64,8 +73,8 @@ function Detail(){
                             <th>date de départ</th> 
                             <th>date de retour</th>
                             <th>durée</th>
-                            <th>prix/TTC/adulte</th>
-                            <th>prix/TTC/enfant</th>
+                            <th>prix/adulte</th>
+                            <th>prix/enfant</th>
                             <th>réserver</th>
                         </tr>
                     </thead>
@@ -73,11 +82,11 @@ function Detail(){
                         { packs.map((pack, index) => 
                             <tr key={index}>
                                 {/*console.log("index = "+index)*/}
-                                <td>{pack.departure_date.slice(0, pack.departure_date.indexOf('T'))}</td>
-                                <td>{pack.return_date.slice(0, pack.return_date.indexOf('T'))}</td> 
-                                <td>{pack.duration+1}J/{pack.duration}N</td>  
-                                <td>{pack.price_adults} &euro;</td> 
-                                <td>{pack.price_children} &euro;</td> 
+                                <td><span>{formatDate(pack.departure_date)}</span></td>
+                                <td><span>{formatDate(pack.return_date)}</span></td> 
+                                <td><span>{pack.duration+1}</span>J / <span>{pack.duration}</span>N</td>  
+                                <td><span>{Math.round(pack.price_adults)}</span> &euro;</td> 
+                                <td><span>{Math.round(pack.price_children)}</span> &euro;</td> 
                                 <td>
                                     <button 
                                     onClick={() => {

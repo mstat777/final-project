@@ -18,6 +18,8 @@
 .cards_ctn {
     display: flex;
     flex-direction: column;
+    width: 90%;
+    align-items: center;
 }
 
 /******************************************************************/
@@ -34,10 +36,5 @@
         flex-direction: row;
         justify-content: center;
         max-width: 1200px;
-    }
-
-    .cards_ctn > * {
-        margin-left: 1em;
-        margin-right: 1em;
     }
 }

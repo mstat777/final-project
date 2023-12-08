@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 import styles from './user.module.css';
 
@@ -232,7 +232,7 @@ function Signup(){
                         </span>
                     </div>
                     <div className={styles.input_ctn}> 
-                        <label htmlFor="checkBoxNewsL" className={styles.label_checkbox}>
+                        <label className={styles.label_checkbox}>
                             <input type="checkbox" 
                                 name="checkBoxNewsL"
                                 checked={ checkBoxNewsL } 
@@ -241,12 +241,12 @@ function Signup(){
                         </label>
                     </div>
                     <div className={styles.input_ctn}> 
-                        <label htmlFor="checkBoxPrivacy" className={styles.label_checkbox}>
+                        <label className={styles.label_checkbox}>
                             <input type="checkbox" 
                                 name="checkBoxPrivacy"
                                 checked={ checkBoxPrivacy } 
                                 onChange={() => setCheckBoxPrivacy(!checkBoxPrivacy)}/>
-                            <span>En cochant cette case, vous déclarez avoir lu et accepter nos conditions d'utilisation et la politique de confidentialité</span>
+                            <span>En cochant cette case, vous déclarez avoir lu et accepter nos <Link>conditions d'utilisation</Link> et la <Link>politique de confidentialité</Link></span>
                         </label>
                     </div>
 

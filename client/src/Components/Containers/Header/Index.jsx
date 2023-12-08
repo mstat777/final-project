@@ -10,7 +10,7 @@ function Header() {
         <header className={styles.header}>
             <nav className={styles.nav}>
                 <div className={styles.nav_upper}>
-                    <NavLink to={"/"} className={styles.nav_logo}>
+                    <NavLink to={"/"} className={styles.nav_logo_ctn}>
                         <img src={logo} alt=""/>
                     </NavLink>
                 

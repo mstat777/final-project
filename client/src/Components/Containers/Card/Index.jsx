@@ -18,7 +18,7 @@ function Card({type, data}){
 
     if (type === "promo"){
 
-        return <div className={styles.card_ctn}>
+        return <div className={styles.card}>
                     <img src={`${IMG_URL}/img/destinations/${data.url_initial_image}`} alt=""/>
                     <div className={styles.card_info}> 
                         <h4>{data.country}</h4>
@@ -39,19 +39,19 @@ function Card({type, data}){
 
     } else if (type === "topOffer"){
 
-        return <div className={styles.card_ctn}>
+        return <div className={styles.card}>
                     <img src={`../../img/destinations/${data.url_initial_image}`} alt=""/>
                     <div className={styles.card_info}> 
                         <h4>{data.country}</h4>
                         <h3>{data.name}</h3>
-
                         <div className={styles.price_percent_ctn}>
                             <div className={styles.price_ctn}>
                                 à partir de <span>{data.price_adults.slice(0,data.price_adults.lastIndexOf('.'))}</span><sup>&euro;</sup>
                             </div> 
                         </div>
-
-                        <button onClick={() => handleClick(data.name)} className={styles.discover_btn}>découvrir</button>
+                        <button 
+                            onClick={() => handleClick(data.name)} 
+                            className={styles.discover_btn}>découvrir</button>
                     </div>
                 </div>
     }       

@@ -1,18 +1,21 @@
 /******************************************************************/
 /* ----------------------- VERSION MOBILE ----------------------- */
 /******************************************************************/
-.card_ctn {
+.card {
     display: flex;
     height: 200px;
-    width: 600px;
-    margin-bottom: 1em;
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 1em; 
+    /*margin-left: auto;
+    margin-right: auto;*/
     border: 1px solid var(--primary-color);
     border-radius: 5px;
     box-shadow: 2px 2px 6px var(--primary-color);
     overflow: hidden;
 }
 
-.card_ctn > img {
+.card > img {
     display: inline-block;
     height: 100%;
     width: 50%;
@@ -95,14 +98,16 @@
 /* ----------------------- VERSION DESKTOP ---------------------- */
 /******************************************************************/
 @media screen and (min-width: 1100px) {
-    .card_ctn {
+    .card {
         flex-direction: column;
-        width: 300px;
-        /*aspect-ratio: 4/3;*/
         height: 380px;
+        width: 300px;
+        margin-left: 1em;
+        margin-right: 1em;
+        /*aspect-ratio: 4/3;*/
     }
 
-    .card_ctn > img {
+    .card > img {
         height: 200px;
         width: 100%;
     }

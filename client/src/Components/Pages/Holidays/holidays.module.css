@@ -2,29 +2,127 @@
 /* ----------------------- VERSION MOBILE ----------------------- */
 /******************************************************************/
 .holidays_section {
-    margin-bottom: 2em;
-    padding: .5em 1em 1em;
+    width: 90%;
+    margin: .5em auto 3em;
     /*background-color: var(--primary-color);*/
-}
-
-.holidays_destination {
-    color: var(--highlight-color);
 }
 
 h2 {
     margin-top: 1em;
 }
 
-.holidays_section li {
+.continent_txt {
+    width: 90%;
+    margin: 1em auto;
+    padding: .1em 0;
+    border: 1px solid var(--secondary-color);
+}
+
+.continent_ctn {
+    display: flex;
+    flex-direction: column;
+}
+
+.destination_ctn {
+    display: flex;
+    align-items: top;
+    width: 80%;
+    margin: 0 auto 1em;
+    /*padding: 0 2em;*/
     font-weight: 500;
 }
+.destination_ctn:hover {
+    cursor: pointer;
+}
+
+.destination_ctn  img {
+    /*display: flex;*/
+    width: 30%;
+    aspect-ratio: 1/1;
+    max-height: unset; 
+    object-fit: cover;
+    object-position: top;
+    /*height: calc(width * 3/4);*/ 
+}
+/*
+.img_ctn > img {
+    width: 100%;
+    aspect-ratio: 4/3;
+    max-height: unset; 
+    object-fit: contain;
+}*/
+
+.info_ctn {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 70%;
+    padding-left: .6em;
+    text-align: left;
+}
+
+.info_ctn > p:first-child {
+    margin-top: .3em;
+}
+
+.holidays_destination {
+    font-weight: 600;
+    color: var(--highlight-color);
+}
+
 
 /******************************************************************/
 /* ---------------------- VERSION TABLETTE ---------------------- */
 /******************************************************************/
 @media screen and (min-width: 768px) {
     .holidays_section {
-        margin: 1em auto;
+        margin: 1em auto 3em;
+    }
+
+    .continent_txt {
+        max-width: 610px;
+    }
+
+    .continent_ctn {
+        flex-direction: row;
+        justify-content: center;
+        margin: 0 2em;
+    }
+
+    .destination_ctn {
+        position: relative;
+        width: 170px;
+        height: 170px;
+        /*aspect-ratio: 1/1;*/
+        margin: 0 1em 1em;
+        background-color: var(--primary-color);
+    }
+    .destination_ctn:hover {
+        cursor: pointer;
+    }
+
+    .destination_ctn  img {
+        width: 100%;
+        object-fit: contain;
+        object-position: bottom;
+    }
+
+    .info_ctn {
+        position: absolute;
+        display: block;
+        width: 170px;
+        margin: 0;
+        padding: 0 .5em;
+        background-color: var(--primary-color);
+        overflow: hidden; 
+    }
+
+    .holidays_destination {
+        
+        margin-top: 0;
+        overflow: hidden;
+        white-space: nowrap; 
+        text-overflow: ellipsis;
     }
 }
 

@@ -177,7 +177,7 @@ function Search() {
         }
     },[destination, packs[0], destinationImages[0]]);
 
-    // lors du changement du texte dans la barre de recherche :
+    // pop-up erreur pour le champ maxPrice de la barre de recherche :
     function priceAlertMsg(e){
         e.target.setCustomValidity("Prix < 100000. Deux décimals max.");
     }

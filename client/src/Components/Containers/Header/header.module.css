@@ -6,6 +6,7 @@
     top: 0;
     left: 0;
     right: 0;
+    display: flex;
     height: 240px;
     width: 100%;
     background-color: var(--primary-color);
@@ -15,7 +16,9 @@
 .nav {
     display: flex;
     flex-direction: column;
-    padding: .5em 1.5em .5em;
+    justify-content: space-between;
+    width: 100%;
+    padding: 1em 1.5em;
 }
 
 .nav_upper {
@@ -40,7 +43,7 @@
     background-color: var(--tertiary-color);
 }
 
-.nav_logo {
+.nav_logo_ctn {
     margin: .5em 1em;
 }
 
@@ -49,17 +52,21 @@
 /******************************************************************/
 @media screen and (min-width: 768px) {
     .header {
+        flex-direction: row;
         height: 60px;
     }
 
     .nav {
         flex-direction: row;
         align-items: center;  
+        max-width: 1100px;
         padding: 0 2em;
+        margin: 0 auto;
     }
 
     .nav_lower {
         position: absolute;
+        /*justify-self: center;*/
         left: 50%;
         transform: translate(-50%, 0);
         flex-direction: row;
@@ -78,7 +85,7 @@
         text-underline-offset: 3px;
     }
 
-    .nav_logo {
+    .nav_logo_ctn {
         margin-left: 1em;
     }
 }
@@ -87,7 +94,18 @@
 /* ----------------------- VERSION DESKTOP ---------------------- */
 /******************************************************************/
 @media screen and (min-width: 1100px) {
-    .nav_logo {
+    .header {
+        justify-content: center;
+    }
+
+    .nav {
+        width: 90%;
+        max-width: 1400px;
+        margin-left: unset;
+        margin-right: unset;
+    }
+
+    .nav_logo_ctn {
         margin-left: 4em;
     }
 }
