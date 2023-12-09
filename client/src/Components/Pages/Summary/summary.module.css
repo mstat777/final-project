@@ -22,6 +22,10 @@
     list-style-type: circle;
 }
 
+.nota_bene {
+    margin-top: 3em;
+}
+
 .summary_ctn select {
     margin-left: 1em;
     padding: .1em .4em;

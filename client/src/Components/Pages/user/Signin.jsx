@@ -37,7 +37,7 @@ function Signin(){
     async function handleSubmit(e){
         e.preventDefault();
         //console.log("SignIN form sent!");
-        console.log("email : "+email);
+        //console.log("email : "+email);
         const res = await fetch(`${BASE_URL}/api/v.0.1/user/signin`, {
             method: "post",
             headers: { "Content-Type": "application/json" },
@@ -47,10 +47,10 @@ function Signin(){
         setMsg(json.msg);
         if(res.status === 200){
             localStorage.setItem("auth", json.TOKEN);
-            console.log("le token a été créé dans localhost");
-            console.log("json.msg = "+json.msg);
+            //console.log("le token a été créé dans localhost");
+            //console.log(json);
             dispatch(signin(json));
-            console.log("userInfo.chosenPackID ="+userInfo.chosenPackID);
+            //console.log("userInfo.chosenPackID ="+userInfo.chosenPackID);
             // si on n'a pas encore séléctionné un pack, on sera dirigé vers la page d'accueil :
             if (userInfo.chosenPackID === -1) { 
                 navigate("/");

@@ -145,6 +145,7 @@ function Signup(){
 
             <div className={styles.signup_div}>
                 <h2>Je crée mon compte</h2>     
+
                 <form onSubmit={handleSubmit} className={styles.sign_form}>
                     <div className={styles.input_ctn}> 
                         <FontAwesomeIcon icon={faUser} className={styles.input_icon}/>  
@@ -203,7 +204,7 @@ function Signup(){
                                 placeholder="Date de naissance*"
                                 min="1920-01-01"
                                 value={birthDate}
-                                onChange={(e) => setBirthDate(e.target.value)}
+                                onChange={(e) => {setBirthDate(e.target.value); console.log(birthDate);}}
                                 onFocus={() => setInputDateType("date")}
                                 className={styles.sign_input}
                                 required/> 

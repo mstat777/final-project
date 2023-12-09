@@ -56,7 +56,7 @@ function Home() {
                                 </div>
                             }
                         </>}
-            
+                        
                         {showTopDestination && <>
                             <h2>Top destinations</h2>
                             {topDestinations[0] &&
@@ -67,18 +67,6 @@ function Home() {
                                 </div>
                             }
                         </>}
-
-                        {showTopDestination && <>
-                            <h2>Top destinations</h2>
-                            {topDestinations[0] &&
-                                <div className={styles.cards_ctn}> 
-                                {topDestinations.map((dest, index) => 
-                                    <Card type="topOffer" data={dest} key={index}/>
-                                )} 
-                                </div>
-                            }
-                        </>}
-
                     </>
                 }
             </>}

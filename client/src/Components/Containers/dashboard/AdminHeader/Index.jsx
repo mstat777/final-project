@@ -10,16 +10,18 @@ function AdminDashboardHeader(){
 
     return(
         <header className={styles.admin_db_header}>
+
             <nav className={styles.admin_db_nav}>
 
                 <div className={styles.admin_db_dropdown}>
-                    <div className={styles.admin_db_image_ctn}>
-                        <FontAwesomeIcon icon={faUser} className={styles.admin_db_image}/>
-                    </div>
-                    {console.log(userInfo.email)} 
-                    <div className={styles.admin_db_dropdown_ctn}>
+                    <div className={styles.admin_db_user_ctn}>
+                        <div className={styles.admin_db_image_ctn}>
+                            <FontAwesomeIcon icon={faUser} className={styles.admin_db_image}/>
+                        </div>
                         <span className={styles.admin_db_email}>{userInfo.email}</span>
-                        <NavLink to={"/db/admin/my-infos"} className={styles.link}>Info personnelles</NavLink>
+                    </div>
+                    <div className={styles.admin_db_dropdown_ctn}>
+                        <NavLink to={"/db/admin/my-infos"} className={styles.link}>Mes informations</NavLink>
                         <NavLink to={`/db/admin/my-bookings/${userInfo.userID}`} className={styles.link}>Mes réservations</NavLink>
                         <NavLink to={"/user/signout"} className={styles.link_signout}>déconnexion</NavLink>
                         <NavLink to={"/"} className={styles.link_home}>Accueil</NavLink>

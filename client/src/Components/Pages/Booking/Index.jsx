@@ -147,7 +147,7 @@ function Booking(){
 
                 <p>Veuillez indiquer le nombre d'adultes et d'enfants pour lesquels vous réservez :</p>
                 <div className={styles.booking_inputs}>
-                    <span>Nombre d'adultes :</span>
+                    <span>Adultes :</span>
                     <button onClick={()=>{dispatch(increaseNumberAdultsPack())}}>
                         <FontAwesomeIcon icon={faCirclePlus} className={styles.fa_circle}/>
                     </button>
@@ -161,7 +161,7 @@ function Booking(){
                     </button>
                 </div>
                 <div className={styles.booking_inputs}>
-                    <span>Nombre d'enfants :</span>
+                    <span>Enfants :</span>
                     <button onClick={()=>{dispatch(increaseNumberChildrenPack())}}>
                         <FontAwesomeIcon icon={faCirclePlus} className={styles.fa_circle}/>
                     </button>
@@ -204,7 +204,7 @@ function Booking(){
                                     <FontAwesomeIcon icon={faCircleMinus} className={styles.fa_circle}/>
                                 </button>
 
-                                <span>Children :</span>
+                                <span>Enfants :</span>
                                 <button onClick={()=>{dispatch(increaseNumberChildrenActivity(index))}}>
                                     <FontAwesomeIcon icon={faCirclePlus} className={styles.fa_circle}/>
                                 </button>

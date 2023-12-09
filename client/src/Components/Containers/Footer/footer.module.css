@@ -75,6 +75,18 @@
     background-color: var(--tertiary-color);
 }
 
+.ok_msg,
+.err_msg {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 1em;
+    color: rgb(0, 143, 49);
+}
+
+.err_msg{
+    color: var(--highlight-color);
+}
+
 /******************************************************************/
 /* ----------------------- VERSION DESKTOP ---------------------- */
 /******************************************************************/

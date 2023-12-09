@@ -16,6 +16,7 @@ import { choosePack } from "../../../store/slices/user";
 import Slider from '../../Containers/Slider/Index';
 import TripadvisorNote from '../../Containers/TripadvisorNote/Index';
 import { fetchActivities } from '../../Functions/fetchData';
+import { formatDate } from '../../Functions/utils';
 
 function Detail(){
     const dispatch = useDispatch();
@@ -27,15 +28,6 @@ function Detail(){
     const { packs } = useSelector((state) => state.allTravel);
     const { activities } = useSelector((state) => state.allTravel);
     const { coordinates } = useSelector((state) => state.allTravel);
-
-    // formatter les dates venantes de la BDD :
-    function formatDate(date) {
-        const dateParts = date.split("-");
-        //console.log(dateParts);
-        const newDate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2].substr(0,2)).toLocaleDateString();
-        //console.log(newDate);
-        return newDate;
-    }
 
     // ----- Corriger le bug d'Openstreetmap ------
     let DefaultIcon = L.icon({

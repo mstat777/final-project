@@ -97,7 +97,7 @@
     font-weight: 500;
 }
 /*** les boutons Modif ***/
-.user_db_label > *:nth-child(3) {
+.user_db_label > button {
     display: inline-block;
     align-items: center;
     justify-content: center;
@@ -106,14 +106,20 @@
     margin-left: .5em;
     border: none;
     background-color: var(--tertiary-color);
+    transition: opacity .3s;
+}
+.user_db_label > button:hover {
+    cursor: pointer;
+    opacity: .7;
 }
 
-.email {
+
+/*.email {
     border: 1px solid var(--verylightgrey-color);
     border-radius: .4em;
     text-align: left;
     background-color: var(--verylightgrey-color);
-}
+}*/
 
 .modify_icon {
     font-size: .8em;
@@ -123,7 +129,7 @@
 .db_create_form > button,
 .user_db_account_form > button {
     display: block;
-    margin: 0 auto;
+    margin: 1em auto 0;
     padding: .5em .7em .4em;
     border: none;
     border-radius: .4em;
@@ -151,6 +157,15 @@
     margin-bottom: 1em;
     text-align: justify;
     color: var(--highlight-color);
+}
+
+textarea:disabled,
+input[type="email"]:disabled,
+input[type="tel"]:disabled,
+input[type="date"]:disabled,
+input[type="text"]:disabled {
+    color: var(--grey-color);
+    background-color: #e5e5e5;
 }
 
 /******************************************************************/

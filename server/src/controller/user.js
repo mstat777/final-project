@@ -30,11 +30,12 @@ const userSignIn = async (req, res) => {
 
             if (same) {
                 msg = "utilisateur trouvé. mdp OK.";
-                console.log(`server: ${msg}`);
+                //console.log(`server: ${msg}`);
                 const TOKEN = sign({email: user[0].email, accountType: user[0].account_type}, SK);
                 res.status(200).json({ 
                     msg, 
                     TOKEN, 
+                    email: user[0].email, 
                     userID: user[0].id, 
                     accountType: user[0].account_type });
             } else {
@@ -49,6 +50,7 @@ const userSignIn = async (req, res) => {
         throw Error(err);
     }
 }
+
 // créer un compte utilisateur de type "client" :
 const createUserAccount = async (req, res) => {
     try {
@@ -82,6 +84,32 @@ const createUserAccount = async (req, res) => {
         throw Error(err)
     }
 }
+
+// modifier les infos persos de l'utilisateur :
+const modifyUserInfo = async (req, res) => {
+    try {
+        let msg = "";
+        const bodyData = [
+            req.body.lastName,
+            req.body.firstName,
+            req.body.tel,
+            req.body.address,
+            req.body.birthDate,
+            req.body.occupation,
+            req.body.email
+        ]
+        //console.log(bodyData);
+        const queryUser = "UPDATE users SET last_name = ?, first_name = ?, tel = ?, address = ?, birth_date = ?, occupation = ? WHERE email = ?";
+        /*const queryUser = "UPDATE users SET last_name = 'Viv', first_name = 'Vivo', tel = '0123456789', address = '22 rue Montrouge\n33000 Bordeaux', birth_date = '1999-02-12', occupation = 'étudiant' WHERE email = 'victor@victor.com'";*/
+
+        await Query.updateByArray(queryUser, bodyData);
+        msg = "utilisateur créé";
+        res.status(201).json({ msg });
+    } catch (err) {
+        throw Error(err)
+    }
+}
+
 // trouver les données de l'utilisateur par son ID :
 const getUserById = async (req, res) => {
     try {
@@ -92,6 +120,7 @@ const getUserById = async (req, res) => {
         throw Error(err)
     }
 }
+
 // trouver toutes les réservations d'un utilisateur :
 const getAllUserBookings = async (req, res) => {
     try {
@@ -136,6 +165,7 @@ const makeBooking = async (req, res) => {
 export { checkToken, 
         createUserAccount, 
         userSignIn,
+        modifyUserInfo,
         getUserById,
         getAllUserBookings,
         makeBooking

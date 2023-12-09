@@ -2,6 +2,7 @@ import { Router } from "express";
 import { checkToken, 
         createUserAccount, 
         userSignIn,
+        modifyUserInfo,
         getUserById,
         getAllUserBookings,
         makeBooking
@@ -18,6 +19,9 @@ router.post("/signup", createUserAccount);
 
 // loguer l'utilisateur :
 router.post("/signin", userSignIn);
+
+// modifier les infos persos de l'utilisateur :
+router.post("/modify-user-info", modifyUserInfo);
 
 // trouver un utilisateur par son ID :
 router.get("/:id", getUserById);

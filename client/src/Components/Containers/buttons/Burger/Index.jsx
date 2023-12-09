@@ -29,6 +29,7 @@ function Burger() {
     return (
         <div className={`${styles.burger_menu} ${burgerOpen ? styles.show_burger_menu : styles.hide_burger_menu }`}>
 
+            {/* ---------- le containeur des liens ------------ */}
             <div className={styles.burger_items_ctn}>
                 {userInfo.isLogged && 
                     <>
@@ -36,9 +37,15 @@ function Burger() {
                             <FontAwesomeIcon icon={faXmark} className={styles.burger_cross}/>
                         </button>
 
+                        <FontAwesomeIcon icon={faUser} className={styles.user_icon}/>
+
+                        <p className={styles.small_txt}>Espace client</p>
+                        <p className={styles.user_txt}>{userInfo.email}</p>
+                        <hr/>
+                        
                         {(userInfo.accountType === "client") && 
                         <>
-                            <NavLink to={"/db/user/my-infos"} className={styles.burger_item}>Info personnelles</NavLink>
+                            <NavLink to={"/db/user/my-infos"} className={styles.burger_item}>Mes informations</NavLink>
                             <NavLink to={`/db/user/my-bookings/${userInfo.userID}`} className={styles.burger_item}>Mes réservations</NavLink>
                         </>}
 
@@ -56,24 +63,26 @@ function Burger() {
                         </>}
 
                         {(userInfo.accountType === "superadmin") && 
-                        <>
-                            <hr/>
                             <NavLink to={"/db/admin/new-offer"} className={styles.burger_item}>Créer offre</NavLink>
-                        </>}
+                        }
                         
                         <NavLink to={"/user/signout"} className={styles.burger_item_signout} onClick={() => toggleBurgerOrLogin()}>déconnexion</NavLink>
                     </>
                 }
             </div>
             
-            <button 
-            onClick={toggleBurgerOrLogin} 
-            onMouseOver={handleMouseOver}
-            onMouseOut={handleMouseOut}
-            className={`${styles.burger_icon} ${burgerOpen ? styles.hide : styles.show}`} 
-            title="Espace utilisateur">
-                {(isHovering && !userInfo.isLogged) && <span className={styles.burger_icon_text}>CONNEXION&nbsp;</span>}
-                <FontAwesomeIcon icon={faUser} className={styles.burger_icon_fawesome}/>
+            {/* ---------- LE BOUTON BURGER ------------ */}
+            <button onClick={toggleBurgerOrLogin} 
+                    onMouseOver={handleMouseOver}
+                    onMouseOut={handleMouseOut}
+                    className={`${styles.burger_btn} ${burgerOpen ? styles.hide : styles.show}`} 
+                    title="Espace utilisateur">
+
+                {(isHovering && !userInfo.isLogged) && 
+                <span className={styles.burger_btn_text}>
+                    CONNEXION&nbsp;
+                </span>}
+                <FontAwesomeIcon icon={faUser} className={styles.burger_icon}/>
             </button>
 
         </div>

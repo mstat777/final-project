@@ -1,5 +1,5 @@
-/* bouton burger */
-.burger_icon {
+/* -------------- LE BOUTON BURGER ----------------- */
+.burger_btn {
     position: absolute;
     right: 2em;
     top: 1.8em;
@@ -18,38 +18,97 @@
     background-color: var(--tertiary-color);
     transition: color .5s, background-color .5s, width .5s, content .5s;
 }
-
-.burger_icon:hover {
+.burger_btn:hover {
     cursor: pointer;   
     /*justify-content: right;*/
     width: 9em;
     color: var(--tertiary-color);
     background-color: white; 
 }
-
-.burger_icon_text {
+.burger_btn_text {
     color: rgba(47, 74, 122, 0);
     transition: color 3s;
 }
-
-.burger_icon:hover .burger_icon_text {
+.burger_btn:hover .burger_btn_text {
     /*position: absolute;
     right: 1.8em;
     padding: .6em;*/
     color: var(--tertiary-color);
 }
-
-.burger_icon:focus {
+.burger_btn:focus {
     visibility: hidden;
 }
-
 /* l'image dans le bouton burger */
-.burger_icon_fawesome {
+.burger_icon {
     height: 1.6rem;
     width: 1.6rem;
 }
 
-/* Position and sizing of clickable cross button */
+
+/* CONTAINEUR PRINCIPAL du menu burger (caché par défaut) */
+.burger_menu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 101;
+}
+
+/* le containeur des liens */
+.burger_items_ctn {
+    position: fixed;
+    right: -200px;
+    display: flex;
+    flex-direction: column;
+    /*align-items: left;*/
+    height: 100%;
+    width: 200px;
+    padding: 3.5em 1.2em 0;
+    font-size: 1.5rem;
+    background-color: #b8bfda;
+    visibility: hidden;
+    transition: all 1s ease-out;
+    z-index: 200;
+}
+.show_burger_menu .burger_items_ctn {
+    right: 0;
+    visibility: visible;
+    transition: all 1s ease-out;
+}
+
+.burger_items_ctn > p {
+    padding-left: .5em;
+}
+
+.burger_items_ctn > .user_icon {
+    margin-bottom: .5em;
+    font-size: 3rem;
+}
+
+.burger_items_ctn > .small_txt {
+    margin: 0;
+    font-size: 1.4rem;
+    text-align: center;
+}
+
+.burger_items_ctn > .user_txt {
+    /*display: block;*/
+    margin-top: .2em;
+    padding: .2em 0 .2em .3em;
+    font-weight: 500;
+    text-align: center;
+    overflow: hidden; 
+    white-space: nowrap; 
+    text-overflow: ellipsis;
+    background-color: var(--primary-color);
+}
+
+.burger_items_ctn > hr {
+    margin: .5em 0;
+    /*margin-left: .5em;*/
+    border: 1px solid var(--grey-color);
+}
+
+/* ------ LE BOUTON CROIX --------- */
 .burger_cross_btn {
     position: absolute;
     top: .7em;
@@ -73,38 +132,7 @@
     width: 2rem;
 }
 
-/* le containeur du menu burger */
-.burger_menu {
-    position: fixed;
-    top: 0;
-    right: 0;
-    z-index: 101;
-}
-
-/* le containeur des liens dans le menu burger (caché par défaut) */
-.burger_items_ctn {
-    position: fixed;
-    right: -200px;
-    display: flex;
-    flex-direction: column;
-    /*align-items: left;*/
-    height: 100%;
-    width: 200px;
-    padding: 4em 1.7em 0;
-    font-size: 1.5rem;
-    background-color: #b8bfda;
-    visibility: hidden;
-    transition: all 1s ease-out;
-    z-index: 200;
-}
-
-.show_burger_menu .burger_items_ctn {
-    right: 0;
-    visibility: visible;
-    transition: all 1s ease-out;
-}
-
-/* Individual item */
+/* ------- LIEN DANS LE CONTAINEUR MENU -------- */
 .burger_item {
     display: inline-block;
     margin-top: 1em;
@@ -129,14 +157,8 @@
     text-align: center;
 }
 
-.burger_items_ctn > hr {
-    margin-top: 1.5em;
-    margin-bottom: .8em;
-    margin-left: .5em;
-    border: 1px solid var(--grey-color);
-}
 
-/* Afficher et cacher des éléments */
+/* Afficher/cacher le containeur principal */
 .show {
     visibility: visible;
     opacity: 1;
@@ -152,7 +174,7 @@
 /* ---------------------- VERSION TABLETTE ---------------------- */
 /******************************************************************/
 @media screen and (min-width: 768px) {
-    .burger_icon {
+    .burger_btn {
         top: .8em;
         right: 3em;
     }
@@ -163,7 +185,7 @@
 /* ----------------------- VERSION DESKTOP ---------------------- */
 /******************************************************************/
 @media screen and (min-width: 1100px) {
-    .burger_icon {
+    .burger_btn {
         top: .8em;
         right: calc(6vw + 1em);
     }

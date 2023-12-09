@@ -6,6 +6,15 @@ function cheapestPack(packs) {
     return Math.min(...packs.map(pack => parseInt(pack.price_adults)))
 }
 
+// formatter les dates venantes de la BDD :
+function formatDate(date) {
+    const dateParts = date.split("-");
+    //console.log(dateParts);
+    const newDate = new Date(dateParts[0], dateParts[1] - 1, dateParts[2].substr(0,2)).toLocaleDateString();
+    //console.log(newDate);
+    return newDate;
+}
+
 // récupérer et formatter les coordonnées de l'hébergement pour l'afficher dans la carte :
 function formatCoordinates(coordinates){
     //console.log("coordinates = "+coordinates);
@@ -19,4 +28,5 @@ function formatCoordinates(coordinates){
 }
 
 export { cheapestPack,
+         formatDate,
          formatCoordinates }

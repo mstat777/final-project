@@ -58,6 +58,7 @@ function BasicLayout() {
 function UserDashboardLayout() {
     return (
         <>
+        <Header/>
         <UserDashboardHeader/>
         <Outlet/>
         </>

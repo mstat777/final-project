@@ -57,6 +57,17 @@ class Query{
         console.log(newData);
         return await pool.query(query, [newData]);
     }
+
+    // mettre à jour avec un objet :
+    static async update(query, data) {
+        return await pool.query(query, [...Object.values(data)]);
+    }
+
+    // mettre à jour avec un tableau (array) :
+    static async updateByArray(query, data) {
+        return await pool.query(query, data);
+    }
+
 }
 
 export default Query;

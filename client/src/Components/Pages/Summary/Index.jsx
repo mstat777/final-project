@@ -110,8 +110,9 @@ function Summary(){
                     <hr/>
                     <p>Prix total de la réservation : <span>{bookingInfo.prices.total_all}</span> &euro;</p>
 
+                    <p className={styles.nota_bene}>NB : Cher client, après la confirmation de réservation de votre part, vous recevrez un mail confirmation de reception de la réservation. Vous disposerez de 24 heures pour effectuer le paiement ou votre réservation sera annulée.</p>
                     <label>
-                        Comment souhaitez-vous régler?
+                        Comment souhaitez-vous effectuer le paiement ?
                         <select value={paymentType} onChange={handlePaymentChange}>
                             {paymentOptions.map((option) => (
                                 <option value={option.value} key={option.value}>{option.label}</option>

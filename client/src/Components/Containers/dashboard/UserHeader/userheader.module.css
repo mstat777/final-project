@@ -2,6 +2,7 @@
 /* ----------------------- VERSION MOBILE ----------------------- */
 /******************************************************************/
 .user_db_header {
+    margin-top: 240px;
     background-color: var(--secondary-color);
 }
 
@@ -12,7 +13,22 @@
     margin: 1em;
 }
 
-.user_db_nav > .user_db_image_ctn {
+/* les containeurs dans le NAV */
+.user_db_user_ctn,
+.user_db_links_ctn {
+    display: flex;
+    flex-direction: column;
+}
+
+/* le containeur de l'icon et le mail user */
+.user_db_user_ctn {
+    display: flex;
+    align-items: center;
+    margin-bottom: .5em;
+}
+
+/* le containeur de l'icon user */
+.user_db_image_ctn {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -22,25 +38,13 @@
     border-radius: 50%;
     background-color: rgb(122, 191, 141);
 }
-
-.user_db_nav .user_db_image {
+.user_db_image_ctn > .user_db_image {
     font-size: 1.6rem;
 }
 
-.user_db_nav > span {
-    display: inline-block;
-    margin-left: 1em;
-    font-size: 2rem;
-    color: rgb(0, 0, 0);
-}
-
-.user_db_nav > div {
-    display: flex;
-    flex-direction: column;
-}
-
-.user_db_nav .link_signout,
-.user_db_nav .link {
+/* les liens dans le nav */
+.link_signout,
+.link {
     display: block;
     width: 100%;
     margin-bottom: .5em;
@@ -50,23 +54,23 @@
     text-align: center;
 }
 
-.user_db_nav .link_home {
+.link_home {
     margin-top: .5em;
     padding: .5em 1em;
     color: white;
     background-color: black;
 }
 
-.user_db_nav .link_signout {
+.link_signout {
     display: inline-block;
     width: unset;
     color: var(--highlight-color);
     background-color: var(--primary-color);
 }
 
-.user_db_nav .link_signout:hover,
-.user_db_nav .link_home:hover,
-.user_db_nav .link:hover {
+.link_signout:hover,
+.link_home:hover,
+.link:hover {
     cursor: pointer;
 }
 
@@ -74,6 +78,10 @@
 /* ---------------------- VERSION TABLETTE ---------------------- */
 /******************************************************************/
 @media screen and (min-width: 768px) {
+    .user_db_header {
+        margin-top: 60px;
+    }
+    
     .user_db_nav {
         flex-direction: row;
         align-items: center;
@@ -81,29 +89,47 @@
         margin: .5em 2em;
     }
 
-    .user_db_nav > .user_db_image_ctn {
+    .user_db_user_ctn {
+        /*flex-direction: row;*/
+        margin: 0;
+        margin-right: .5em;
+    }
+
+    /* le mail user */
+    .user_db_user_ctn > span {
+        max-width: 150px;
+        color: white;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
+    .user_db_image_ctn {
         height: 36px;
         width: 36px;
         margin-bottom: 0;
     }
 
-    .user_db_nav > div {
+    .user_db_links_ctn {
         flex-direction: row;
+        justify-self: center;
     }
 
-    .user_db_nav .link {
+    .link,
+    .link_signout {  
+        display: flex;
+        align-items: center;
+        width: unset;
+        margin: 0 .5em;
+        /*vertical-align: middle;*/
+    }
+
+    .link {
         color: var(--tertiary-color);
         background-color: var(--primary-color);
     }
-    
-    .user_db_nav .link,
-    .user_db_nav .link_signout {
-        /*display: inline-block;*/
-        width: unset;
-        margin-bottom: 0;
-    }
 
-    .user_db_nav .link_home {
+    .link_home {
         margin-top: 0;
     }
 }
@@ -116,13 +142,19 @@
         flex-direction: row;
     }
     
-    .user_db_nav > span {
-        display: block;
-        /*margin: 1em auto 2em;*/
-        color: white;
+    /* le containeur de l'icon et le mail user */
+    .user_db_user_ctn {
+        flex-direction: row;
     }
 
-    .user_db_nav > div > * {
+    /* le mail user */
+    .user_db_user_ctn > span {
+        max-width: 240px;
+        margin-left: .4em;
+        font-size: 2rem;
+    }
+
+    .user_db_links_ctn > * {
         vertical-align: bottom;
     }
 
