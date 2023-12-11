@@ -1,23 +1,25 @@
 import Query from "../model/Query.js";
 
-// trouver une réservation par le nom de l'utilisateur (A SUPPRIMER) :
-const getBookingByLastName = async (req, res) => {
-    const query = "SELECT b.id, b.nb_adults, b.nb_children, b.price_total_booking, b.payment_type, b.status, b.date_created, u.first_name, u.last_name, u.email, u.tel, p.reference, p.departure_date, p.return_date, p.duration, d.name, d.country, d.departure_place FROM bookings AS b JOIN users AS u ON u.id = b.user_id JOIN packs AS p ON p.id = b.pack_id JOIN destinations AS d ON d.id = p.destination_id WHERE u.last_name = ?";
-    const [datas] = await Query.findByValue(query, req.params.name);
+/* ------------------------- READ ------------------------- */
+const getAllLodgingsID = async (req, res) => {
+    const query = "SELECT id, name FROM lodgings";
+    const [datas] = await Query.find(query);
     res.status(200).json({datas});
-} 
+}
+
+const getAllDestinationsID = async (req, res) => {
+    const query = "SELECT id, name FROM destinations";
+    const [datas] = await Query.find(query);
+    res.status(200).json({datas});
+}
 
 // trouver une réservation par plusieurs critères :
-const getBookingByMultipleInputs = async (req, res) => {
+const getBookingByMultiInputs = async (req, res) => {
     try {
         let queryEnding = "";
         let areMultipleInputs = false;
         const bodyData = [];
-        console.log(req.body.lastName);
-        console.log(req.body.firstName);
-        console.log(req.body.email);
-        console.log(req.body.reference);
-        console.log(req.body.bookingDate);
+        //console.log(req.body);
 
         if (req.body.lastName !== ''){
             if (areMultipleInputs) { queryEnding += " AND"; }
@@ -49,13 +51,9 @@ const getBookingByMultipleInputs = async (req, res) => {
             bodyData.push(req.body.bookingDate);
             areMultipleInputs = true;
         }
-
-        console.log(bodyData);
-        console.log(typeof(bodyData));
-        console.log("queryEnding = "+queryEnding);
     
         const query = "SELECT b.id, b.nb_adults, b.nb_children, b.price_total_booking, b.payment_type, b.status, b.date_created, u.first_name, u.last_name, u.email, u.tel, p.reference, p.departure_date, p.return_date, p.duration, d.name, d.country, d.departure_place FROM bookings AS b JOIN users AS u ON u.id = b.user_id JOIN packs AS p ON p.id = b.pack_id JOIN destinations AS d ON d.id = p.destination_id WHERE"+queryEnding;
-        //console.log("query = "+query);
+
         const [datas] = await Query.findByArrayDatasNTables(query, bodyData);
 
         res.status(200).json({datas});
@@ -64,18 +62,63 @@ const getBookingByMultipleInputs = async (req, res) => {
     }
 } 
 
-const getAllLodgingsID = async (req, res) => {
-    const query = "SELECT id, name FROM lodgings";
-    const [datas] = await Query.find(query);
-    res.status(200).json({datas});
+// trouver une réservation par plusieurs critères :
+const getDestinationByMultiInputs = async (req, res) => {
+    try {
+        let queryEnding = "";
+        let areMultipleInputs = false;
+        const bodyData = [];
+        //console.log(req.body);
+
+        if (req.body.name !== ''){
+            if (areMultipleInputs) { queryEnding += " AND"; }
+            queryEnding += " d.name = ?";
+            bodyData.push(req.body.name);
+            areMultipleInputs = true;
+        }
+        if (req.body.reference !== ''){
+            if (areMultipleInputs) { queryEnding += " AND"; }
+            queryEnding += " d.reference = ?";
+            bodyData.push(req.body.reference);
+            areMultipleInputs = true;
+        }
+    
+        const query = "SELECT d.reference, d.name, d.country, d.continent, d.overview, d.departure_place, d.date_created FROM destinations AS d WHERE"+queryEnding;
+
+        const [datas] = await Query.findByArrayDatasNTables(query, bodyData);
+
+        res.status(200).json({datas});
+    } catch (err) {
+        throw Error(err);
+    }
+} 
+
+// trouver une réservation par plusieurs critères :
+const getLodgingByMultiInputs = async (req, res) => {
+    try {
+        const query = "SELECT l.* FROM lodgings AS l WHERE l.name = ? LIMIT 1";
+        const [datas] = await Query.findByValueNTables(query, req.body.name);
+        res.status(200).json({datas});
+    } catch (err) {
+        throw Error(err);
+    }
+} 
+/* ----------------------- UPDATE ---------------------- */
+const modifyLodging = async (req, res) => {
+    try {
+        let msg = "";
+        //console.log(req.body);
+        const queryUser = "UPDATE lodgings SET name = ?, type = ?, overview = ?, facilities = ?, rooms = ?, food_drink = ?, meal_plans = ?, entertainment = ?, children = ?, tripadvisor = ?, coordinates = ? WHERE id = ?";
+        //const queryUser = "UPDATE lodgings SET name = 'test-changé', type = 'a1', overview = 'a1', facilities = 'a1', rooms = 'a1', food_drink = 'a1', meal_plans = 'a1', entertainment = 'a1', children = 'a1', tripadvisor = 'a1', coordinates = 'a1' WHERE id = 8";
+        await Query.update(queryUser, req.body);
+        msg = "hébérgement modifié";
+        res.status(201).json({ msg });
+    } catch (err) {
+        throw Error(err)
+    }
 }
 
-const getAllDestinationsID = async (req, res) => {
-    const query = "SELECT id, name FROM destinations";
-    const [datas] = await Query.find(query);
-    res.status(200).json({datas});
-}
-
+/* ----------------------- CREATE ----------------------- */
 const createLodging = async (req, res) => {
     try {
         let msg = "";
@@ -89,7 +132,7 @@ const createLodging = async (req, res) => {
         req.body.urlInitialImage = temp.slice(temp.lastIndexOf('\\')+1);
         //console.log("req.body.urlInitialImage = " + req.body.urlInitialImage);
 
-        console.log(req.body);
+        //console.log(req.body);
         //console.log(results[0]);
 
         if (results.length) {
@@ -205,14 +248,34 @@ const createActivity= async (req, res) => {
     }
 }
 
-export { getBookingByLastName,
-        getBookingByMultipleInputs,
+/* ----------------------- DELETE ----------------------- */
+// supprimer un hébérgement
+const deleteLodging = async (req, res) => {
+    try {
+        let msg = "";
+        //console.log(req.body.id);
+        const queryUser = "DELETE FROM lodgings WHERE id = ?";
+        await Query.delete(queryUser, req.body.id);
+        msg = "hébérgement supprimé";
+        res.status(201).json({ msg });
+    } catch (err) {
+        throw Error(err)
+    }
+}
 
+export { 
         getAllLodgingsID,
         getAllDestinationsID,
+        getBookingByMultiInputs,
+        getDestinationByMultiInputs,
+        getLodgingByMultiInputs,
+
+        modifyLodging,
 
         createLodging,
         createDestination,
         createPack,
-        createActivity
+        createActivity,
+
+        deleteLodging
 };

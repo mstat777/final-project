@@ -195,7 +195,7 @@ function Signup(){
                                 placeholder="Adresse postale"
                                 value={address}
                                 onChange={(e) => setAddress(e.target.value)}
-                                className={styles.sign_textarea}></textarea>
+                                className={styles.sign_textarea} />
                     </div>
                     <div className={styles.input_ctn}> 
                         <FontAwesomeIcon icon={faCakeCandles} className={styles.input_icon}/>  

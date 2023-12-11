@@ -5,7 +5,9 @@ import { checkToken,
         modifyUserInfo,
         getUserById,
         getAllUserBookings,
-        makeBooking
+        createBooking,
+        modifyBooking,
+        deleteBooking
         } from "../controller/user.js";
 import { auth } from "../middlewares/auth.js";
 
@@ -26,10 +28,19 @@ router.post("/modify-user-info", modifyUserInfo);
 // trouver un utilisateur par son ID :
 router.get("/:id", getUserById);
 
+/* ------------------ RESERVATIONS --------------------- */
 // trouver toutes les réservations par l'ID de l'utilisateur :
 router.get("/mybookings/:id", getAllUserBookings);
 
 // créer une réservation (confirmer sur la page Sommaire("Summary"))
-router.post("/booking", makeBooking);
+router.post("/booking/create", createBooking);
+
+// l'utilisateur supprime une de ses réservations :
+router.post("/booking/modify", modifyBooking);
+
+// l'utilisateur supprime une de ses réservations :
+router.post("/booking/delete", deleteBooking);
+
+
 
 export default router;

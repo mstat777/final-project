@@ -47,7 +47,7 @@ function Booking(){
         prices_adults[i] = activities[i].price_adults;
         prices_children[i] = activities[i].price_children;
         //console.log("prices_adults[i] = "+prices_adults[i]);
-        console.log("prices_children[i] = "+prices_children[i]);
+        //console.log("prices_children[i] = "+prices_children[i]);
     }
 
     // initialiser les variables pour stocker les prix du pack et des activités associées :
@@ -68,23 +68,18 @@ function Booking(){
         const initInfoAndSetPrices = async () => { 
             //console.log("activities[0].price_adults = "+activities[0].price_adults);
             const setPrices = async () => {
-                console.log("prices_adults = "+prices_adults);
-                console.log("prices_children = "+prices_children);
+                //console.log("prices_adults = "+prices_adults);
+                //console.log("prices_children = "+prices_children);
                 setPricesList({
                     price_adults_pack: packs[id].price_adults,
                     price_children_pack: packs[id].price_children,
                     price_adults_activities: prices_adults,
                     price_children_activities: prices_children
                 });
-                console.log("pricesList.price_adults_activities = "+pricesList.price_adults_activities);
-                console.log("pricesList.price_children_activities = "+pricesList.price_children_activities);
+                //console.log("pricesList.price_adults_activities = "+pricesList.price_adults_activities);
+                //console.log("pricesList.price_children_activities = "+pricesList.price_children_activities);
             }
             await setPrices();
-            
-            /*const checkPrices = () => {
-                
-            }
-            checkPrices();*/
         }
 
         initInfoAndSetPrices();
@@ -130,7 +125,7 @@ function Booking(){
     }
 
     return <main id="booking">
-            { (destination && lodging && activities) &&
+            { (destination && lodging && packs[0] && activities[0]) &&
             <div className={styles.booking_section}>
                 <img src={`${IMG_URL}/img/lodgings/${lodging.url_initial_image}`} alt="" className={styles.main_img}/>
                 <h4>{lodging.name}</h4>

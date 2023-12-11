@@ -108,7 +108,7 @@ function Contact(){
                                 placeholder="(max 600 caractères)"
                                 rows="7"
                                 maxLength="600"
-                                required></textarea>
+                                required />
                         </label>
 
                         <div>

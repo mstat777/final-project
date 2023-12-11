@@ -26,6 +26,8 @@
     --verylightgrey-color: #f9f9f9;
     /* la police principale */
     --main-font: 'Montserrat', sans-serif;
+    /* la police secondaire (tableaux, lettre largeur uniforme) */
+    --secondary-font: 'Lato', sans-serif;
 }
 
 html {

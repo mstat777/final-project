@@ -131,8 +131,9 @@ const getAllUserBookings = async (req, res) => {
         throw Error(err)
     }
 }
+
 // enregistrer la réservation du pack et des activités :
-const makeBooking = async (req, res) => {
+const createBooking = async (req, res) => {
     try {
         // on enregistre la réservation du pack dans la table 'bookings' :
         const datasPack = {
@@ -143,19 +144,54 @@ const makeBooking = async (req, res) => {
             pack_id: req.body.pack_id,
             user_id: req.body.user_id
         };
-        //console.log(datasPack);
-        /*console.log("req.body.activities.price_total_act = "+req.body.activities.price_total_act);*/
+        console.log(datasPack);
+        //console.log("req.body.activities.price_total_act = "+req.body.activities.price_total_act);
         const queryPack = "INSERT INTO bookings (nb_adults, nb_children, price_total_booking, payment_type, status, date_created, pack_id, user_id) VALUES (?, ?, ?, ?, 'en cours', CURRENT_TIMESTAMP(), ?, ?)";
         await Query.write(queryPack, datasPack);
-        // on a besoin de récupérer l'ID de la réservation que l'utilisateur vient de faire afin de pouvoir envoyer aussi les données des activitées réservées :
-        const queryLastBooking = "SELECT id FROM bookings WHERE user_id = ? ORDER BY date_created DESC LIMIT 1";
-        const [bookingData] = await Query.findByValue(queryLastBooking, req.body.user_id);
-        //console.log(bookingData[0].user_id);
-        // on enregistre la réservation des activités dans la table 'booked_activities' :
-        const queryActivities = "INSERT INTO booked_activities (nb_adults, nb_children, price_total_act, activity_id, booking_id) VALUES ?";
-        await Query.writeAndAddId(queryActivities, req.body.activities, bookingData[0].id);
+        console.log("req.body.activities.length = "+req.body.activities.length);
+        // s'il y a des activités réservées, on les passe dans la table 'booked_activities' :
+        if (req.body.activities.length) {
+            // on a besoin de récupérer l'ID de la réservation que l'utilisateur pour l'utiliser comme clé étrangère :
+            const queryLastBooking = "SELECT id FROM bookings WHERE user_id = ? ORDER BY date_created DESC LIMIT 1";
+            const [bookingData] = await Query.findByValue(queryLastBooking, req.body.user_id);
+            //console.log(bookingData[0].user_id);
+            // on enregistre la réservation des activités dans la table 'booked_activities' :
+            const queryActivities = "INSERT INTO booked_activities (nb_adults, nb_children, price_total_act, activity_id, booking_id) VALUES ?";
+            await Query.writeAndAddId(queryActivities, req.body.activities, bookingData[0].id);
+        }
         //
         let msg = "réservation créée";
+        res.status(201).json({ msg });
+    } catch (err) {
+        throw Error(err)
+    }
+}
+
+// modifier une réservation et les activités réservées corresp. :
+const modifyBooking = async (req, res) => {
+
+}
+
+// supprimer une réservation et les activités réservées corresp. :
+const deleteBooking = async (req, res) => {
+    try {
+        // vérifier s'il y a des activités réservées :
+        const queryCheckAct = "SELECT id FROM booked_activities WHERE booking_id = ?";
+        const [activities] = await Query.findByValue(queryCheckAct, req.body.id);
+        console.log("activities.length = "+activities.length);
+        console.log(activities);
+
+        // si des activités trouvées, on les supprime d'abord :
+        if (activities.length) {
+            const queryDeleteBooking = "DELETE FROM booked_activities WHERE booking_id = ?";
+            await Query.delete(queryDeleteBooking, req.body.id);
+        }
+
+        // Supprimer la réservation :
+        //console.log(req.body.id);
+        const queryDeleteBooking = "DELETE FROM bookings WHERE id = ?";
+        await Query.delete(queryDeleteBooking, req.body.id);
+        let msg = "réservation supprimée";
         res.status(201).json({ msg });
     } catch (err) {
         throw Error(err)
@@ -168,5 +204,7 @@ export { checkToken,
         modifyUserInfo,
         getUserById,
         getAllUserBookings,
-        makeBooking
+        createBooking,
+        modifyBooking,
+        deleteBooking
 };

@@ -1,0 +1,59 @@
+/******************************************************************/
+/* ----------------------- VERSION MOBILE ----------------------- */
+/******************************************************************/
+.search_form {
+    position: relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 600px;
+    margin: 2em auto;
+    padding: 1em;
+    background-color: var(--secondary-color);
+}
+
+.search_form > input {
+    display: inline-block;
+    width: 100%;
+    margin-bottom: 1em;
+    padding: .5em;
+    border: none;
+    font-weight: 500;
+}
+
+.search_form > input[name*=Name],
+.search_form > input[name*=name],
+.search_form > input[name=reference],
+.search_form > input[name*=Date] {
+    width: 49%;
+}
+
+.search_form > button {
+    display: block;
+    margin: 0 auto;
+    padding: .5em .7em .4em;
+    border: none;
+    border-radius: 6px;
+    font-weight: 500;
+    color: white;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    background-color: var(--tertiary-color);
+}
+.search_form > button:hover {
+    cursor: pointer;
+}
+
+/******************************************************************/
+/* ---------------------- VERSION TABLETTE ---------------------- */
+/******************************************************************/
+@media screen and (min-width: 768px) {
+    
+}
+
+/******************************************************************/
+/* ----------------------- VERSION DESKTOP ---------------------- */
+/******************************************************************/
+@media screen and (min-width: 1100px) {
+
+}

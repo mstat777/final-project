@@ -22,7 +22,6 @@
 
 /* le containeur de l'icon et le mail user */
 .user_db_user_ctn {
-    display: flex;
     align-items: center;
     margin-bottom: .5em;
 }
@@ -32,13 +31,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 40px;
-    width: 40px;
-    margin-bottom: .5em;
+    height: 30px;
+    width: 30px;
+    /*margin-bottom: .5em;*/
     border-radius: 50%;
     background-color: rgb(122, 191, 141);
+    cursor: pointer;
 }
-.user_db_image_ctn > .user_db_image {
+.user_db_image {
     font-size: 1.6rem;
 }
 

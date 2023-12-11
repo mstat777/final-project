@@ -1,4 +1,4 @@
-import styles from '../dashboard.module.css';
+import styles from './userdash.module.css';
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 
@@ -201,7 +201,7 @@ function UserDashboardMyInfos(){
 
                 <label className={styles.user_db_label}>
                     <span>Adresse postale :</span>
-                    <textarea type="text" 
+                    <textarea
                         name="address" 
                         value={formData.address}
                         onChange={handleChange}

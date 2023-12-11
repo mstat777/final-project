@@ -10,16 +10,23 @@
     flex-direction: column;
     align-items: center;
     margin: .5em 2em;
-    overflow: hidden;
+    /*overflow: hidden;*/
+}
+
+.admin_db_links_ctn,
+.admin_db_user_ctn {
+    display: flex;
+    align-items: center;
 }
 
 .admin_db_user_ctn {
-    display: flex;
-    /*flex-direction: column;*/
-    align-items: center;
     margin-bottom: .5em;
     padding: .2em .5em;
     background-color: rgb(122, 191, 141);
+}
+
+.admin_db_links_ctn {
+    flex-direction: column;
 }
 
 /* le containeur de l'icon user */
@@ -29,7 +36,6 @@
     justify-content: center;
     height: 30px;
     width: 30px;
-    border-radius: 15px;
     background-color: rgb(122, 191, 141);
     cursor: pointer;
 }
@@ -48,13 +54,14 @@
 /* les liens dans le nav */
 .link_signout,
 .link {
-    display: inline-block;
+    display: block;
+    width: 100%;
+    margin-bottom: .5em;
     padding: .5em 1em;
     font-size: 1.4rem;
     font-weight: 500;
-    color: var(--teriary-color);
+    color: white;
     text-align: center;
-    background-color: var(--primary-color);
     transition: color .4s, background-color .4s;
 }
 
@@ -72,12 +79,14 @@
 
 /* --------- LES MENUS DEROULANTS dans la nav ----------- */
 .admin_db_dropdown {
+    min-width: 200px;
     overflow: hidden;
 }
 /* Dropdown content ("hidden" par défaut) */
 .admin_db_dropdown_ctn {
     position: absolute;
     display: none;
+    background-color: rgb(122, 191, 141);
     overflow: hidden;
     z-index: 1;
 }
@@ -122,19 +131,38 @@
         margin: .5em 2em;
     }
 
+    .admin_db_dropdown {
+        width: 20%;
+        min-width: 200px;
+        overflow: hidden;
+    }
+
     .admin_db_user_ctn {
         /*height: 40px;
         width: 40px;*/
-        margin-bottom: 0;
+        margin: 0;
+        margin-right: .5em;
         /*border-radius: 50%;*/
     }
-
+    /* le mail user */
     .admin_db_email {
+        max-width: 150px;
         font-size: 1.2rem;
         overflow: hidden;
         white-space: nowrap;
         text-overflow: ellipsis;
     } 
+
+    .admin_db_image_ctn {
+        height: 36px;
+        width: 36px;
+        margin-bottom: 0;
+    }
+
+    .admin_db_links_ctn {
+        flex-direction: row;
+        justify-self: center;
+    }
 
     .admin_db_dropdown {
         margin: auto .2em;

@@ -55,15 +55,15 @@ function Summary(){
 
     // confirmer les données et faire une réservation :
     async function handleConfirm() {
+        // on enregistre les activités sélectionnées pour les passer en tant que Array:
         const activitiesForDB = [];
         bookedActivities.forEach(el => {
             delete el.name;
-            //el.booking_id = 3;
             activitiesForDB.push(Object.values(el));
         });
         console.log(activitiesForDB);
 
-        const res = await fetch(`${BASE_URL}/api/v.0.1/user/booking`, {
+        const res = await fetch(`${BASE_URL}/api/v.0.1/user/booking/create`, {
             method: "post",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ 
@@ -97,15 +97,15 @@ function Summary(){
                     <p>Durée : <span>{packs[id].duration+1}</span> jours / <span>{packs[id].duration}</span> nuits</p>  
                     <p>Nombre d'adultes : <span>{bookingInfo.nb_adults.pack}</span></p>
                     <p>Nombre d'enfants : <span>{bookingInfo.nb_children.pack}</span></p>
-                    <p>Prix/TTC/adulte : <span>{packs[id].price_adults}</span> &euro;</p> 
-                    <p>Prix/TTC/enfant : <span>{packs[id].price_children}</span> &euro;</p> 
                     <p>Prix du pack (sans activités) : <span>{bookingInfo.prices.total_pack}</span> &euro;</p>
                     <p>Activités choisies : </p>
+                    {bookedActivities.length ?
                     <ul className={styles.summary_activities}>
                     {bookedActivities.map((activity, index) => 
                         <li key={index}><span>{activity.name}</span> pour <span>{activity.nb_adults}</span> adulte(s) et <span>{activity.nb_children}</span> enfant(s) au prix de <span>{activity.price_total_act}</span> &euro;</li>
                     )}
-                    </ul>
+                    </ul> : <span>aucune activité choisie</span>
+                    }
                     <p>Prix total des activités : <span>{bookingInfo.prices.total_activities}</span> &euro;</p>
                     <hr/>
                     <p>Prix total de la réservation : <span>{bookingInfo.prices.total_all}</span> &euro;</p>

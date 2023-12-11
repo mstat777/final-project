@@ -28,53 +28,13 @@ function AdminDashboardHeader(){
                     </div>   
                 </div>
     
-                <div className={styles.admin_db_dropdown}>  
+                <div className={styles.admin_db_links_ctn}>
                     <NavLink to={"/db/admin/bookings"} className={styles.link}>Réservations</NavLink>
-                    <div className={styles.admin_db_dropdown_ctn}>
-                        <NavLink to={"/db/admin/bookings/search"} className={styles.link}>Trouver réservation</NavLink>
-                        <NavLink to={"/db/admin/bookings/create"} className={styles.link}>Créer réservation</NavLink>
-                    </div>
-                </div>
-
-                <div className={styles.admin_db_dropdown}> 
                     <NavLink to={"/db/admin/destinations"} className={styles.link}>Destinations</NavLink>
-                    <div className={styles.admin_db_dropdown_ctn}>
-                        <NavLink to={"/db/admin/destinations/search"} className={styles.link}>Trouver destination</NavLink>
-                        <NavLink to={"/db/admin/destinations/create"} className={styles.link}>Créer destination</NavLink>
-                        <NavLink to={"/db/admin/destinations/delete"} className={styles.link}>Supprimer destination</NavLink>
-                    </div>
-                </div>
-
-                <div className={styles.admin_db_dropdown}> 
                     <NavLink to={"/db/admin/lodgings"} className={styles.link}>Hébérgements</NavLink>
-                    <div className={styles.admin_db_dropdown_ctn}>
-                        <NavLink to={"/db/admin/lodgings/search"} className={styles.link}>Trouver hébérgement</NavLink>
-                        <NavLink to={"/db/admin/lodgings/create"} className={styles.link}>Créer hébérgement</NavLink>
-                    </div>
-                </div>
-
-                <div className={styles.admin_db_dropdown}> 
                     <NavLink to={"/db/admin/packs"} className={styles.link}>Packs</NavLink>
-                    <div className={styles.admin_db_dropdown_ctn}>
-                        <NavLink to={"/db/admin/packs/search"} className={styles.link}>Trouver pack</NavLink>
-                        <NavLink to={"/db/admin/packs/create"} className={styles.link}>Créer pack</NavLink>
-                    </div>
-                </div>
-
-                <div className={styles.admin_db_dropdown}> 
                     <NavLink to={"/db/admin/activities"} className={styles.link}>Activités</NavLink>
-                    <div className={styles.admin_db_dropdown_ctn}>
-                        <NavLink to={"/db/admin/activities/search"} className={styles.link}>Trouver activité</NavLink>
-                        <NavLink to={"/db/admin/activities/create"} className={styles.link}>Créer activité</NavLink>
-                    </div>
-                </div>
-
-                <div className={styles.admin_db_dropdown}> 
                     <NavLink to={"/db/admin/users"} className={styles.link}>Clients</NavLink>
-                    <div className={styles.admin_db_dropdown_ctn}>
-                        <NavLink to={"/db/admin/users/search"} className={styles.link}>Trouver client</NavLink>
-                        <NavLink to={"/db/admin/users/create"} className={styles.link}>Créer compte</NavLink>
-                    </div>
                 </div>
 
                 {(userInfo.accountType === "superadmin") && 

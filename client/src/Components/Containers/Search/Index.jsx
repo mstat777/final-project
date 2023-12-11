@@ -86,8 +86,8 @@ function Search() {
     useEffect(() => {
         async function checkDestination(){
             await allDestinations.map((dest) => {
-                console.log("dest= "+dest);
-                console.log("searchDestination= "+searchDestination);
+                //console.log("dest= "+dest);
+                //console.log("searchDestination= "+searchDestination);
                 // si le nom de destination existe dans la BDD :
                 if (dest.toLowerCase() === searchDestination) {
                     setIsFound(true);
@@ -122,11 +122,10 @@ function Search() {
             const json = await res.json();
 
             if(res.status === 200){
-                console.log(json);
+                //console.log(json);
                 // s'il y a des packs trouvés :
                 if(json.datasPacks[0]){
                     console.log("des packs ont été trouvée dans la BD pour cette destination");
-
                     //deleteLocStorageItems(['lodging', 'packs', 'activities']);
                     //localStorage.setItem("destination", JSON.stringify(json.datasDest));
 
@@ -228,7 +227,7 @@ function Search() {
                             onFocus={() => setMsg('')}
                             onInvalid={priceAlertMsg}
                             onInput={(e) => e.target.setCustomValidity('')}
-                            placeholder="Prix maximal"/>
+                            placeholder="Prix maximal / personne"/>
                 </div>
                 <div className={styles.button_ctn}>
                     <button type="submit">rechercher</button>

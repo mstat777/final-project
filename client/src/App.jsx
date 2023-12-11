@@ -6,43 +6,49 @@ import WithAuth from "./Components/HOC/WithAuth/Index";
 import WithAdminAuth from "./Components/HOC/WithAdminAuth/Index";
 import WithFetch from "./Components/HOC/WithFetch/Index";
 
-// Containeurs et pages
+// Containeurs 
 import Header from "./Components/Containers/Header/Index";
 import Footer from "./Components/Containers/Footer/Index";
-import UserDashboardHeader from "./Components/Containers/dashboard/UserHeader/Index";
-import AdminDashboardHeader from "./Components/Containers/dashboard/AdminHeader/Index";
+import UserDashHeader from "./Components/Containers/dashboard/UserHeader/Index";
+import AdminDashHeader from "./Components/Containers/dashboard/AdminHeader/Index";
 
+// Pages
 import Home from "./Components/Pages/Home/Index";
 import Holidays from "./Components/Pages/Holidays/Index";
 import Agency from "./Components/Pages/Agency/Index";
 import Contact from "./Components/Pages/Contact/Index";
-
 import Detail from "./Components/Pages/Detail/Index";
 import Booking from "./Components/Pages/Booking/Index";
 import Summary from "./Components/Pages/Summary/Index";
 import Confirmation from "./Components/Pages/Confirmation/Index";
-
 import Signin from "./Components/Pages/user/Signin";
 import Signup from "./Components/Pages/user/Signup";
 import Signout from "./Components/Pages/user/Signout";
 
 // User Dashboard
-import UserDashboardMyInfos from "./Components/Pages/dashboard/user/MyInfos";
-import UserDashboardMyBookings from "./Components/Pages/dashboard/user/MyBookings";
-// Admin Dashboard
-import AdminDashboardBookings from './Components/Pages/dashboard/admin/Bookings';
-import AdminDashboardBookingsCreate from './Components/Pages/dashboard/admin/BookingsCreate';
-import AdminDashboardDestinations from './Components/Pages/dashboard/admin/Destinations';
-import AdminDashboardDestinationsCreate from './Components/Pages/dashboard/admin/DestinationsCreate';
-import AdminDashboardLodgings from './Components/Pages/dashboard/admin/Lodgings';
-import AdminDashboardLodgingsCreate from './Components/Pages/dashboard/admin/LodgingsCreate';
-import AdminDashboardPacks from './Components/Pages/dashboard/admin/Packs';
-import AdminDashboardPacksCreate from './Components/Pages/dashboard/admin/PacksCreate';
-import AdminDashboardActivities from './Components/Pages/dashboard/admin/Activities';
-import AdminDashboardActivitiesCreate from './Components/Pages/dashboard/admin/ActivitiesCreate';
-import AdminDashboardUsers from './Components/Pages/dashboard/admin/Users';
-import AdminDashboardUsersCreate from './Components/Pages/dashboard/admin/UsersCreate';
+import UserDashMyInfos from "./Components/Pages/dashboard/user/MyInfos";
+import UserDashMyBookings from "./Components/Pages/dashboard/user/MyBookings";
 
+// Admin Dashboard
+import AdminDashBookings from './Components/Pages/dashboard/admin/Bookings/Index';
+
+import AdminDashDestinations from './Components/Pages/dashboard/admin/Destinations/Index';
+//import AdminDashDestinationModify from './Components/Pages/dashboard/admin/Destinations/Modify/Index';
+
+import AdminDashLodgings from './Components/Pages/dashboard/admin/Lodgings/Index';
+import AdminDashLodgingModify from './Components/Pages/dashboard/admin/Lodgings/Modify/Index';
+import AdminDashLodgingCreate from './Components/Pages/dashboard/admin/Lodgings/Create/Index';
+
+import AdminDashPacks from './Components/Pages/dashboard/admin/Packs/Index';
+
+
+import AdminDashActivities from './Components/Pages/dashboard/admin/Activities/Index';
+
+
+import AdminDashUsers from './Components/Pages/dashboard/admin/Users/Index';
+
+
+// Page Not Found
 import NotFound from "./Components/Pages/NotFound/Index";
 
 function BasicLayout() {
@@ -55,20 +61,20 @@ function BasicLayout() {
     )
 }
 
-function UserDashboardLayout() {
+function UserDashLayout() {
     return (
         <>
         <Header/>
-        <UserDashboardHeader/>
+        <UserDashHeader/>
         <Outlet/>
         </>
     )
 }
 
-function AdminDashboardLayout() {
+function AdminDashLayout() {
     return (
         <>
-        <AdminDashboardHeader/>
+        <AdminDashHeader/>
         <Outlet/>
         </>
     )
@@ -101,38 +107,34 @@ function App() {
                 <Route path="not-found" element={<NotFound/>}/>
             </Route>
 
-            <Route path="/db/user" element={<UserDashboardLayout/>}>
-                <Route path="my-infos" element={<WithAuth child={UserDashboardMyInfos} auth="true"/>}/>
-                <Route path="my-bookings/:id" element={<WithAuth child={UserDashboardMyBookings} auth="true"/>}/>
+            <Route path="/db/user" element={<UserDashLayout/>}>
+                <Route path="my-infos" element={<WithAuth child={UserDashMyInfos} auth="true"/>}/>
+                <Route path="my-bookings/:id" element={<WithAuth child={UserDashMyBookings} auth="true"/>}/>
             </Route>
 
-            <Route path="/db/admin" element={<AdminDashboardLayout/>}>
-                <Route path="my-infos" element={<WithAuth child={UserDashboardMyInfos} auth="true" adminAuth="true"/>}/>
-                <Route path="my-bookings/:id" element={<WithAuth child={UserDashboardMyBookings} auth="true" adminAuth="true"/>}/>
+            <Route path="/db/admin" element={<AdminDashLayout/>}>
+                <Route path="my-infos" element={<WithAuth child={UserDashMyInfos} auth="true" adminAuth="true"/>}/>
+                <Route path="my-bookings/:id" element={<WithAuth child={UserDashMyBookings} auth="true" adminAuth="true"/>}/>
 
-                <Route path="bookings" element={<WithAdminAuth child={AdminDashboardBookings} auth="true" adminAuth="true"/>}/>
-                <Route path="bookings/search" element={<WithAdminAuth child={AdminDashboardBookings} auth="true" adminAuth="true"/>}/>
-                <Route path="bookings/create" element={<WithAdminAuth child={AdminDashboardBookingsCreate} auth="true" adminAuth="true"/>}/>
+                <Route path="bookings" element={<WithAdminAuth child={AdminDashBookings} auth="true" adminAuth="true"/>}/>
+                <Route path="bookings/search" element={<WithAdminAuth child={AdminDashBookings} auth="true" adminAuth="true"/>}/>
 
-                <Route path="destinations" element={<WithAdminAuth child={AdminDashboardDestinations} auth="true" adminAuth="true"/>}/>
-                <Route path="destinations/search" element={<WithAdminAuth child={AdminDashboardDestinations} auth="true" adminAuth="true"/>}/>
-                <Route path="destinations/create" element={<WithAdminAuth child={AdminDashboardDestinationsCreate} auth="true" adminAuth="true"/>}/>
+                <Route path="destinations" element={<WithAdminAuth child={AdminDashDestinations} auth="true" adminAuth="true"/>}/>
+                <Route path="destinations/search" element={<WithAdminAuth child={AdminDashDestinations} auth="true" adminAuth="true"/>}/>
+                {/*<Route path="destinations/modify/:index" element={<WithAdminAuth child={AdminDashDestinationModify} auth="true" adminAuth="true"/>}/>*/}
 
-                <Route path="lodgings" element={<WithAdminAuth child={AdminDashboardLodgings} auth="true" adminAuth="true"/>}/>
-                <Route path="lodgings/search" element={<WithAdminAuth child={AdminDashboardLodgings} auth="true" adminAuth="true"/>}/>
-                <Route path="lodgings/create" element={<WithAdminAuth child={AdminDashboardLodgingsCreate} auth="true" adminAuth="true"/>}/>
+                <Route path="lodgings" element={<WithAdminAuth child={AdminDashLodgings} auth="true" adminAuth="true"/>}/>
+                <Route path="lodgings/create" element={<WithAdminAuth child={AdminDashLodgingCreate} auth="true" adminAuth="true"/>}/>
+                <Route path="lodgings/modify/:index" element={<WithAdminAuth child={AdminDashLodgingModify} auth="true" adminAuth="true"/>}/>
 
-                <Route path="packs" element={<WithAdminAuth child={AdminDashboardPacks} auth="true" adminAuth="true"/>}/>
-                <Route path="packs/search" element={<WithAdminAuth child={AdminDashboardPacks} auth="true" adminAuth="true"/>}/>
-                <Route path="packs/create" element={<WithAdminAuth child={AdminDashboardPacksCreate} auth="true" adminAuth="true"/>}/>
+                <Route path="packs" element={<WithAdminAuth child={AdminDashPacks} auth="true" adminAuth="true"/>}/>
+                <Route path="packs/search" element={<WithAdminAuth child={AdminDashPacks} auth="true" adminAuth="true"/>}/>
 
-                <Route path="activities" element={<WithAdminAuth child={AdminDashboardActivities} auth="true" adminAuth="true"/>}/>
-                <Route path="activities/search" element={<WithAdminAuth child={AdminDashboardActivities} auth="true" adminAuth="true"/>}/>
-                <Route path="activities/create" element={<WithAdminAuth child={AdminDashboardActivitiesCreate} auth="true" adminAuth="true"/>}/>
+                <Route path="activities" element={<WithAdminAuth child={AdminDashActivities} auth="true" adminAuth="true"/>}/>
+                <Route path="activities/search" element={<WithAdminAuth child={AdminDashActivities} auth="true" adminAuth="true"/>}/>
 
-                <Route path="users" element={<WithAdminAuth child={AdminDashboardUsers} auth="true" adminAuth="true"/>}/>
-                <Route path="users/search" element={<WithAdminAuth child={AdminDashboardUsers} auth="true" adminAuth="true"/>}/>
-                <Route path="users/create" element={<WithAdminAuth child={AdminDashboardUsersCreate} auth="true" adminAuth="true"/>}/>
+                <Route path="users" element={<WithAdminAuth child={AdminDashUsers} auth="true" adminAuth="true"/>}/>
+                <Route path="users/search" element={<WithAdminAuth child={AdminDashUsers} auth="true" adminAuth="true"/>}/>
 
             </Route>
 

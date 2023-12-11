@@ -1,7 +1,7 @@
 import pool from "../config/db.js";
 
 class Query{
-
+    // ----------------- READ ------------------------
     static async find(query){
         return await pool.query(query);
     }
@@ -32,7 +32,8 @@ class Query{
     static async findByArrayDatasNTables(query, datas){
         return await pool.query({sql: query, nestTables: true}, datas);
     }
-    
+
+    // ----------------- WRITE ------------------------
     static async write(query, data) {
         //console.log([...Object.values(data)]);
         return await pool.query(query, [...Object.values(data)]);
@@ -58,6 +59,7 @@ class Query{
         return await pool.query(query, [newData]);
     }
 
+    // ------------------- UPDATE -----------------------
     // mettre à jour avec un objet :
     static async update(query, data) {
         return await pool.query(query, [...Object.values(data)]);
@@ -66,6 +68,12 @@ class Query{
     // mettre à jour avec un tableau (array) :
     static async updateByArray(query, data) {
         return await pool.query(query, data);
+    }
+
+    // ----------------- SUPPRIMER ----------------------
+    // supprimer par une seule valeur :
+    static async delete(query, value){
+        return await pool.query(query, [value]);
     }
 
 }

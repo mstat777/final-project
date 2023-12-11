@@ -15,8 +15,8 @@ function Results() {
         {(!destination && !packs[0] && !destinationImages[0]) ? 
             <Loading /> : 
         <section id="resultsContainer" className={styles.results_section}>
-            {console.log("destination.name = "+destination.name)}
-            {console.log(packs)}
+            {/*console.log("destination.name = "+destination.name)*/}
+            {/*console.log(packs)*/}
             <article>
                 <div className={styles.slider_ctn}>
                     {destinationImages[0] && 
