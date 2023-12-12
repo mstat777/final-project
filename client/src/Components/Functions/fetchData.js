@@ -63,7 +63,7 @@ async function fetchAllContinentsAndDestinations() {
     }
 }
 
-// récupérer les données de la destination et de tous ses packs :
+// récupérer les données de la destination et de tous ses packs par le nom de la destination :
 async function fetchDestinationAllPacks(destination){
     try {
         const dataAll = await (await fetch(`${BASE_URL}/api/v.0.1/travel/destinations-all-packs/${destination}`)).json();

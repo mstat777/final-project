@@ -5,6 +5,7 @@ import {
     getAllDestinations,
     getAllDataIfPacks,
     getAllDataAllPacks,
+    getPackAllData,
     getDestinationByName,
     getImagesDestination,
     getImagesLodging,
@@ -49,10 +50,11 @@ router.get("/lodging/:id", getLodgingById);
 router.get("/pack/best-promo", getBestThreePromoPacks);
 // chercher un pack par ID de destination :
 router.get("/pack/:id", getPacksByDestination);
+// chercher toutes les données liées à un pack (pour qu'il soit modifié) :
+router.get("/pack-all-data/:id", getPackAllData);
 
 // chercher une activité par ID de destination :
 router.get("/activities/:id", getActivitiesByDestination);
-
 
 
 // ---------------------- POST ---------------------------

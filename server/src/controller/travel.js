@@ -89,6 +89,30 @@ const getAllDataAllPacks = async (req, res) => {
                            datasLodgImg });
 }
 
+// cherche une destination avec tous les packs :
+const getPackAllData = async (req, res) => {
+    // récupérer les données de la destination et de l'hébérgement :
+    const queryPacks = "SELECT * FROM packs WHERE id = ?";
+    const [datasPacks] = await Query.findByValue(queryPacks, req.params.id);
+
+    // récupérer les données de la destination :
+    const queryDest = "SELECT * FROM destinations WHERE id = ?";
+    const [datasDest] = await Query.findByValue(queryDest, datasPacks[0].destination_id);
+
+    // récupérer les données de l'hébérgement :
+    const queryLodg = "SELECT * FROM lodgings WHERE id = ?";
+    const [datasLodg] = await Query.findByValue(queryLodg, datasDest[0].lodging_id);
+
+    // récupérer les données des activités :
+    const queryAct = "SELECT * FROM activities AS a JOIN destinations_activities AS da ON a.id = da.activity_id WHERE da.destination_id = ?";
+    const [datasAct] = await Query.findByValue(queryAct, datasPacks[0].destination_id);
+
+    res.status(200).json({ msg: "pack trouvé",  
+                           datasPacks,
+                           datasDest,
+                           datasLodg,
+                           datasAct });
+}
 
 // chercher une destination par nom :
 const getDestinationByName = async (req, res) => {
@@ -159,6 +183,7 @@ export {
     getAllDestinations,
     getAllDataIfPacks,
     getAllDataAllPacks,
+    getPackAllData,
     getDestinationByName,
     getImagesDestination,
     getImagesLodging,

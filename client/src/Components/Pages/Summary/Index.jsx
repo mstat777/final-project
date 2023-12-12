@@ -85,7 +85,7 @@ function Summary(){
 
     return (
         <main id="summary">
-
+            
             <div className={styles.summary_section}>
 
                 <h3>Voici le récapitulatif de votre réservation :</h3>
@@ -124,7 +124,7 @@ function Summary(){
 
                 <button onClick={handleConfirm} className={styles.summary_confirm_btn}>confirmer la réservation</button>
             </div>
-
+            
         </main>
     )
 }

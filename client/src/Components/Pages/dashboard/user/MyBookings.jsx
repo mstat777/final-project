@@ -1,12 +1,19 @@
 import styles from './userdash.module.css';
 import { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencil, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
+import { modifyBooking } from '../../../../store/slices/user';
+import { setBookedData } from '../../../../store/slices/booking';
+
 function UserDashboardMyBookings(){
     const BASE_URL = process.env.REACT_APP_BASE_URL;
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
     const { userInfo } = useSelector(state => state.user);
 
     const [ userBookings, setUserBookings] = useState([]);
@@ -15,8 +22,8 @@ function UserDashboardMyBookings(){
     const [okMsg, setOkMsg] = useState('');
     const [errMsg, setErrMsg] = useState('');
 
+    // on récupère les données de toutes les réservations effectuées par l'utilisateur :
     useEffect(() => {
-        // on récupère les données de toutes les réservations effectuées par l'utilisateur :
         async function fetchBookings() {
             try {
                 const dataBookings = await (await fetch(`${BASE_URL}/api/v.0.1/user/mybookings/${userInfo.userID}`)).json();
@@ -28,9 +35,57 @@ function UserDashboardMyBookings(){
         fetchBookings();
     }, [userBookings.length]);
 
-    // supprimer une des réservations de l'utilisateur :
-    function handleModify(id) {
-        
+    // modifier une des réservations de l'utilisateur :
+    async function handleModify(bookingID, packID) {
+        try {
+            // récupérer toutes les données de la réservation sélectionnée :
+            const res = await fetch(`${BASE_URL}/api/v.0.1/user/booking-all-data`, {
+                method: "post",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ bookingID })
+            });
+            const dataAll = await res.json();
+            console.log(dataAll);
+            //console.log(res.status);
+            if (res.status === 200) {
+                setOkMsg("Les données ont été trouvées.");
+                dispatch(setBookedData(dataAll));
+/*
+                const adultsBookedAct = [];
+                const childrenBookedAct = [];
+                activities.map(() => {
+                    adultsBookedAct.push(bookedData.datasBookAct[0].nb_adults);
+                    childrenBookedAct.push(bookedData.datasBookAct[0].nb_children);
+                });
+    
+                const numberPeople = {
+                    nb_adults: {
+                        pack: bookedData.datasBook[0].nb_adults,
+                        activities: adultsBookedAct
+                    },
+                    nb_children: {
+                        pack: bookedData.datasBook[0].nb_children,
+                        activities: childrenBookedAct
+                    }
+                }
+                setNumberInBooking(numberPeople);*/
+
+
+
+
+                // pour indiquer quel pack sera modifier
+                const bookingIDs = {
+                    bookingID: bookingID,
+                    packID: packID
+                }
+                dispatch(modifyBooking(bookingIDs));
+                navigate("/db/user/booking-modify");
+            }  else {
+                console.log(res.status);
+            }
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     // supprimer une des réservations de l'utilisateur :
@@ -68,6 +123,7 @@ function UserDashboardMyBookings(){
                             <th>N&deg;</th> 
                             <th>date</th>
                             <th>destination</th>
+                            <th>pays</th>
                             <th>adultes</th>
                             <th>enfants</th>
                             <th>prix total</th>
@@ -82,12 +138,14 @@ function UserDashboardMyBookings(){
                             <td>{index+1}</td>
                             <td>{new Date(booking.b.date_created).toLocaleString().slice(0, -3)}</td>
                             <td>{booking.d.name}</td>
+                            <td>{booking.d.country}</td>
                             <td>{booking.b.nb_adults}</td>
                             <td>{booking.b.nb_children}</td>
                             <td>{booking.b.price_total_booking} &euro;</td>
                             <td>
                                 <button type="button"
-                                    onClick={() => handleModify(booking.b.id)}>
+                                    onClick={() => handleModify(booking.b.id, booking.p.id
+                                    )}>
                                     <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
                                 </button>
                             </td>

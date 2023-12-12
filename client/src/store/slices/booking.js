@@ -20,7 +20,8 @@ const initialState = {
             total_activities: 0, //la somme des prix pour toutes les activités (adultes + enfants)
             total_all: 0 // = total_pack + total_activities
         }
-    }
+    },
+    bookedData: []
 }
 
 export const bookingSlice = createSlice({
@@ -132,6 +133,14 @@ export const bookingSlice = createSlice({
                 }
             }
         },
+        setBookedData: (state, action) => {
+            state.bookedData = action.payload;
+        },
+        setNumberInBooking: (state, action) => {
+            state.bookingInfo.nb_adults = action.payload.nb_adults;
+            //console.log(action.payload.nb_adults);
+            state.bookingInfo.nb_children = action.payload.nb_children;
+        }
     }
 });
 
@@ -146,7 +155,9 @@ export const {
     increaseNumberAdultsActivity, 
     decreaseNumberAdultsActivity,
     increaseNumberChildrenActivity, 
-    decreaseNumberChildrenActivity
+    decreaseNumberChildrenActivity,
+    setBookedData,
+    setNumberInBooking
     } = bookingSlice.actions;
 
 export default bookingSlice.reducer;

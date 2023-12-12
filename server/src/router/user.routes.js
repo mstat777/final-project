@@ -5,6 +5,7 @@ import { checkToken,
         modifyUserInfo,
         getUserById,
         getAllUserBookings,
+        getBookingAllData,
         createBooking,
         modifyBooking,
         deleteBooking
@@ -31,6 +32,10 @@ router.get("/:id", getUserById);
 /* ------------------ RESERVATIONS --------------------- */
 // trouver toutes les réservations par l'ID de l'utilisateur :
 router.get("/mybookings/:id", getAllUserBookings);
+
+
+// toutes les données de la réservation (pack + activités) nécessaires pour la modifier :
+router.post('/booking-all-data', getBookingAllData);
 
 // créer une réservation (confirmer sur la page Sommaire("Summary"))
 router.post("/booking/create", createBooking);

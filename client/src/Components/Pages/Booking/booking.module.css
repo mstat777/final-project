@@ -7,6 +7,11 @@
     margin: 1em auto;
 }
 
+.booking_section  h2 {
+    margin-top: 0;
+    text-transform: uppercase;
+}
+
 .main_img {
     width: auto;
     margin: 1em 2em;

@@ -30,7 +30,6 @@ function Booking(){
     let { id } = useParams();
 
     const { destination } = useSelector((state) => state.allTravel);
-    
     const { packs } = useSelector((state) => state.allTravel);
     const { lodging } = useSelector((state) => state.allTravel);
     const { activities } =  useSelector((state) => state.allTravel);
@@ -38,8 +37,15 @@ function Booking(){
     // stocker les données de la réservation :
     const { bookingInfo } = useSelector((state) => state.booking);
 
+    // pour stocker les états des checkboxes :
+    let myArray = []; 
+    activities.forEach(() => {
+        myArray.push(false);
+    });
+    const [checkBoxes, setCheckBoxes] = useState(myArray);
+
     //console.log(activities);
-    // on récupère les prix tels qu'indiqués dans la BDD pour les passer au state :
+    // on récupère tous les prix (pack + activités) de la BDD, les regroupe en arrays pour les passer au Store :
     let prices_adults = [];
     let prices_children = [];
     for (let i = 0; i < activities.length; i++) {
@@ -49,7 +55,6 @@ function Booking(){
         //console.log("prices_adults[i] = "+prices_adults[i]);
         //console.log("prices_children[i] = "+prices_children[i]);
     }
-
     // initialiser les variables pour stocker les prix du pack et des activités associées :
     const [pricesList, setPricesList] = useState({
         price_adults_pack: 0,
@@ -58,12 +63,7 @@ function Booking(){
         price_children_activities: []
     });
 
-    // remonter au top de la page lors de chargement
-    useEffect(() => {
-        document.getElementById("booking").scrollIntoView();
-    }, [])
-
-    // on initialise les données des activitées (nb personnes, prix)
+    // on passe les prix au Store
     useEffect(() => {
         const initInfoAndSetPrices = async () => { 
             //console.log("activities[0].price_adults = "+activities[0].price_adults);
@@ -85,7 +85,7 @@ function Booking(){
         initInfoAndSetPrices();
     },[activities]);
 
-    // calculer les prix selon le nb de personnes :
+    // calculer les prix chaque fois le nb de personnes change :
     useEffect(() => {
         if (pricesList.price_adults_activities.length && 
             pricesList.price_children_activities) {
@@ -96,19 +96,17 @@ function Booking(){
         }
     },[bookingInfo.nb_adults, bookingInfo.nb_children]);
 
-    // pour stocker les états des checkboxes :
-    let myArray = []; 
-    activities.forEach(() => {
-        myArray.push(false);
-    });
-    const [checkBoxes, setCheckBoxes] = useState(myArray);
+    // remonter au top de la page lors de chargement
+    useEffect(() => {
+        document.getElementById("booking").scrollIntoView();
+    }, [])
 
-    // afficher/cacher les compteurs pour les activités :
+    // afficher/cacher (via checkbox) les compteurs pour les activités :
     function handleChange(index) {
         const newArray = [...checkBoxes];
         newArray[index] = !checkBoxes[index];
-        console.log("newArray[index] = "+newArray[index]);
-        console.log(newArray);
+        //console.log("newArray[index] = "+newArray[index]);
+        //console.log(newArray);
         setCheckBoxes(newArray);
     }
 
@@ -233,7 +231,7 @@ function Booking(){
                 <button onClick={handleSubmitBooking} className={styles.booking_btn}>réserver</button>
 
                 <div className={styles.error_ctn}>
-                {errors.map((el, idx) => el[idx] &&
+                    {errors.map((el, idx) => el[idx] &&
                     <p>Erreur : {errors[idx]}</p>)}
                 </div>
 
