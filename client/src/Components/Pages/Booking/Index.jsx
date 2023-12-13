@@ -19,10 +19,7 @@ import { faCirclePlus, faCircleMinus } from '@fortawesome/free-solid-svg-icons';
 
 function Booking(){
     const IMG_URL = process.env.REACT_APP_IMG_URL;
-    /* limiter les inputs :
-    const minPeopleAllowed = 0;
-    const maxPeopleAllowed = 99;
-    */ 
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
@@ -44,6 +41,11 @@ function Booking(){
     });
     const [checkBoxes, setCheckBoxes] = useState(myArray);
 
+    // remonter au top de la page lors de chargement
+    useEffect(() => {
+        document.getElementById("booking").scrollIntoView();
+    }, [])
+    
     //console.log(activities);
     // on récupère tous les prix (pack + activités) de la BDD, les regroupe en arrays pour les passer au Store :
     let prices_adults = [];
@@ -96,10 +98,6 @@ function Booking(){
         }
     },[bookingInfo.nb_adults, bookingInfo.nb_children]);
 
-    // remonter au top de la page lors de chargement
-    useEffect(() => {
-        document.getElementById("booking").scrollIntoView();
-    }, [])
 
     // afficher/cacher (via checkbox) les compteurs pour les activités :
     function handleChange(index) {

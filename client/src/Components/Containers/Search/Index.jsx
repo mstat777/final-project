@@ -125,7 +125,7 @@ function Search() {
                 //console.log(json);
                 // s'il y a des packs trouvés :
                 if(json.datasPacks[0]){
-                    console.log("des packs ont été trouvée dans la BD pour cette destination");
+                    //console.log("des packs ont été trouvée dans la BD pour cette destination");
                     //deleteLocStorageItems(['lodging', 'packs', 'activities']);
                     //localStorage.setItem("destination", JSON.stringify(json.datasDest));
 

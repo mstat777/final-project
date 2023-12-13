@@ -37,7 +37,6 @@ export const userSlice = createSlice({
         },
         choosePack: (state, action) => {
             state.userInfo.chosenPackID = action.payload;
-            //console.log("state.userInfo.chosenPackID = "+state.userInfo.chosenPackID);
         },
         modifyBooking: (state, action) => {
             state.userInfo.modifBookingID = action.payload.bookingID;
@@ -45,6 +44,11 @@ export const userSlice = createSlice({
         },
         setLogMessage: (state, action) => {
             state.logMessage = action.payload;
+        },
+        setFromLocalStorage: (state, action) => {
+            state.userInfo.email = action.payload.email;
+            state.userInfo.userID = action.payload.userID;
+            state.userInfo.accountType = action.payload.accountType;
         }
     }
 });
@@ -54,7 +58,8 @@ export const {
     signout,
     choosePack,
     modifyBooking,
-    setLogMessage
+    setLogMessage,
+    setFromLocalStorage
 } = userSlice.actions;
 
 export default userSlice.reducer;

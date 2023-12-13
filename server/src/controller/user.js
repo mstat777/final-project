@@ -10,9 +10,13 @@ const SALT = 10;
 // vérifier le token
 const checkToken = async (req, res) => {
     try {
-        const queryUser = "SELECT email, account_type FROM users WHERE email = ? AND account_type = ?";
-        await Query.findByDatas(queryUser, req.params);
-        res.status(200).json({ msg: "authentifié", email: queryUser.email, accountType: queryUser.accountType});
+        const queryUser = "SELECT email, account_type, id FROM users WHERE email = ? AND account_type = ?";
+        const [user] = await Query.findByDatas(queryUser, req.params);
+        res.status(200).json({ 
+            msg: "authentifié", 
+            email: user[0].email, 
+            userID: user[0].id,
+            accountType: user[0].account_type});
     } catch(err) {
         throw Error(err);
     }
@@ -29,11 +33,10 @@ const userSignIn = async (req, res) => {
             const same = await compare(req.body.password, user[0].password);
 
             if (same) {
-                msg = "utilisateur trouvé. mdp OK.";
+                console.log("utilisateur trouvé. mdp OK.");
                 //console.log(`server: ${msg}`);
                 const TOKEN = sign({email: user[0].email, accountType: user[0].account_type}, SK);
                 res.status(200).json({ 
-                    msg, 
                     TOKEN, 
                     email: user[0].email, 
                     userID: user[0].id, 

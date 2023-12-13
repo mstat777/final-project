@@ -18,6 +18,11 @@ function Summary(){
 
     const [bookedActivities, setBookedActivities] = useState([]);
 
+    // remonter au top de la page lors de chargement
+    useEffect(() => {
+        document.getElementById("summary").scrollIntoView();
+    }, [])
+
     // récupérer les données uniquement des activités réservées pour pouvoir les envoyer dans la BDD
     function findBookedActivities(){
         const myArray = [];

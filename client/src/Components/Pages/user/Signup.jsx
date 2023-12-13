@@ -254,10 +254,9 @@ function Signup(){
                     <button type="submit">s'inscrire</button>
                 </form>
 
-                { (errMsg) && 
-                            <p className={styles.err_msg}>{errMsg}</p>}
-                { (msg && !lastName) && 
-                            <p className={styles.err_msg}>{msg}</p>}
+                { errMsg ? <p className={styles.err_msg}>{errMsg}</p> : null}
+                { (msg && !lastName) ? 
+                        <p className={styles.err_msg}>{msg}</p> : null}
             </div>
 
         </main>

@@ -1,24 +1,26 @@
+import styles from './user.module.css';
 import { useState } from 'react';
 import { useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 
 import { signin } from '../../../store/slices/user';
 
-import styles from './user.module.css';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faLock, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 function Signin(){
     const BASE_URL = process.env.REACT_APP_BASE_URL;
+
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const { userInfo, logMessage } =  useSelector((state) => state.user);
+    
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
-    const [msg, setMsg] = useState(null);
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
+    // Messages venants du serveur :
+    const [msg, setMsg] = useState('');
 
     /* pour l'oeil d'affichage du mdp */
     const [passInputType, setPassInputType] = useState("password");
@@ -44,9 +46,9 @@ function Signin(){
             body: JSON.stringify({ email, password }),
         });
         const json = await res.json();
-        setMsg(json.msg);
         if(res.status === 200){
             localStorage.setItem("auth", json.TOKEN);
+            //console.log(localStorage.getItem('user'));
             //console.log("le token a été créé dans localhost");
             //console.log(json);
             dispatch(signin(json));
@@ -58,6 +60,7 @@ function Signin(){
                 navigate(`/booking/${userInfo.chosenPackID}`);
             }    
         } else {
+            setMsg(json.msg);
             console.log("res.status n'est pas OK!!!");
         }
     }
@@ -71,6 +74,7 @@ function Signin(){
                     <p className={styles.ok_msg}>{logMessage}</p> }
                 
                 <h2>Je me connecte</h2>
+
                 <form onSubmit={handleSubmit} className={styles.sign_form}>
 
                     <div className={styles.input_ctn}> 
@@ -80,11 +84,10 @@ function Signin(){
                                 placeholder="Votre adresse mail"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
+                                onFocus={() => setMsg('')}
                                 className={styles.sign_input}
                                 required/>
-
                     </div>
-
                     <div className={styles.input_ctn}> 
                         <FontAwesomeIcon icon={faLock} className={styles.input_icon}/>
                         <input type={passInputType} 
@@ -92,19 +95,19 @@ function Signin(){
                                 placeholder="Votre mot de passe"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
+                                onFocus={() => setMsg('')}
                                 className={styles.pass_input}
                                 required/>
                         <span className={styles.pass_icon_ctn} onClick={handlePassIconToggle}>
                             <FontAwesomeIcon icon={passIcon} className={styles.pass_icon}/>
-                        </span>
-                        
+                        </span>    
                     </div>
                     
                     <button type="submit">se connecter</button>
+
                 </form>
 
-                { (msg && !email && !password) && 
-                        <p className={styles.err_msg}>{msg}</p> }
+                { msg ? <p className={styles.err_msg}>{msg}</p> : null }
 
                 <p>Vous n'avez pas encore de compte ? <Link to="/user/signup">En créer un</Link></p>
             </div>

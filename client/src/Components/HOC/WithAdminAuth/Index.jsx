@@ -21,21 +21,21 @@ function WithAdminAuth({child, auth, authAdmin}){
             if (auth) {
                 if (!TOKEN) {
                     navigate("/user/signin");
-                    console.log("pas de token");
+                    //console.log("pas de token");
                 }
                 if (TOKEN) {
                     const res = await fetch(`${BASE_URL}/api/v.0.1/user/check-token`, {
                         headers: { Authentication: "Bearer " + TOKEN }
                     });
-                    console.log("token trouvé");
+                    //console.log("token trouvé");
                     if (res.status === 401) {   
-                        console.log("le token n'est pas valid");                     
+                        //console.log("le token n'est pas valid");                     
                         localStorage.removeItem("auth");
                         dispatch(signout());
                         navigate("/");
                     }
                     if (res.status === 200) {
-                        console.log("le token est valid"); 
+                        //console.log("le token est valid"); 
                         const json = await res.json();
                         setTokenIsValid(true);
                     }
@@ -44,7 +44,7 @@ function WithAdminAuth({child, auth, authAdmin}){
 
             if (!auth) {
                 navigate("/user/signin");
-                console.log("pas logué");
+                //console.log("pas logué");
             }
         }
 

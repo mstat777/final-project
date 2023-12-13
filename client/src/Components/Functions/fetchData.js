@@ -67,7 +67,7 @@ async function fetchAllContinentsAndDestinations() {
 async function fetchDestinationAllPacks(destination){
     try {
         const dataAll = await (await fetch(`${BASE_URL}/api/v.0.1/travel/destinations-all-packs/${destination}`)).json();
-        console.log(dataAll);
+        //console.log(dataAll);
 
         //deleteLocStorageItems(['lodging', 'packs', 'activities']);
         //localStorage.setItem("destination", JSON.stringify(dataAll.datasDest[0]));
@@ -89,11 +89,11 @@ async function fetchDestination(destination){
     const dataDest = await (await fetch(`${BASE_URL}/api/v.0.1/travel/destination/${destination}`)).json();
 
     if(dataDest.datas[0]){
-        console.log("la destination a été trouvée dans la BD");
-        localStorage.setItem("destination", JSON.stringify(dataDest.datas[0]));
+        //console.log("la destination a été trouvée dans la BD");
+        //localStorage.setItem("destination", JSON.stringify(dataDest.datas[0]));
         store.dispatch(setDestination(dataDest.datas[0]));
 
-        deleteLocStorageItems(['lodging', 'packs', 'activities']);
+        //deleteLocStorageItems(['lodging', 'packs', 'activities']);
         
         const destID = dataDest.datas[0].id;
         await fetchDestinationImages(destID);
@@ -109,7 +109,7 @@ async function fetchDestination(destination){
 async function fetchLodging(lodging_id) {
     try {
         const dataLodg = await (await fetch(`${BASE_URL}/api/v.0.1/travel/lodging/${lodging_id}`)).json();
-        localStorage.setItem("lodging", JSON.stringify(dataLodg.datas[0]));
+        //localStorage.setItem("lodging", JSON.stringify(dataLodg.datas[0]));
         store.dispatch(setLodging(dataLodg.datas[0]));
     } catch (error) {
         console.log(error);
@@ -120,8 +120,8 @@ async function fetchLodging(lodging_id) {
 async function fetchPacks(destination_id) {
     try {
         const dataPack = await (await fetch(`${BASE_URL}/api/v.0.1/travel/pack/${destination_id}`)).json();
-        console.log("des packs ont été trouvés dans la BD");
-        localStorage.setItem("packs", JSON.stringify(dataPack.datas));
+        //console.log("des packs ont été trouvés dans la BD");
+        //localStorage.setItem("packs", JSON.stringify(dataPack.datas));
         store.dispatch(setPacks(dataPack.datas));  
     } catch (error) {
         console.log(error);
@@ -132,7 +132,7 @@ async function fetchPacks(destination_id) {
 async function fetchActivities(destination_id) {
     try {
         const result = await (await fetch(`${BASE_URL}/api/v.0.1/travel/activities/${destination_id}`)).json();
-        localStorage.setItem("activities", JSON.stringify(result.datas));
+        //localStorage.setItem("activities", JSON.stringify(result.datas));
         store.dispatch(setActivities(result.datas));
         store.dispatch(resetCounters());
         store.dispatch(initialiseCounters(result.datas.length));
