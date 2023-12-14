@@ -2,7 +2,7 @@
 /* ----------------------- VERSION MOBILE ----------------------- */
 /******************************************************************/
 .admin_db_main {
-    margin-top: 1em;
+    margin-top: 290px;
     padding-bottom: 3em;
     text-align: center;
 }
@@ -260,8 +260,8 @@ input[type="text"]:disabled {
 @media screen and (min-width: 768px) {
     .admin_db_main {
         display: inline-block;
-        margin-top: 0;
-        padding: 80px auto;
+        margin-top: 60px;
+        padding: 1em;
     }
 
     .admin_db_section {
@@ -293,10 +293,9 @@ input[type="text"]:disabled {
         margin-right: auto;
     }    
 
-    /* ----------------- MODIFY FORM ------------------ */
+    /* ----------- MODIFY FORM ------------ */
     .modify_form {
         width: 90%;
         margin: 1em auto; 
     }
-
 }

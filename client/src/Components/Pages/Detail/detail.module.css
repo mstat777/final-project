@@ -19,8 +19,9 @@
     margin: 0 auto;
 }
 
-.packs_table  th {
-    padding: 1em .5em;
+.packs_table  th,
+.packs_table  td {
+    overflow-wrap: anywhere;
 }
 
 .packs_table  span {
@@ -59,6 +60,29 @@
     margin: 1rem;
 	font-weight: 500;
 	font-size: 1.8rem;
+}
+
+.tripadvisor_ctn {
+    display: inline-flex;
+    align-items: center;
+    margin-left: .8em;
+}
+
+.tripadvisor_ctn  img {
+    height: 2em;
+    width: auto;
+}
+
+.tripadvisor_txt {
+    margin-left: .3em;
+    font-size: 3.2rem;
+    font-weight: 500;
+}
+
+.tripadvisor_ctn > *:last-child {
+    align-self: flex-end;
+    margin-left: 1em;
+    margin-bottom: .4em;
 }
 
 /*** la carte Openstreetmap ***/
@@ -117,6 +141,14 @@
     .slider_ctn {
         width: 80%;
         margin: 1em auto;
+    }
+
+    .packs_table  th,
+    .packs_table  td {
+        overflow-wrap: normal;
+    }
+    .packs_table  th {
+        padding: 1em .5em;
     }
 
     /*** la carte Openstreetmap ***/

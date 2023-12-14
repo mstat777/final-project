@@ -1,5 +1,5 @@
 import styles from './user.module.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -25,6 +25,11 @@ function Signin(){
     /* pour l'oeil d'affichage du mdp */
     const [passInputType, setPassInputType] = useState("password");
     const [passIcon, setPassIcon] = useState(faEyeSlash);
+
+    // remonter au top de la page lors de chargement
+    useEffect(() => {
+        document.getElementById("signin").scrollIntoView();
+    }, [])
 
     function handlePassIconToggle() {
         if (passInputType === "password") {

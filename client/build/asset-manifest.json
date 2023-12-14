@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/static/css/main.2d012642.css",
-    "main.js": "/static/js/main.f09622e8.js",
+    "main.css": "/static/css/main.e9828a30.css",
+    "main.js": "/static/js/main.9720044e.js",
     "static/media/agency-pexels-cadomaestro-1170412.jpg": "/static/media/agency-pexels-cadomaestro-1170412.74249843d3f67455ea37.jpg",
     "static/media/pexels-asad-photo-maldives-1430677.jpg": "/static/media/pexels-asad-photo-maldives-1430677.05da7ffcf7464565aaba.jpg",
     "static/media/404_img_01.jpg": "/static/media/404_img_01.d99d2b6e7d55ca1bde2d.jpg",
@@ -10,11 +10,11 @@
     "index.html": "/index.html",
     "static/media/right-arrow-next-svgrepo-com.svg": "/static/media/right-arrow-next-svgrepo-com.38dab236ebce7caeff6e5202a13723ba.svg",
     "static/media/left-arrow-back-svgrepo-com.svg": "/static/media/left-arrow-back-svgrepo-com.bb37345cd70d0dfe9eb9ecb760950cf8.svg",
-    "main.2d012642.css.map": "/static/css/main.2d012642.css.map",
-    "main.f09622e8.js.map": "/static/js/main.f09622e8.js.map"
+    "main.e9828a30.css.map": "/static/css/main.e9828a30.css.map",
+    "main.9720044e.js.map": "/static/js/main.9720044e.js.map"
   },
   "entrypoints": [
-    "static/css/main.2d012642.css",
-    "static/js/main.f09622e8.js"
+    "static/css/main.e9828a30.css",
+    "static/js/main.9720044e.js"
   ]
 }

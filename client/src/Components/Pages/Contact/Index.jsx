@@ -78,8 +78,9 @@ function Contact(){
 
                 <div>
                     <p className={styles.title}>nous contacter</p>
+
                     <form onSubmit={handleSubmit} className={styles.contact_form}>
-                        <label>  
+                        <label className={styles.contact_label}>  
                             <span>Nom :</span>
                             <input type="text" 
                                 name="userName" 
@@ -89,7 +90,7 @@ function Contact(){
                                 required/> 
                         </label>
 
-                        <label>  
+                        <label className={styles.contact_label}> 
                             <span>Mail :</span>
                             <input type="email" 
                                 name="userEmail" 
@@ -99,7 +100,7 @@ function Contact(){
                                 required/> 
                         </label>
 
-                        <label>  
+                        <label className={styles.contact_label}> 
                             <span>Message :</span>
                             <textarea name="userMessage"
                                 value={userMessage}
@@ -118,8 +119,8 @@ function Contact(){
                         </div>
                     </form>
 
-                    { (msg && userName && userEmail && userMessage) && 
-                        <p className={styles.msg}>{msg}</p> }
+                    { (msg && userName && userEmail && userMessage) ? 
+                        <p className={styles.msg}>{msg}</p> : null }
 
                 </div>
                 

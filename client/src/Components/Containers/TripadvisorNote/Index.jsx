@@ -39,7 +39,7 @@ function TripadvisorNote({note}){
 
     return (
         <div className={styles.note_ctn}>
-            <img src={logo} alt=""/>
+            {/*<img src={logo} alt=""/>*/}
             {arrFullCircles}
             {arrNotFullCircles}
         </div>

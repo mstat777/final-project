@@ -1,7 +1,6 @@
 .note_ctn {
     display: flex;
     align-items: center;
-    margin-left: 2em;
 }
 
 .note_ctn > img {

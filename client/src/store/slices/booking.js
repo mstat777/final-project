@@ -77,25 +77,25 @@ export const bookingSlice = createSlice({
                 state.bookingInfo.prices.activity_per_child.push(0);
             }
         },
-        increaseNumberAdultsPack: (state, action) => {
+        incrNbAdultsPack: (state, action) => {
             state.bookingInfo.nb_adults.pack++;
         },
-        decreaseNumberAdultsPack: (state, action) => {
+        decrNbAdultsPack: (state, action) => {
             state.bookingInfo.nb_adults.pack--;
             if (state.bookingInfo.nb_adults.pack < 0){ 
                 state.bookingInfo.nb_adults.pack = 0;
             }
         },
-        increaseNumberChildrenPack: (state, action) => {
+        incrNbChildrenPack: (state, action) => {
             state.bookingInfo.nb_children.pack++;
         },
-        decreaseNumberChildrenPack: (state, action) => {
+        decrNbChildrenPack: (state, action) => {
             state.bookingInfo.nb_children.pack--;
             if (state.bookingInfo.nb_children.pack < 0){ 
                 state.bookingInfo.nb_children.pack = 0;
             }
         },
-        increaseNumberAdultsActivity: (state, action) => {
+        incrNbAdultsActivity: (state, action) => {
             if (!state.bookingInfo.nb_adults.activities.length) {
                 state.bookingInfo.nb_adults.activities[action.payload] = 0;
             }
@@ -103,7 +103,7 @@ export const bookingSlice = createSlice({
                 state.bookingInfo.nb_adults.activities[action.payload]++;
             }
         },
-        decreaseNumberAdultsActivity: (state, action) => {
+        decrNbAdultsActivity: (state, action) => {
             if (!state.bookingInfo.nb_adults.activities.length) {
                 state.bookingInfo.nb_adults.activities[action.payload] = 0;
             }
@@ -114,7 +114,7 @@ export const bookingSlice = createSlice({
                 }
             }
         },
-        increaseNumberChildrenActivity: (state, action) => {
+        incrNbChildrenActivity: (state, action) => {
             if (!state.bookingInfo.nb_children.activities.length) {
                 state.bookingInfo.nb_children.activities[action.payload] = 0;
             }
@@ -122,7 +122,7 @@ export const bookingSlice = createSlice({
                 state.bookingInfo.nb_children.activities[action.payload]++;
             }
         },
-        decreaseNumberChildrenActivity: (state, action) => {
+        decrNbChildrenActivity: (state, action) => {
             if (!state.bookingInfo.nb_children.activities.length) {
                 state.bookingInfo.nb_children.activities[action.payload] = 0;
             }
@@ -136,7 +136,7 @@ export const bookingSlice = createSlice({
         setBookedData: (state, action) => {
             state.bookedData = action.payload;
         },
-        setNumberInBooking: (state, action) => {
+        setNbInBooking: (state, action) => {
             state.bookingInfo.nb_adults = action.payload.nb_adults;
             //console.log(action.payload.nb_adults);
             state.bookingInfo.nb_children = action.payload.nb_children;
@@ -148,16 +148,16 @@ export const {
     calculatePrices,
     resetCounters,
     initialiseCounters, 
-    increaseNumberAdultsPack, 
-    decreaseNumberAdultsPack, 
-    increaseNumberChildrenPack,
-    decreaseNumberChildrenPack,
-    increaseNumberAdultsActivity, 
-    decreaseNumberAdultsActivity,
-    increaseNumberChildrenActivity, 
-    decreaseNumberChildrenActivity,
+    incrNbAdultsPack, 
+    decrNbAdultsPack, 
+    incrNbChildrenPack,
+    decrNbChildrenPack,
+    incrNbAdultsActivity, 
+    decrNbAdultsActivity,
+    incrNbChildrenActivity, 
+    decrNbChildrenActivity,
     setBookedData,
-    setNumberInBooking
+    setNbInBooking
     } = bookingSlice.actions;
 
 export default bookingSlice.reducer;

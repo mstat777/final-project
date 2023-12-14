@@ -2,7 +2,7 @@
 /* ----------------------- VERSION MOBILE ----------------------- */
 /******************************************************************/
 .header {
-    position: fixed;
+    /*position: fixed;*/
     top: 0;
     left: 0;
     right: 0;
@@ -18,23 +18,33 @@
     flex-direction: column;
     justify-content: space-between;
     width: 100%;
-    padding: 1em 1.5em;
+    padding: 0 1.5em 1.5em;
+    background-color: var(--primary-color);
 }
 
 .nav_upper {
+    position: fixed;
+    left: 0;
+    right: 0;
     display: flex;
     justify-content: left;
     align-items: center;
+    height: calc(60px + 1.2em);
+    /*width: 100%;*/
+    padding: .2em 1em 0;
+    background-color: var(--primary-color);
 }
 
 .nav_lower {
+    margin-top: calc(60px + 1.2em);
     display: flex;
     flex-direction: column;
+    /*background-color: var(--primary-color);*/
 }
 
 .nav_lower > a {
     display: block;
-    margin: .5em 0;
+    margin-bottom: 1em;
     padding: .5em 1em;
     font-weight: 600;
     letter-spacing: .2em;
@@ -52,6 +62,8 @@
 /******************************************************************/
 @media screen and (min-width: 768px) {
     .header {
+        position: fixed;
+
         flex-direction: row;
         height: 60px;
     }
@@ -64,10 +76,14 @@
         margin: 0 auto;
     }
 
+    .nav_upper {
+        height: unset;
+    }
+
     .nav_lower {
         position: absolute;
-        /*justify-self: center;*/
         left: 50%;
+        margin-top: 0;
         transform: translate(-50%, 0);
         flex-direction: row;
     }

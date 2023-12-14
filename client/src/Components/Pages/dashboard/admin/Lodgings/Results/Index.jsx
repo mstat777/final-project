@@ -1,10 +1,10 @@
 import { useNavigate, Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import styles from './results.module.css';
+import styles from '../../results.module.css';
 import { useState, useEffect } from 'react';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPencil, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { faPencil } from '@fortawesome/free-solid-svg-icons';
 
 function AdminDashLodgingResults(){
     const navigate = useNavigate();
@@ -55,7 +55,8 @@ function AdminDashLodgingResults(){
                     <td>{el.l.overview}</td>
                     <td>
                         <Link to={`/db/admin/lodgings/modify/${index}`}>
-                            modifier</Link>
+                            <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
+                        </Link>
                     </td>
                 </tr>
             )}

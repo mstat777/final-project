@@ -3,17 +3,17 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { calculatePrices,
-        increaseNumberAdultsPack, 
-        decreaseNumberAdultsPack, 
-        increaseNumberChildrenPack,
-        decreaseNumberChildrenPack,
-        increaseNumberAdultsActivity, 
-        decreaseNumberAdultsActivity,
-        increaseNumberChildrenActivity, 
-        decreaseNumberChildrenActivity,
-        setNumberInBooking
+        incrNbAdultsPack, 
+        decrNbAdultsPack, 
+        incrNbChildrenPack,
+        decrNbChildrenPack,
+        incrNbAdultsActivity, 
+        decrNbAdultsActivity,
+        incrNbChildrenActivity, 
+        decrNbChildrenActivity,
+        setNbInBooking
     } from "../../../../../store/slices/booking.js";
-import { setDestination, setPacks, setLodging, setLodgingImages, setActivities } from '../../../../../store/slices/travel.js';
+import { setDestination, setPacks, setLodging, setActivities } from '../../../../../store/slices/travel.js';
 
 import { verifyBooking } from '../../../../Functions/verifyBooking';
 
@@ -61,7 +61,7 @@ function ModifyBooking(){
         price_children_activities: []
     });
     
-    // on récupère toutes les données liées au pack :
+    // on récupère toutes les données liées au pack lors du 1er chargement de la page :
     useEffect(() => {
         async function fetchPackAllData(){
             try {
@@ -115,7 +115,7 @@ function ModifyBooking(){
                 }
             }
             //console.log(numberPeople);
-            dispatch(setNumberInBooking(numberPeople));
+            dispatch(setNbInBooking(numberPeople));
             //setIsNbPeopleLoaded(true);
             console.log("getting people nb");
         }
@@ -213,25 +213,27 @@ function ModifyBooking(){
                 <p>Nombre d'adultes et d'enfants pour lesquels vous avez réservé :</p>
                 <div className={styles.booking_inputs}>
                     <span>Adultes :</span>
-                    <button onClick={()=>{dispatch(increaseNumberAdultsPack())}}>
+                    <button onClick={()=>{dispatch(incrNbAdultsPack())}}>
                         <FontAwesomeIcon icon={faCirclePlus} className={styles.fa_circle}/>
                     </button>
                     <input type="text" 
                         pattern="[0-9]{2}"
-                        value={bookingInfo.nb_adults.pack}/>
-                    <button onClick={()=>{dispatch(decreaseNumberAdultsPack())}}>
+                        value={bookingInfo.nb_adults.pack}
+                        disabled/>
+                    <button onClick={()=>{dispatch(decrNbAdultsPack())}}>
                         <FontAwesomeIcon icon={faCircleMinus} className={styles.fa_circle}/>
                     </button>
                 </div>
                 <div className={styles.booking_inputs}>
                     <span>Enfants :</span>
-                    <button onClick={()=>{dispatch(increaseNumberChildrenPack())}}>
+                    <button onClick={()=>{dispatch(incrNbChildrenPack())}}>
                         <FontAwesomeIcon icon={faCirclePlus} className={styles.fa_circle}/>
                     </button>
                     <input type="text" 
                         pattern="[0-9]{2}"
-                        value={bookingInfo.nb_children.pack}/>
-                    <button onClick={()=>{dispatch(decreaseNumberChildrenPack())}}>
+                        value={bookingInfo.nb_children.pack}
+                        disabled/>
+                    <button onClick={()=>{dispatch(decrNbChildrenPack())}}>
                         <FontAwesomeIcon icon={faCircleMinus} className={styles.fa_circle}/>
                     </button>
                 </div>
@@ -252,26 +254,32 @@ function ModifyBooking(){
                             { checkBoxes[index] && 
                             <div className={styles.booking_activity_inputs}>
                                 <span>Adultes :</span>
-                                <button onClick={()=>{dispatch(increaseNumberAdultsActivity(index))}}>
-                                    <FontAwesomeIcon icon={faCirclePlus} className={styles.fa_circle}/>
-                                </button>
-                                <input type="text" 
-                                    pattern="[0-9]{2}"
-                                    value={bookingInfo.nb_adults.activities[index]} />
-                                <button onClick={()=>{dispatch(decreaseNumberAdultsActivity(index))}}>
-                                    <FontAwesomeIcon icon={faCircleMinus} className={styles.fa_circle}/>
-                                </button>
+                                <div>
+                                    <button onClick={()=>{dispatch(incrNbAdultsActivity(index))}}>
+                                        <FontAwesomeIcon icon={faCirclePlus} className={styles.fa_circle}/>
+                                    </button>
+                                    <input type="text" 
+                                        pattern="[0-9]{2}"
+                                        value={bookingInfo.nb_adults.activities[index]} 
+                                        disabled/>
+                                    <button onClick={()=>{dispatch(decrNbAdultsActivity(index))}}>
+                                        <FontAwesomeIcon icon={faCircleMinus} className={styles.fa_circle}/>
+                                    </button>
+                                </div>
 
                                 <span>Enfants :</span>
-                                <button onClick={()=>{dispatch(increaseNumberChildrenActivity(index))}}>
-                                    <FontAwesomeIcon icon={faCirclePlus} className={styles.fa_circle}/>
-                                </button>
-                                <input type="text" 
-                                    pattern="[0-9]{2}"
-                                    value={bookingInfo.nb_children.activities[index]} />
-                                <button onClick={()=>{dispatch(decreaseNumberChildrenActivity(index))}}>
-                                    <FontAwesomeIcon icon={faCircleMinus} className={styles.fa_circle}/>
-                                </button>
+                                <div>
+                                    <button onClick={()=>{dispatch(incrNbChildrenActivity(index))}}>
+                                        <FontAwesomeIcon icon={faCirclePlus} className={styles.fa_circle}/>
+                                    </button>
+                                    <input type="text" 
+                                        pattern="[0-9]{2}"
+                                        value={bookingInfo.nb_children.activities[index]} 
+                                        disabled/>
+                                    <button onClick={()=>{dispatch(decrNbChildrenActivity(index))}}>
+                                        <FontAwesomeIcon icon={faCircleMinus} className={styles.fa_circle}/>
+                                    </button>
+                                </div>
                             </div>}
 
                             <div>

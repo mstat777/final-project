@@ -50,28 +50,6 @@ function UserDashboardMyBookings(){
             if (res.status === 200) {
                 setOkMsg("Les données ont été trouvées.");
                 dispatch(setBookedData(dataAll));
-/*
-                const adultsBookedAct = [];
-                const childrenBookedAct = [];
-                activities.map(() => {
-                    adultsBookedAct.push(bookedData.datasBookAct[0].nb_adults);
-                    childrenBookedAct.push(bookedData.datasBookAct[0].nb_children);
-                });
-    
-                const numberPeople = {
-                    nb_adults: {
-                        pack: bookedData.datasBook[0].nb_adults,
-                        activities: adultsBookedAct
-                    },
-                    nb_children: {
-                        pack: bookedData.datasBook[0].nb_children,
-                        activities: childrenBookedAct
-                    }
-                }
-                setNumberInBooking(numberPeople);*/
-
-
-
 
                 // pour indiquer quel pack sera modifier
                 const bookingIDs = {

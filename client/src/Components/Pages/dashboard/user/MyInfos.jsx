@@ -184,7 +184,7 @@ function UserDashboardMyInfos(){
                         name="email" 
                         value={formData.email}
                         className={styles.email}
-                        disabled="true"/>
+                        disabled={true}/>
                 </label>
 
                 <label className={styles.user_db_label}>

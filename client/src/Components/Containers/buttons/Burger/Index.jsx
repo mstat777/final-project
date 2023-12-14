@@ -79,10 +79,6 @@ function Burger() {
                         <NavLink to={"/db/admin/activities"} className={styles.burger_item}>Activités</NavLink>
                         <NavLink to={"/db/admin/users"} className={styles.burger_item}>Clients</NavLink>
                     </>}
-
-                    {(userInfo.accountType === "superadmin") && 
-                        <NavLink to={"/db/admin/new-offer"} className={styles.burger_item}>Créer offre</NavLink>
-                    }
                     
                     <NavLink to={"/user/signout"} className={styles.burger_item_signout} onClick={() => toggleBurgerOrLogin()}>déconnexion</NavLink>
                 </div>

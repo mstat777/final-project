@@ -11,12 +11,16 @@ import icon from 'leaflet/dist/images/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 // ------------------------------------------------------------
 
+import tripadvisorLogo from '../../Containers/TripadvisorNote/img/tripadvisor-logo-50-32.png'
+
 import { choosePack } from "../../../store/slices/user";  
 
 import Slider from '../../Containers/Slider/Index';
 import TripadvisorNote from '../../Containers/TripadvisorNote/Index';
 import { fetchActivities } from '../../Functions/fetchData';
 import { formatDate } from '../../Functions/utils';
+
+import SeeMore from '../../Containers/SeeMore/Index';
 
 function Detail(){
     const dispatch = useDispatch();
@@ -95,35 +99,39 @@ function Detail(){
 
                 <div className={styles.property_ctn}>
                     <span>Présentation</span>
-                    <p>{lodging.overview}</p>
+                    <SeeMore text={lodging.overview}/>
                 </div>
                 <div className={styles.property_ctn}>
                     <span>Equipement</span>
-                    <p>{lodging.facilities}</p>
+                    <SeeMore text={lodging.facilities}/>
                 </div>
                 <div className={styles.property_ctn}>      
                     <span>Logement</span>
-                    <p>{lodging.rooms}</p>
+                    <SeeMore text={lodging.rooms}/>
                 </div>
                 <div className={styles.property_ctn}>
                     <span>Restauration</span>
-                    <p>{lodging.food_drink}</p>
+                    <SeeMore text={lodging.food_drink}/>
                 </div>
                 <div className={styles.property_ctn}>
                     <span>Formules</span>
-                    <p>{lodging.meal_plans}</p>
+                    <SeeMore text={lodging.meal_plans}/>
                 </div>
                 <div className={styles.property_ctn}>
                     <span>Loisirs</span>
-                    <p>{lodging.entertainment}</p>     
+                    <SeeMore text={lodging.entertainment}/>     
                 </div>
                 <div className={styles.property_ctn}>
                     <span>Enfants</span>
-                    <p>{lodging.children}</p>
+                    <SeeMore text={lodging.children}/>
                 </div>
                 <div className={styles.property_ctn}>
-                    <p>Tripadvisor : {lodging.tripadvisor}</p>
-                    <TripadvisorNote note={lodging.tripadvisor}/>
+                    <span>Tripadvisor</span>
+                    <div className={styles.tripadvisor_ctn}>
+                        <img src={tripadvisorLogo} alt=""/>
+                        <span className={styles.tripadvisor_txt}>{lodging.tripadvisor}</span>
+                        <TripadvisorNote note={lodging.tripadvisor}/>
+                    </div>
                 </div>
                 
                 <div className={styles.activities_ctn}>

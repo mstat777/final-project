@@ -1,6 +1,5 @@
 import styles from "./home.module.css";
 import Search from "../../Containers/Search/Index";
-//import banner from '../../../assets/img/banner_02_big.jpg';
 import banner from '../../../assets/img/bg/pexels-asad-photo-maldives-1430677.jpg';
 import Card from "../../Containers/Card/Index";
 import Loading from "../../Containers/Loading/Index";
@@ -12,7 +11,7 @@ import { fetchBestPromoPack, fetchTopDestination } from '../../Functions/fetchDa
 
 function Home() {
     const { pathname } = useLocation();
-    //console.log(pathname);
+ 
     const {bestPromos} = useSelector((state) => state.allTravel);
     const {topDestinations} = useSelector((state) => state.allTravel);
 
@@ -36,7 +35,6 @@ function Home() {
 
     return (
         <main id="home" className={styles.home_main}>
-
 
             {(!showBestPromo && !showTopDestination && !bestPromos[0] && !topDestinations[0]) ? 
                 <Loading /> : 

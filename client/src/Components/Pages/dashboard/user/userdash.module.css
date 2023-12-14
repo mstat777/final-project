@@ -58,7 +58,7 @@
 .booking_table > tbody > tr > td:nth-child(3) {
     font-weight: 600;
 }
-.booking_table > tbody > tr > td:nth-child(6) {
+.booking_table > tbody > tr > td:nth-child(7) {
     text-align: right;
 }
 
@@ -145,14 +145,6 @@
     cursor: pointer;
     opacity: .7;
 }
-
-
-/*.email {
-    border: 1px solid var(--verylightgrey-color);
-    border-radius: .4em;
-    text-align: left;
-    background-color: var(--verylightgrey-color);
-}*/
 
 .user_db_label .modify_icon {
     font-size: .8em;

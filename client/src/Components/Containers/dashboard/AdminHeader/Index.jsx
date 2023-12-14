@@ -17,8 +17,8 @@ function AdminDashboardHeader(){
                     <div className={styles.admin_db_user_ctn}>
                         <div className={styles.admin_db_image_ctn}>
                             <FontAwesomeIcon icon={faUser} className={styles.admin_db_image}/>
+                            <span className={styles.admin_db_email}>{userInfo.email}</span>
                         </div>
-                        <span className={styles.admin_db_email}>{userInfo.email}</span>
                     </div>
                     <div className={styles.admin_db_dropdown_ctn}>
                         <NavLink to={"/db/admin/my-infos"} className={styles.link}>Mes informations</NavLink>
@@ -36,10 +36,6 @@ function AdminDashboardHeader(){
                     <NavLink to={"/db/admin/activities"} className={styles.link}>Activités</NavLink>
                     <NavLink to={"/db/admin/users"} className={styles.link}>Clients</NavLink>
                 </div>
-
-                {(userInfo.accountType === "superadmin") && 
-                    <NavLink to={"/db/admin/new-offer"} className={styles.link}>Créer offre</NavLink>
-                }
             </nav>
         </header>
     )

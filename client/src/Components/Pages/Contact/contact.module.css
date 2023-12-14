@@ -2,7 +2,7 @@
 /* ----------------------- VERSION MOBILE ----------------------- */
 /******************************************************************/
 .contact_section {
-    margin: 2em auto 3em;
+    margin: 2em 1em 3em;
 }
 
 .contact_section > div {
@@ -43,46 +43,40 @@
     background-color: var(--secondary-color);
 }
 
-.contact_form > label,
+.contact_label,
 .contact_form > div {
     display: flex;
+    flex-direction: column;
     align-items: flex-start;
     justify-content: flex-end;
     width: 100%;
-    margin-bottom: 1em;
+    margin-bottom: .5em;
 }
 
 .contact_form > div {
+    display: inline-block;
+    margin-top: .5em;
     margin-bottom: 0;
 }
 
-.contact_form > label > span {
+.contact_label > span {
     display: block;
-    /*width: 35%;*/
-    margin-top: .3em;
-    margin-right: .5em;
     white-space: nowrap;
     overflow: hidden;
     color: white;
 }
 
-.contact_form > label > input,
-.contact_form > label > textarea {
+.contact_label > input,
+.contact_label > textarea {
     display: block;
-    width: 75%;
-    margin-left: .5em;
-    margin-right: 0;
+    width: 100%;
+    margin-top: .2em;
     padding: .4em;
     font-weight: 500;
 }
 
-.contact_form > label > textarea {
+.contact_label > textarea {
     height: auto;
-}
-
-.contact_form > *:last-child > div {
-    justify-self: flex-end;
-    width: 75%;
 }
 
 .contact_form button {
@@ -108,6 +102,33 @@
     .contact_section {
         margin: 4em;
     }
+
+    .contact_label {
+        flex-direction: row;
+        margin-bottom: 1em;
+    }
+
+    .contact_label > input,
+    .contact_label > textarea {
+        width: 75%;
+        margin-top: 0;
+        margin-left: .5em;
+    }
+    
+    .contact_form > div {
+        margin-top: 0;
+    }
+
+    .contact_form > div > div {
+        width: 75%;
+        margin-left: auto;
+    }
+
+    .contact_label > span {
+        margin-top: .4em;
+        margin-right: .5em;
+    }
+
 }
 
 /******************************************************************/

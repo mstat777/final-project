@@ -3,14 +3,14 @@ import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { calculatePrices,
-        increaseNumberAdultsPack, 
-        decreaseNumberAdultsPack, 
-        increaseNumberChildrenPack,
-        decreaseNumberChildrenPack,
-        increaseNumberAdultsActivity, 
-        decreaseNumberAdultsActivity,
-        increaseNumberChildrenActivity, 
-        decreaseNumberChildrenActivity
+        incrNbAdultsPack, 
+        decrNbAdultsPack, 
+        incrNbChildrenPack,
+        decrNbChildrenPack,
+        incrNbAdultsActivity, 
+        decrNbAdultsActivity,
+        incrNbChildrenActivity, 
+        decrNbChildrenActivity
     } from "../../../store/slices/booking";
 import { verifyBooking } from '../../Functions/verifyBooking';
 
@@ -83,8 +83,9 @@ function Booking(){
             }
             await setPrices();
         }
-
-        initInfoAndSetPrices();
+        if (activities[0]) {
+            initInfoAndSetPrices();
+        }
     },[activities]);
 
     // calculer les prix chaque fois le nb de personnes change :
@@ -139,29 +140,27 @@ function Booking(){
                 <p>Veuillez indiquer le nombre d'adultes et d'enfants pour lesquels vous réservez :</p>
                 <div className={styles.booking_inputs}>
                     <span>Adultes :</span>
-                    <button onClick={()=>{dispatch(increaseNumberAdultsPack())}}>
+                    <button onClick={() => dispatch(incrNbAdultsPack())}>
                         <FontAwesomeIcon icon={faCirclePlus} className={styles.fa_circle}/>
                     </button>
                     <input type="text" 
                         pattern="[0-9]{2}"
-                        /*min={minPeopleAllowed}
-                        max={maxPeopleAllowed}*/
-                        value={bookingInfo.nb_adults.pack}/>
-                    <button onClick={()=>{dispatch(decreaseNumberAdultsPack())}}>
+                        value={bookingInfo.nb_adults.pack}
+                        disabled/>
+                    <button onClick={() => dispatch(decrNbAdultsPack())}>
                         <FontAwesomeIcon icon={faCircleMinus} className={styles.fa_circle}/>
                     </button>
                 </div>
                 <div className={styles.booking_inputs}>
                     <span>Enfants :</span>
-                    <button onClick={()=>{dispatch(increaseNumberChildrenPack())}}>
+                    <button onClick={()=>{dispatch(incrNbChildrenPack())}}>
                         <FontAwesomeIcon icon={faCirclePlus} className={styles.fa_circle}/>
                     </button>
                     <input type="text" 
                         pattern="[0-9]{2}"
-                        /*min={minPeopleAllowed}
-                        max={maxPeopleAllowed}*/
-                        value={bookingInfo.nb_children.pack}/>
-                    <button onClick={()=>{dispatch(decreaseNumberChildrenPack())}}>
+                        value={bookingInfo.nb_children.pack}
+                        disabled/>
+                    <button onClick={()=>{dispatch(decrNbChildrenPack())}}>
                         <FontAwesomeIcon icon={faCircleMinus} className={styles.fa_circle}/>
                     </button>
                 </div>
@@ -183,30 +182,32 @@ function Booking(){
                             { checkBoxes[index] && 
                             <div className={styles.booking_activity_inputs}>
                                 <span>Adultes :</span>
-                                <button onClick={()=>{dispatch(increaseNumberAdultsActivity(index))}}>
-                                    <FontAwesomeIcon icon={faCirclePlus} className={styles.fa_circle}/>
-                                </button>
-                                <input type="text" 
-                                    pattern="[0-9]{2}"
-                                    /*min={minPeopleAllowed}
-                                    max={maxPeopleAllowed}*/
-                                    value={bookingInfo.nb_adults.activities[index]} />
-                                <button onClick={()=>{dispatch(decreaseNumberAdultsActivity(index))}}>
-                                    <FontAwesomeIcon icon={faCircleMinus} className={styles.fa_circle}/>
-                                </button>
+                                <div>
+                                    <button onClick={()=>{dispatch(incrNbAdultsActivity(index))}}>
+                                        <FontAwesomeIcon icon={faCirclePlus} className={styles.fa_circle}/>
+                                    </button>
+                                    <input type="text" 
+                                        pattern="[0-9]{2}"
+                                        value={bookingInfo.nb_adults.activities[index]} 
+                                        disabled/>
+                                    <button onClick={()=>{dispatch(decrNbAdultsActivity(index))}}>
+                                        <FontAwesomeIcon icon={faCircleMinus} className={styles.fa_circle}/>
+                                    </button>
+                                </div>
 
                                 <span>Enfants :</span>
-                                <button onClick={()=>{dispatch(increaseNumberChildrenActivity(index))}}>
-                                    <FontAwesomeIcon icon={faCirclePlus} className={styles.fa_circle}/>
-                                </button>
-                                <input type="text" 
-                                    pattern="[0-9]{2}"
-                                    /*min={minPeopleAllowed}
-                                    max={maxPeopleAllowed}*/
-                                    value={bookingInfo.nb_children.activities[index]} />
-                                <button onClick={()=>{dispatch(decreaseNumberChildrenActivity(index))}}>
-                                    <FontAwesomeIcon icon={faCircleMinus} className={styles.fa_circle}/>
-                                </button>
+                                <div>
+                                    <button onClick={()=>{dispatch(incrNbChildrenActivity(index))}}>
+                                        <FontAwesomeIcon icon={faCirclePlus} className={styles.fa_circle}/>
+                                    </button>
+                                    <input type="text" 
+                                        pattern="[0-9]{2}"
+                                        value={bookingInfo.nb_children.activities[index]}
+                                        disabled/>
+                                    <button onClick={()=>{dispatch(decrNbChildrenActivity(index))}}>
+                                        <FontAwesomeIcon icon={faCircleMinus} className={styles.fa_circle}/>
+                                    </button>
+                                </div>
                             </div>}
 
                             <div>

@@ -9,7 +9,7 @@ import { setDestination,
             setLodgingImages,
             setDestinationImages 
             } from "../../../store/slices/travel";
-import { deleteLocStorageItems } from '../../Functions/fetchData';
+
 import { formatCoordinates } from '../../Functions/utils';
 
 import Results from '../Results/Index';
@@ -18,7 +18,7 @@ import Suggestions from './Suggestions/Index';
 function Search() {
     const BASE_URL = process.env.REACT_APP_BASE_URL;
     const { pathname } = useLocation();
-    //console.log("pathname= "+pathname);
+
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [searchParams] = useSearchParams();
@@ -43,7 +43,7 @@ function Search() {
     
     // le nom de la destination demandée, si vient de l'URL
     // c'est dans le cas on passe pas par la barre de recherche :
-    const [urlDestination, setUrlDestination] = useState(searchParams.get('destination'));
+    const urlDestination = searchParams.get('destination');
 
     // stocker la valeur de l'input de la barre de recherche
     const [destinationInput, setDestinationInput] = useState("");
@@ -69,7 +69,6 @@ function Search() {
         dispatch(setPacks([]));
         dispatch(setDestinationImages([]));
         dispatch(setLodgingImages([]));*/
-
         setIsFound(false);
         setMsg("");
         setShowResults(false);
@@ -84,18 +83,20 @@ function Search() {
 
     // on vérifie si la destination demandée existe dans la BDD, chaque fois 'searchDestination' est modifié :
     useEffect(() => {
-        async function checkDestination(){
-            await allDestinations.map((dest) => {
+        function checkDestination(){
+            allDestinations.map((dest) => {
                 //console.log("dest= "+dest);
                 //console.log("searchDestination= "+searchDestination);
                 // si le nom de destination existe dans la BDD :
                 if (dest.toLowerCase() === searchDestination) {
                     setIsFound(true);
-                    console.log("destinationFound est truefy. On va fetcher.");
-                    console.log("isFound = "+isFound);
+                    //console.log("destinationFound est truefy. On va fetcher.");
+                    //console.log("isFound = "+isFound);
                 }
             }); 
-            console.log("isFound = "+isFound);
+            if (!isFound) {
+                setMsg("Cette destination n'est pas disponible.");
+            }
         }
        
         if (searchDestination){
@@ -103,7 +104,7 @@ function Search() {
             // on vérifie la destination :
             checkDestination();
             // afficher un msg si la destination n'a pas été trouvée :
-            console.log("isFound = "+isFound);
+            //console.log("isFound = "+isFound);
         }
     },[searchDestination, searchDate, searchPrice]);
 
@@ -126,8 +127,6 @@ function Search() {
                 // s'il y a des packs trouvés :
                 if(json.datasPacks[0]){
                     //console.log("des packs ont été trouvée dans la BD pour cette destination");
-                    //deleteLocStorageItems(['lodging', 'packs', 'activities']);
-                    //localStorage.setItem("destination", JSON.stringify(json.datasDest));
 
                     // on sauvegarde les données dans Store :
                     dispatch(setDestination(json.datasDest[0]));
@@ -189,10 +188,8 @@ function Search() {
     // en cliquant le bouton "RECHERCHER" :
     function handleSubmit(e) {
         e.preventDefault();
-        console.log("isFound (on Submit)= "+isFound);
         setIsFound(false);
-        console.log("isFound (on Submit)= "+isFound);
-        console.log("destinationInput= "+destinationInput);
+        //console.log("destinationInput= "+destinationInput);
         setSearchDestination(destinationInput.trim().toLowerCase());
         setSearchDate(departureDate);
         setSearchPrice(maxPrice);
@@ -227,7 +224,7 @@ function Search() {
                             onFocus={() => setMsg('')}
                             onInvalid={priceAlertMsg}
                             onInput={(e) => e.target.setCustomValidity('')}
-                            placeholder="Prix maximal / personne"/>
+                            placeholder="Prix max. / personne"/>
                 </div>
                 <div className={styles.button_ctn}>
                     <button type="submit">rechercher</button>
@@ -237,8 +234,7 @@ function Search() {
                     setDestinationInput={setDestinationInput}/>
             </form>
 
-            { (msg) && 
-                    <p className={styles.msg}>{msg}</p>}
+            { msg ? <p className={styles.msg}>{msg}</p> : null }
 
             {/* Si on est sur la page d'accueil, on n'affiche pas "Results". On l'affiche si l'URL contient 'search' */}
             { (showResults && pathname.slice(1) === "search") && 

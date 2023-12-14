@@ -29,10 +29,17 @@ h2 {
     width: 80%;
     margin: 0 auto 1em;
     /*padding: 0 2em;*/
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    overflow: hidden;
     font-weight: 500;
+    transition: all .3s;
 }
 .destination_ctn:hover {
     cursor: pointer;
+    border: 4px solid var(--secondary-color);
+    opacity: .8;
 }
 
 .destination_ctn  img {
@@ -44,13 +51,6 @@ h2 {
     object-position: top;
     /*height: calc(width * 3/4);*/ 
 }
-/*
-.img_ctn > img {
-    width: 100%;
-    aspect-ratio: 4/3;
-    max-height: unset; 
-    object-fit: contain;
-}*/
 
 .info_ctn {
     display: flex;
@@ -58,7 +58,9 @@ h2 {
     align-items: flex-start;
     width: 70%;
     padding-left: .6em;
+    box-sizing: border-box;
     text-align: left;
+    overflow: hidden; 
 }
 
 .info_ctn > p:first-child {
@@ -66,8 +68,12 @@ h2 {
 }
 
 .holidays_destination {
+    margin-top: 0;
     font-weight: 600;
-    color: var(--highlight-color);
+    color: var(--highlight-color);    
+    overflow: hidden;
+    white-space: nowrap; 
+    text-overflow: ellipsis;
 }
 
 
@@ -114,15 +120,6 @@ h2 {
         margin: 0;
         padding: 0 .5em;
         background-color: var(--primary-color);
-        overflow: hidden; 
-    }
-
-    .holidays_destination {
-        
-        margin-top: 0;
-        overflow: hidden;
-        white-space: nowrap; 
-        text-overflow: ellipsis;
     }
 }
 
