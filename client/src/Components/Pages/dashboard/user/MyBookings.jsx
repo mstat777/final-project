@@ -2,6 +2,7 @@ import styles from './userdash.module.css';
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { useMediaQuery } from "react-responsive";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencil, faTrashCan } from '@fortawesome/free-solid-svg-icons';
@@ -21,6 +22,16 @@ function UserDashboardMyBookings(){
     // pour afficher des messages suite à la suppression :
     const [okMsg, setOkMsg] = useState('');
     const [errMsg, setErrMsg] = useState('');
+
+    // remonter au top de la page lors de chargement
+    const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
+    const isTabletOrDesktop = useMediaQuery({ query: '(min-width: 768px)' });
+    useEffect(() => {
+        console.log("isMobile = "+isMobile);
+        console.log("isTabletOrDesktop = "+isTabletOrDesktop);
+        if (isMobile) { window.scrollTo(0, 160); }
+        if (isTabletOrDesktop) { window.scrollTo(0, 0); }
+    }, [])
 
     // on récupère les données de toutes les réservations effectuées par l'utilisateur :
     useEffect(() => {

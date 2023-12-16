@@ -110,11 +110,11 @@ function App() {
             <Route path="/db/user" element={<UserDashLayout/>}>
                 {/* afficher les infos persos de l'utilisateur */}
                 <Route path="my-infos" element={<WithAuth child={UserDashMyInfos} auth="true"/>}/>
+                {/* afficher les réservations de l'utilisateur */}
+                <Route path="my-bookings/:id" element={<WithAuth child={UserDashMyBookings} auth="true"/>}/>
                 {/* modifier une réservation de l'utilisateur */}
                 <Route path="booking-modify" element={<WithAuth child={UserDashBookingModify} auth="true"/>}/>
                 <Route path="booking-summary" element={<WithAuth child={UserDashBookingModifiedSummary} auth="true"/>}/>
-                {/* afficher les réservations de l'utilisateur */}
-                <Route path="my-bookings/:id" element={<WithAuth child={UserDashMyBookings} auth="true"/>}/>
 
             </Route>
 
@@ -123,6 +123,7 @@ function App() {
                 <Route path="my-infos" element={<WithAuth child={UserDashMyInfos} auth="true" adminAuth="true"/>}/>
                 <Route path="my-bookings/:id" element={<WithAuth child={UserDashMyBookings} auth="true" adminAuth="true"/>}/>
 
+                {/* pages d'administration */}
                 <Route path="bookings" element={<WithAdminAuth child={AdminDashBookings} auth="true" adminAuth="true"/>}/>
                 <Route path="bookings/search" element={<WithAdminAuth child={AdminDashBookings} auth="true" adminAuth="true"/>}/>
 

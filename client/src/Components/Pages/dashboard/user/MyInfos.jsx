@@ -1,11 +1,11 @@
 import styles from './userdash.module.css';
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { useMediaQuery } from "react-responsive";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencil } from '@fortawesome/free-solid-svg-icons';
 
-import { formatDate } from '../../../Functions/utils';
 import { validateInput } from '../../../Functions/sanitize';
 
 function UserDashboardMyInfos(){
@@ -40,6 +40,14 @@ function UserDashboardMyInfos(){
     // pour afficher les messages suite à la modif des champs :
     const [okMsg, setOkMsg] = useState('');
     const [errMsg, setErrMsg] = useState('');
+
+    // remonter au top de la page lors de chargement
+    const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
+    const isTabletOrDesktop = useMediaQuery({ query: '(min-width: 768px)' });
+    useEffect(() => {
+        if (isMobile) { window.scrollTo(0, 160); }
+        if (isTabletOrDesktop) { window.scrollTo(0, 0); }
+    }, [])
 
     // on récupère les données de l'utilisateur pour 'automatiquement' remplir le formulaire lors du chargement de la page :
     useEffect(() => {
@@ -82,11 +90,11 @@ function UserDashboardMyInfos(){
         //
         const bDateVerif = validateInput("birthDate", formData.birthDate);
         // --------------------------------------------------------
-        console.log("lastNameVerif.isValid = "+lNameVerif.isValid);
+        /*console.log("lastNameVerif.isValid = "+lNameVerif.isValid);
         console.log("firstNameVerif.isValid = "+fNameVerif.isValid);
         console.log("telVerif.isValid = "+telVerif.isValid);
         console.log("addressVerif.isValid = "+addressVerif.isValid);
-        console.log("birthDateVerif.isValid = "+bDateVerif.isValid);
+        console.log("birthDateVerif.isValid = "+bDateVerif.isValid);*/
 
         // rassembler toutes les messages d'erreur pour les afficher au-dessous du formulaire :
         setErrMsg(lNameVerif.msg 
