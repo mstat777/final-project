@@ -89,6 +89,40 @@ const getAllDataAllPacks = async (req, res) => {
                            datasLodgImg });
 }
 
+//
+const getDestinationAllData = async (req, res) => {
+    // si le nom de la destination vient de l'URL, il peur contenir "%20" qu'on doit remplacer par un vide :
+    const name = req.params.name.replace("%20", " ");
+    //console.log("name = "+name);
+    // récupérer les données de la destination et de l'hébérgement :
+    const queryDest = "SELECT * FROM destinations WHERE name = ?";
+    const [datasDest] = await Query.findByValue(queryDest, req.params.name);
+
+    // récupérer les données des packs :
+    const queryPacks = "SELECT * FROM packs WHERE destination_id = ?";
+    const [datasPacks] = await Query.findByValue(queryPacks, datasDest[0].id);
+
+    const queryLodg = "SELECT * FROM lodgings WHERE id = ?";
+    const [datasLodg] = await Query.findByValue(queryLodg, datasDest[0].lodging_id);
+
+    const queryDestImg = "SELECT url_image FROM destinations_images WHERE destination_id = ?";
+    const [datasDestImg] = await Query.findByValue(queryDestImg, datasDest[0].id);
+
+    const queryLodgImg = "SELECT url_image FROM lodgings_images WHERE lodging_id = ?";
+    const [datasLodgImg] = await Query.findByValue(queryLodgImg, datasLodg[0].id);
+
+    const queryAct = "SELECT * FROM activities AS a JOIN destinations_activities AS da ON a.id = da.activity_id WHERE da.destination_id = ?";
+    const [datasAct] = await Query.findByValue(queryAct, datasDest[0].id);
+
+    res.status(200).json({ msg: "packs trouvés",  
+                           datasDest,
+                           datasPacks,
+                           datasLodg,
+                           datasDestImg,
+                           datasLodgImg,
+                           datasAct });
+}
+
 // cherche une destination avec tous les packs :
 const getPackAllData = async (req, res) => {
     // récupérer les données de la destination et de l'hébérgement :
@@ -183,6 +217,7 @@ export {
     getAllDestinations,
     getAllDataIfPacks,
     getAllDataAllPacks,
+    getDestinationAllData,
     getPackAllData,
     getDestinationByName,
     getImagesDestination,

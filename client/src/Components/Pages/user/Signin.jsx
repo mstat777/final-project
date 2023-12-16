@@ -2,6 +2,7 @@ import styles from './user.module.css';
 import { useState, useEffect } from 'react';
 import { useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
+import { useMediaQuery } from "react-responsive";
 
 import { signin } from '../../../store/slices/user';
 
@@ -27,8 +28,11 @@ function Signin(){
     const [passIcon, setPassIcon] = useState(faEyeSlash);
 
     // remonter au top de la page lors de chargement
+    const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
+    const isTabletOrDesktop = useMediaQuery({ query: '(min-width: 768px)' });
     useEffect(() => {
-        document.getElementById("signin").scrollIntoView();
+        if (isMobile) { window.scrollTo(0, 160); }
+        if (isTabletOrDesktop) { window.scrollTo(0, 0); }
     }, [])
 
     function handlePassIconToggle() {

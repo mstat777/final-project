@@ -1,7 +1,13 @@
 import styles from './agency.module.css';
 import agency_photo from '../../../assets/img/agency-pexels-cadomaestro-1170412.jpg';
 
+import { useEffect } from "react";
+
 function Agency(){
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     return (
         <main id="agency">

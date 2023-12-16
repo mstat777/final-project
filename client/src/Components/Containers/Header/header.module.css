@@ -42,10 +42,12 @@
     /*background-color: var(--primary-color);*/
 }
 
+/* les boutons pour les rubriques */ 
 .nav_lower > a {
     display: block;
     margin-bottom: 1em;
     padding: .5em 1em;
+    border-radius: 4px;
     font-weight: 600;
     letter-spacing: .2em;
     text-align: center;

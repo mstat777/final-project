@@ -1,11 +1,17 @@
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 import Loading from "../../Containers/Loading/Index";
 import styles from './holidays.module.css';
 
 function Holidays(){
     const { allContinents, 
             destinationsWithContinents } = useSelector((state) => state.allTravel);
+
+    // remonter au top de la page lors de chargement
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [])
 
     return (
         <main id="holidays">

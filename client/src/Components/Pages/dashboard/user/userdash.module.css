@@ -184,11 +184,11 @@
     color: var(--highlight-color);
 }
 
-textarea:disabled,
-input[type="email"]:disabled,
-input[type="tel"]:disabled,
-input[type="date"]:disabled,
-input[type="text"]:disabled {
+.user_db_main textarea:disabled,
+.user_db_main input[type="email"]:disabled,
+.user_db_main input[type="tel"]:disabled,
+.user_db_main input[type="date"]:disabled,
+.user_db_main input[type="text"]:disabled {
     color: var(--grey-color);
     background-color: #f5f5f5;
 }

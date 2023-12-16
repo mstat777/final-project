@@ -34,9 +34,15 @@ class Query{
     }
 
     // ----------------- WRITE ------------------------
+    // 'datas' est un objet
     static async write(query, data) {
         //console.log([...Object.values(data)]);
         return await pool.query(query, [...Object.values(data)]);
+    }
+
+    // 'datas' est une valeur 
+    static async writeWithValue(query, value){
+        return await pool.query(query, [value]);
     }
 
     // 'datas' est un array

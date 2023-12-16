@@ -63,11 +63,13 @@
 /******************************************************************/
 @media screen and (min-width: 768px) {
     .results_section > article {
+        margin: 0 3em;
         padding: 2em;
     }
 
     .slider_ctn {
-        margin: 1em;
+        width: 95%;
+        margin: 1em 2em;
     }
 }
 
@@ -75,6 +77,10 @@
 /* ----------------------- VERSION DESKTOP ---------------------- */
 /******************************************************************/
 @media screen and (min-width: 1100px) {
+    .slider_ctn {
+        margin: 1em;
+    }
+
     .results_section > article {
         flex-direction: row;
         align-items: center;

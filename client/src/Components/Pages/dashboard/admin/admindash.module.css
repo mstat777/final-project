@@ -245,11 +245,11 @@
     color: var(--highlight-color);
 }
 
-textarea:disabled,
-input[type="email"]:disabled,
-input[type="tel"]:disabled,
-input[type="date"]:disabled,
-input[type="text"]:disabled {
+.admin_db_main textarea:disabled,
+.admin_db_main input[type="email"]:disabled,
+.admin_db_main input[type="tel"]:disabled,
+.admin_db_main input[type="date"]:disabled,
+.admin_db_main input[type="text"]:disabled {
     color: var(--grey-color);
     background-color: #f5f5f5;
 }

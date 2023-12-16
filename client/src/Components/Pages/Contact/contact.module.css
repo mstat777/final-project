@@ -15,10 +15,11 @@
 }
 
 .text_tel {
-    margin-top: .8em;
+    display: inline-block;
     margin-bottom: 0;
     font-size: 3rem;
     color: var(--highlight-color);
+    cursor: pointer;
 }
 
 .phone_icon {

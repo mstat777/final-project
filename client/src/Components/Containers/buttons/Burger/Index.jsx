@@ -57,7 +57,9 @@ function Burger() {
 
                     <FontAwesomeIcon icon={faUser} className={styles.user_icon}/>
 
-                    <p className={styles.small_txt}>Espace client</p>
+                    <p className={styles.small_txt}>
+                        Espace {userInfo.accountType === "admin" || userInfo.accountType === "superadmin" ? "admin": "client"}
+                    </p>
                     <p className={styles.user_txt}>{userInfo.email}</p>
                     <hr/>
                     

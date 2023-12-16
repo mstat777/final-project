@@ -79,7 +79,7 @@
 
 /* Messages (d'erreur) */
 .msg {
-    margin-top: 0;
+    margin-top: 1em;
     color: var(--highlight-color);
 }
 
@@ -89,6 +89,10 @@
 @media screen and (min-width: 768px) {
     .search_form {
         margin: 2em auto 1em;
+    }
+
+    .msg {
+        margin-top: 0;;
     }
 }
 

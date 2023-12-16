@@ -17,6 +17,10 @@ function Contact(){
     // pour ne pas soumettre le formulaire, si les inputs ne sont pas valids:
     const [isFormValidated, setIsFormValidated] = useState(false);
 
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     // vérifier si tous les champs sont valides. Si OUI, le form est valide :
     const checkFormValidation = () => {
         // on vérifie les champs :
@@ -71,7 +75,7 @@ function Contact(){
             <div className={styles.contact_section}>
                 <div>
                     <p className={styles.title}>infos et réservations</p>
-                    <p className={styles.text_tel}><FontAwesomeIcon icon={faPhone} className={styles.phone_icon}/>01 23 45 67 89*</p>
+                    <p href="tel:+33123456789" className={styles.text_tel}><FontAwesomeIcon icon={faPhone} className={styles.phone_icon}/>01 23 45 67 89*</p>
                     <p className={styles.text_small}>Prix d'un appel local</p>
                     <p>Du lundi au vendredi de 9h à 19h, le samedi de 10h à 18h.</p>
                 </div>

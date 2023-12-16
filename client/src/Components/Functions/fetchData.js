@@ -63,12 +63,11 @@ async function fetchAllContinentsAndDestinations() {
     }
 }
 
-// récupérer les données de la destination et de tous ses packs par le nom de la destination :
+// récupérer toutes les données liées à une destination :
 async function fetchDestinationAllPacks(destination){
     try {
-        const dataAll = await (await fetch(`${BASE_URL}/api/v.0.1/travel/destinations-all-packs/${destination}`)).json();
+        const dataAll = await (await fetch(`${BASE_URL}/api/v.0.1/travel/destination-all-packs/${destination}`)).json();
         //console.log(dataAll);
-
         //deleteLocStorageItems(['lodging', 'packs', 'activities']);
         //localStorage.setItem("destination", JSON.stringify(dataAll.datasDest[0]));
 
@@ -77,6 +76,23 @@ async function fetchDestinationAllPacks(destination){
         store.dispatch(setLodging(dataAll.datasLodg[0]));
         store.dispatch(setDestinationImages(dataAll.datasDestImg));
         store.dispatch(setLodgingImages(dataAll.datasLodgImg));
+
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+// récupérer toutes les données liées à une destination :
+async function fetchDestinationAllData(destination){
+    try {
+        const dataAll = await (await fetch(`${BASE_URL}/api/v.0.1/travel/destination-all-data/${destination}`)).json();
+
+        store.dispatch(setDestination(dataAll.datasDest[0]));
+        store.dispatch(setPacks(dataAll.datasPacks));
+        store.dispatch(setLodging(dataAll.datasLodg[0]));
+        store.dispatch(setDestinationImages(dataAll.datasDestImg));
+        store.dispatch(setLodgingImages(dataAll.datasLodgImg));
+        store.dispatch(setActivities(dataAll.datasAct));
 
     } catch (error) {
         console.log(error);
@@ -184,6 +200,7 @@ export {
         fetchAllDestinations,
         fetchAllContinentsAndDestinations,
         fetchDestinationAllPacks,
+        fetchDestinationAllData,
         fetchDestination,
         fetchLodging,
         fetchPacks,

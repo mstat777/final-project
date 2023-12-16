@@ -96,6 +96,7 @@ function Search() {
             }); 
             if (!isFound) {
                 setMsg("Cette destination n'est pas disponible.");
+                setShowResults(false);
             }
         }
        
@@ -151,20 +152,20 @@ function Search() {
         if (isFound) {
             setMsg('');
             searchPacks();
-        } else if (searchDestination) {
+        } /*else if (searchDestination) {
             setMsg("Aucun résultat trouvé");
             setShowResults(false);
             console.log("isFound = "+isFound);
-        }
+        }*/
     },[isFound]);
 
     // formatter les coordonnées OpenStreetMaps de l'hébérgement :
     useEffect(() => {
-        if (lodging) {
+        //if (lodging) {
             if (lodging.coordinates) {
                 formatCoordinates(lodging.coordinates);
             }  
-        }
+        //}
     },[destination]);
 
     // si on a les données de la destination et des packs enregistrées dans Store, on peut afficher les résultats :
@@ -193,6 +194,7 @@ function Search() {
         setSearchDestination(destinationInput.trim().toLowerCase());
         setSearchDate(departureDate);
         setSearchPrice(maxPrice);
+        //window.scrollTo(0, 232);
     }
 
     return (

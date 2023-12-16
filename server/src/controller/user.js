@@ -58,8 +58,8 @@ const userSignIn = async (req, res) => {
 const createUserAccount = async (req, res) => {
     try {
         let msg = "";
-        const queryUser = "SELECT email FROM users WHERE email = ?";
-        const [user] = await Query.findByValue(queryUser, req.body.email);
+        const queryCheckUser = "SELECT email FROM users WHERE email = ?";
+        const [user] = await Query.findByValue(queryCheckUser, req.body.email);
 
         if (user.length) {
             msg = "Un utilisateur avec cette adresse mail existe déjà !";
@@ -77,8 +77,15 @@ const createUserAccount = async (req, res) => {
                 occupation: req.body.occupation,
                 password: await hash(req.body.password, SALT)
             };
-            const query = "INSERT INTO users (last_name, first_name, email, tel, address, birth_date, occupation, account_type, account_created_by, date_created, password) VALUES (?, ?, ?, ?, ?, ?, ?, 'client', 'client', CURRENT_TIMESTAMP(), ?)";
-            await Query.write(query, datas);
+            const queryWriteUser = "INSERT INTO users (last_name, first_name, email, tel, address, birth_date, occupation, account_type, account_created_by, date_created, password) VALUES (?, ?, ?, ?, ?, ?, ?, 'client', 'client', CURRENT_TIMESTAMP(), ?)";
+            await Query.write(queryWriteUser, datas);
+
+            // souscrire dans le Newsletter :
+            if (req.body.checkBoxNewsL) {
+                console.log("req.body.email = "+req.body.email);
+                const queryNewsL = "INSERT INTO newsletter (email) VALUES (?)";
+                await Query.writeWithValue(queryNewsL, req.body.email);
+            }
 
             msg = "utilisateur créé";
             res.status(201).json({ msg });

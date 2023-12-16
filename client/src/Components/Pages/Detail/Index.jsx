@@ -1,15 +1,17 @@
 import styles from './detail.module.css';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-
 import { useNavigate } from 'react-router-dom';
+import { useMediaQuery } from "react-responsive";
+
+/* --------- OpenStreetMap ------------- */
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import "leaflet/dist/leaflet.css";
-// - pour gérer le bug d'affichage du marker d'Openstreetmaps :
 import L from 'leaflet';
-import icon from 'leaflet/dist/images/marker-icon.png';
+//import icon from 'leaflet/dist/images/marker-icon.png';
+import icon from './img/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
-// ------------------------------------------------------------
+// ------------------------------------- */
 
 import tripadvisorLogo from '../../Containers/TripadvisorNote/img/tripadvisor-logo-50-32.png'
 
@@ -26,24 +28,28 @@ function Detail(){
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const { destination } = useSelector((state) => state.allTravel);
-
-    const { lodging } = useSelector((state) => state.allTravel);
-    const { packs } = useSelector((state) => state.allTravel);
-    const { activities } = useSelector((state) => state.allTravel);
-    const { coordinates } = useSelector((state) => state.allTravel);
+    const { destination, 
+            lodging, 
+            packs, 
+            activities, 
+            coordinates } = useSelector((state) => state.allTravel);
 
     // ----- Corriger le bug d'Openstreetmap ------
     let DefaultIcon = L.icon({
         iconUrl: icon,
-        shadowUrl: iconShadow
+        shadowUrl: iconShadow,
+        iconSize: [25,41],
+        iconAnchor: [12.5,41]
     });
     L.Marker.prototype.options.icon = DefaultIcon;
     // --------------------------------------------
 
     // remonter au top de la page lors de chargement
+    const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
+    const isTabletOrDesktop = useMediaQuery({ query: '(min-width: 768px)' });
     useEffect(() => {
-        document.getElementById("detail").scrollIntoView();
+        if (isMobile) { window.scrollTo(0, 160); }
+        if (isTabletOrDesktop) { window.scrollTo(0, 0); }
     }, [])
 
     // on récupère les données des activités liées à la destination :

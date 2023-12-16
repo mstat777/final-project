@@ -5,6 +5,7 @@ import {
     getAllDestinations,
     getAllDataIfPacks,
     getAllDataAllPacks,
+    getDestinationAllData,
     getPackAllData,
     getDestinationByName,
     getImagesDestination,
@@ -37,7 +38,11 @@ router.get("/destination/top-offer", getTopThreeDestinations);
 router.get("/destination/img/all/:id", getImagesDestination);
 
 // chercher toutes les données liées aux packs de la destination chosie : destination, hébérgement et url photos :
-router.get("/destinations-all-packs/:name", getAllDataAllPacks);
+router.get("/destination-all-packs/:name", getAllDataAllPacks);
+
+// chercher toutes les données liées aux packs de la destination chosie : destination, hébérgement et url photos :
+router.get("/destination-all-data/:name", getDestinationAllData);
+
 // chercher une destination par nom :
 router.get("/destination/:name", getDestinationByName);
 

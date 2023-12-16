@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate, Link } from "react-router-dom";
+import { useMediaQuery } from "react-responsive";
 
 import styles from './user.module.css';
 
@@ -8,7 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faLock, faEye, faEyeSlash, faPhone, faEnvelope, faLocationDot, faCakeCandles, faBriefcase } from '@fortawesome/free-solid-svg-icons';
 import { faUser as faUserReg } from '@fortawesome/free-regular-svg-icons';
 
-import { sanitizeAllInputs, validateInput } from '../../Functions/sanitize';
+import { validateInput } from '../../Functions/sanitize';
 import { setLogMessage } from '../../../store/slices/user';
 
 function Signup(){
@@ -43,6 +44,14 @@ function Signup(){
     // pour ne pas soumettre le formulaire, si les inputs ne sont pas valides:
     const [isFormValidated, setIsFormValidated] = useState(false);
 
+    // remonter au top de la page lors de chargement
+    const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
+    const isTabletOrDesktop = useMediaQuery({ query: '(min-width: 768px)' });
+    useEffect(() => {
+        if (isMobile) { window.scrollTo(0, 160); }
+        if (isTabletOrDesktop) { window.scrollTo(0, 0); }
+    }, [])
+
     function handlePassIconToggle() {
         if (passInputType === "password") {
             setPassIcon(faEye);
@@ -76,14 +85,13 @@ function Signup(){
             //
             const bDateVerif = validateInput("birthDate",birthDate);
             const passVerif= validateInput("password",password.trim());
-    
-            //
-            console.log("lastNameVerif.isValid = "+lNameVerif.isValid);
+            /*console.log("lastNameVerif.isValid = "+lNameVerif.isValid);
             console.log("firstNameVerif.isValid = "+fNameVerif.isValid);
             console.log("telVerif.isValid = "+telVerif.isValid);
             console.log("addressVerif.isValid = "+addressVerif.isValid);
             console.log("birthDateVerif.isValid = "+bDateVerif.isValid);
-            console.log("passwordVerif.isValid = "+passVerif.isValid);
+            console.log("passwordVerif.isValid = "+passVerif.isValid);*/
+
             // rassembler toutes les messages d'erreur pour les afficher au-dessous du formulaire :
             setErrMsg(lNameVerif.msg 
                         + fNameVerif.msg 
@@ -122,7 +130,8 @@ function Signup(){
                     address,
                     birthDate,
                     occupation,
-                    password})
+                    password,
+                    checkBoxNewsL})
             });
             const json = await res.json();
             setMsg(json.msg);
@@ -204,7 +213,7 @@ function Signup(){
                                 placeholder="Date de naissance*"
                                 min="1920-01-01"
                                 value={birthDate}
-                                onChange={(e) => {setBirthDate(e.target.value); console.log(birthDate);}}
+                                onChange={(e) => setBirthDate(e.target.value)}
                                 onFocus={() => setInputDateType("date")}
                                 className={styles.sign_input}
                                 required/> 

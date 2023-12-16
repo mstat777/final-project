@@ -7,6 +7,7 @@ import Loading from "../../Containers/Loading/Index";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
+//import { useMediaQuery } from "react-responsive";
 import { fetchBestPromoPack, fetchTopDestination } from '../../Functions/fetchData.js';
 
 function Home() {
@@ -17,6 +18,11 @@ function Home() {
 
     const [showBestPromo, setShowBestPromo] = useState(false);
     const [showTopDestination, setShowTopDestination] = useState(false);
+
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
 
     useEffect(() => {
         const fetchPromo = async () => {

@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
 import WithAuth from "./Components/HOC/WithAuth/Index";
 import WithAdminAuth from "./Components/HOC/WithAdminAuth/Index";
 import WithFetch from "./Components/HOC/WithFetch/Index";
+import WithFetchDetail from './Components/HOC/WithFetchDetail/Index';
 
 // ------------------- Containeurs  -----------------------
 import Header from "./Components/Containers/Header/Index";
@@ -97,7 +98,7 @@ function App() {
                     <Route path="signout" element={<Signout/>}/> 
                 </Route>
 
-                <Route path="detail/:id" element={<Detail/>}/>
+                <Route path="detail/:name" element={<WithFetchDetail child={Detail}/>}/>
                 <Route path="booking/:id" element={<WithAuth child={Booking} auth="true"/>}/>
                 <Route path="summary/:id" element={<WithAuth child={Summary} auth="true"/>}/>
                 <Route path="confirmation" element={<WithAuth child={Confirmation} auth="true"/>}/>

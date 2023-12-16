@@ -128,12 +128,15 @@
     color: var(--secondary-color);
 }
 
+/* les compteurs */
 .booking_inputs  input,
 .booking_activity_inputs  input {
     width: 2.5em;
     height: 1.5em;
     padding: 0 auto;
+    font-weight: 700;
     text-align: center;
+    background-color: var(--primary-color);
 }
 
 .booking_activity p {
