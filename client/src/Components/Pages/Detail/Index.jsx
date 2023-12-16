@@ -59,49 +59,52 @@ function Detail(){
 
     return (
         <main id="detail">
-            {/* console.log(packs) */}
+
             { (destination && lodging && activities) &&
             <div className={styles.detail_section}>
-                {/*console.log("lodging = "+lodging)*/}
+
                 <div className={styles.slider_ctn}>
                     <Slider type="lodging"/>
                 </div>
                 
                 <h4>{lodging.name}</h4>
                 <h3>{destination.name}</h3>
-                <table className={styles.packs_table}>
-                    <thead>
-                        <tr> 
-                            <th>date de départ</th> 
-                            <th>date de retour</th>
-                            <th>durée</th>
-                            <th>prix/adulte</th>
-                            <th>prix/enfant</th>
-                            <th>réserver</th>
-                        </tr>
-                    </thead>
-                    <tbody>      
-                        { packs.map((pack, index) => 
-                            <tr key={index}>
-                                {/*console.log("index = "+index)*/}
-                                <td><span>{formatDate(pack.departure_date)}</span></td>
-                                <td><span>{formatDate(pack.return_date)}</span></td> 
-                                <td><span>{pack.duration+1}</span>J / <span>{pack.duration}</span>N</td>  
-                                <td><span>{Math.round(pack.price_adults)}</span> &euro;</td> 
-                                <td><span>{Math.round(pack.price_children)}</span> &euro;</td> 
-                                <td>
-                                    <button 
-                                    onClick={() => {
-                                        dispatch(choosePack(index));
-                                        //console.log("index of pack = "+index);
-                                        navigate(`/booking/${index}`);
-                                    }} 
-                                    className={styles.book_btn}>réserver</button>
-                                </td> 
-                            </tr>
-                        )}
-                    </tbody>
-                </table>
+                <p className={styles.pack_heading}>Sélectionner un pack</p>
+                
+                <div className={styles.packs_main_ctn}>
+                { packs.map((pack, index) => 
+                    <div key={index} className={styles.pack_ctn}>
+                        <div className={styles.pack_el_departure_d}>
+                            <span>{!isMobile && "date de "} départ :</span> 
+                            <span>{formatDate(pack.departure_date)}</span>
+                        </div>
+                        <div className={styles.pack_el_adult_pr}>
+                            <span>p{!isMobile && "rix"}/adulte :</span>
+                            <span className={styles.price_txt}>{Math.round(pack.price_adults)}</span>&euro;
+                        </div> 
+                        <div className={styles.pack_el_return_d}>
+                            <span>{!isMobile && "date de "} retour :</span>
+                            <span>{formatDate(pack.return_date)}</span>
+                        </div> 
+                        <div className={styles.pack_el_children_pr}>
+                            <span>p{!isMobile && "rix"}/enfant :</span>
+                            <span className={styles.price_txt}>{Math.round(pack.price_children)}</span>&euro;
+                        </div> 
+                        <div className={styles.pack_el_duration}>
+                            <span>durée :</span>
+                            <span>{pack.duration+1}</span>J / <span>{pack.duration}</span>N
+                        </div>  
+                        <div className={styles.pack_el_button_ctn}>
+                            <button 
+                            onClick={() => {
+                                dispatch(choosePack(index));
+                                navigate(`/booking/${index}`);
+                            }} 
+                            className={styles.book_btn}>réserver</button>
+                        </div> 
+                    </div>
+                )}
+                </div>
 
                 <div className={styles.property_ctn}>
                     <span>Présentation</span>
@@ -143,8 +146,7 @@ function Detail(){
                 <div className={styles.activities_ctn}>
                     <span>Activités optionnelles</span>
                     <p>Au départ de votre {lodging.name}, vous pouvez profitez des activités suivantes :</p>
-                    {/* console.log("activities = "+activities)*/}
-                    {/* console.log("type of activities = "+typeof activities)*/}
+ 
                     {activities !== undefined &&
                     activities.map((activity, index) => 
                         <div className={styles.activity} key={index}>

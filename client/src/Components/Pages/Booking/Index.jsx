@@ -128,45 +128,48 @@ function Booking(){
     return <main id="booking">
             { (destination && lodging && packs[0] && activities[0]) &&
             <div className={styles.booking_section}>
-                <img src={`${IMG_URL}/img/lodgings/${lodging.url_initial_image}`} alt="" className={styles.main_img}/>
-                <h4>{lodging.name}</h4>
-                <h3>{destination.name}</h3>
-    
-                <p>Vous avez sélectionné le pack suivant :</p>
-                <div className={styles.booking_pack_ctn}>
-                    <p>Date de départ : <span>{packs[id].departure_date.slice(0, packs[id].departure_date.indexOf('T'))}</span></p>
-                    <p>Date de retour : <span>{packs[id].return_date.slice(0, packs[id].return_date.indexOf('T'))}</span></p> 
-                    <p>Durée : <span>{packs[id].duration+1}</span> jours / <span>{packs[id].duration}</span> nuits</p>  
-                    <p>Prix/TTC/adulte : <span>{packs[id].price_adults}</span> &euro;</p> 
-                    <p>Prix/TTC/enfant : <span>{packs[id].price_children}</span> &euro;</p> 
+                <div className={styles.booking_info_top}>
+                    <div className={styles.booking_info_ctn}>
+                        <h4>{lodging.name}</h4>
+                        <h3>{destination.name}</h3>
+                        <p className={styles.booking_info_h}>Vous avez sélectionné le pack suivant :</p>
+                        <p>Date de départ : <span>{packs[id].departure_date.slice(0, packs[id].departure_date.indexOf('T'))}</span></p>
+                        <p>Date de retour : <span>{packs[id].return_date.slice(0, packs[id].return_date.indexOf('T'))}</span></p> 
+                        <p>Durée : <span>{packs[id].duration+1}</span> jours / <span>{packs[id].duration}</span> nuits</p>  
+                        <p>Prix/TTC/adulte : <span>{packs[id].price_adults}</span> &euro;</p> 
+                        <p>Prix/TTC/enfant : <span>{packs[id].price_children}</span> &euro;</p> 
+                    </div>
+                    <img src={`${IMG_URL}/img/lodgings/${lodging.url_initial_image}`} alt="" className={styles.main_img}/>
                 </div>
 
-                <p>Veuillez indiquer le nombre d'adultes et d'enfants pour lesquels vous réservez :</p>
-                <div className={styles.booking_inputs}>
-                    <span>Adultes :</span>
-                    <button onClick={() => dispatch(incrNbAdultsPack())}>
-                        <FontAwesomeIcon icon={faCirclePlus} className={styles.fa_circle}/>
-                    </button>
-                    <input type="text" 
-                        pattern="[0-9]{2}"
-                        value={bookingInfo.nb_adults.pack}
-                        disabled/>
-                    <button onClick={() => dispatch(decrNbAdultsPack())}>
-                        <FontAwesomeIcon icon={faCircleMinus} className={styles.fa_circle}/>
-                    </button>
-                </div>
-                <div className={styles.booking_inputs}>
-                    <span>Enfants :</span>
-                    <button onClick={()=>{dispatch(incrNbChildrenPack())}}>
-                        <FontAwesomeIcon icon={faCirclePlus} className={styles.fa_circle}/>
-                    </button>
-                    <input type="text" 
-                        pattern="[0-9]{2}"
-                        value={bookingInfo.nb_children.pack}
-                        disabled/>
-                    <button onClick={()=>{dispatch(decrNbChildrenPack())}}>
-                        <FontAwesomeIcon icon={faCircleMinus} className={styles.fa_circle}/>
-                    </button>
+                <p>Veuillez indiquer le nombre de personnes pour lesquels vous réservez :</p>
+                <div className={styles.booking_inputs_ctn}>
+                    <div className={styles.booking_inputs}>
+                        <span>Adultes :</span>
+                        <button onClick={() => dispatch(incrNbAdultsPack())}>
+                            <FontAwesomeIcon icon={faCirclePlus} className={styles.fa_circle}/>
+                        </button>
+                        <input type="text" 
+                            pattern="[0-9]{2}"
+                            value={bookingInfo.nb_adults.pack}
+                            disabled/>
+                        <button onClick={() => dispatch(decrNbAdultsPack())}>
+                            <FontAwesomeIcon icon={faCircleMinus} className={styles.fa_circle}/>
+                        </button>
+                    </div>
+                    <div className={styles.booking_inputs}>
+                        <span>Enfants :</span>
+                        <button onClick={()=>{dispatch(incrNbChildrenPack())}}>
+                            <FontAwesomeIcon icon={faCirclePlus} className={styles.fa_circle}/>
+                        </button>
+                        <input type="text" 
+                            pattern="[0-9]{2}"
+                            value={bookingInfo.nb_children.pack}
+                            disabled/>
+                        <button onClick={()=>{dispatch(decrNbChildrenPack())}}>
+                            <FontAwesomeIcon icon={faCircleMinus} className={styles.fa_circle}/>
+                        </button>
+                    </div>
                 </div>
 
                 <div className={styles.booking_activities_ctn}>

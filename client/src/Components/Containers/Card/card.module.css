@@ -3,12 +3,10 @@
 /******************************************************************/
 .card {
     display: flex;
-    height: 200px;
+    height: 180px;
     width: 100%;
     max-width: 600px;
     margin-bottom: 1em; 
-    /*margin-left: auto;
-    margin-right: auto;*/
     border: 1px solid var(--primary-color);
     border-radius: 5px;
     box-shadow: 2px 2px 6px var(--primary-color);
@@ -26,32 +24,42 @@
 .card_info {
     display: inline-block;
     width: 50%;
-    padding: 1em;
+    padding-top: .5em;
 }
 
 .card_info > h3,
 .card_info > h4 {
-    margin: .3em auto;
     overflow: hidden; 
     white-space: nowrap; 
     text-overflow: ellipsis;
 }
 
 .card_info > h3 {
+    margin: .3em .3em .3em .4em;
     font-weight: 600;
+    font-size: 2rem;
+}
+
+.card_info > h4 {
+    margin: .6em .3em 0;
+    color: var(--secondary-color);
+    font-size: 1.6rem;
 }
 
 .price_percent_ctn {
     display: flex;
-    justify-content: center;
-    margin: 1em auto;
+    align-items: flex-end;
+    justify-content: flex-end;
+    margin: .5em;
 }
 
 .percent_ctn {
     display: inline-block;
-    margin-right: 10px;
+    /*width: 40%;*/
+    margin-bottom: .1em;
     padding: .2em .4em;
     font-size: 1.2rem;
+    text-align: right;
     color: white;
     background-color: var(--secondary-color);
 }
@@ -62,22 +70,27 @@
 }
 
 .price_ctn {
-    display: inline-block;
+    display: inline-flex;
+    flex-direction: column;
+    width: 60%;
     font-size: 1.2rem;
 }
-.price_ctn > span {
-    margin: 0 .2em;
+.price_txt {
+    margin: 0;
     font-size: 2.5rem;
     font-weight: 600;
     color: var(--highlight-color);
 }
 
+.price_txt > sup {
+    font-size: 1.2rem;
+}
 
 /* le bouton "découvrir" */
 .discover_btn {
     display: block;
-    margin: 1em auto;
-    padding: .5em .7em .4em;
+    margin: 1em auto .5em;
+    padding: .4em .7em;
     border: none;
     border-radius: 6px;
     font-weight: 500;   
@@ -88,10 +101,55 @@
     cursor: pointer;
 }
 
+.center {
+    justify-content: center;
+}
+
 /******************************************************************/
 /* ---------------------- VERSION TABLETTE ---------------------- */
 /******************************************************************/
+@media screen and (min-width: 768px) {
+    .card {
+        height: 200px;
+    }
 
+    .card_info {
+        padding: 1em;
+    }
+
+    .card_info > h3,
+    .card_info > h4 {
+        font-size: unset;
+        margin: .3em auto;
+    }
+    .card_info > h3 {
+        font-size: 2.2rem;
+    }
+    .card_info > h4 {
+        font-size: 1.8rem;
+    }
+
+    .price_percent_ctn {
+        justify-content: center;
+        margin: 1em auto;
+    }
+
+    .price_ctn {
+        flex-direction: row;
+        align-items: flex-end;
+        justify-content: center;
+    }
+
+    .price_ctn > span:first-child {
+        margin-bottom: .3em;
+        margin-right: .5em;
+    }
+
+    /* le bouton "découvrir" */
+    .discover_btn {
+        margin: 1em auto;
+    }
+}
 
 /******************************************************************/
 /* ----------------------- VERSION DESKTOP ---------------------- */

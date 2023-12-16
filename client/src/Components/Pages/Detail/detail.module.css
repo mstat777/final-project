@@ -13,25 +13,55 @@
     margin: 1em auto;
 }
 
-/* le tableau des packs */
-.packs_table {
+.detail_section > h4 {
+    margin-top: 1em;
+    margin-bottom: 0;
+}
+
+/* --------- les packs ---------- */
+.pack_heading {
+    margin-top: 1.5em;
+    margin-left: 2em;
+    /*font-weight: 500;*/
+    font-size: 1.8rem;
+    text-align: left;
+}
+
+.packs_main_ctn {
     width: 90%;
     margin: 0 auto;
 }
 
-.packs_table  th,
-.packs_table  td {
-    overflow-wrap: anywhere;
+.pack_ctn {
+    display: grid;
+    grid-template-columns: 5fr 4fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: .3em;
+    margin-top: .5em;
+    padding: .3em .4em;
+    border: 1px solid grey;
+    border-radius: .5em;
+    background-color: var(--verylightgrey-color);
 }
 
-.packs_table  span {
+.pack_ctn > div {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.pack_ctn > div > span:first-child {
+    text-align: left;
+}
+
+.pack_ctn > div > span:nth-child(2) {
+    margin-left: .4em;
     font-weight: 500;
-    letter-spacing: .5px;
 }
 
 /*** le bouton 'Réserver' ***/
 .book_btn {
-    margin: .2em;
+    margin: 0 auto;
     padding: .3em .7em;
     border: none;
     border-radius: 4px;
@@ -43,6 +73,11 @@
     cursor: pointer;
 }
 
+.price_txt {
+    color: var(--highlight-color);
+}
+
+/* ----- */
 .property_ctn {
     margin: 1em;
     padding: 1em;
@@ -142,13 +177,23 @@
         width: 80%;
         margin: 1em auto;
     }
-
-    .packs_table  th,
-    .packs_table  td {
-        overflow-wrap: normal;
+    
+    .pack_ctn {
+        grid-template-columns: 2fr 2fr 1fr;
+        grid-template-rows: 1fr 1fr;
+        gap: .3em;
     }
-    .packs_table  th {
-        padding: 1em .5em;
+
+    /* row-start/col-start/row-end/col-end */
+    .pack_el_adult_pr {
+        grid-area: 2/1/3/2;
+    }
+    .pack_el_children_pr {
+        grid-area: 2/2/3/3;
+    }
+
+    .book_btn {
+        margin-left: 0;
     }
 
     /*** la carte Openstreetmap ***/
