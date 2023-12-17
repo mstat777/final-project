@@ -105,52 +105,59 @@ function UserDashboardMyBookings(){
                 <h2>mes réservations</h2>
 
                 {userBookings[0] ? 
-                <>  
-                <table className={styles.booking_table}>
-                    <thead>
-                        <tr> 
-                            <th>N&deg;</th> 
-                            <th>date</th>
-                            <th>destination</th>
-                            <th>pays</th>
-                            <th>adultes</th>
-                            <th>enfants</th>
-                            <th>prix total</th>
-                            <th>modifier</th>
-                            <th>supprimer</th>
-                        </tr>
-                    </thead>
-                    <tbody>  
-                    {/* console.log(userBookings)*/}
+                <>
+                    <div className={styles.bookings_main_ctn}>
                     { userBookings.map((booking, index) => 
-                        <tr key={index}>
-                            <td>{index+1}</td>
-                            <td>{new Date(booking.b.date_created).toLocaleString().slice(0, -3)}</td>
-                            <td>{booking.d.name}</td>
-                            <td>{booking.d.country}</td>
-                            <td>{booking.b.nb_adults}</td>
-                            <td>{booking.b.nb_children}</td>
-                            <td>{booking.b.price_total_booking} &euro;</td>
-                            <td>
+                        <div key={index} className={styles.booking_ctn}>
+                            
+                            <div className={styles.booking_el_index}>
+                                <span>N&deg;</span> 
+                                <span>{index+1}</span>
+                            </div>
+                            <div className={styles.booking_el_d_created}>
+                                <span>date :</span>
+                                <span>{new Date(booking.b.date_created).toLocaleString().slice(0,-9)}</span>
+                            </div>
+                            <div className={styles.booking_el_btn_ctn}>
                                 <button type="button"
                                     onClick={() => handleModify(booking.b.id, booking.p.id
                                     )}>
                                     <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
                                 </button>
-                            </td>
-                            <td>
                                 <button type="button"
                                     onClick={() => handleDelete(booking.b.id, index)}>
                                     <FontAwesomeIcon icon={faTrashCan} className={styles.delete_icon}/>
                                 </button>
-                            </td>
-                        </tr>
-                    )}
-                    </tbody>
-                </table>
-                { errMsg && <p className={styles.err_msg}>{errMsg}</p> }
-                { okMsg && <p className={styles.ok_msg}>{okMsg}</p> }
+                            </div>
 
+                            <div className={styles.booking_el_destination}>
+                                <span>dest{!isMobile ? "ination" : "."} :</span>
+                                <span>{booking.d.name}</span>
+                            </div>
+                            <div className={styles.booking_el_country}>
+                                <span>pays :</span>
+                                <span>{booking.d.country}</span>
+                            </div>
+
+                            <div className={styles.booking_el_adults}>
+                                <span>adultes :</span>
+                                <span>{booking.b.nb_adults}</span>
+                            </div>                
+                            <div className={styles.booking_el_children}>
+                                <span>enfants :</span>
+                                <span>{booking.b.nb_children}</span>
+                            </div>                
+                            <div className={styles.booking_el_total_pr}>
+                                <span>{!isMobile && "prix "}total :</span>
+                                <span>{booking.b.price_total_booking.slice(0,-3)}&euro;</span>
+                            </div>              
+                            
+
+                        </div>
+                    )}
+                    </div> 
+                    { errMsg && <p className={styles.err_msg}>{errMsg}</p> }
+                    { okMsg && <p className={styles.ok_msg}>{okMsg}</p> }
                 </>
                 : <p className={styles.msg_nok}>Aucun réservation trouvée</p>
                 }

@@ -55,18 +55,18 @@ function AdminDashLodgingCreate(){
 
     return(
         <main className={styles.user_db_main}>
-            <h2>Créer un nouveau hébérgement</h2>
+            <h2>Créer un nouveau hébergement</h2>
 
             <form onSubmit={handleSubmit} className={styles.db_create_form}>
                 <label className={styles.create_label}>
-                    <span>Nom de l'hébérgement :</span>
+                    <span>Nom de l'hébergement :</span>
                     <input type="text" 
                         name="nameLodg" 
                         value={nameLodg}
                         onChange={(e) => setNameLodg(e.target.value)}/>  
                 </label>
                 <label className={styles.create_label}>
-                    <span>Type de l'hébérgement :</span>
+                    <span>Type de l'hébergement :</span>
                     <input type="text" 
                         name="typeLodg" 
                         value={typeLodg}

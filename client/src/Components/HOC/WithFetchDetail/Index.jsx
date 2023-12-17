@@ -17,14 +17,14 @@ function WithFetchDetail({child}){
             packs,
             activities } = useSelector((state) => state.allTravel);
 
-    // on récupère les données de l'hébérgement si pas encore chargé :
+    // on récupère les données de l'hébergement si pas encore chargé :
     useEffect(() => {
         if (!lodging || !lodgingImages[0] || !packs[0] || !activities[0]) {
             fetchDestinationAllData(urlDestination);
         } 
     }, []);
 
-    // formatter les coordonnées OpenStreetMaps de l'hébérgement :
+    // formatter les coordonnées OpenStreetMaps de l'hébergement :
     useEffect(() => {
         if (lodging.coordinates) {
             formatCoordinates(lodging.coordinates);

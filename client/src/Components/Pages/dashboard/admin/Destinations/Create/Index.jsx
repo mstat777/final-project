@@ -17,7 +17,7 @@ function AdminDashDestinationsCreate(){
 
     const [msg, setMsg] = useState(null);
 
-    // on récupère la liste de tous les hébérgements (array of objects) présent dans la BDD ('nom' et 'id') :
+    // on récupère la liste de tous les hébergements (array of objects) présent dans la BDD ('nom' et 'id') :
     const [lodgings, setLodgings] = useState([]);
     useEffect(() => {
         async function getAllLodgings(){
@@ -59,10 +59,10 @@ function AdminDashDestinationsCreate(){
             <h2>Créer une nouvelle destination</h2>
 
             <form onSubmit={handleSubmit} className={styles.db_create_form}>
-                <p className={styles.msg_instructions}>IMPORTANT : Veuillez associer d'abord l'hébérgement correspondant à cette destination. S'il n'est pas encore créé, merci de le créer d'abord avant de créer cette nouvelle destination.</p>
+                <p className={styles.msg_instructions}>IMPORTANT : Veuillez associer d'abord l'hébergement correspondant à cette destination. S'il n'est pas encore créé, merci de le créer d'abord avant de créer cette nouvelle destination.</p>
 
                 <label>
-                    <span>Hébérgement correspondant :</span>
+                    <span>Hébergement correspondant :</span>
                     <select value={lodgingID} 
                             onChange={(e) => setLodgingID(e.target.value)}>
                         {lodgings.map((lodg) => (

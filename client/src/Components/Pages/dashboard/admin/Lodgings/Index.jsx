@@ -6,7 +6,10 @@ import AdminDashLodgingResults from './Results/Index';
 function AdminDashLodgings(){
 
     return <main className={styles.admin_db_main}>
-                <h2>Hébérgements</h2>
+                <h2>Hébergements</h2>
+                <div>Créer un nouvel hébergement : 
+                    <button type="button">créer</button>
+                </div>
                 <AdminDashLodgingSearch/>
                 <AdminDashLodgingResults/>
             </main>

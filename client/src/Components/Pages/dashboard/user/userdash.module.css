@@ -15,51 +15,99 @@
     margin: 1em;
 }
 
-.booking_table {
+/* --------- les réservations ---------- */
+.bookings_main_ctn {
+    width: 95%;
     margin: 0 auto;
-    color: var(--darkgrey-color);
-    font-family: var(--secondary-font);
+    /*color: var(--darkgrey-color);
+    font-family: var(--secondary-font);*/
 }
 
-.booking_table th,
-.booking_table td {
-    padding: .2em .5em;
+.booking_ctn {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: 1fr 1fr 1fr;
+    gap: .3em;
+    margin-top: .5em;
+    padding: .3em .4em;
+    border: 1px solid grey;
+    border-radius: .5em;
+    font-size: 1.4rem;
+    background-color: var(--verylightgrey-color);
+}
+/* row-start/col-start/row-end/col-end */
+.booking_el_index {
+    grid-area: 1/1/2/2;
+}
+.booking_el_d_created {
+    grid-area: 1/2/2/5;
+}
+.booking_el_btn_ctn {
+    grid-area: 1/5/2/7;
+}
+.booking_el_destination {
+    grid-area: 2/1/3/4;
+}
+.booking_el_country {
+    grid-area: 2/4/3/7;
+}
+.booking_el_adults {
+    grid-area: 3/1/4/3;
+}
+.booking_el_children {
+    grid-area: 3/3/4/5;
+}
+.booking_el_total_pr {
+    grid-area: 3/5/4/7;
 }
 
-.booking_table th {
-    background-color: var(--primary-color);
+.booking_ctn > div {
+    display: flex;
+    justify-content: left;
+    align-items: center;
 }
 
-.booking_table button {
+.booking_ctn > div > span {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.booking_ctn > div > span:first-child {
+    text-align: left;
+}
+
+.booking_ctn > div > span:nth-child(2) {
+    margin-left: .4em;
+    font-weight: 500;
+}
+
+.bookings_main_ctn  button {
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 auto;
-    padding: .2em .5em;
+    /*padding: .2em .5em;*/
     border: none;
     border-radius: 4px;
-    /*color: white;*/
     text-transform: uppercase;
     background-color: transparent;
     cursor: pointer;
 }
 
-.booking_table .modify_icon {
+.booking_el_btn_ctn > button {
+    height: 20px;
+    width: 20px;
+    border-radius: 10px;
+    background-color: white;
+}
+
+.booking_el_btn_ctn  .modify_icon {
     margin-top: .1em;
     color: rgb(50, 124, 72);
 }
-.booking_table .delete_icon {
+.booking_el_btn_ctn  .delete_icon {
     color: var(--highlight-color);
-}
-
-.booking_table > tbody > tr > td:first-child {
-    color: var(--grey-color);
-}
-.booking_table > tbody > tr > td:nth-child(3) {
-    font-weight: 600;
-}
-.booking_table > tbody > tr > td:nth-child(7) {
-    text-align: right;
 }
 
 .user_db_account_form,
@@ -109,9 +157,7 @@
     display: flex;
     align-items: center;
     margin-bottom: 1em;
-    /*padding: .5em 1em;*/
     border: none;
-    /*background-color: antiquewhite;*/
 }
 
 /*** les textes ***/
@@ -199,8 +245,8 @@
 @media screen and (min-width: 768px) {
     .user_db_main {
         display: inline-block;
-        margin-top: 0;
-        padding: 80px auto;
+        margin-top: 130px;
+        padding: 1em auto;
     }
 
     .user_db_section {
@@ -213,6 +259,40 @@
 
     .db_create_form {
         margin: 1em 4em 2em 4em;
+    }
+
+    .booking_ctn {
+        max-width: 900px;
+        grid-template-columns: repeat(10, 1fr);
+        grid-template-rows: 1fr 1fr;
+        margin: .5em auto 0;
+        padding: .5em 2em;
+        font-size: 1.6rem;
+    }
+    /* row-start/col-start/row-end/col-end */
+    .booking_el_index {
+        grid-area: 1/1/2/2;
+    }
+    .booking_el_d_created {
+        grid-area: 1/2/2/4;
+    }
+    .booking_el_destination {
+        grid-area: 1/4/2/7;
+    }
+    .booking_el_country {
+        grid-area: 1/7/2/11;
+    }
+    .booking_el_adults {
+        grid-area: 2/1/3/4;
+    }
+    .booking_el_children {
+        grid-area: 2/4/3/7;
+    }
+    .booking_el_total_pr {
+        grid-area: 2/7/3/10;
+    }
+    .booking_el_btn_ctn {
+        grid-area: 2/10/3/11;
     }
 }
 

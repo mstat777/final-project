@@ -228,7 +228,7 @@ function Booking(){
                 </div>
 
                 <p>Vous avez sélectionné le pack suivant :</p>
-                <div className={styles.booking_pack_ctn}>
+                <div className={styles.booking_totals_ctn}>
                     <p>Prix total du pack : <span>{bookingInfo.prices.total_pack}</span> &euro; TTC</p> 
                     <p>Prix total des activités choisies : <span>{bookingInfo.prices.total_activities}</span> &euro; TTC</p> 
                     <p>PRIX TOTAL A PAYER : <span>{bookingInfo.prices.total_all}</span> &euro; TTC</p> 

@@ -45,7 +45,7 @@ function AdminDashLodgingSearch(){
                     name="name" 
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    placeholder="Nom d'hébérgement"/>
+                    placeholder="Nom d'hébergement"/>
 
             <button type="submit">rechercher</button>
         </form>

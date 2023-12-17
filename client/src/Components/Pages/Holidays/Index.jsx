@@ -5,6 +5,7 @@ import Loading from "../../Containers/Loading/Index";
 import styles from './holidays.module.css';
 
 function Holidays(){
+    const IMG_URL = process.env.REACT_APP_IMG_URL;
     const { allContinents, 
             destinationsWithContinents } = useSelector((state) => state.allTravel);
 
@@ -38,11 +39,11 @@ function Holidays(){
                                     <li key={index}>
                                     <Link to={`/search?destination=${dest.name.toLowerCase()}`}
                                           className={styles.destination_ctn}>
-                                        <img src={`../../img/destinations/${dest.url_initial_image}`} alt="" />
+                                        <img src={`${IMG_URL}/img/destinations/${dest.url_initial_image}`} alt="" />
                                     
                                         <div className={styles.info_ctn}>
-                                            <p>{dest.country}</p>
-                                            <p className={styles.holidays_destination}>{dest.name}</p>                    
+                                            <p className={styles.country_txt}>{dest.country}</p>
+                                            <p className={styles.destination_txt}>{dest.name}</p>                    
                                         </div>
                                     </Link>  
                                     </li>

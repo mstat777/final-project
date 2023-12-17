@@ -55,8 +55,8 @@ function AdminDashActivitiesCreate(){
         }
     }
 
-    return(
-        <main className={styles.user_db_main}>
+    return (
+        <div className={styles.admin_db_section}>
             <h2>Créer une nouvelle destination</h2>
 
             <form onSubmit={handleSubmit} className={styles.db_create_form}>
@@ -131,7 +131,7 @@ function AdminDashActivitiesCreate(){
             </form>
             {msg && <p className={styles.msg}>{msg}</p>}
 
-        </main>
+        </div>
     )
 }
 

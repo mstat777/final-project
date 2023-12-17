@@ -152,7 +152,7 @@ function UserDashBookingModifiedSummary() {
                 <h3>Voici le récapitulatif de votre réservation :</h3>
                 <div className={styles.summary_ctn}>
                     <p>Nom et pays de la destination : <span>{destination.name}</span>, <span>{destination.country}</span></p>
-                    <p>Nom de l'hébérgement : <span>{lodging.name}</span></p>
+                    <p>Nom de l'hébergement : <span>{lodging.name}</span></p>
                     <p>Date de départ : <span>{packs[id].departure_date.slice(0, packs[id].departure_date.indexOf('T'))}</span></p>
                     <p>Date de retour : <span>{packs[id].return_date.slice(0, packs[id].return_date.indexOf('T'))}</span></p> 
                     <p>Durée : <span>{packs[id].duration+1}</span> jours / <span>{packs[id].duration}</span> nuits</p>  

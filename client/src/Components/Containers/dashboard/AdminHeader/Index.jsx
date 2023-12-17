@@ -31,7 +31,7 @@ function AdminDashboardHeader(){
                 <div className={styles.admin_db_links_ctn}>
                     <NavLink to={"/db/admin/bookings"} className={styles.link}>Réservations</NavLink>
                     <NavLink to={"/db/admin/destinations"} className={styles.link}>Destinations</NavLink>
-                    <NavLink to={"/db/admin/lodgings"} className={styles.link}>Hébérgements</NavLink>
+                    <NavLink to={"/db/admin/lodgings"} className={styles.link}>Hébergements</NavLink>
                     <NavLink to={"/db/admin/packs"} className={styles.link}>Packs</NavLink>
                     <NavLink to={"/db/admin/activities"} className={styles.link}>Activités</NavLink>
                     <NavLink to={"/db/admin/users"} className={styles.link}>Clients</NavLink>

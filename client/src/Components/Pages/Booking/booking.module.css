@@ -7,6 +7,13 @@
     margin: 1em auto;
 }
 
+/* de la page Booking-Modify  (A NE PAS SUPPRIMER)  */
+.booking_section  h2 {
+    margin-top: 0;
+    text-transform: uppercase;
+}
+/* --------------- */
+
 .booking_info_top {
     display: flex;
     flex-direction: column-reverse;
@@ -143,6 +150,17 @@
     padding: 0;
 }
 
+.booking_totals_ctn {
+    display: inline-block;
+    margin: 0 auto 1em 2em;
+}
+.booking_totals_ctn > p {
+    text-align: left;
+}
+.booking_totals_ctn  span {
+    font-weight: 500;
+}
+
 /* le bouton "réserver */
 .booking_btn {
     display: inline-block;
@@ -234,6 +252,10 @@
     .booking_inputs span,
     .booking_activity_inputs span {
         margin: 0 .5em 0 2em;
+    }
+
+    .booking_totals_ctn {
+        margin: 0 auto 1em;
     }
 }
 

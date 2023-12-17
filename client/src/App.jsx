@@ -120,6 +120,7 @@ function App() {
 
             {/* DASHBOARD admin/superadmin */}
             <Route path="/db/admin" element={<AdminDashLayout/>}>
+                
                 <Route path="my-infos" element={<WithAuth child={UserDashMyInfos} auth="true" adminAuth="true"/>}/>
                 <Route path="my-bookings/:id" element={<WithAuth child={UserDashMyBookings} auth="true" adminAuth="true"/>}/>
 

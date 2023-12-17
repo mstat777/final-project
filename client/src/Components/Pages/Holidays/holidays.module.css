@@ -28,7 +28,6 @@ h2 {
     align-items: top;
     width: 80%;
     margin: 0 auto 1em;
-    /*padding: 0 2em;*/
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
@@ -38,7 +37,7 @@ h2 {
 }
 .destination_ctn:hover {
     cursor: pointer;
-    border: 4px solid var(--secondary-color);
+    outline: 4px solid var(--secondary-color);
     opacity: .8;
 }
 
@@ -67,7 +66,11 @@ h2 {
     margin-top: .3em;
 }
 
-.holidays_destination {
+.country_txt {
+    color: var(--tertiary-color);
+}
+
+.destination_txt {
     margin-top: 0;
     font-weight: 600;
     color: var(--highlight-color);    
@@ -75,7 +78,6 @@ h2 {
     white-space: nowrap; 
     text-overflow: ellipsis;
 }
-
 
 /******************************************************************/
 /* ---------------------- VERSION TABLETTE ---------------------- */

@@ -29,7 +29,7 @@ function Search() {
     const today = new Date().toISOString().slice(0,10);
     // console.log(today);
 
-    // on récupère du Store : la liste de toutes les destinations, les données de la destination fetchée et de l'hébérgement fetché lié à cette destination
+    // on récupère du Store : la liste de toutes les destinations, les données de la destination fetchée et de l'hébergement fetché lié à cette destination
     const { allDestinations, 
             packs, 
             destination, 
@@ -159,7 +159,7 @@ function Search() {
         }*/
     },[isFound]);
 
-    // formatter les coordonnées OpenStreetMaps de l'hébérgement :
+    // formatter les coordonnées OpenStreetMaps de l'hébergement :
     useEffect(() => {
         //if (lodging) {
             if (lodging.coordinates) {

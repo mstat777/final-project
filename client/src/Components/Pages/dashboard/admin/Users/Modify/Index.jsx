@@ -121,7 +121,7 @@ function AdminDashUserModify(){
 
         <form onSubmit={handleSubmit} className={styles.results_table}>
             <label className={styles.results_label}>
-                <span>Nom de l'hébérgement :</span>
+                <span>Nom de l'hébergement :</span>
                 <input type="text" 
                     name="nameLodg" 
                     value={formData.nameLodg}
@@ -133,7 +133,7 @@ function AdminDashUserModify(){
             </label>
 
             <label className={styles.results_label}>
-                <span>Type de l'hébérgement :</span>
+                <span>Type de l'hébergement :</span>
                 <input type="text" 
                     name="typeLodg" 
                     value={formData.typeLodg}

@@ -76,7 +76,7 @@ function Burger() {
                         <hr/>
                         <NavLink to={"/db/admin/bookings"} className={styles.burger_item}>Réservations</NavLink>
                         <NavLink to={"/db/admin/destinations"} className={styles.burger_item}>Destinations</NavLink>
-                        <NavLink to={"/db/admin/lodgings"} className={styles.burger_item}>Hébérgements</NavLink>
+                        <NavLink to={"/db/admin/lodgings"} className={styles.burger_item}>Hébergements</NavLink>
                         <NavLink to={"/db/admin/packs"} className={styles.burger_item}>Packs</NavLink>
                         <NavLink to={"/db/admin/activities"} className={styles.burger_item}>Activités</NavLink>
                         <NavLink to={"/db/admin/users"} className={styles.burger_item}>Clients</NavLink>

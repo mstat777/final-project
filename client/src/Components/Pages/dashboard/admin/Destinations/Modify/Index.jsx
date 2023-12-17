@@ -9,7 +9,7 @@ import { faPencil } from '@fortawesome/free-solid-svg-icons';
 function AdminDashDestinationsModify(){
     const BASE_URL = process.env.REACT_APP_BASE_URL;
 
-    // on récupère l'index de l'hébérgement sélectionné :
+    // on récupère l'index de l'hébergement sélectionné :
     let { index } = useParams();
 
     const { resultsDestinations } = useSelector((state) => state.dashboard);

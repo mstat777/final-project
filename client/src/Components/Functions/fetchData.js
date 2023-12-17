@@ -121,7 +121,7 @@ async function fetchDestination(destination){
     //setMsg(dataDest.msg);
 }
 
-// récupérer les données de l'hébérgement lié à la destination :
+// récupérer les données de l'hébergement lié à la destination :
 async function fetchLodging(lodging_id) {
     try {
         const dataLodg = await (await fetch(`${BASE_URL}/api/v.0.1/travel/lodging/${lodging_id}`)).json();

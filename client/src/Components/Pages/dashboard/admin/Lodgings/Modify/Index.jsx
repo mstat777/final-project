@@ -10,7 +10,7 @@ function AdminDashLodgingModify(){
     const BASE_URL = process.env.REACT_APP_BASE_URL;
 
     const navigate = useNavigate();
-    // on récupère l'index de l'hébérgement sélectionné :
+    // on récupère l'index de l'hébergement sélectionné :
     let { index } = useParams();
 
     const { resultsLodgings } = useSelector((state) => state.dashboard);
@@ -115,7 +115,7 @@ function AdminDashLodgingModify(){
         const json = await res.json();
         //console.log(json.msg);  
         if (res.status === 201) {
-            setOkMsg("L'hébérgement a été supprimé.");
+            setOkMsg("L'hébergement a été supprimé.");
             //navigate("/db/admin/lodgings");
         }
     }
@@ -137,10 +137,10 @@ function AdminDashLodgingModify(){
     return <main className={styles.admin_db_main}>
             { formData && 
             <>
-            <h2>modifier/supprimer un hébérgement</h2>
+            <h2>modifier/supprimer un hébergement</h2>
             <form onSubmit={handleSubmit} className={styles.modify_form}>
                 <label className={styles.modify_label}>
-                    <span>Nom de l'hébérgement :</span>
+                    <span>Nom de l'hébergement :</span>
                     <input type="text" 
                         name="nameLodg" 
                         value={formData.nameLodg}
@@ -155,7 +155,7 @@ function AdminDashLodgingModify(){
                 </label>
 
                 <label className={styles.modify_label}>
-                    <span>Type de l'hébérgement :</span>
+                    <span>Type de l'hébergement :</span>
                     <input type="text" 
                         name="typeLodg" 
                         value={formData.typeLodg}
