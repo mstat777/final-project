@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { useLocation } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import Loading from '../Loading/Index';
-import Slider from '../Slider/Index';
+import Slideshow from '../Slideshow/Index';
 import { cheapestPack } from '../../Functions/utils.js';
 
 function Results() {
@@ -18,39 +18,30 @@ function Results() {
     const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
     const isTabletOrDesktop = useMediaQuery({ query: '(min-width: 768px)' });
 
-    // remonter au top de la page lors de chargement
     useEffect(() => {
-        //console.log("pathname.slice(1) = "+pathname.slice(1));
-        //console.log("isMobile = "+isMobile);
-        //console.log("isTablet = "+isTabletOrDesktop);
-
         if (isMobile) { window.scrollTo(0, 160); }
         if (isTabletOrDesktop) { window.scrollTo(0, 200); }
     }, [destination]);
 
-    return <>
-        {(!destination && !packs[0] && !destinationImages[0]) ? 
-            <Loading /> : 
-        <section id="resultsContainer" className={styles.results_section}>
-            {/*console.log("destination.name = "+destination.name)*/}
-            {/*console.log(packs)*/}
-            <article>
-                <div className={styles.slider_ctn}>
-                    {destinationImages[0] && 
-                    <Slider type="destination"/>}
-                </div>
-    
-                <div>
-                    <h3>{destination.name}</h3>
-                    <h4>{destination.country}</h4>
-                    <p className={styles.overview}>{destination.overview}</p>
-                    <p>dès <span className={styles.price}>{packs[0] && cheapestPack(packs)}&euro;</span> TTC/adulte</p>
-                    <Link to={`/detail/${destination.name}`} className={styles.discover_btn}>découvrir</Link>
-                </div>
-
-            </article>
-        </section>}
-    </>
+    return (!destination && !packs[0] && !destinationImages[0]) ? 
+            <Loading/> : 
+            <section id="resultsContainer" className={styles.results_section}>
+                <h2>Résultat de la recherche</h2>
+                <article>
+                    <div className={styles.slider_ctn}>
+                        {destinationImages[0] && 
+                        <Slideshow type="destination"/>}
+                    </div>
+        
+                    <div>
+                        <h3>{destination.name}</h3>
+                        <span className={styles.country_txt}>{destination.country}</span>
+                        <p className={styles.overview}>{destination.overview}</p>
+                        <p>dès <span className={styles.price}>{packs[0] && cheapestPack(packs)}&euro;</span> TTC/adulte</p>
+                        <Link to={`/detail/${destination.name}`} className={styles.discover_btn}>découvrir</Link>
+                    </div>
+                </article>
+            </section>
 }
 
 export default Results;

@@ -12,11 +12,14 @@
     margin-top: 0;
     text-transform: uppercase;
 }
-/* --------------- */
 
 .booking_info_top {
     display: flex;
     flex-direction: column-reverse;
+}
+
+.booking_section h2 {
+    display: none;
 }
 
 .booking_section > p {
@@ -40,20 +43,34 @@
     text-align: justify;
 }
 
-.booking_info_ctn > p > span {
+.booking_info_ctn  b {
     font-weight: 500;
+}
+
+.booking_info_ctn > h3 {
+    font-size: 1.8rem;
+    color: var(--highlight-color);
+}
+
+.destination_name {
+    margin-bottom: 2em;
+    font-size: 2.2rem;
+    text-align: center;
 }
 
 .leaflet_container {
     margin: 1em;
     width: 90%;
     height: 300px;
-    /*z-index: 1;*/
 }
 
 .booking_inputs {
     margin: .5em 2em;
     text-align: left;
+}
+
+.booking_inputs_ctn p {
+    width: 100%;
 }
 
 .booking_inputs,
@@ -93,23 +110,17 @@
 }
 
 .booking_activity_title {
-    /*display: flex;
-    align-items: start;*/
     margin: 1em .5em;
 }
 
 .booking_activity_title > label {
-    /*display: inline-block;*/
     font-weight: 500;
 }
 
 .booking_activity_title > label > input {
-    /*display: inline-block;*/
-    /*float: left;*/
     vertical-align: middle;
     margin-right: .5em;
     margin-bottom: .18em;
-    /*accent-color: var(--secondary-color);*/
 }
 
 .booking_inputs  span,
@@ -183,6 +194,10 @@
     color: var(--highlight-color);
 }
 
+.hidden {
+    display: none;
+}
+
 /******************************************************************/
 /* ---------------------- VERSION TABLETTE ---------------------- */
 /******************************************************************/
@@ -207,11 +222,11 @@
         padding-left: .5em;
     }
 
-    .booking_section  h4 {
+    .booking_info_ctn > h3 {
         margin-top: 2em;
     }
 
-    .booking_section  h3 {
+    .destination_name {
         margin-bottom: 2em;
     }
 

@@ -22,9 +22,6 @@ function UserDashBookingModifiedSummary() {
     // récupérer les données des activités DEJA réservées (l'ANCIEN ETAT) pour pouvoir les envoyer dans la BDD
     function getOldActivities(){
         const oldArray = [];
-        //const startID = activities[0].id;
-        //console.log("startID = "+startID);
-        //for(let i = startID; i < activities.length + startID; i++){
         for(let i = 0; i < activities.length; i++){
             console.log("i = "+i);
             const myObject = {
@@ -48,12 +45,6 @@ function UserDashBookingModifiedSummary() {
                     myObject.activity_id = bookedData.datasBookAct[j].activity_id;
                     myObject.id = bookedData.datasBookAct[j].id;
                 } 
-                /*else if (bookedData.datasBookAct[j].activity_id !== activities[i].id) {
-                    myObject.nb_adults = 0;
-                    myObject.nb_children = 0;
-                    myObject.price_total_act = 0;
-                    myObject.activity_id = 0;
-                }*/
             }   
             oldArray.push(myObject);
         }
@@ -85,7 +76,6 @@ function UserDashBookingModifiedSummary() {
 
             newArray.push(myObject);
         }
-        console.log(newArray);
 
         return newArray;
     }
@@ -93,7 +83,6 @@ function UserDashBookingModifiedSummary() {
     // uniquement les activités réservées qu'on va afficher dans la page Sommaire :
     useEffect(() => {
         if (bookedData.datasBook[0]) {
-
             setOnlyBookedAct(getNewActivities());
         }
     },[bookedData.datasBook[0]])
@@ -110,19 +99,8 @@ function UserDashBookingModifiedSummary() {
         setPaymentType(e.target.value);
     }
 
-
     // confirmer les données et faire une réservation :
     async function handleConfirm() {
-        /*
-        // on enregistre le nouve état d'activités et l'ancien pour les passer en tant que Array:
-        const activitiesForDB = [];
-        bookedActivities.forEach(el => {
-            delete el.name;
-            activitiesForDB.push(Object.values(el));
-        });
-        console.log(activitiesForDB);*/
-
-        console.log("bookedData.datasBook[0].id = "+bookedData.datasBook[0].id);
         const res = await fetch(`${BASE_URL}/api/v.0.1/user/booking/modify`, {
             method: "post",
             headers: { "Content-Type": "application/json" },
@@ -144,13 +122,13 @@ function UserDashBookingModifiedSummary() {
         }
     }
 
-    return (
-        <main id="summary">
-            { (destination && lodging && packs[0] && activities[0] && bookingInfo.nb_adults && bookedData.datasBook[0]) ?
-            <div className={styles.summary_section}>
+    return <main id="summary">
+            {(destination && lodging && packs[0] && activities[0] && bookingInfo.nb_adults && bookedData.datasBook[0]) &&
+            <section className={styles.summary_section}>
+                <h1>Voici le récapitulatif de votre réservation :</h1>
 
-                <h3>Voici le récapitulatif de votre réservation :</h3>
-                <div className={styles.summary_ctn}>
+                <article className={styles.summary_ctn}>
+                    <h2>Récapitulatif</h2>
                     <p>Nom et pays de la destination : <span>{destination.name}</span>, <span>{destination.country}</span></p>
                     <p>Nom de l'hébergement : <span>{lodging.name}</span></p>
                     <p>Date de départ : <span>{packs[id].departure_date.slice(0, packs[id].departure_date.indexOf('T'))}</span></p>
@@ -162,8 +140,10 @@ function UserDashBookingModifiedSummary() {
                     <p>Activités choisies : </p>
                     {onlyBookedAct.length ?
                     <ul className={styles.summary_activities}>
-                    {onlyBookedAct.filter(el => el.nb_adults > 0 || el.nb_children > 0).map((activity, index) => 
-                        <li key={index}><span>{activity.name}</span> pour <span>{activity.nb_adults}</span> adulte(s) et <span>{activity.nb_children}</span> enfant(s) au prix de <span>{activity.price_total_act}</span> &euro;</li>
+                    {onlyBookedAct.filter(el => el.nb_adults > 0 || el.nb_children > 0).map((activity, i) => 
+                        <li key={i}>
+                            <span>{activity.name}</span> pour <span>{activity.nb_adults}</span> adulte(s) et <span>{activity.nb_children}</span> enfant(s) au prix de <span>{activity.price_total_act}</span> &euro;
+                        </li>
                     )}
                     </ul> : <span>aucune activité choisie</span>
                     }
@@ -174,12 +154,16 @@ function UserDashBookingModifiedSummary() {
                     {/* si l'utilisateur n'a pas encore payé : */}
                     {bookedData.datasBook[0].status === "en cours" ? 
                         <p>A PAYER : <span>{bookingInfo.prices.total_all}</span> &euro;</p> : null}
+
                     {/* si l'utilisateur a déjà payé : */}
-                    {bookedData.datasBook[0].status === "validée" ? <>
+                    {bookedData.datasBook[0].status === "validée" && <>
                         <p>Montant déjà payé : <span>{parseFloat(bookedData.datasBook[0].price_total_booking)}</span> &euro; TTC</p> 
                         <p>RESTE A PAYER : <span>{bookingInfo.prices.total_all - bookedData.datasBook[0].price_total_booking}</span> &euro; TTC</p> 
-                    </> : null}
+                    </>}
+                </article>
 
+                <article className={styles.summary_ctn}>
+                    <h2>Paiement</h2>
                     <p className={styles.nota_bene}>NB : Cher client, après la confirmation de réservation de votre part, vous recevrez un mail confirmation de reception de la réservation. Vous disposerez de 24 heures pour effectuer le paiement ou votre réservation sera annulée.</p>
                     <label>
                         Comment souhaitez-vous effectuer le paiement ?
@@ -189,14 +173,11 @@ function UserDashBookingModifiedSummary() {
                             ))}
                         </select>
                     </label>
-
-                </div>
+                </article>
 
                 <button onClick={handleConfirm} className={styles.summary_confirm_btn}>confirmer la réservation</button>
-            </div> : null
-            }
+            </section>}
         </main>
-    )
 }
 
 export default UserDashBookingModifiedSummary;

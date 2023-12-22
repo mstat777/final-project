@@ -1,18 +1,16 @@
 import styles from './tripadvisornote.module.css';
-import logo from './img/logo-8.png';
 
 function TripadvisorNote({note}){
     const maxNote = 5;
 
-    // on récupère la partie entière et la partie décimale de la note :
+    // parties entière et décimale de la note :
     const intPart = Math.trunc(note);
     const fracPart = note % 1;
 
-    // on crée 2 tableaux : 
-    const arrFullCircles = []; // cercles remplis
-    const arrNotFullCircles = []; // cercles vides ou remplis partiellement 
+    const arrFullCircles = []; // cercles pleins
+    const arrNotFullCircles = []; // cercles pas pleins
 
-    // on crée les cercles remplis et les stocke dans le tableau correspondant :
+    // les cercles remplis :
     for (let i = 0; i < intPart; i++){
         arrFullCircles.push(
             <div key={i} className={styles.note_circle}>
@@ -20,7 +18,7 @@ function TripadvisorNote({note}){
             </div>
         );
     }
-    // on crée les cercles pas remplis et les stocke dans le tableau correspondant :
+    // les cercles pas remplis :
     for (let i = 0; i < maxNote - intPart; i++){
         if (i !== 0) {
             arrNotFullCircles.push(
@@ -37,13 +35,10 @@ function TripadvisorNote({note}){
         }
     }
 
-    return (
-        <div className={styles.note_ctn}>
-            {/*<img src={logo} alt=""/>*/}
-            {arrFullCircles}
-            {arrNotFullCircles}
-        </div>
-    )
+    return <div className={styles.note_ctn}>
+                {arrFullCircles}
+                {arrNotFullCircles}
+            </div>
 }
 
 export default TripadvisorNote;

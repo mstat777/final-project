@@ -5,12 +5,18 @@
     margin: 2em 1em 3em;
 }
 
-.contact_section > div {
+.contact_section h1 {
+    display: none;
+}
+
+.contact_section > article {
     margin-bottom: 2em;
 }
 
-.title {
+.contact_section > article > h2 {
+    font-size: 1.8rem;
     font-weight: 700;
+    margin: 10px 0;
     text-transform: uppercase;
 }
 
@@ -27,7 +33,7 @@
     margin-right: .5em;
 }
 
-.text_small {
+.contact_section small {
     margin-top: 0;
     margin-bottom: 1.5em;
     font-size: 1.2rem;
@@ -96,6 +102,9 @@
     cursor: pointer;
 }
 
+.no_margin {
+    margin: 0;
+}
 /******************************************************************/
 /* ---------------------- VERSION TABLETTE ---------------------- */
 /******************************************************************/
@@ -130,11 +139,4 @@
         margin-right: .5em;
     }
 
-}
-
-/******************************************************************/
-/* ----------------------- VERSION DESKTOP ---------------------- */
-/******************************************************************/
-@media screen and (min-width: 1100px) {
-    
 }

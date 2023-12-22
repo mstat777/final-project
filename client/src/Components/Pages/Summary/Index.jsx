@@ -40,7 +40,7 @@ function Summary(){
 
             myArray.push(myObject);
         }
-        //console.log(myArray);
+
         const filtered = myArray.filter(el => el.nb_adults > 0 || el.nb_children > 0);
         console.log(filtered);
         return filtered;
@@ -92,13 +92,13 @@ function Summary(){
         }
     }
 
-    return (
-        <main id="summary">
+    return <main id="summary">
             
-            <div className={styles.summary_section}>
+            <section className={styles.summary_section}>
+                <h1>Voici le récapitulatif de votre réservation :</h1>
 
-                <h3>Voici le récapitulatif de votre réservation :</h3>
-                <div className={styles.summary_ctn}>
+                <article className={styles.summary_ctn}>
+                    <h2>Récapitulatif</h2>
                     <p>Nom et pays de la destination : <span>{destination.name}</span>, <span>{destination.country}</span></p>
                     <p>Nom de l'hébergement : <span>{lodging.name}</span></p>
                     <p>Date de départ : <span>{packs[id].departure_date.slice(0, packs[id].departure_date.indexOf('T'))}</span></p>
@@ -110,15 +110,20 @@ function Summary(){
                     <p>Activités choisies : </p>
                     {bookedActivities.length ?
                     <ul className={styles.summary_activities}>
-                    {bookedActivities.map((activity, index) => 
-                        <li key={index}><span>{activity.name}</span> pour <span>{activity.nb_adults}</span> adulte(s) et <span>{activity.nb_children}</span> enfant(s) au prix de <span>{activity.price_total_act}</span> &euro;</li>
+                    {bookedActivities.map((activity, i) => 
+                        <li key={i}>
+                            <span>{activity.name}</span> pour <span>{activity.nb_adults}</span> adulte(s) et <span>{activity.nb_children}</span> enfant(s) au prix de <span>{activity.price_total_act}</span> &euro;
+                        </li>
                     )}
                     </ul> : <span>aucune activité choisie</span>
                     }
                     <p>Prix total des activités : <span>{bookingInfo.prices.total_activities}</span> &euro;</p>
                     <hr/>
                     <p>Prix total de la réservation : <span>{bookingInfo.prices.total_all}</span> &euro;</p>
+                </article>
 
+                <article className={styles.summary_ctn}>
+                    <h2>Paiement</h2>
                     <p className={styles.nota_bene}>NB : Cher client, après la confirmation de réservation de votre part, vous recevrez un mail confirmation de reception de la réservation. Vous disposerez de 24 heures pour effectuer le paiement ou votre réservation sera annulée.</p>
                     <label>
                         Comment souhaitez-vous effectuer le paiement ?
@@ -128,14 +133,11 @@ function Summary(){
                             ))}
                         </select>
                     </label>
-
-                </div>
+                </article>
 
                 <button onClick={handleConfirm} className={styles.summary_confirm_btn}>confirmer la réservation</button>
-            </div>
-            
+            </section>     
         </main>
-    )
 }
 
 export default Summary;

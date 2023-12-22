@@ -19,10 +19,7 @@ function WithFetch({child}){
         !destinationsWithContinents[0] && fetchAllContinentsAndDestinations();
     }, []);
     
-    return <> 
-        {(allContinents[0] && allDestinations[0] && destinationsWithContinents[0]) && 
-        <Child/>}
-        </>
+    return (allContinents[0] && allDestinations[0] && destinationsWithContinents[0]) && <Child/>
 }
 
 export default WithFetch;

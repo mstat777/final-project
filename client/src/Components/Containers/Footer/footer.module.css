@@ -13,6 +13,7 @@
 }
 
 .footer_social {
+    display: flex;
     margin: 0 auto 1em;
 }
 
@@ -23,6 +24,7 @@
 }
 
 .footer_title {
+    margin: 10px 0;
     font-size: 1.6rem;
     text-transform: uppercase;
 }
@@ -33,7 +35,7 @@
     margin: .5em auto 1em;
 }
 
-.footer_links > div > a {
+.footer_links > div  a {
     margin-bottom: .5em;
     font-size: 1.4rem;
     color: var(--tertiary-color);

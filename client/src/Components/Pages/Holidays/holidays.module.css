@@ -4,11 +4,11 @@
 .holidays_section {
     width: 90%;
     margin: .5em auto 3em;
-    /*background-color: var(--primary-color);*/
 }
 
-h2 {
-    margin-top: 1em;
+.holidays_section h1 {
+    font-size: 2.5rem;
+    margin: 1em;
 }
 
 .continent_txt {
@@ -16,39 +16,44 @@ h2 {
     margin: 1em auto;
     padding: .1em 0;
     border: 1px solid var(--secondary-color);
+    font-size: 2.2rem;
 }
 
 .continent_ctn {
     display: flex;
     flex-direction: column;
+    flex-wrap: wrap;
 }
 
-.destination_ctn {
-    display: flex;
-    align-items: top;
+.continent_ctn li {
+    display: inline-block;
     width: 80%;
+    height: 100%;
     margin: 0 auto 1em;
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
     overflow: hidden;
-    font-weight: 500;
-    transition: all .3s;
 }
-.destination_ctn:hover {
+.continent_ctn li:hover {
     cursor: pointer;
     outline: 4px solid var(--secondary-color);
     opacity: .8;
 }
 
+.destination_ctn {
+    display: flex;
+    align-items: top;
+    font-weight: 500;
+    transition: all .3s;
+}
+
 .destination_ctn  img {
-    /*display: flex;*/
     width: 30%;
     aspect-ratio: 1/1;
     max-height: unset; 
     object-fit: cover;
     object-position: top;
-    /*height: calc(width * 3/4);*/ 
 }
 
 .info_ctn {
@@ -71,8 +76,9 @@ h2 {
 }
 
 .destination_txt {
-    margin-top: 0;
+    margin: 0 0 10px;
     font-weight: 600;
+    font-size: 1.6rem;
     color: var(--highlight-color);    
     overflow: hidden;
     white-space: nowrap; 
@@ -87,26 +93,25 @@ h2 {
         margin: 1em auto 3em;
     }
 
-    .continent_txt {
-        max-width: 610px;
-    }
-
     .continent_ctn {
         flex-direction: row;
         justify-content: center;
-        margin: 0 2em;
+        align-items: center;
+        width: 610px;
+        margin: 0 auto;
+    }
+    
+    .continent_txt {
+        display: block;
+        width: 610px;
+        margin: 1em auto;
     }
 
-    .destination_ctn {
+    .continent_ctn li {
         position: relative;
         width: 170px;
         height: 170px;
-        /*aspect-ratio: 1/1;*/
         margin: 0 1em 1em;
-        background-color: var(--primary-color);
-    }
-    .destination_ctn:hover {
-        cursor: pointer;
     }
 
     .destination_ctn  img {

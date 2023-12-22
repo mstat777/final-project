@@ -53,7 +53,6 @@ function UserDashboardMyInfos(){
     useEffect(() => {
         async function fetchUser() {
             try {
-                //console.log("userInfo.userID = "+userInfo.userID);
                 const dataUser = await (await fetch(`${BASE_URL}/api/v.0.1/user/${userInfo.userID}`)).json();
                 // initialiser les données utilisateur :
                 setFormData({
@@ -65,7 +64,6 @@ function UserDashboardMyInfos(){
                     birthDate: dataUser.datas[0].birth_date.slice(0,dataUser.datas[0].birth_date.indexOf('T')),
                     occupation: dataUser.datas[0].occupation
                 });
-                //console.log("dataUser.datas[0].birth_date = "+dataUser.datas[0].birth_date);
             } catch (error) {
                 console.log(error);
             }
@@ -89,12 +87,6 @@ function UserDashboardMyInfos(){
         }
         //
         const bDateVerif = validateInput("birthDate", formData.birthDate);
-        // --------------------------------------------------------
-        /*console.log("lastNameVerif.isValid = "+lNameVerif.isValid);
-        console.log("firstNameVerif.isValid = "+fNameVerif.isValid);
-        console.log("telVerif.isValid = "+telVerif.isValid);
-        console.log("addressVerif.isValid = "+addressVerif.isValid);
-        console.log("birthDateVerif.isValid = "+bDateVerif.isValid);*/
 
         // rassembler toutes les messages d'erreur pour les afficher au-dessous du formulaire :
         setErrMsg(lNameVerif.msg 
@@ -124,16 +116,8 @@ function UserDashboardMyInfos(){
                 method: "post",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(formData)
-                    /*{lastName,
-                    firstName,
-                    email,
-                    tel,
-                    address,
-                    birthDate,
-                    occupation})*/
             });
             const json = await res.json();
-            //console.log(json.msg);
             
             if (res.status === 201) {
                 setOkMsg("Les modifications ont été enregistrée.")
@@ -155,8 +139,7 @@ function UserDashboardMyInfos(){
         checkFormValidation();
     }
 
-    return <>
-        {formData && 
+    return formData && 
         <main className={styles.user_db_main}>
         
             <h2>mes informations personnelles</h2>
@@ -252,8 +235,6 @@ function UserDashboardMyInfos(){
             { okMsg && <p className={styles.ok_msg}>{okMsg}</p> }
 
         </main>
-        }
-    </>
 }
 
 export default UserDashboardMyInfos;

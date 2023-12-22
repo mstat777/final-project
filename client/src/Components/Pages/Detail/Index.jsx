@@ -8,16 +8,14 @@ import { useMediaQuery } from "react-responsive";
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import "leaflet/dist/leaflet.css";
 import L from 'leaflet';
-//import icon from 'leaflet/dist/images/marker-icon.png';
 import icon from './img/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
-// ------------------------------------- */
 
 import tripadvisorLogo from '../../Containers/TripadvisorNote/img/tripadvisor-logo-50-32.png'
 
 import { choosePack } from "../../../store/slices/user";  
 
-import Slider from '../../Containers/Slider/Index';
+import Slideshow from '../../Containers/Slideshow/Index';
 import TripadvisorNote from '../../Containers/TripadvisorNote/Index';
 import { fetchActivities } from '../../Functions/fetchData';
 import { formatDate } from '../../Functions/utils';
@@ -34,7 +32,7 @@ function Detail(){
             activities, 
             coordinates } = useSelector((state) => state.allTravel);
 
-    // ----- Corriger le bug d'Openstreetmap ------
+    // ----- Openstreetmap ------
     let DefaultIcon = L.icon({
         iconUrl: icon,
         shadowUrl: iconShadow,
@@ -42,7 +40,6 @@ function Detail(){
         iconAnchor: [12.5,41]
     });
     L.Marker.prototype.options.icon = DefaultIcon;
-    // --------------------------------------------
 
     // remonter au top de la page lors de chargement
     const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
@@ -57,23 +54,25 @@ function Detail(){
         fetchActivities(destination.id);
     }, [destination]);
 
-    return (
-        <main id="detail">
+    return <main id="detail">
 
             { (destination && lodging && activities) &&
-            <div className={styles.detail_section}>
+            <section className={styles.detail_section}>
+                <h1>Informations détaillées de la destination choisie</h1>
 
                 <div className={styles.slider_ctn}>
-                    <Slider type="lodging"/>
+                    <Slideshow type="lodging"/>
                 </div>
                 
-                <h4>{lodging.name}</h4>
-                <h3>{destination.name}</h3>
-                <p className={styles.pack_heading}>Sélectionner un pack</p>
+                <section className={styles.lodging_title}>
+                    <h2>{lodging.name}</h2>
+                    <p>{destination.name}</p>
+                </section>
                 
-                <div className={styles.packs_main_ctn}>
-                { packs.map((pack, index) => 
-                    <div key={index} className={styles.pack_ctn}>
+                <section className={styles.packs_main_ctn}>
+                    <h2 className={styles.pack_heading}>Sélectionner un pack</h2>
+                    { packs.map((pack, index) => 
+                    <article key={index} className={styles.pack_ctn}>
                         <div className={styles.pack_el_departure_d}>
                             <span>{!isMobile && "date de "} départ :</span> 
                             <span>{formatDate(pack.departure_date)}</span>
@@ -102,66 +101,67 @@ function Detail(){
                             }} 
                             className={styles.book_btn}>réserver</button>
                         </div> 
-                    </div>
-                )}
-                </div>
+                    </article>
+                    )}
+                </section>
 
-                <div className={styles.property_ctn}>
-                    <span>Présentation</span>
-                    <SeeMore text={lodging.overview}/>
-                </div>
-                <div className={styles.property_ctn}>
-                    <span>Equipement</span>
-                    <SeeMore text={lodging.facilities}/>
-                </div>
-                <div className={styles.property_ctn}>      
-                    <span>Logement</span>
-                    <SeeMore text={lodging.rooms}/>
-                </div>
-                <div className={styles.property_ctn}>
-                    <span>Restauration</span>
-                    <SeeMore text={lodging.food_drink}/>
-                </div>
-                <div className={styles.property_ctn}>
-                    <span>Formules</span>
-                    <SeeMore text={lodging.meal_plans}/>
-                </div>
-                <div className={styles.property_ctn}>
-                    <span>Loisirs</span>
-                    <SeeMore text={lodging.entertainment}/>     
-                </div>
-                <div className={styles.property_ctn}>
-                    <span>Enfants</span>
-                    <SeeMore text={lodging.children}/>
-                </div>
-                <div className={styles.property_ctn}>
-                    <span>Tripadvisor</span>
-                    <div className={styles.tripadvisor_ctn}>
-                        <img src={tripadvisorLogo} alt=""/>
-                        <span className={styles.tripadvisor_txt}>{lodging.tripadvisor}</span>
-                        <TripadvisorNote note={lodging.tripadvisor}/>
-                    </div>
-                </div>
+                <section>
+                    <h2 className={styles.hidden}>Hébergement</h2>
+                    <article className={styles.property_ctn}>
+                        <h3>Présentation</h3>
+                        <SeeMore text={lodging.overview}/>
+                    </article>
+                    <article className={styles.property_ctn}>
+                        <h3>Equipement</h3>
+                        <SeeMore text={lodging.facilities}/>
+                    </article>
+                    <article className={styles.property_ctn}>      
+                        <h3>Logement</h3>
+                        <SeeMore text={lodging.rooms}/>
+                    </article>
+                    <article className={styles.property_ctn}>
+                        <h3>Restauration</h3>
+                        <SeeMore text={lodging.food_drink}/>
+                    </article>
+                    <article className={styles.property_ctn}>
+                        <h3>Formules</h3>
+                        <SeeMore text={lodging.meal_plans}/>
+                    </article>
+                    <article className={styles.property_ctn}>
+                        <h3>Loisirs</h3>
+                        <SeeMore text={lodging.entertainment}/>     
+                    </article>
+                    <article className={styles.property_ctn}>
+                        <h3>Enfants</h3>
+                        <SeeMore text={lodging.children}/>
+                    </article>
+                    <article className={styles.property_ctn}>
+                        <h3>Tripadvisor</h3>
+                        <div className={styles.tripadvisor_ctn}>
+                            <img src={tripadvisorLogo} alt="logo de Tripadvisor"/>
+                            <span className={styles.tripadvisor_txt}>{lodging.tripadvisor}</span>
+                            <TripadvisorNote note={lodging.tripadvisor}/>
+                        </div>
+                    </article>
+                </section>
                 
-                <div className={styles.activities_ctn}>
-                    <span>Activités optionnelles</span>
+                <section className={styles.activities_ctn}>
+                    <h2>Activités optionnelles</h2>
                     <p>Au départ de votre {lodging.name}, vous pouvez profitez des activités suivantes :</p>
  
-                    {activities !== undefined &&
-                    activities.map((activity, index) => 
-                        <div className={styles.activity} key={index}>
-                            <span>{activity.name}</span>
+                    {activities.map((activity, index) => 
+                        <article className={styles.activity} key={index}>
+                            <h3>{activity.name}</h3>
                             <div>
                                 <p>Type: {activity.type}</p>
                                 <p>Prix: adultes: {activity.price_adults}&euro;, enfants: {activity.price_children}&euro;</p>
                             </div> 
                             <p>{activity.overview}</p>
-                        </div>
-                    )
-                    }       
-                </div>
+                        </article>
+                    )}       
+                </section>
 
-                { coordinates[0] &&
+                {coordinates[0] &&
                 <MapContainer center={coordinates} zoom={15} scrollWheelZoom={false} className={styles.leaflet_container}>
                     <TileLayer attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"/>
@@ -170,10 +170,9 @@ function Detail(){
                     </Marker>
                 </MapContainer>
                 }
-            </div>
+            </section>
             }
         </main>
-    )
 }
 
 export default Detail;

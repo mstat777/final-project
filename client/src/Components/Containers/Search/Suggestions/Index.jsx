@@ -35,26 +35,18 @@ function Suggestions(props){
     async function handleClick(e){
         setTextEntered("");
         setIsSuggestionUsed(true);
-        //console.log("isSuggestionUsed (Click)= "+isSuggestionUsed)
         setShowSuggestions(false);
         setDestinationInput(e.target.innerText);
     }
 
-    return <>
-            {/*console.log("isSuggestionUsed= "+isSuggestionUsed)*/}
-            {/*console.log("showSuggestions= "+showSuggestions)*/}
-            {(allDestinations.length > 0 && textEntered && showSuggestions) && 
-            <ul className={styles.suggestions_box}>
-                
-                {allDestinations.filter(dest => dest.startsWith(textEntered)).map((filteredDest, index) => 
-                    <li key={index} onClick={handleClick}>
+    return (allDestinations.length > 0 && textEntered && showSuggestions) && 
+            <ul className={styles.suggestions_box}>    
+                {allDestinations.filter(dest => dest.startsWith(textEntered)).map((filteredDest, i) => 
+                    <li key={i} onClick={handleClick}>
                         {filteredDest}
                     </li> 
                 )}
-
             </ul>
-            }
-            </>
 }
 
 export default Suggestions;

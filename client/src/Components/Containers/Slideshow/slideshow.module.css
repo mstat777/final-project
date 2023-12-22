@@ -1,7 +1,7 @@
 /******************************************************************/
 /* ----------------------- VERSION MOBILE ----------------------- */
 /******************************************************************/
-.slider_ctn {
+.slideshow_ctn {
     position: relative;
     width: 100%;
     aspect-ratio: 3/2;
@@ -27,7 +27,7 @@
     object-fit: cover;
 }
 
-.slider_btn {
+.slideshow_btn {
     height: 50px;
     width: 50px;
     position: absolute;
@@ -41,12 +41,12 @@
     cursor: pointer;
     transition: all .3s;
 }
-.slider_btn:hover {
+.slideshow_btn:hover {
     cursor: pointer;
     background-color: rgba(176, 176, 176, 0.8);
 }   
 
-.slider_btn > img {
+.slideshow_btn > img {
     height: 30px;
     width: 30px;
     pointer-events: none;

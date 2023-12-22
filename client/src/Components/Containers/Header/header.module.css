@@ -30,7 +30,6 @@
     justify-content: left;
     align-items: center;
     height: calc(60px + 1.2em);
-    /*width: 100%;*/
     padding: .2em 1em 0;
     background-color: var(--primary-color);
 }
@@ -39,11 +38,10 @@
     margin-top: calc(60px + 1.2em);
     display: flex;
     flex-direction: column;
-    /*background-color: var(--primary-color);*/
 }
 
 /* les boutons pour les rubriques */ 
-.nav_lower > a {
+.nav_lower a {
     display: block;
     margin-bottom: 1em;
     padding: .5em 1em;
@@ -92,7 +90,7 @@
         flex-direction: row;
     }
 
-    .nav_lower > a {
+    .nav_lower a {
         margin: .5em 1.5em;
         padding: .5em;
         color: var(--tertiary-color);
@@ -100,7 +98,7 @@
         background-color: var(--primary-color);
     }
 
-    .nav_lower > a:hover {
+    .nav_lower a:hover {
         text-decoration: underline;
         text-underline-offset: 3px;
     }

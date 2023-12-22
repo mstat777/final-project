@@ -21,9 +21,11 @@ function AdminDashDestinationsModify(){
         country: "",
         continent: "",
         overview: "",
-        departurePlace: "",
-        urlInitialImage: ""
+        departurePlace: ""
     });
+
+    const [imageInitial, setImageInitial] = useState(null);
+    const [imagesAll, setImagesAll] = useState([]);
 
     // activer/désactiver les champs :
     const [disableInput, setDisableInput] = useState({
@@ -44,7 +46,6 @@ function AdminDashDestinationsModify(){
 
     // charger les données dans le formulaire lors du chargement de la page :
     useEffect(() => {
-        //console.log(resultsDestinations);
         if (resultsDestinations[index]) {
             setFormData({
                 reference: resultsDestinations[index].d.reference,
@@ -53,7 +54,6 @@ function AdminDashDestinationsModify(){
                 continent: resultsDestinations[index].d.continent,
                 overview: resultsDestinations[index].d.overview,
                 departurePlace: resultsDestinations[index].d.departurePlace,
-                urlInitialImage: resultsDestinations[index].d.urlInitialImage,
                 lodgingID: resultsDestinations[index].d.lodgingID
             });
         }
@@ -81,7 +81,6 @@ function AdminDashDestinationsModify(){
                 body: JSON.stringify(formData)
             });
             const json = await res.json();
-            //console.log(json.msg);
             
             if (res.status === 201) {
                 setOkMsg("Les modifications ont été enregistrée.");
@@ -98,7 +97,6 @@ function AdminDashDestinationsModify(){
             body: JSON.stringify(formData)
         });
         const json = await res.json();
-        //console.log(json.msg);  
         if (res.status === 201) {
             setOkMsg("La destination a été supprimée.");
         }
@@ -118,122 +116,128 @@ function AdminDashDestinationsModify(){
         checkFormValidation();
     }
 
-    return <main className={styles.admin_db_main}>
+    return <section className={styles.admin_db_section}>
             { formData && 
             <>
-            <h2>modifier/supprimer une destination</h2>
-            <form onSubmit={handleSubmit} className={styles.modify_form}>
-                <label className={styles.modify_label}>
-                    <span>Nom de la destination :</span>
-                    <input type="text" 
-                        name="nameDest" 
-                        value={formData.nameDest}
-                        onChange={handleChange}
-                        onFocus={() => {
-                            setOkMsg('');
-                            setErrMsg('');}}
-                        disabled={disableInput.nameDest}/>
-                    <button type="button" onClick={() => activateInput("nameDest")}>
-                        <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
-                    </button>
-                </label>
+                <h1>modifier/supprimer une destination</h1>
+                <form onSubmit={handleSubmit} className={styles.modify_form}>
+                    <label className={styles.modify_label}>
+                        <span>Nom de la destination :</span>
+                        <input type="text" 
+                            name="nameDest" 
+                            value={formData.nameDest}
+                            onChange={handleChange}
+                            onFocus={() => {
+                                setOkMsg('');
+                                setErrMsg('');}}
+                            disabled={disableInput.nameDest}/>
+                        <button type="button" onClick={() => activateInput("nameDest")}>
+                            <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
+                        </button>
+                    </label>
 
-                <label className={styles.modify_label}>
-                    <span>Numéro de référence :</span>
-                    <input type="text" 
-                        name="reference" 
-                        value={formData.reference}
-                        onChange={handleChange}
-                        onFocus={() => {
-                            setOkMsg('');
-                            setErrMsg('');}}
-                        disabled={disableInput.reference}/>
-                    <button type="button" onClick={() => activateInput("reference")}>
-                        <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
-                    </button>
-                </label>
+                    <label className={styles.modify_label}>
+                        <span>Numéro de référence :</span>
+                        <input type="text" 
+                            name="reference" 
+                            value={formData.reference}
+                            onChange={handleChange}
+                            onFocus={() => {
+                                setOkMsg('');
+                                setErrMsg('');}}
+                            disabled={disableInput.reference}/>
+                        <button type="button" onClick={() => activateInput("reference")}>
+                            <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
+                        </button>
+                    </label>
 
-                <label className={styles.modify_label}>
-                    <span>Pays :</span>
-                    <input
-                        name="country" 
-                        value={formData.country}
-                        onChange={handleChange}
-                        onFocus={() => {
-                            setOkMsg('');
-                            setErrMsg('');}}
-                        disabled={disableInput.country}/>
-                    <button type="button" onClick={() => activateInput("country")}>
-                        <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
-                    </button>
-                </label>
+                    <label className={styles.modify_label}>
+                        <span>Pays :</span>
+                        <input
+                            name="country" 
+                            value={formData.country}
+                            onChange={handleChange}
+                            onFocus={() => {
+                                setOkMsg('');
+                                setErrMsg('');}}
+                            disabled={disableInput.country}/>
+                        <button type="button" onClick={() => activateInput("country")}>
+                            <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
+                        </button>
+                    </label>
 
-                <label className={styles.modify_label}>
-                    <span>Continent :</span>
-                    <input
-                        name="continent" 
-                        value={formData.continent}
-                        onChange={handleChange}
-                        onFocus={() => {
-                            setOkMsg('');
-                            setErrMsg('');}}
-                        disabled={disableInput.continent}/>
-                    <button type="button" onClick={() => activateInput("continent")}>
-                        <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
-                    </button>
-                </label>
+                    <label className={styles.modify_label}>
+                        <span>Continent :</span>
+                        <input
+                            name="continent" 
+                            value={formData.continent}
+                            onChange={handleChange}
+                            onFocus={() => {
+                                setOkMsg('');
+                                setErrMsg('');}}
+                            disabled={disableInput.continent}/>
+                        <button type="button" onClick={() => activateInput("continent")}>
+                            <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
+                        </button>
+                    </label>
 
-                <label className={styles.modify_label}>
-                    <span>Description :</span>
-                    <textarea
-                        name="overview" 
-                        value={formData.overview}
-                        onChange={handleChange}
-                        disabled={disableInput.overview}/>
-                    <button type="button" onClick={() => activateInput("overview")}>
-                        <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
-                    </button>
-                </label> 
+                    <label className={styles.modify_label}>
+                        <span>Description :</span>
+                        <textarea
+                            name="overview" 
+                            value={formData.overview}
+                            onChange={handleChange}
+                            disabled={disableInput.overview}/>
+                        <button type="button" onClick={() => activateInput("overview")}>
+                            <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
+                        </button>
+                    </label> 
 
-                <label className={styles.modify_label}>
-                    <span>Point(s) de départ :</span>
-                    <textarea
-                        name="departurePlace" 
-                        value={formData.departurePlace}
-                        onChange={handleChange}
-                        disabled={disableInput.departurePlace}/>
-                    <button type="button" onClick={() => activateInput("departurePlace")}>
-                        <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
-                    </button>
-                </label> 
+                    <label className={styles.modify_label}>
+                        <span>Point(s) de départ :</span>
+                        <textarea
+                            name="departurePlace" 
+                            value={formData.departurePlace}
+                            onChange={handleChange}
+                            disabled={disableInput.departurePlace}/>
+                        <button type="button" onClick={() => activateInput("departurePlace")}>
+                            <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
+                        </button>
+                    </label> 
 
-                <label className={styles.modify_label}>  
-                    <span>Image initiale :</span>
-                    <input type="file" 
-                        name="urlInitialImage" 
-                        accept="image/jpg"
-                        multiple={false}
-                        value={urlInitialImage}
-                        onChange={(e) => setUrlInitialImage(e.target.value)}
-                        />
-                </label>
+                    <label className={styles.modify_label}>  
+                        <span>Image initiale :</span>
+                        <input type="file" 
+                            name="imageInitial" 
+                            accept="image/jpg"
+                            onChange={(e) => setImageInitial(e.target.files[0])}
+                            />
+                    </label>
+                    <label className={styles.modify_label}>
+                        <span>Images pour slideshow :</span>
+                        <input type="file" 
+                            name="imageAll" 
+                            accept="image/jpg"
+                            multiple
+                            onChange={(e) => setImagesAll(e.target.files)}
+                            />
+                    </label>
 
-                <div className={styles.main_btn_ctn}>
-                    <button type="submit" 
-                            className={styles.save_btn}>
-                        enregistrer</button>
-                    <button type="button"
-                            onClick={handleDelete}
-                            className={styles.delete_btn}>
-                        supprimer</button>
-                </div>
+                    <div className={styles.main_btn_ctn}>
+                        <button type="submit" 
+                                className={styles.save_btn}>
+                            enregistrer</button>
+                        <button type="button"
+                                onClick={handleDelete}
+                                className={styles.delete_btn}>
+                            supprimer</button>
+                    </div>
 
-            </form>
-            { errMsg && <p className={styles.err_msg}>{errMsg}</p> }
-            { okMsg && <p className={styles.ok_msg}>{okMsg}</p> }
-            
+                </form>
+                { errMsg && <p className={styles.err_msg}>{errMsg}</p> }
+                { okMsg && <p className={styles.ok_msg}>{okMsg}</p> } 
             </>}
-        </main>
+        </section>
 }
 
 export default AdminDashDestinationsModify;

@@ -7,7 +7,9 @@
     text-align: center;
 }
 
-.user_db_main  h2 {
+.user_db_main  h1 {
+    margin: 1em;
+    font-size: 2.2rem;
     text-transform: uppercase;
 }
 
@@ -15,12 +17,14 @@
     margin: 1em;
 }
 
+.summary_ctn h2 {
+    display: none;
+}
+
 /* --------- les réservations ---------- */
 .bookings_main_ctn {
     width: 95%;
     margin: 0 auto;
-    /*color: var(--darkgrey-color);
-    font-family: var(--secondary-font);*/
 }
 
 .booking_ctn {
@@ -87,7 +91,6 @@
     align-items: center;
     justify-content: center;
     margin: 0 auto;
-    /*padding: .2em .5em;*/
     border: none;
     border-radius: 4px;
     text-transform: uppercase;

@@ -10,13 +10,7 @@ function Footer() {
     const [okMsg, setOkMsg] = useState('');
     const [errMsg, setErrMsg] = useState('');
 
-    // pop-up erreur pour le champ maxPrice de la barre de recherche :
     function emailAlertMsg(e){
-        /*if (!e.target.value) {
-            return e.target.setCustomValidity("Veuillez renseigner votre mail");
-        } else if (e.target.value !== '') {
-            return e.target.setCustomValidity("Le format de mail n'est pas correct.");
-        }*/
         e.target.setCustomValidity("Veuillez renseigner votre mail");
     }
 
@@ -41,34 +35,38 @@ function Footer() {
         }
     }
 
-    return (
-        <footer className={styles.footer}>
+    return <footer className={styles.footer}>
             <section className={styles.footer_links}>
 
                 <div>
-                    <section className={styles.footer_social}>
-                        <p className={styles.footer_title}>suivez-nous</p>
-                        <Link to={'#'}><FontAwesomeIcon icon={faFacebook} /></Link>
-                        <Link to={'#'}><FontAwesomeIcon icon={faTwitter} /></Link>
-                        <Link to={'#'}><FontAwesomeIcon icon={faInstagram} /></Link>
-                        <Link to={'#'}><FontAwesomeIcon icon={faYoutube} /></Link>
-                    </section>
-                    <p className={styles.footer_title}>A propos</p>
-                    <Link to={'#'}>A propos</Link>
-                    <Link to={'#'}>Recrutement</Link>
+                    <h2 className={styles.footer_title}>suivez-nous</h2>
+                    <ul className={styles.footer_social}>
+                        <li><Link to={'#'}><FontAwesomeIcon icon={faFacebook} /></Link></li>
+                        <li><Link to={'#'}><FontAwesomeIcon icon={faTwitter} /></Link></li>
+                        <li><Link to={'#'}><FontAwesomeIcon icon={faInstagram} /></Link></li>
+                        <li><Link to={'#'}><FontAwesomeIcon icon={faYoutube} /></Link></li>
+                    </ul>
+
+                    <h2 className={styles.footer_title}>A propos</h2>
+                    <ul>
+                        <li><Link to={'#'}>A propos</Link></li>
+                        <li><Link to={'#'}>Recrutement</Link></li>
+                    </ul>
                 </div>
 
                 <div>
-                    <p className={styles.footer_title}>informations pratiques</p>
-                    <Link to={'#'}>Conditions Particulières de Vente</Link>
-                    <Link to={'#'}>Mentions légales</Link>
-                    <Link to={'#'}>Politique de confidentialité</Link>
-                    <Link to={'#'}>Avant de partir</Link>
-                    <Link to={'#'}>Info Covid</Link>
+                    <h2 className={styles.footer_title}>informations pratiques</h2>
+                    <ul>
+                        <li><Link to={'#'}>Conditions Particulières de Vente</Link></li>
+                        <li><Link to={'#'}>Mentions légales</Link></li>
+                        <li><Link to={'#'}>Politique de confidentialité</Link></li>
+                        <li><Link to={'#'}>Avant de partir</Link></li>
+                        <li><Link to={'#'}>Info Covid</Link></li>
+                    </ul>
                 </div>
 
                 <div>
-                    <p className={styles.footer_title}>inscription newsletter</p>
+                    <h2 className={styles.footer_title}>inscription newsletter</h2>
                     <p>J'accepte de recevoir les offres commerciales et newsletters de Dimitravel</p>
 
                     <form onSubmit={handleSubmit} className={styles.newsletter_form}>
@@ -97,7 +95,6 @@ function Footer() {
             </section>
 
         </footer>
-    )
 }
 
 export default Footer;

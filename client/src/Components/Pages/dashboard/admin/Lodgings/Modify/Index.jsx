@@ -1,5 +1,5 @@
 import styles from '../../admindash.module.css';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 
@@ -9,7 +9,6 @@ import { faPencil } from '@fortawesome/free-solid-svg-icons';
 function AdminDashLodgingModify(){
     const BASE_URL = process.env.REACT_APP_BASE_URL;
 
-    const navigate = useNavigate();
     // on récupère l'index de l'hébergement sélectionné :
     let { index } = useParams();
 
@@ -27,8 +26,11 @@ function AdminDashLodgingModify(){
         entertainment: "",
         children: "",
         tripadvisor: "",
-        coordinates: "",
+        coordinates: ""
     });
+
+    const [imageInitial, setImageInitial] = useState(null);
+    const [imagesAll, setImagesAll] = useState([]);
 
     // activer/désactiver les champs :
     const [disableInput, setDisableInput] = useState({
@@ -54,8 +56,6 @@ function AdminDashLodgingModify(){
 
     // charger les données dans le formulaire lors du chargement de la page :
     useEffect(() => {
-
-        //console.log(resultsLodgings);
         if (resultsLodgings[index]) {
             setFormData({
                 nameLodg: resultsLodgings[index].l.name,
@@ -95,11 +95,9 @@ function AdminDashLodgingModify(){
                 body: JSON.stringify(formData)
             });
             const json = await res.json();
-            //console.log(json.msg);
             
             if (res.status === 201) {
                 setOkMsg("Les modifications ont été enregistrée.");
-                //navigate("/db/admin/lodgings");
             }
         }
     }
@@ -113,10 +111,8 @@ function AdminDashLodgingModify(){
             body: JSON.stringify(formData)
         });
         const json = await res.json();
-        //console.log(json.msg);  
         if (res.status === 201) {
             setOkMsg("L'hébergement a été supprimé.");
-            //navigate("/db/admin/lodgings");
         }
     }
 
@@ -134,171 +130,190 @@ function AdminDashLodgingModify(){
         checkFormValidation();
     }
 
-    return <main className={styles.admin_db_main}>
-            { formData && 
-            <>
-            <h2>modifier/supprimer un hébergement</h2>
-            <form onSubmit={handleSubmit} className={styles.modify_form}>
-                <label className={styles.modify_label}>
-                    <span>Nom de l'hébergement :</span>
-                    <input type="text" 
-                        name="nameLodg" 
-                        value={formData.nameLodg}
-                        onChange={handleChange}
-                        onFocus={() => {
-                            setOkMsg('');
-                            setErrMsg('');}}
-                        disabled={disableInput.nameLodg}/>
-                    <button type="button" onClick={() => activateInput("nameLodg")}>
-                        <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
-                    </button>
-                </label>
+    return <section className={styles.admin_db_section}>
+                { formData && 
+                <>
+                    <h2>Modifier/supprimer un hébergement</h2>
+                    <form onSubmit={handleSubmit} className={styles.modify_form}>
+                        <label className={styles.modify_label}>
+                            <span>Nom de l'hébergement :</span>
+                            <input type="text" 
+                                name="nameLodg" 
+                                value={formData.nameLodg}
+                                onChange={handleChange}
+                                onFocus={() => {
+                                    setOkMsg('');
+                                    setErrMsg('');}}
+                                disabled={disableInput.nameLodg}/>
+                            <button type="button" onClick={() => activateInput("nameLodg")}>
+                                <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
+                            </button>
+                        </label>
 
-                <label className={styles.modify_label}>
-                    <span>Type de l'hébergement :</span>
-                    <input type="text" 
-                        name="typeLodg" 
-                        value={formData.typeLodg}
-                        onChange={handleChange}
-                        onFocus={() => {
-                            setOkMsg('');
-                            setErrMsg('');}}
-                        disabled={disableInput.typeLodg}/>
-                    <button type="button" onClick={() => activateInput("typeLodg")}>
-                        <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
-                    </button>
-                </label>
+                        <label className={styles.modify_label}>
+                            <span>Type de l'hébergement :</span>
+                            <input type="text" 
+                                name="typeLodg" 
+                                value={formData.typeLodg}
+                                onChange={handleChange}
+                                onFocus={() => {
+                                    setOkMsg('');
+                                    setErrMsg('');}}
+                                disabled={disableInput.typeLodg}/>
+                            <button type="button" onClick={() => activateInput("typeLodg")}>
+                                <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
+                            </button>
+                        </label>
 
-                <label className={styles.modify_label}>
-                    <span>Description :</span>
-                    <textarea
-                        name="overview" 
-                        value={formData.overview}
-                        onChange={handleChange}
-                        onFocus={() => {
-                            setOkMsg('');
-                            setErrMsg('');}}
-                        disabled={disableInput.overview}/>
-                    <button type="button" onClick={() => activateInput("overview")}>
-                        <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
-                    </button>
-                </label>
+                        <label className={styles.modify_label}>
+                            <span>Description :</span>
+                            <textarea
+                                name="overview" 
+                                value={formData.overview}
+                                onChange={handleChange}
+                                onFocus={() => {
+                                    setOkMsg('');
+                                    setErrMsg('');}}
+                                disabled={disableInput.overview}/>
+                            <button type="button" onClick={() => activateInput("overview")}>
+                                <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
+                            </button>
+                        </label>
 
-                <label className={styles.modify_label}>
-                    <span>Equipement :</span>
-                    <textarea
-                        name="facilities" 
-                        value={formData.facilities}
-                        onChange={handleChange}
-                        onFocus={() => {
-                            setOkMsg('');
-                            setErrMsg('');}}
-                        disabled={disableInput.facilities}/>
-                    <button type="button" onClick={() => activateInput("facilities")}>
-                        <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
-                    </button>
-                </label>
+                        <label className={styles.modify_label}>
+                            <span>Equipement :</span>
+                            <textarea
+                                name="facilities" 
+                                value={formData.facilities}
+                                onChange={handleChange}
+                                onFocus={() => {
+                                    setOkMsg('');
+                                    setErrMsg('');}}
+                                disabled={disableInput.facilities}/>
+                            <button type="button" onClick={() => activateInput("facilities")}>
+                                <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
+                            </button>
+                        </label>
 
-                <label className={styles.modify_label}>
-                    <span>Logement :</span>
-                    <textarea
-                        name="rooms" 
-                        value={formData.rooms}
-                        onChange={handleChange}
-                        disabled={disableInput.rooms}/>
-                    <button type="button" onClick={() => activateInput("rooms")}>
-                        <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
-                    </button>
-                </label> 
+                        <label className={styles.modify_label}>
+                            <span>Logement :</span>
+                            <textarea
+                                name="rooms" 
+                                value={formData.rooms}
+                                onChange={handleChange}
+                                disabled={disableInput.rooms}/>
+                            <button type="button" onClick={() => activateInput("rooms")}>
+                                <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
+                            </button>
+                        </label> 
 
-                <label className={styles.modify_label}>
-                    <span>Restauration :</span>
-                    <textarea
-                        name="foodDrink" 
-                        value={formData.foodDrink}
-                        onChange={handleChange}
-                        disabled={disableInput.foodDrink}/>
-                    <button type="button" onClick={() => activateInput("foodDrink")}>
-                        <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
-                    </button>
-                </label> 
+                        <label className={styles.modify_label}>
+                            <span>Restauration :</span>
+                            <textarea
+                                name="foodDrink" 
+                                value={formData.foodDrink}
+                                onChange={handleChange}
+                                disabled={disableInput.foodDrink}/>
+                            <button type="button" onClick={() => activateInput("foodDrink")}>
+                                <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
+                            </button>
+                        </label> 
 
-                <label className={styles.modify_label}>
-                    <span>Formules :</span>
-                    <textarea
-                        name="mealPlans" 
-                        value={formData.mealPlans}
-                        onChange={handleChange}
-                        disabled={disableInput.mealPlans}/>
-                    <button type="button" onClick={() => activateInput("mealPlans")}>
-                        <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
-                    </button>
-                </label> 
+                        <label className={styles.modify_label}>
+                            <span>Formules :</span>
+                            <textarea
+                                name="mealPlans" 
+                                value={formData.mealPlans}
+                                onChange={handleChange}
+                                disabled={disableInput.mealPlans}/>
+                            <button type="button" onClick={() => activateInput("mealPlans")}>
+                                <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
+                            </button>
+                        </label> 
 
-                <label className={styles.modify_label}>
-                    <span>Loisirs :</span>
-                    <textarea
-                        name="entertainment" 
-                        value={formData.entertainment}
-                        onChange={handleChange}
-                        disabled={disableInput.entertainment}/>
-                    <button type="button" onClick={() => activateInput("entertainment")}>
-                        <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
-                    </button>
-                </label> 
+                        <label className={styles.modify_label}>
+                            <span>Loisirs :</span>
+                            <textarea
+                                name="entertainment" 
+                                value={formData.entertainment}
+                                onChange={handleChange}
+                                disabled={disableInput.entertainment}/>
+                            <button type="button" onClick={() => activateInput("entertainment")}>
+                                <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
+                            </button>
+                        </label> 
 
-                <label className={styles.modify_label}>
-                    <span>Enfants :</span>
-                    <textarea
-                        name="children" 
-                        value={formData.children}
-                        onChange={handleChange}
-                        disabled={disableInput.children}/>
-                    <button type="button" onClick={() => activateInput("children")}>
-                        <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
-                    </button>
-                </label> 
+                        <label className={styles.modify_label}>
+                            <span>Image initiale :</span>
+                            <input type="file" 
+                                name="imageInitial" 
+                                accept="image/jpg"
+                                onChange={(e) => setImageInitial(e.target.files[0])}
+                                />
+                        </label>
+                        <label className={styles.modify_label}>
+                            <span>Images pour slideshow :</span>
+                            <input type="file" 
+                                name="imageAll" 
+                                accept="image/jpg"
+                                multiple
+                                onChange={(e) => {
+                                    setImagesAll(e.target.files);
+                                }}
+                                />
+                        </label>
 
-                <label className={styles.modify_label}>
-                    <span>Note Tripadvisor :</span>
-                    <input type="text" 
-                        name="tripadvisor" 
-                        value={formData.tripadvisor}
-                        onChange={handleChange}
-                        disabled={disableInput.tripadvisor}/>
-                    <button type="button" onClick={() => activateInput("tripadvisor")}>
-                        <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
-                    </button>
-                </label> 
+                        <label className={styles.modify_label}>
+                            <span>Enfants :</span>
+                            <textarea
+                                name="children" 
+                                value={formData.children}
+                                onChange={handleChange}
+                                disabled={disableInput.children}/>
+                            <button type="button" onClick={() => activateInput("children")}>
+                                <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
+                            </button>
+                        </label> 
 
-                <label className={styles.modify_label}>
-                    <span>Coordonnées (format décimal) :</span>
-                    <input type="text" 
-                        name="coordinates" 
-                        value={formData.coordinates}
-                        onChange={handleChange}
-                        disabled={disableInput.coordinates}/>
-                    <button type="button" onClick={() => activateInput("coordinates")}>
-                        <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
-                    </button>
-                </label>           
+                        <label className={styles.modify_label}>
+                            <span>Note Tripadvisor :</span>
+                            <input type="text" 
+                                name="tripadvisor" 
+                                value={formData.tripadvisor}
+                                onChange={handleChange}
+                                disabled={disableInput.tripadvisor}/>
+                            <button type="button" onClick={() => activateInput("tripadvisor")}>
+                                <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
+                            </button>
+                        </label> 
 
-                <div className={styles.main_btn_ctn}>
-                    <button type="submit" 
-                            className={styles.save_btn}>
-                        enregistrer</button>
-                    <button type="button"
-                            onClick={handleDelete}
-                            className={styles.delete_btn}>
-                        supprimer</button>
-                </div>
+                        <label className={styles.modify_label}>
+                            <span>Coordonnées (format décimal) :</span>
+                            <input type="text" 
+                                name="coordinates" 
+                                value={formData.coordinates}
+                                onChange={handleChange}
+                                disabled={disableInput.coordinates}/>
+                            <button type="button" onClick={() => activateInput("coordinates")}>
+                                <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
+                            </button>
+                        </label>           
 
-            </form>
-            { errMsg && <p className={styles.err_msg}>{errMsg}</p> }
-            { okMsg && <p className={styles.ok_msg}>{okMsg}</p> }
-            
-            </>}
-        </main>
+                        <div className={styles.main_btn_ctn}>
+                            <button type="submit" 
+                                    className={styles.save_btn}>
+                                enregistrer</button>
+                            <button type="button"
+                                    onClick={handleDelete}
+                                    className={styles.delete_btn}>
+                                supprimer</button>
+                        </div>
+
+                    </form>
+                    { errMsg && <p className={styles.err_msg}>{errMsg}</p> }
+                    { okMsg && <p className={styles.ok_msg}>{okMsg}</p> }
+                </>}
+            </section>
 }
 
 export default AdminDashLodgingModify;

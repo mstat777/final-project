@@ -8,6 +8,11 @@
     padding-bottom: 2em;
 }
 
+.home_main  h1 {
+    position: absolute;
+    display: none;
+}
+
 .home_banner {
     display: none;
     width: 100%;
@@ -19,10 +24,17 @@
 .cards_ctn {
     display: flex;
     flex-direction: column;
-    width: 90%;
     align-items: center;
+    flex-wrap: wrap;
+    width: 90%;
+    margin: 0 auto;
 }
 
+.cards_ctn  h2 {
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+}
 
 /******************************************************************/
 /* ---------------------- VERSION TABLETTE ---------------------- */

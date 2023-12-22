@@ -42,10 +42,7 @@ function Burger() {
         setIsHovering(false);
     };
 
-    return (
-        <div className={`${styles.burger_menu} ${burgerOpen ? styles.show_burger_menu : styles.hide_burger_menu }`}>
-            {/*console.log('userInfo.accountType = '+userInfo.accountType)*/}
-            {/*console.log('userInfo.userID = '+userInfo.userID)*/}
+    return <nav className={`${styles.burger_menu} ${burgerOpen ? styles.show_burger_menu : styles.hide_burger_menu }`}>
 
             {/* ---------- le containeur des liens ------------ */}
             {(userInfo.isLogged || TOKEN) && userInfo.userID ? 
@@ -101,8 +98,7 @@ function Burger() {
                 <FontAwesomeIcon icon={faUser} className={styles.burger_icon}/>
             </button>
 
-        </div>
-    )
+        </nav>
 }
 
 export default Burger;

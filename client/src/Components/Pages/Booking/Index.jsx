@@ -50,16 +50,12 @@ function Booking(){
         if (isTabletOrDesktop) { window.scrollTo(0, 0); }
     }, [])
     
-    //console.log(activities);
     // on récupère tous les prix (pack + activités) de la BDD, les regroupe en arrays pour les passer au Store :
     let prices_adults = [];
     let prices_children = [];
     for (let i = 0; i < activities.length; i++) {
-        //console.log("activities[i].price_adults = "+activities[i].price_adults);
         prices_adults[i] = activities[i].price_adults;
         prices_children[i] = activities[i].price_children;
-        //console.log("prices_adults[i] = "+prices_adults[i]);
-        //console.log("prices_children[i] = "+prices_children[i]);
     }
     // initialiser les variables pour stocker les prix du pack et des activités associées :
     const [pricesList, setPricesList] = useState({
@@ -72,18 +68,13 @@ function Booking(){
     // on passe les prix au Store
     useEffect(() => {
         const initInfoAndSetPrices = async () => { 
-            //console.log("activities[0].price_adults = "+activities[0].price_adults);
             const setPrices = async () => {
-                //console.log("prices_adults = "+prices_adults);
-                //console.log("prices_children = "+prices_children);
                 setPricesList({
                     price_adults_pack: packs[id].price_adults,
                     price_children_pack: packs[id].price_children,
                     price_adults_activities: prices_adults,
                     price_children_activities: prices_children
                 });
-                //console.log("pricesList.price_adults_activities = "+pricesList.price_adults_activities);
-                //console.log("pricesList.price_children_activities = "+pricesList.price_children_activities);
             }
             await setPrices();
         }
@@ -97,9 +88,6 @@ function Booking(){
         if (pricesList.price_adults_activities.length && 
             pricesList.price_children_activities) {
             dispatch(calculatePrices(pricesList));
-            //console.log("packs[id].price_adults = "+packs[id].price_adults);
-            //console.log("bookingInfo.prices.total_pack = "+bookingInfo.prices.total_pack);
-            //console.log("bookingInfo.nb_adults.pack = "+bookingInfo.nb_adults.pack);
         }
     },[bookingInfo.nb_adults, bookingInfo.nb_children]);
 
@@ -108,8 +96,6 @@ function Booking(){
     function handleChange(index) {
         const newArray = [...checkBoxes];
         newArray[index] = !checkBoxes[index];
-        //console.log("newArray[index] = "+newArray[index]);
-        //console.log(newArray);
         setCheckBoxes(newArray);
     }
 
@@ -127,23 +113,27 @@ function Booking(){
 
     return <main id="booking">
             { (destination && lodging && packs[0] && activities[0]) &&
-            <div className={styles.booking_section}>
-                <div className={styles.booking_info_top}>
-                    <div className={styles.booking_info_ctn}>
-                        <h4>{lodging.name}</h4>
-                        <h3>{destination.name}</h3>
-                        <p className={styles.booking_info_h}>Vous avez sélectionné le pack suivant :</p>
-                        <p>Date de départ : <span>{packs[id].departure_date.slice(0, packs[id].departure_date.indexOf('T'))}</span></p>
-                        <p>Date de retour : <span>{packs[id].return_date.slice(0, packs[id].return_date.indexOf('T'))}</span></p> 
-                        <p>Durée : <span>{packs[id].duration+1}</span> jours / <span>{packs[id].duration}</span> nuits</p>  
-                        <p>Prix/TTC/adulte : <span>{packs[id].price_adults}</span> &euro;</p> 
-                        <p>Prix/TTC/enfant : <span>{packs[id].price_children}</span> &euro;</p> 
-                    </div>
-                    <img src={`${IMG_URL}/img/lodgings/${lodging.url_initial_image}`} alt="" className={styles.main_img}/>
-                </div>
+            <section className={styles.booking_section}>
+                <h1 className={styles.hidden}>Paramétrer votre réservation</h1>
 
-                <p>Veuillez indiquer le nombre de personnes pour lesquels vous réservez :</p>
-                <div className={styles.booking_inputs_ctn}>
+                <article className={styles.booking_info_top}>
+                    <h2>Information concernant le pack choisi</h2>
+                    <div className={styles.booking_info_ctn}>
+                        <h3>{lodging.name}</h3>
+                        <p className={styles.destination_name}>{destination.name}</p>
+                        <p className={styles.booking_info_h}>Vous avez sélectionné le pack suivant :</p>
+                        <p>Date de départ : <b>{packs[id].departure_date.slice(0, packs[id].departure_date.indexOf('T'))}</b></p>
+                        <p>Date de retour : <b>{packs[id].return_date.slice(0, packs[id].return_date.indexOf('T'))}</b></p> 
+                        <p>Durée : <b>{packs[id].duration+1}</b> jours / <b>{packs[id].duration}</b> nuits</p>  
+                        <p>Prix/TTC/adulte : <b>{packs[id].price_adults}</b> &euro;</p> 
+                        <p>Prix/TTC/enfant : <b>{packs[id].price_children}</b> &euro;</p> 
+                    </div>
+                    <img src={`${IMG_URL}/img/lodgings/${lodging.url_initial_image}`} alt="image de l'hébergement" className={styles.main_img}/>
+                </article>
+
+                <article className={styles.booking_inputs_ctn}>
+                    <h2>Nombres de personnes</h2>
+                    <p>Veuillez indiquer le nombre de personnes pour lesquels vous réservez ce pack :</p>
                     <div className={styles.booking_inputs}>
                         <span>Adultes :</span>
                         <button onClick={() => dispatch(incrNbAdultsPack())}>
@@ -170,48 +160,48 @@ function Booking(){
                             <FontAwesomeIcon icon={faCircleMinus} className={styles.fa_circle}/>
                         </button>
                     </div>
-                </div>
+                </article>
 
-                <div className={styles.booking_activities_ctn}>
+                <section className={styles.booking_activities_ctn}>
+                    <h2>Les activités à choisir</h2>
                     <span>Veuillez choisir entre les activités suivantes :</span>
-                    {activities.map((activity, index) => 
-                        <div className={styles.booking_activity} key={index}>
+                    {activities.map((activity, i) => 
+                        <article className={styles.booking_activity} key={i}>
                             <div className={styles.booking_activity_title}>
                                 <label htmlFor={activity.id}>
                                     <input type="checkbox" 
-                                        //name={activity.id}
-                                        checked={ checkBoxes[index] } 
-                                        onChange={() => handleChange(index)}/>
+                                        checked={ checkBoxes[i] } 
+                                        onChange={() => handleChange(i)}/>
                                     {activity.name}
                                 </label>
                             </div>
 
-                            { checkBoxes[index] && 
+                            { checkBoxes[i] && 
                             <div className={styles.booking_activity_inputs}>
                                 <span>Adultes :</span>
                                 <div>
-                                    <button onClick={()=>{dispatch(incrNbAdultsActivity(index))}}>
+                                    <button onClick={()=>{dispatch(incrNbAdultsActivity(i))}}>
                                         <FontAwesomeIcon icon={faCirclePlus} className={styles.fa_circle}/>
                                     </button>
                                     <input type="text" 
                                         pattern="[0-9]{2}"
-                                        value={bookingInfo.nb_adults.activities[index]} 
+                                        value={bookingInfo.nb_adults.activities[i]} 
                                         disabled/>
-                                    <button onClick={()=>{dispatch(decrNbAdultsActivity(index))}}>
+                                    <button onClick={()=>{dispatch(decrNbAdultsActivity(i))}}>
                                         <FontAwesomeIcon icon={faCircleMinus} className={styles.fa_circle}/>
                                     </button>
                                 </div>
 
                                 <span>Enfants :</span>
                                 <div>
-                                    <button onClick={()=>{dispatch(incrNbChildrenActivity(index))}}>
+                                    <button onClick={()=>{dispatch(incrNbChildrenActivity(i))}}>
                                         <FontAwesomeIcon icon={faCirclePlus} className={styles.fa_circle}/>
                                     </button>
                                     <input type="text" 
                                         pattern="[0-9]{2}"
-                                        value={bookingInfo.nb_children.activities[index]}
+                                        value={bookingInfo.nb_children.activities[i]}
                                         disabled/>
-                                    <button onClick={()=>{dispatch(decrNbChildrenActivity(index))}}>
+                                    <button onClick={()=>{dispatch(decrNbChildrenActivity(i))}}>
                                         <FontAwesomeIcon icon={faCircleMinus} className={styles.fa_circle}/>
                                     </button>
                                 </div>
@@ -223,26 +213,26 @@ function Booking(){
                                 <p>{activity.overview}</p>
                             </div> 
                             
-                        </div>
+                        </article>
                     )}
-                </div>
+                </section>
 
-                <p>Vous avez sélectionné le pack suivant :</p>
-                <div className={styles.booking_totals_ctn}>
+                <article className={styles.booking_totals_ctn}>
+                    <h2>Récapitulatif des montants à payer</h2>
+                    <p>Vous avez sélectionné le pack suivant :</p>
                     <p>Prix total du pack : <span>{bookingInfo.prices.total_pack}</span> &euro; TTC</p> 
                     <p>Prix total des activités choisies : <span>{bookingInfo.prices.total_activities}</span> &euro; TTC</p> 
                     <p>PRIX TOTAL A PAYER : <span>{bookingInfo.prices.total_all}</span> &euro; TTC</p> 
-                </div>
+                </article>
 
                 <button onClick={handleSubmitBooking} className={styles.booking_btn}>réserver</button>
 
                 <div className={styles.error_ctn}>
-                    {errors.map((el, idx) => el[idx] &&
-                    <p>Erreur : {errors[idx]}</p>)}
+                    {errors.map((el, i) => el[i] &&
+                    <p>Erreur : {errors[i]}</p>)}
                 </div>
 
-            </div>
-            }
+            </section>}
         </main>
 }
 

@@ -37,20 +37,19 @@ function AdminDashPackSearch(){
         }
     }
 
-    return <>
-        <form onSubmit={handleSubmit} className={styles.search_form}>
-            <input type="text" 
-                    name="name" 
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="Nom d'hébérgement"/>
+    return <div className={styles.admin_db_section}>
+            <form onSubmit={handleSubmit} className={styles.search_form}>
+                <input type="text" 
+                        name="name" 
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        placeholder="Nom d'hébérgement"/>
 
-            <button type="submit">rechercher</button>
-        </form>
+                <button type="submit">rechercher</button>
+            </form>
 
-        { msg && <p className={styles.msg}>{msg}</p>}
-
-    </>
+            { msg && <p className={styles.msg}>{msg}</p>}
+        </div>
 }
 
 export default AdminDashPackSearch;

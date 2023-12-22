@@ -1,4 +1,11 @@
-import Query from "../model/Query.js";
+import Query from '../model/Query.js';
+import formidable from 'formidable';
+import fs from 'fs';
+import path from 'path';
+import {fileURLToPath} from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 /* ------------------------- READ ------------------------- */
 const getAllLodgingsID = async (req, res) => {
@@ -121,31 +128,67 @@ const modifyLodging = async (req, res) => {
 /* ----------------------- CREATE ----------------------- */
 const createLodging = async (req, res) => {
     try {
-        let msg = "";
+        //fs.mkdirSync(__dirname + `../../../public/img/lodgings`);
+        const form = formidable({
+            //uploadDir: __dirname + `../../../public/img/lodgings`,
+            uploadDir: `public/img/lodgings`,
+            keepExtensions: true,
+            allowEmptyFiles: false,
+            multiples: true,
+        });
 
-        // vérifier si un hébérgement avec le même nom existe déjà :
-        const queryCheck = "SELECT name FROM lodgings WHERE name = ?";
-        const [results] = await Query.findByValue(queryCheck, req.body.nameLodg);
+        form.parse(req, async (err, fields, files) => {
+            let msg = "";
+            const newLodging = {};
 
-        // garder juste le nom et le format de fichier pour l'URL avant de l'insérer dans la BDD :
-        let temp = req.body.urlInitialImage;
-        req.body.urlInitialImage = temp.slice(temp.lastIndexOf('\\')+1);
-        //console.log("req.body.urlInitialImage = " + req.body.urlInitialImage);
+            for (const key in fields){
+                newLodging[key] = fields[key][0]; 
+            }
 
-        //console.log(req.body);
-        //console.log(results[0]);
+            // vérifier si un hébérgement avec le même nom existe déjà :
+            const queryCheck = "SELECT name FROM lodgings WHERE name = ?";
+            const [results] = await Query.findByValue(queryCheck, newLodging.name);
 
-        if (results.length) {
-            msg = "Un hébérgement avec ce nom existe déjà !";
-            res.status(409).json({ msg });
-        } else if (!results.length){
+            //console.log(results);
+            if (results.length) {
+                msg = "Un hébérgement avec ce nom existe déjà !";
+                res.status(409).json({ msg });
+            } else if (!results.length){
+                newLodging.url_initial_image = files.file[0].newFilename;
+                
+                const queryInsertLodg = "INSERT INTO lodgings (name, type, overview, facilities, rooms, food_drink, meal_plans, entertainment, children, tripadvisor, coordinates, url_initial_image) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
+                const resultLodg = await Query.write(queryInsertLodg, newLodging);
 
-            const queryInsert = "INSERT INTO lodgings (name, type, overview, facilities, rooms, food_drink, meal_plans, entertainment, children, url_initial_image, tripadvisor, coordinates) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
-            await Query.write(queryInsert, req.body);
+                // on a besoin de récupérer l'ID de l'hébergement créé pour l'utiliser comme clé étrangère :
+                const queryGetID = "SELECT id FROM lodgings ORDER BY id DESC LIMIT 1";
+                const [lodgID] = await Query.find(queryGetID);
 
-            msg = "Merci ! L'hébérgement a été créé dans la BDD.";
-            res.status(200).json({ msg });
-        }
+                // pour stocker les urls des images pour le slideshow :
+                const urlArray = [];
+                const images = Object.values(files);
+                images.forEach((image) => {
+                    const newImgObject = {
+                        url_image: image[0].newFilename,
+                        lodging_id: lodgID[0].id
+                    }
+                    urlArray.push(newImgObject);
+                });
+                // on en aura pas besoin de la 1ere image, car elle sert uniquement pour image initiale :
+                urlArray.shift();
+                console.log(urlArray);
+
+                async function writeImage(imgData){
+                    const queryInsertImages = "INSERT INTO lodgings_images (url_image, lodging_id) VALUES (?,?)";
+                    await Query.write(queryInsertImages, imgData);
+                }
+                urlArray.forEach((el) => {
+                    writeImage(el);
+                });
+
+                msg = "Merci ! L'hébérgement a été créé dans la BDD.";
+                res.status(200).json({ msg });
+            }
+        });
     } catch (err) {
         throw Error(err)
     }
@@ -153,26 +196,65 @@ const createLodging = async (req, res) => {
 
 const createDestination = async (req, res) => {
     try {
-        let msg = "";
+        const form = formidable({
+            uploadDir: `public/img/destinations`,
+            keepExtensions: true,
+            allowEmptyFiles: false,
+            multiples: true,
+        });
 
-        // vérifier si une destination avec le même nom existe déjà :
-        const queryCheck = "SELECT name FROM destinations WHERE name = ?";
-        const [results] = await Query.findByValue(queryCheck, req.body.nameDest);
+        form.parse(req, async (err, fields, files) => {
+            let msg = "";
+            const newDestination = {};
 
-        // garder juste le nom et le format de fichier pour l'URL avant de l'insérer dans la BDD :
-        let temp = req.body.urlInitialImage;
-        req.body.urlInitialImage = temp.slice(temp.lastIndexOf('\\')+1);
+            for (const key in fields){
+                newDestination[key] = fields[key][0]; 
+            }
+            console.log(newDestination);
 
-        if (results.length) {
-            msg = "Une destination avec ce nom existe déjà !";
-            res.status(409).json({ msg });
-        } else if (!results.length){
-            const queryInsert = "INSERT INTO destinations (reference, name, country, continent, overview, departure_place, url_initial_image, date_created, lodging_id) VALUES (?,?,?,?,?,?,?,CURRENT_TIMESTAMP(),?)";
-            await Query.write(queryInsert, req.body);
+            // vérifier si une destination avec le même nom existe déjà :
+            const queryCheck = "SELECT name FROM destinations WHERE name = ?";
+            const [results] = await Query.findByValue(queryCheck, queryCheck, newDestination.name);
 
-            msg = "Merci ! La destination a été créée dans la BDD.";
-            res.status(200).json({ msg });
-        }
+            if (results.length) {
+                msg = "Une destination avec ce nom existe déjà !";
+                res.status(409).json({ msg });
+            } else if (!results.length){
+                newDestination.url_initial_image = files.file[0].newFilename;
+
+                const queryInsertDest = "INSERT INTO destinations (reference, name, country, continent, overview, departure_place, date_created, lodging_id, url_initial_image) VALUES (?,?,?,?,?,?,CURRENT_TIMESTAMP(),?,?)";
+                const resultDest = await Query.write(queryInsertDest, newDestination);
+
+                // on a besoin de récupérer l'ID de la destination créée pour l'utiliser comme clé étrangère :
+                const queryGetID = "SELECT id FROM destinations ORDER BY id DESC LIMIT 1";
+                const [destID] = await Query.find(queryGetID);
+
+                // pour stocker les urls des images pour le slideshow :
+                const urlArray = [];
+                const images = Object.values(files);
+                images.forEach((image) => {
+                    const newImgObject = {
+                        url_image: image[0].newFilename,
+                        destination_id: destID[0].id
+                    }
+                    urlArray.push(newImgObject);
+                });
+                // on en aura pas besoin de la 1ere image, car elle sert uniquement pour image initiale :
+                urlArray.shift();
+                console.log(urlArray);
+
+                async function writeImage(imgData){
+                    const queryInsertImages = "INSERT INTO destinations_images (url_image, destination_id) VALUES (?,?)";
+                    await Query.write(queryInsertImages, imgData);
+                }
+                urlArray.forEach((el) => {
+                    writeImage(el);
+                });
+
+                msg = "Merci ! La destination a été créée dans la BDD.";
+                res.status(200).json({ msg });
+            }
+        });
     } catch (err) {
         throw Error(err)
     }
@@ -180,27 +262,29 @@ const createDestination = async (req, res) => {
 
 const createPack = async (req, res) => {
     try {
-        let msg = "";
+        const form = formidable({
+            uploadDir: `public/img`,
+            keepExtensions: true,
+            allowEmptyFiles: false,
+            multiples: true,
+        });
 
-        // on vérifie si un pack avec les mêmes dates existe déjà :
-        const datas = {
-            destinationID: req.body.destinationID,
-            departureDate: req.body.departureDate,
-            returnDate: req.body.returnDate
-        };
-        const queryCheck = "SELECT id FROM packs WHERE destination_id = ? AND departure_date = ? AND return_date = ?";
-        const [results] = await Query.findByDatas(queryCheck, datas);
+        form.parse(req, async (err, fields, files) => {
+            
+            let msg = "";
+            const newPack = {};
 
-        if (results.length) {
-            msg = "Un pack avec ces dates existe déjà pour cette destination !";
-            res.status(409).json({ msg });
-        } else if (!results.length){
+            for (const key in fields){
+                newPack[key] = fields[key][0]; 
+            }
+            console.log(newPack);
+
             const queryInsert = "INSERT INTO packs (reference, departure_date, return_date, duration, price_adults, price_children, discount, places_total, places_left, destination_id) VALUES (?,?,?,?,?,?,?,?,?,?)";
-            await Query.write(queryInsert, req.body);
-
+            await Query.write(queryInsert, newPack);
+    
             msg = "Merci ! Le pack a été créé dans la BDD.";
             res.status(200).json({ msg });
-        }
+        });
     } catch (err) {
         throw Error(err)
     }

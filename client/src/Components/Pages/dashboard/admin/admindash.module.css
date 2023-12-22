@@ -7,14 +7,26 @@
     text-align: center;
 }
 
+.admin_db_section  h2,
 .admin_db_main  h2 {
     text-transform: uppercase;
+}
+
+/* ------- lien-bouton -------- */
+.admin_db_link {
+    margin-left: 1em;
+    padding: .3em .7em;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    text-transform: uppercase;
+    background-color: var(--tertiary-color);
+    cursor: pointer;
 }
 
 .admin_db_section {
     margin: 1em;
 }
-
 /* ---------------- RESULTATS ----------------- */
 .results_table {
     margin: 0 auto;
@@ -235,7 +247,10 @@
     margin-top: 1em;
 }
 
-.msg {
+.ok_msg {
+    color: rgb(0, 143, 49);
+}
+.err_msg {
     color: var(--highlight-color);
 }
 
@@ -280,6 +295,20 @@
     /* ----------------- CREATE FORM ------------------ */
     .db_create_form {
         margin: 1em 4em 2em 4em;
+    }
+
+    .modify_label,
+    .create_label {
+        justify-content: center;
+    }
+
+    .modify_label > span,
+    .create_label > span {
+        width: 30%;
+    }
+    .modify_label > *:nth-child(2),
+    .create_label > *:nth-child(2) {
+        width: 60%;
     }
 }
 

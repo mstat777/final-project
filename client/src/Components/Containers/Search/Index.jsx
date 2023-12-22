@@ -27,7 +27,6 @@ function Search() {
     const maxNameLength = 50;
     // limiter la date :
     const today = new Date().toISOString().slice(0,10);
-    // console.log(today);
 
     // on récupère du Store : la liste de toutes les destinations, les données de la destination fetchée et de l'hébergement fetché lié à cette destination
     const { allDestinations, 
@@ -74,7 +73,6 @@ function Search() {
         setShowResults(false);
 
         if(!searchDestination){
-            //console.log("searchDestination doesn't existe !");
             if (urlDestination){
                 setSearchDestination(urlDestination);
             }
@@ -85,13 +83,9 @@ function Search() {
     useEffect(() => {
         function checkDestination(){
             allDestinations.map((dest) => {
-                //console.log("dest= "+dest);
-                //console.log("searchDestination= "+searchDestination);
                 // si le nom de destination existe dans la BDD :
                 if (dest.toLowerCase() === searchDestination) {
                     setIsFound(true);
-                    //console.log("destinationFound est truefy. On va fetcher.");
-                    //console.log("isFound = "+isFound);
                 }
             }); 
             if (!isFound) {
@@ -102,10 +96,7 @@ function Search() {
        
         if (searchDestination){
             console.log("searchDestination (init) = "+searchDestination);  
-            // on vérifie la destination :
             checkDestination();
-            // afficher un msg si la destination n'a pas été trouvée :
-            //console.log("isFound = "+isFound);
         }
     },[searchDestination, searchDate, searchPrice]);
 
@@ -124,12 +115,8 @@ function Search() {
             const json = await res.json();
 
             if(res.status === 200){
-                //console.log(json);
                 // s'il y a des packs trouvés :
                 if(json.datasPacks[0]){
-                    //console.log("des packs ont été trouvée dans la BD pour cette destination");
-
-                    // on sauvegarde les données dans Store :
                     dispatch(setDestination(json.datasDest[0]));
                     dispatch(setPacks(json.datasPacks));
                     dispatch(setLodging(json.datasLodg[0]));
@@ -152,26 +139,19 @@ function Search() {
         if (isFound) {
             setMsg('');
             searchPacks();
-        } /*else if (searchDestination) {
-            setMsg("Aucun résultat trouvé");
-            setShowResults(false);
-            console.log("isFound = "+isFound);
-        }*/
+        } 
     },[isFound]);
 
     // formatter les coordonnées OpenStreetMaps de l'hébergement :
     useEffect(() => {
-        //if (lodging) {
-            if (lodging.coordinates) {
-                formatCoordinates(lodging.coordinates);
-            }  
-        //}
+        if (lodging.coordinates) {
+            formatCoordinates(lodging.coordinates);
+        }  
     },[destination]);
 
     // si on a les données de la destination et des packs enregistrées dans Store, on peut afficher les résultats :
     useEffect(() => {
         if (destination && packs[0] && destinationImages[0]) {
-            //console.log(packs);
             setShowResults(true);
         }
     },[destination, packs[0], destinationImages[0]]);
@@ -190,15 +170,12 @@ function Search() {
     function handleSubmit(e) {
         e.preventDefault();
         setIsFound(false);
-        //console.log("destinationInput= "+destinationInput);
         setSearchDestination(destinationInput.trim().toLowerCase());
         setSearchDate(departureDate);
         setSearchPrice(maxPrice);
-        //window.scrollTo(0, 232);
     }
 
-    return (
-        <>
+    return <>
             <form onSubmit={handleSubmit} className={styles.search_form}>
                 <div className={styles.inputs_ctn}>
                     <input type="text" 
@@ -236,13 +213,11 @@ function Search() {
                     setDestinationInput={setDestinationInput}/>
             </form>
 
-            { msg ? <p className={styles.msg}>{msg}</p> : null }
+            {msg && <p className={styles.msg}>{msg}</p>}
 
             {/* Si on est sur la page d'accueil, on n'affiche pas "Results". On l'affiche si l'URL contient 'search' */}
-            { (showResults && pathname.slice(1) === "search") && 
-                <Results/> }
+            {(showResults && pathname.slice(1) === "search") && <Results/>}
         </>
-    )
 }
 
 export default Search;

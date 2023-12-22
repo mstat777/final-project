@@ -115,159 +115,159 @@ function AdminDashPackModify(){
         { console.log(results)}
         { console.log("showResults = "+showResults)}
         { showResults && 
-        <>
-        {results[0] ? <>
-        <h3>Résultats</h3>
+        <div className={styles.admin_db_section}>
+            {results[0] ? <>
+            <h3>Résultats</h3>
 
-        <form onSubmit={handleSubmit} className={styles.results_table}>
-            <label className={styles.results_label}>
-                <span>Nom de l'hébérgement :</span>
-                <input type="text" 
-                    name="nameLodg" 
-                    value={formData.nameLodg}
-                    onChange={handleChange}
-                    disabled={disableInput.nameLodg}/>
-                <button type="button" onClick={() => activateInput("nameLodg")}>
-                    <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
-                </button>
-            </label>
+            <form onSubmit={handleSubmit} className={styles.results_table}>
+                <label className={styles.results_label}>
+                    <span>Nom de l'hébérgement :</span>
+                    <input type="text" 
+                        name="nameLodg" 
+                        value={formData.nameLodg}
+                        onChange={handleChange}
+                        disabled={disableInput.nameLodg}/>
+                    <button type="button" onClick={() => activateInput("nameLodg")}>
+                        <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
+                    </button>
+                </label>
 
-            <label className={styles.results_label}>
-                <span>Type de l'hébérgement :</span>
-                <input type="text" 
-                    name="typeLodg" 
-                    value={formData.typeLodg}
-                    onChange={handleChange}
-                    disabled={disableInput.typeLodg}/>
-                <button type="button" onClick={() => activateInput("typeLodg")}>
-                    <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
-                </button>
-            </label>
+                <label className={styles.results_label}>
+                    <span>Type de l'hébérgement :</span>
+                    <input type="text" 
+                        name="typeLodg" 
+                        value={formData.typeLodg}
+                        onChange={handleChange}
+                        disabled={disableInput.typeLodg}/>
+                    <button type="button" onClick={() => activateInput("typeLodg")}>
+                        <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
+                    </button>
+                </label>
 
-            <label className={styles.results_label}>
-                <span>Description :</span>
-                <input type="text" 
-                    name="overview" 
-                    value={formData.overview}
-                    onChange={handleChange}
-                    disabled={disableInput.overview}/>
-                <button type="button" onClick={() => activateInput("overview")}>
-                    <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
-                </button>
-            </label>
+                <label className={styles.results_label}>
+                    <span>Description :</span>
+                    <input type="text" 
+                        name="overview" 
+                        value={formData.overview}
+                        onChange={handleChange}
+                        disabled={disableInput.overview}/>
+                    <button type="button" onClick={() => activateInput("overview")}>
+                        <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
+                    </button>
+                </label>
 
-            <label className={styles.results_label}>
-                <span>Equipement :</span>
-                <input type="text" 
-                    name="facilities" 
-                    value={formData.facilities}
-                    onChange={handleChange}
-                    disabled={disableInput.facilities}/>
-                <button type="button" onClick={() => activateInput("facilities")}>
-                    <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
-                </button>
-            </label>
+                <label className={styles.results_label}>
+                    <span>Equipement :</span>
+                    <input type="text" 
+                        name="facilities" 
+                        value={formData.facilities}
+                        onChange={handleChange}
+                        disabled={disableInput.facilities}/>
+                    <button type="button" onClick={() => activateInput("facilities")}>
+                        <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
+                    </button>
+                </label>
 
-            <label className={styles.results_label}>
-                <span>Logement :</span>
-                <input type="text" 
-                    name="rooms" 
-                    value={formData.rooms}
-                    onChange={handleChange}
-                    disabled={disableInput.rooms}/>
-                <button type="button" onClick={() => activateInput("rooms")}>
-                    <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
-                </button>
-            </label> 
+                <label className={styles.results_label}>
+                    <span>Logement :</span>
+                    <input type="text" 
+                        name="rooms" 
+                        value={formData.rooms}
+                        onChange={handleChange}
+                        disabled={disableInput.rooms}/>
+                    <button type="button" onClick={() => activateInput("rooms")}>
+                        <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
+                    </button>
+                </label> 
 
-            <label className={styles.results_label}>
-                <span>Restauration :</span>
-                <input type="text" 
-                    name="foodDrink" 
-                    value={formData.foodDrink}
-                    onChange={handleChange}
-                    disabled={disableInput.foodDrink}/>
-                <button type="button" onClick={() => activateInput("foodDrink")}>
-                    <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
-                </button>
-            </label> 
+                <label className={styles.results_label}>
+                    <span>Restauration :</span>
+                    <input type="text" 
+                        name="foodDrink" 
+                        value={formData.foodDrink}
+                        onChange={handleChange}
+                        disabled={disableInput.foodDrink}/>
+                    <button type="button" onClick={() => activateInput("foodDrink")}>
+                        <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
+                    </button>
+                </label> 
 
-            <label className={styles.results_label}>
-                <span>Formules :</span>
-                <input type="text" 
-                    name="mealPlans" 
-                    value={formData.mealPlans}
-                    onChange={handleChange}
-                    disabled={disableInput.mealPlans}/>
-                <button type="button" onClick={() => activateInput("mealPlans")}>
-                    <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
-                </button>
-            </label> 
+                <label className={styles.results_label}>
+                    <span>Formules :</span>
+                    <input type="text" 
+                        name="mealPlans" 
+                        value={formData.mealPlans}
+                        onChange={handleChange}
+                        disabled={disableInput.mealPlans}/>
+                    <button type="button" onClick={() => activateInput("mealPlans")}>
+                        <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
+                    </button>
+                </label> 
 
-            <label className={styles.results_label}>
-                <span>Loisirs :</span>
-                <input type="text" 
-                    name="entertainment" 
-                    value={formData.entertainment}
-                    onChange={handleChange}
-                    disabled={disableInput.entertainment}/>
-                <button type="button" onClick={() => activateInput("entertainment")}>
-                    <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
-                </button>
-            </label> 
+                <label className={styles.results_label}>
+                    <span>Loisirs :</span>
+                    <input type="text" 
+                        name="entertainment" 
+                        value={formData.entertainment}
+                        onChange={handleChange}
+                        disabled={disableInput.entertainment}/>
+                    <button type="button" onClick={() => activateInput("entertainment")}>
+                        <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
+                    </button>
+                </label> 
 
-            <label className={styles.results_label}>
-                <span>Enfants :</span>
-                <input type="text" 
-                    name="children" 
-                    value={formData.children}
-                    onChange={handleChange}
-                    disabled={disableInput.children}/>
-                <button type="button" onClick={() => activateInput("children")}>
-                    <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
-                </button>
-            </label> 
+                <label className={styles.results_label}>
+                    <span>Enfants :</span>
+                    <input type="text" 
+                        name="children" 
+                        value={formData.children}
+                        onChange={handleChange}
+                        disabled={disableInput.children}/>
+                    <button type="button" onClick={() => activateInput("children")}>
+                        <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
+                    </button>
+                </label> 
 
-            <label className={styles.results_label}>
-                <span>Note Tripadvisor :</span>
-                <input type="text" 
-                    name="tripadvisor" 
-                    value={formData.tripadvisor}
-                    onChange={handleChange}
-                    disabled={disableInput.tripadvisor}/>
-                <button type="button" onClick={() => activateInput("tripadvisor")}>
-                    <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
-                </button>
-            </label> 
+                <label className={styles.results_label}>
+                    <span>Note Tripadvisor :</span>
+                    <input type="text" 
+                        name="tripadvisor" 
+                        value={formData.tripadvisor}
+                        onChange={handleChange}
+                        disabled={disableInput.tripadvisor}/>
+                    <button type="button" onClick={() => activateInput("tripadvisor")}>
+                        <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
+                    </button>
+                </label> 
 
-            <label className={styles.results_label}>
-                <span>Coordonnées (format décimal) :</span>
-                <input type="text" 
-                    name="coordinates" 
-                    value={formData.coordinates}
-                    onChange={handleChange}
-                    disabled={disableInput.coordinates}/>
-                <button type="button" onClick={() => activateInput("coordinates")}>
-                    <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
-                </button>
-            </label>           
+                <label className={styles.results_label}>
+                    <span>Coordonnées (format décimal) :</span>
+                    <input type="text" 
+                        name="coordinates" 
+                        value={formData.coordinates}
+                        onChange={handleChange}
+                        disabled={disableInput.coordinates}/>
+                    <button type="button" onClick={() => activateInput("coordinates")}>
+                        <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
+                    </button>
+                </label>           
 
-            <div>
-                <button type="submit">enregistrer</button>
-                <button type="button"
-                        onClick={() => {}}>
-                    supprimer
-                </button>
-            </div>
+                <div>
+                    <button type="submit">enregistrer</button>
+                    <button type="button"
+                            onClick={() => {}}>
+                        supprimer
+                    </button>
+                </div>
 
-        </form>
-        { errMsg && <p className={styles.err_msg}>{errMsg}</p> }
-        { okMsg && <p className={styles.ok_msg}>{okMsg}</p> }
-        
-        </>
-        : <p className={styles.msg_nok}>Aucun résultat trouvé</p>
-        }
-        </>}
+            </form>
+            { errMsg && <p className={styles.err_msg}>{errMsg}</p> }
+            { okMsg && <p className={styles.ok_msg}>{okMsg}</p> }
+            
+            </>
+            : <p className={styles.msg_nok}>Aucun résultat trouvé</p>
+            }
+        </div>}
     </>
 }
 

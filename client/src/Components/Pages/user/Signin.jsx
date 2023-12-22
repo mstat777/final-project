@@ -20,7 +20,6 @@ function Signin(){
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    // Messages venants du serveur :
     const [msg, setMsg] = useState('');
 
     /* pour l'oeil d'affichage du mdp */
@@ -47,8 +46,7 @@ function Signin(){
     
     async function handleSubmit(e){
         e.preventDefault();
-        //console.log("SignIN form sent!");
-        //console.log("email : "+email);
+
         const res = await fetch(`${BASE_URL}/api/v.0.1/user/signin`, {
             method: "post",
             headers: { "Content-Type": "application/json" },
@@ -57,12 +55,9 @@ function Signin(){
         const json = await res.json();
         if(res.status === 200){
             localStorage.setItem("auth", json.TOKEN);
-            //console.log(localStorage.getItem('user'));
-            //console.log("le token a été créé dans localhost");
-            //console.log(json);
+
             dispatch(signin(json));
-            //console.log("userInfo.chosenPackID ="+userInfo.chosenPackID);
-            // si on n'a pas encore séléctionné un pack, on sera dirigé vers la page d'accueil :
+
             if (userInfo.chosenPackID === -1) { 
                 navigate("/");
             } else {
@@ -74,11 +69,10 @@ function Signin(){
         }
     }
 
-    return(
-        <main id="signin">
+    return <main id="signin">
 
             <div className={styles.signin_div}>
-                {/* afficher le message de confirmation après avoir créé un nouveau compte */}
+
                 { (logMessage && !email && !password) && 
                     <p className={styles.ok_msg}>{logMessage}</p> }
                 
@@ -122,7 +116,6 @@ function Signin(){
             </div>
 
         </main>
-    )
 }
 
 export default Signin;

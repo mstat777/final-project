@@ -25,7 +25,7 @@ function Signup(){
     const [birthDate, setBirthDate] = useState("");
     const [occupation, setOccupation] = useState("");
     const [password, setPassword] = useState("");
-    // les 2 checkbox :
+
     const[checkBoxNewsL, setCheckBoxNewsL] = useState(false);
     const[checkBoxPrivacy, setCheckBoxPrivacy] = useState(false);
 
@@ -36,9 +36,7 @@ function Signup(){
     // afficher le placeholder de la date de naissance :
     const [inputDateType, setInputDateType] = useState("text");
 
-    // Messages venants du serveur :
     const [msg, setMsg] = useState('');
-    // Erreur du formulaire :
     const [errMsg, setErrMsg] = useState('');
 
     // pour ne pas soumettre le formulaire, si les inputs ne sont pas valides:
@@ -85,12 +83,6 @@ function Signup(){
             //
             const bDateVerif = validateInput("birthDate",birthDate);
             const passVerif= validateInput("password",password.trim());
-            /*console.log("lastNameVerif.isValid = "+lNameVerif.isValid);
-            console.log("firstNameVerif.isValid = "+fNameVerif.isValid);
-            console.log("telVerif.isValid = "+telVerif.isValid);
-            console.log("addressVerif.isValid = "+addressVerif.isValid);
-            console.log("birthDateVerif.isValid = "+bDateVerif.isValid);
-            console.log("passwordVerif.isValid = "+passVerif.isValid);*/
 
             // rassembler toutes les messages d'erreur pour les afficher au-dessous du formulaire :
             setErrMsg(lNameVerif.msg 
@@ -149,8 +141,7 @@ function Signup(){
         checkFormValidation();
     }
 
-    return(
-        <main id="signup">
+    return <main id="signup">
 
             <div className={styles.signup_div}>
                 <h2>Je crée mon compte</h2>     
@@ -159,7 +150,6 @@ function Signup(){
                     <div className={styles.input_ctn}> 
                         <FontAwesomeIcon icon={faUser} className={styles.input_icon}/>  
                         <input type="text" 
-                                //pattern="[A-Z][a-zA-Z-]{1,40}"
                                 name="lastName" 
                                 placeholder="Nom*"
                                 value={lastName}
@@ -170,7 +160,6 @@ function Signup(){
                     <div className={styles.input_ctn}> 
                         <FontAwesomeIcon icon={faUserReg} className={styles.input_icon}/>  
                         <input type="text" 
-                                //pattern="[A-Z][a-zA-Z-]{1,40}"
                                 name="firstName" 
                                 placeholder="Prénom*"
                                 value={firstName}
@@ -191,7 +180,6 @@ function Signup(){
                     <div className={styles.input_ctn}> 
                         <FontAwesomeIcon icon={faPhone} className={styles.input_icon}/>  
                         <input type="tel" 
-                                //pattern="[0-9+]{10,15}"
                                 name="tel" 
                                 placeholder="Numéro de téléphone"
                                 value={tel}
@@ -269,7 +257,6 @@ function Signup(){
             </div>
 
         </main>
-    )
 }
 
 export default Signup;

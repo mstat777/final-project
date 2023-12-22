@@ -57,7 +57,7 @@ function UserDashboardMyBookings(){
             });
             const dataAll = await res.json();
             console.log(dataAll);
-            //console.log(res.status);
+
             if (res.status === 200) {
                 setOkMsg("Les données ont été trouvées.");
                 dispatch(setBookedData(dataAll));
@@ -88,18 +88,16 @@ function UserDashboardMyBookings(){
                 body: JSON.stringify({ id })
             });
             const json = await res.json();
-            //console.log(json.msg);  
+
             if (res.status === 201) {
                 setOkMsg("La réservation a été supprimée.");
                 // on supprime l'élément du tableau :
                 userBookings.splice(index, 1);
-                //navigate("/db/admin/lodgings");
             }
         }
     }
 
-    return(
-        <main className={styles.user_db_main}>
+    return <main className={styles.user_db_main}>
             <div className={styles.user_db_section}>
 
                 <h2>mes réservations</h2>
@@ -163,7 +161,6 @@ function UserDashboardMyBookings(){
                 }
             </div>
         </main>
-    )
 }
 
 export default UserDashboardMyBookings;

@@ -24,39 +24,40 @@ function AdminDashPackResults(){
         { console.log(resultsPacks)}
         { console.log("showResults = "+showResults)}
         { showResults && 
-        <>
-        {resultsPacks[0] ? <>
-        <h3>Résultats</h3>
-        <table className={styles.results_table}>
-            <thead>
-                <tr> 
-                    <th>N&deg;</th> 
-                    <th>nom</th>
-                    <th>type</th>
-                    <th>description</th>
-                    <th>modifier</th>
-                </tr>
-            </thead>
+        <div className={styles.admin_db_section}>
+            {resultsPacks[0] ? <>
+            <h3>Résultats</h3>
+            <table className={styles.results_table}>
+                <thead>
+                    <tr> 
+                        <th>N&deg;</th> 
+                        <th>nom</th>
+                        <th>type</th>
+                        <th>description</th>
+                        <th>modifier</th>
+                    </tr>
+                </thead>
 
-            <tbody>  
-            { resultsPacks.map((el, index) => 
-                <tr key={index}>
-                    <td>{index+1}</td>
-                    <td>{el.l.name}</td>
-                    <td>{el.l.type}</td>
-                    <td>{el.l.overview}</td>
-                    <td>
-                        <button>modifier</button>
-                    </td>
-                </tr>
-            )}
-            </tbody>
+                <tbody>  
+                { resultsPacks.map((el, index) => 
+                    <tr key={index}>
+                        <td>{index+1}</td>
+                        <td>{el.l.name}</td>
+                        <td>{el.l.type}</td>
+                        <td>{el.l.overview}</td>
+                        <td>
+                            <button>modifier</button>
+                        </td>
+                    </tr>
+                )}
+                </tbody>
 
-        </table>
-        </>
-        : <p className={styles.msg_nok}>Aucun résultat trouvé</p>
+            </table>
+            </>
+            : <p className={styles.msg_nok}>Aucun résultat trouvé</p>
+            }
+        </div>
         }
-        </>}
     </>
 }
 

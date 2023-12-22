@@ -1,9 +1,9 @@
-import styles from './slider.module.css';
+import styles from './slideshow.module.css';
 import React, {useState} from 'react';
 import { useSelector } from 'react-redux';
-import SliderBtn from './SliderBtn';
+import SlideshowBtn from './SlideshowBtn';
 
-function Slider({type}){
+function Slideshow({type}){
     const IMG_URL = process.env.REACT_APP_IMG_URL;
     const { destinationImages } = useSelector((state) => state.allTravel);
     const { lodgingImages } = useSelector((state) => state.allTravel);
@@ -48,26 +48,24 @@ function Slider({type}){
         }
     }
 
-    return (
-        <div className={styles.slider_ctn}>    
-            { type === "destination" &&
-            destinationImages.map((el, index) =>
-            <div key={index}
-                    className={slideIndex === index + 1 ? `${styles.slide} ${styles.active_anim}` : `${styles.slide}`}> 
-                <img src={`${IMG_URL}/img/destinations/${el.url_image}`} alt=""/>
+    return <div className={styles.slideshow_ctn}>    
+                { type === "destination" &&
+                destinationImages.map((el, index) =>
+                <div key={index}
+                        className={slideIndex === index + 1 ? `${styles.slide} ${styles.active_anim}` : `${styles.slide}`}> 
+                    <img src={`${IMG_URL}/img/destinations/${el.url_image}`} alt="images représantantes cette destination"/>
+                </div>
+                )}
+                { type === "lodging" &&
+                lodgingImages.map((el, index) =>
+                <div key={index}
+                        className={slideIndex === index + 1 ? `${styles.slide} ${styles.active_anim}` : `${styles.slide}`}> 
+                    <img src={`${IMG_URL}/img/lodgings/${el.url_image}`} alt="images représantantes cet hébérgement"/>
+                </div>
+                )}
+                <SlideshowBtn moveSlide={nextSlide} direction={"next"} />
+                <SlideshowBtn moveSlide={prevSlide} direction={"prev"}/>
             </div>
-            )}
-            { type === "lodging" &&
-            lodgingImages.map((el, index) =>
-            <div key={index}
-                    className={slideIndex === index + 1 ? `${styles.slide} ${styles.active_anim}` : `${styles.slide}`}> 
-                <img src={`${IMG_URL}/img/lodgings/${el.url_image}`} alt=""/>
-            </div>
-            )}
-            <SliderBtn moveSlide={nextSlide} direction={"next"} />
-            <SliderBtn moveSlide={prevSlide} direction={"prev"}/>
-        </div>
-    )
 }
 
-export default Slider;
+export default Slideshow;

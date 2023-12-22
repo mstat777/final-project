@@ -12,8 +12,8 @@ function Card({type, data}){
         navigate(`/detail/${name}`);
     }
 
-    return <div className={styles.card}>
-                <img src={`${IMG_URL}/img/destinations/${data.url_initial_image}`} alt=""/>
+    return <article className={styles.card}>
+                <img src={`${IMG_URL}/img/destinations/${data.url_initial_image}`} alt="image représentante la destination"/>
 
                 <div className={styles.card_info}> 
                     <h4>{data.country}</h4>
@@ -39,7 +39,7 @@ function Card({type, data}){
                         onClick={() => handleClick(data.name)}          
                         className={styles.discover_btn}>découvrir</button>
                 </div>
-            </div>    
+            </article>    
 }
 
 export default Card;

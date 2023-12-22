@@ -6,7 +6,6 @@ import { useMediaQuery } from "react-responsive";
 function Confirmation(){
     const navigate = useNavigate();
 
-    // remonter au top de la page lors de chargement
     const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
     const isTabletOrDesktop = useMediaQuery({ query: '(min-width: 768px)' });
     useEffect(() => {
@@ -21,18 +20,12 @@ function Confirmation(){
         return () => clearTimeout(redirectTimeout);
     }, []);
 
-    return (
-        <main id="confirmation">
-
-            <div className={styles.confirmation_section}>
-
-                <span>Merci pour votre réservation !</span>
-                <p>Dans quelques instants vous serez redirigé vers la page d'Accueil.</p>
-
-            </div>
-
-        </main>
-    )
+    return <main id="confirmation">
+                <div className={styles.confirmation_section}>
+                    <span>Merci pour votre réservation !</span>
+                    <p>Dans quelques instants vous serez redirigé vers la page d'Accueil.</p>
+                </div>
+            </main>
 }
 
 export default Confirmation;

@@ -19,21 +19,18 @@ function WithAuth({child, auth}){
             if (auth) {
                 if (!TOKEN) {
                     navigate("/user/signin");
-                    //console.log("pas de token");
                 }
                 if (TOKEN) {
                     const res = await fetch(`${BASE_URL}/api/v.0.1/user/check-token`, {
                         headers: { Authentication: "Bearer " + TOKEN }
                     });
-                    //console.log("token trouvé");
-                    if (res.status === 401) {   
-                        //console.log("le token n'est pas valid");                     
+
+                    if (res.status === 401) {                     
                         localStorage.removeItem("auth");
                         dispatch(signout());
                         navigate("/");
                     }
-                    if (res.status === 200) {
-                        //console.log("le token est valid"); 
+                    if (res.status === 200) { 
                         const json = await res.json();
                         setTokenIsValid(true);
                     }
@@ -42,14 +39,13 @@ function WithAuth({child, auth}){
 
             if (!auth) {
                 navigate("/user/signin");
-                //console.log("pas logué");
             }
         }
 
         checkAuth();
     },[auth]);
 
-    return <>{(!auth || (auth && tokenIsValid)) && <Child />}</>
+    return (!auth || (auth && tokenIsValid)) && <Child />
 }
 
 export default WithAuth;

@@ -1,147 +1,153 @@
 import { useNavigate } from 'react-router-dom';
 import styles from '../../admindash.module.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 function AdminDashPackCreate(){
     const BASE_URL = process.env.REACT_APP_BASE_URL;
     const navigate = useNavigate();
 
-    const [nameLodg, setNameLodg] = useState("");
-    const [typeLodg, setTypeLodg] = useState("");
-    const [overview, setOverview] = useState("");
-    const [facilities, setFacilities] = useState("");
-    const [rooms, setRooms] = useState("");
-    const [foodDrink, setFoodDrink] = useState("");
-    const [mealPlans, setMealPlans] = useState("");
-    const [entertainment, setEntertainment] = useState("");
-    const [children, setChildren] = useState("");
+    const [reference, setReference] = useState("");
+    const [departureDate, setDepartureDate] = useState("");
+    const [returnDate, setReturnDate] = useState("");
+    const [duration, setDuration] = useState("");
+    const [priceAdults, setPriceAdults] = useState("");
+    const [priceChildren, setPriceChildren] = useState("");
+    const [discount, setDiscount] = useState("");
+    const [placesTotal, setPlacesTotal] = useState("");
+    const [placesLeft, setPlacesLeft] = useState("");
+    const [destinationID, setDestinationID] = useState("");
 
-    const [urlInitialImage, setUrlInitialImage] = useState("");
+    const [okMsg, setOkMsg] = useState("");
+    const [errMsg, setErrMsg] = useState("");
 
-    const [tripadvisor, setTripadvisor] = useState("");
-    const [coordinates, setCoordinates] = useState("");
-
-    const [msg, setMsg] = useState(null);
+    // on récupère la liste de toutes les destinations (array of objects) présentes dans la BDD ('nom' et 'id') :
+    const [destinations, setDestinations] = useState([]);
+    useEffect(() => {
+        async function getAllDestinations(){
+            const result = await(await fetch(`${BASE_URL}/api/v.0.1/admin/destinations/id/all`)).json();
+            setDestinations(result.datas);
+        }
+        getAllDestinations();
+    },[])
 
     async function handleSubmit(e) {
         e.preventDefault();
         console.log("Admin DB create form sent!");
-        const res = await fetch(`${BASE_URL}/api/v.0.1/admin/lodgings/create`, {
+
+        const formData = new FormData();
+        formData.append('reference', reference);
+        formData.append('departure_date', departureDate);
+        formData.append('return_date', returnDate);
+        formData.append('duration', duration);
+        formData.append('price_adults', priceAdults);
+        formData.append('price_children', priceChildren);
+        formData.append('discount', discount);
+        formData.append('places_total', placesTotal);
+        formData.append('places_left', placesLeft);
+        formData.append('destination_id', destinationID);
+
+        const res = await fetch(`${BASE_URL}/api/v.0.1/admin/packs/create`, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ 
-                nameLodg,
-                typeLodg,
-                overview, 
-                facilities,
-                rooms,
-                foodDrink,
-                mealPlans,
-                entertainment,
-                children,
-                urlInitialImage,
-                tripadvisor,
-                coordinates})
+            body: formData
         });
         const json = await res.json();
         
         if ( res.status === 200) {
-            setMsg(json.msg);
-            //navigate("/db/admin/my-infos");
+            setOkMsg(json.msg);
         } else {
-            console.log("res.status = "+res.status);
+            setErrMsg(json.msg);
         }
     }
 
-    return(
-        <main className={styles.user_db_main}>
-            <h2>Créer un nouveau hébérgement</h2>
+    return (
+        <div className={styles.admin_db_section}>
+            <h2>Créer un nouveau pack</h2>
 
-            <form onSubmit={handleSubmit} className={styles.db_create_form}>
-                <label>
-                    <span>Nom de l'hébérgement :</span>
+            <form onSubmit={handleSubmit} 
+                    className={styles.db_create_form}
+                    encType="multipart/form-data">
+
+                <p className={styles.msg_instructions}>IMPORTANT : Veuillez associer d'abord la destination correspondante à ce pack. Si elle n'est pas encore créée, merci de la créer d'abord avant de créer ce nouveau pack.</p>
+                <label className={styles.create_label}>
+                    <span>Destination correspondant :</span>
+                    <select value={destinationID} 
+                            onChange={(e) => setDestinationID(e.target.value)}>
+                        {destinations.map((dest) => (
+                            <option value={dest.id} key={dest.id}>{dest.name}</option>
+                        ))}
+                    </select>
+                </label>
+
+                <label className={styles.create_label}>
+                    <span>Référence du pack :</span>
                     <input type="text" 
-                        name="nameLodg" 
-                        value={nameLodg}
-                        onChange={(e) => setNameLodg(e.target.value)}/>  
+                        name="reference" 
+                        value={reference}
+                        onChange={(e) => setReference(e.target.value)}/>  
                 </label>
-                <label>  
-                    <span>Type de l'hébérgement :</span>
+                <label className={styles.create_label}>
+                    <span>Date de départ :</span>
+                    <input type="date" 
+                        name="departureDate" 
+                        value={departureDate}
+                        onChange={(e) => setDepartureDate(e.target.value)}/> 
+                </label>
+                <label className={styles.create_label}>
+                    <span>Date de retour :</span>
+                    <input type="date" 
+                        name="returnDate" 
+                        value={returnDate}
+                        onChange={(e) => setReturnDate(e.target.value)}/> 
+                </label>
+                <label className={styles.create_label}>
+                    <span>Durée :</span>
                     <input type="text" 
-                        name="typeLodg" 
-                        value={typeLodg}
-                        onChange={(e) => setTypeLodg(e.target.value)}/> 
+                        name="duration" 
+                        value={duration}
+                        onChange={(e) => setDuration(e.target.value)}/>  
                 </label>
-                <label>  
-                    <span>Présentation (description générale) :</span>
-                    <textarea name="overview" 
-                        value={overview}
-                        onChange={(e) => setOverview(e.target.value)} />
-                </label>
-                <label>  
-                    <span>Equipement :</span>
-                    <textarea name="facilities" 
-                        value={facilities}
-                        onChange={(e) => setFacilities(e.target.value)} />
-                </label>
-                <label>  
-                    <span>Logement :</span>
-                    <textarea name="rooms" 
-                        value={rooms}
-                        onChange={(e) => setRooms(e.target.value)} />
-                </label>
-                <label>  
-                    <span>Restauration :</span>
-                    <textarea name="foodDrink" 
-                        value={foodDrink}
-                        onChange={(e) => setFoodDrink(e.target.value)} />
-                </label>
-                <label>  
-                    <span>Formules :</span>
-                    <textarea name="mealPlans" 
-                        value={mealPlans}
-                        onChange={(e) => setMealPlans(e.target.value)} />
-                </label>
-                <label>  
-                    <span>Loisirs :</span>
-                    <textarea name="entertainment" 
-                        value={entertainment}
-                        onChange={(e) => setEntertainment(e.target.value)} />
-                </label>
-                <label>  
-                    <span>Enfants :</span>
-                    <textarea name="children" 
-                        value={children}
-                        onChange={(e) => setChildren(e.target.value)} />
-                </label>
-                <label>  
-                    <input type="file" 
-                        name="urlInitialImage" 
-                        accept="image/jpg"
-                        multiple={false}
-                        value={urlInitialImage}
-                        onChange={(e) => setUrlInitialImage(e.target.value)}/>
-                </label>
-                <label>  
-                    <span>Note Tripadvisor :</span>
+                <label className={styles.create_label}>
+                    <span>Prix adultes :</span>
                     <input type="text" 
-                        name="tripadvisor" 
-                        value={tripadvisor}
-                        onChange={(e) => setTripadvisor(e.target.value)}/>
+                        name="priceAdults" 
+                        value={priceAdults}
+                        onChange={(e) => setPriceAdults(e.target.value)}/>  
                 </label>
-                <label>  
-                    <span>Les coordonnées (format décimal) :</span>
+                <label className={styles.create_label}>
+                    <span>Prix enfants :</span>
                     <input type="text" 
-                        name="coordinates" 
-                        value={coordinates}
-                        onChange={(e) => setCoordinates(e.target.value)}/>
+                        name="priceChildren" 
+                        value={priceChildren}
+                        onChange={(e) => setPriceChildren(e.target.value)}/>  
+                </label>
+                <label className={styles.create_label}>
+                    <span>Réduction :</span>
+                    <input type="text" 
+                        name="discount" 
+                        value={discount}
+                        onChange={(e) => setDiscount(e.target.value)}/>  
+                </label>
+                <label className={styles.create_label}>
+                    <span>Nombre de places total :</span>
+                    <input type="text" 
+                        name="placesTotal" 
+                        value={placesTotal}
+                        onChange={(e) => setPlacesTotal(e.target.value)}/>  
+                </label>
+                <label className={styles.create_label}>
+                    <span>Nombre de places restantes :</span>
+                    <input type="text" 
+                        name="placesLeft" 
+                        value={placesLeft}
+                        onChange={(e) => setPlacesLeft(e.target.value)}/>  
                 </label>
                 
                 <button type="submit">créer</button>
             </form>
-            {msg && <p className={styles.msg}>{msg}</p>}
+            { errMsg && <p className={styles.err_msg}>{errMsg}</p> }
+            { okMsg && <p className={styles.ok_msg}>{okMsg}</p> }
 
-        </main>
+        </div>
     )
 }
 

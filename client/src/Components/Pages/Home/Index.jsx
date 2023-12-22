@@ -7,7 +7,7 @@ import Loading from "../../Containers/Loading/Index";
 import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
-//import { useMediaQuery } from "react-responsive";
+
 import { fetchBestPromoPack, fetchTopDestination } from '../../Functions/fetchData.js';
 
 function Home() {
@@ -23,60 +23,58 @@ function Home() {
         window.scrollTo(0, 0);
     }, []);
 
-
     useEffect(() => {
         const fetchPromo = async () => {
             await fetchBestPromoPack();
             setShowBestPromo(true);
         }
-        fetchPromo();
-    },[])
-    useEffect(() => {
         const fetchTop = async () => {
             await fetchTopDestination();
             setShowTopDestination(true);
         }
+        fetchPromo();
         fetchTop();
     },[])
 
-    return (
-        <main id="home" className={styles.home_main}>
+    return <main id="home" className={styles.home_main}>
 
             {(!showBestPromo && !showTopDestination && !bestPromos[0] && !topDestinations[0]) ? 
                 <Loading /> : 
             <>
-                <img src={banner} className={styles.home_banner} alt="banner"/>
+                <h1>Page d'accueil</h1>
+                <img src={banner} className={styles.home_banner} alt="bannière publicitaire"/>
                 <Search/>
                 {/* Ne pas afficher les offes Promo et Top, si on a déjà cherché une destination */}
                 {pathname.slice(1) !== "search" && 
                     <>
-                        {showBestPromo && <>
+                        {showBestPromo && 
+                        <section className={styles.cards_ctn}>
                             <h2>Offres promotionnelles</h2>
                             {bestPromos[0] &&
-                                <div className={styles.cards_ctn}> 
-                                {bestPromos.map((promo, index) => 
-                                    <Card type="promo" data={promo} key={index}/>
-                                )} 
-                                </div>
+                                bestPromos.map((promo, index) => 
+                                    <Card type="promo" 
+                                          data={promo} 
+                                          key={index}/>
+                                )
                             }
-                        </>}
+                        </section>}
                         
-                        {showTopDestination && <>
+                        {showTopDestination && 
+                        <section className={styles.cards_ctn}>
                             <h2>Top destinations</h2>
                             {topDestinations[0] &&
-                                <div className={styles.cards_ctn}> 
-                                {topDestinations.map((dest, index) => 
-                                    <Card type="topOffer" data={dest} key={index}/>
-                                )} 
-                                </div>
+                                topDestinations.map((dest, index) => 
+                                    <Card type="topOffer" 
+                                          data={dest} 
+                                          key={index}/>
+                                )
                             }
-                        </>}
+                        </section>}
                     </>
                 }
             </>}
 
         </main>
-    )
 }
 
 export default Home;

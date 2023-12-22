@@ -6,6 +6,10 @@
     margin: 2em auto;
 }
 
+.results_section h2 {
+    display: none;
+}
+
 .slider_ctn {
     width: 100%;
 }
@@ -20,13 +24,11 @@
 
 .results_section > article > div {
     margin: 0 auto;
-    /*width: 50%;*/
 }
 
-.results_section > article p {
-    margin-left: 1em;
-    margin-right: 1em;
-    /*font-size: 1.4rem*/
+.country_txt {
+    font-size: 1.8rem;
+    color: var(--highlight-color);
 }
 
 .price {
@@ -54,8 +56,6 @@
 .overview {
     text-align: justify;
     white-space: break-spaces;
-    /*white-space: pre-wrap;*/
-    /*white-space: pre-line;*/
 }
 
 /******************************************************************/

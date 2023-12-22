@@ -69,20 +69,18 @@ function Contact(){
         setMsg("");
     }
 
-    return (
-        <main id="contact">
-
-            <div className={styles.contact_section}>
-                <div>
-                    <p className={styles.title}>infos et réservations</p>
+    return <main id="contact">
+            <section className={styles.contact_section}>
+                <h1>Page Contact</h1>
+                <article>
+                    <h2>infos et réservations</h2>
                     <p href="tel:+33123456789" className={styles.text_tel}><FontAwesomeIcon icon={faPhone} className={styles.phone_icon}/>01 23 45 67 89*</p>
-                    <p className={styles.text_small}>Prix d'un appel local</p>
+                    <p className={styles.no_margin}><small>Prix d'un appel local</small></p>
                     <p>Du lundi au vendredi de 9h à 19h, le samedi de 10h à 18h.</p>
-                </div>
+                </article>
 
-                <div>
-                    <p className={styles.title}>nous contacter</p>
-
+                <article>
+                    <h2>nous contacter</h2>
                     <form onSubmit={handleSubmit} className={styles.contact_form}>
                         <label className={styles.contact_label}>  
                             <span>Nom :</span>
@@ -126,11 +124,10 @@ function Contact(){
                     { (msg && userName && userEmail && userMessage) ? 
                         <p className={styles.msg}>{msg}</p> : null }
 
-                </div>
+                </article>
                 
-            </div>
+            </section>
         </main>
-    )
 }
 
 export default Contact;

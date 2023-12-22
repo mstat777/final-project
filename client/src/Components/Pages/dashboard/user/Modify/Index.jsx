@@ -70,7 +70,6 @@ function ModifyBooking(){
         async function fetchPackAllData(){
             try {
                 const dataAll = await (await fetch(`${BASE_URL}/api/v.0.1/travel/pack-all-data/${packID}`)).json();
-                //console.log(dataAll);
                 dispatch(setDestination(dataAll.datasDest[0]));
                 dispatch(setPacks(dataAll.datasPacks));
                 dispatch(setLodging(dataAll.datasLodg[0]));
@@ -93,18 +92,14 @@ function ModifyBooking(){
                 childrenBookedAct.push(0);
             }
             console.log(bookedData);
-            //console.log("activities.length = "+activities.length);
-            //console.log("bookedData.datasBookAct.length = "+bookedData.datasBookAct.length);
+
             for (let i = 0; i < activities.length; i++) {
-                //console.log("activities[i].id = "+activities[i].id);
                 for (let j = 0; j < bookedData.datasBookAct.length; j++) {
                     if (bookedData.datasBookAct[j].activity_id === activities[i].id) {
-                        //console.log("bookedData.datasBookAct[j].activity_id = "+bookedData.datasBookAct[j].activity_id);
                         adultsBookedAct[i] = bookedData.datasBookAct[j].nb_adults;
                         childrenBookedAct[i] = bookedData.datasBookAct[j].nb_children;
                     } 
                 }
-                //console.log(adultsBookedAct);
             }
 
             // et on les enregistre dans Store :
@@ -118,10 +113,7 @@ function ModifyBooking(){
                     activities: childrenBookedAct
                 }
             }
-            //console.log(numberPeople);
             dispatch(setNbInBooking(numberPeople));
-            //setIsNbPeopleLoaded(true);
-            console.log("getting people nb");
         }
     },[destination, lodging, packs[0], activities[0]]);
 
@@ -129,7 +121,6 @@ function ModifyBooking(){
     useEffect(() => {  
         if (bookingInfo.nb_adults.pack) {
             console.log("je calcule les prix");
-            //console.log(destination, lodging, packs, activities);
             // initialiser les checkboxes :
             let myArray = []; 
             activities.forEach(() => {
@@ -180,8 +171,6 @@ function ModifyBooking(){
     function handleChange(index) {
         const newArray = [...checkBoxes];
         newArray[index] = !checkBoxes[index];
-        //console.log("newArray[index] = "+newArray[index]);
-        //console.log(newArray);
         setCheckBoxes(newArray);
     }
 
@@ -195,29 +184,29 @@ function ModifyBooking(){
     }
 
     return <main id="booking-modify">
-            {/* (destination && lodging && packs[0] && activities[0] && bookingInfo.nb_adults.pack && bookingInfo.prices.total_all) ?*/}
-            {isAllDataLoaded ?
-            <div className={styles.booking_section}>
-                {/* console.log(bookingInfo)*/}
-                {/* console.log(bookingInfo.nb_adults)*/}
-                <h2>modifier votre réservation</h2>
-                <div className={styles.booking_info_top}>
-                    <div className={styles.booking_info_ctn}>
-                        <h4>{lodging.name}</h4>
-                        <h3>{destination.name}</h3>
-                        <p>Paramètres du pack :</p>
-                        <p>Date de départ : <span>{packs[id].departure_date.slice(0, packs[id].departure_date.indexOf('T'))}</span></p>
-                        <p>Date de retour : <span>{packs[id].return_date.slice(0, packs[id].return_date.indexOf('T'))}</span></p> 
-                        <p>Durée : <span>{packs[id].duration+1}</span> jours / <span>{packs[id].duration}</span> nuits</p>  
-                        <p>Prix/TTC/adulte : <span>{packs[id].price_adults}</span> &euro;</p> 
-                        <p>Prix/TTC/enfant : <span>{packs[id].price_children}</span> &euro;</p> 
-                    </div>
-                    <img src={`${IMG_URL}/img/lodgings/${lodging.url_initial_image}`} alt="" className={styles.main_img}/>
-                </div>
+            {isAllDataLoaded &&
+            <section className={styles.booking_section}>
+                <h1>modifier votre réservation</h1>
 
-                <p>Nombre d'adultes et d'enfants pour lesquels vous avez réservé :</p>
-                <div className={styles.booking_inputs_ctn}>
-                    <div className={styles.booking_inputs}>
+                <article className={styles.booking_info_top}>
+                    <h2>Information concernant le pack choisi</h2>
+                    <div className={styles.booking_info_ctn}>
+                        <h3>{lodging.name}</h3>
+                        <p className={styles.destination_name}>{destination.name}</p>
+                        <p>Paramètres du pack :</p>
+                        <p>Date de départ : <b>{packs[id].departure_date.slice(0, packs[id].departure_date.indexOf('T'))}</b></p>
+                        <p>Date de retour : <b>{packs[id].return_date.slice(0, packs[id].return_date.indexOf('T'))}</b></p> 
+                        <p>Durée : <b>{packs[id].duration+1}</b> jours / <b>{packs[id].duration}</b> nuits</p>  
+                        <p>Prix/TTC/adulte : <b>{packs[id].price_adults}</b> &euro;</p> 
+                        <p>Prix/TTC/enfant : <b>{packs[id].price_children}</b> &euro;</p> 
+                    </div>
+                    <img src={`${IMG_URL}/img/lodgings/${lodging.url_initial_image}`} alt="image de l'hébergement" className={styles.main_img}/>
+                </article>
+
+                <article className={styles.booking_inputs_ctn}>
+                    <h2>Nombres de personnes</h2>
+                    <p>Nombre d'adultes et d'enfants pour lesquels vous avez réservé ce pack :</p>
+                    <div className={styles.booking_inputs}> 
                         <span>Adultes :</span>
                         <button onClick={()=>{dispatch(incrNbAdultsPack())}}>
                             <FontAwesomeIcon icon={faCirclePlus} className={styles.fa_circle}/>
@@ -243,47 +232,48 @@ function ModifyBooking(){
                             <FontAwesomeIcon icon={faCircleMinus} className={styles.fa_circle}/>
                         </button>
                     </div>
-                </div>
+                </article>
 
-                <div className={styles.booking_activities_ctn}>
-                    <span>Activités à réserver :</span>
-                    {activities.map((activity, index) => 
-                        <div className={styles.booking_activity} key={index}>
+                <section className={styles.booking_activities_ctn}>
+                    <h2>Les activités à choisir</h2>
+                    <span>Veuillez choisir entre les activités suivantes :</span>
+                    {activities.map((activity, i) => 
+                        <article className={styles.booking_activity} key={i}>
                             <div className={styles.booking_activity_title}>
                                 <label htmlFor={activity.id}>
                                     <input type="checkbox" 
-                                        checked={ checkBoxes[index] } 
-                                        onChange={() => handleChange(index)}/>
+                                        checked={ checkBoxes[i] } 
+                                        onChange={() => handleChange(i)}/>
                                     {activity.name}
                                 </label>
                             </div>
 
-                            { checkBoxes[index] && 
+                            { checkBoxes[i] && 
                             <div className={styles.booking_activity_inputs}>
                                 <span>Adultes :</span>
                                 <div>
-                                    <button onClick={()=>{dispatch(incrNbAdultsActivity(index))}}>
+                                    <button onClick={()=>{dispatch(incrNbAdultsActivity(i))}}>
                                         <FontAwesomeIcon icon={faCirclePlus} className={styles.fa_circle}/>
                                     </button>
                                     <input type="text" 
                                         pattern="[0-9]{2}"
-                                        value={bookingInfo.nb_adults.activities[index]} 
+                                        value={bookingInfo.nb_adults.activities[i]} 
                                         disabled/>
-                                    <button onClick={()=>{dispatch(decrNbAdultsActivity(index))}}>
+                                    <button onClick={()=>{dispatch(decrNbAdultsActivity(i))}}>
                                         <FontAwesomeIcon icon={faCircleMinus} className={styles.fa_circle}/>
                                     </button>
                                 </div>
 
                                 <span>Enfants :</span>
                                 <div>
-                                    <button onClick={()=>{dispatch(incrNbChildrenActivity(index))}}>
+                                    <button onClick={()=>{dispatch(incrNbChildrenActivity(i))}}>
                                         <FontAwesomeIcon icon={faCirclePlus} className={styles.fa_circle}/>
                                     </button>
                                     <input type="text" 
                                         pattern="[0-9]{2}"
-                                        value={bookingInfo.nb_children.activities[index]} 
+                                        value={bookingInfo.nb_children.activities[i]} 
                                         disabled/>
-                                    <button onClick={()=>{dispatch(decrNbChildrenActivity(index))}}>
+                                    <button onClick={()=>{dispatch(decrNbChildrenActivity(i))}}>
                                         <FontAwesomeIcon icon={faCircleMinus} className={styles.fa_circle}/>
                                     </button>
                                 </div>
@@ -294,33 +284,32 @@ function ModifyBooking(){
                                 <p>Prix : adultes: {activity.price_adults}&euro;, enfants : {activity.price_children}&euro;</p>
                                 <p>{activity.overview}</p>
                             </div>                     
-                        </div>
+                        </article>
                     )}
-                </div>
+                </section>
 
-                <p>Vous avez sélectionné le pack suivant :</p>
-                <div className={styles.booking_totals_ctn}>
+                <article className={styles.booking_totals_ctn}>
+                    <h2>Récapitulatif des montants à payer</h2>
+                    <p>Vous avez sélectionné le pack suivant :</p>
                     <p>Prix total du pack : <span>{bookingInfo.prices.total_pack}</span> &euro; TTC</p> 
                     <p>Prix total des activités choisies : <span>{bookingInfo.prices.total_activities}</span> &euro; TTC</p> 
                     <p>Prix total (pack + activités) : <span>{bookingInfo.prices.total_all}</span> &euro; TTC</p> 
 
                     {/* si l'utilisateur a déjà payé : */}
-                    {bookedData.datasBook[0].status === "validée" ? <>
+                    {bookedData.datasBook[0].status === "validée" && <>
                         <p>Montant déjà payé : <span>{parseFloat(bookedData.datasBook[0].price_total_booking)}</span> &euro; TTC</p> 
                         <p>RESTE A PAYER : <span>{bookingInfo.prices.total_all - bookedData.datasBook[0].price_total_booking}</span> &euro; TTC</p> 
-                    </> : null}
-
-                </div>
+                    </>}
+                </article>
 
                 <button onClick={handleSaveBooking} className={styles.booking_btn}>modifier la réservation</button>
 
                 <div className={styles.error_ctn}>
-                    {errors.map((el, idx) => el[idx] &&
-                    <p>Erreur : {errors[idx]}</p>)}
+                    {errors.map((el, i) => el[i] &&
+                    <p>Erreur : {errors[i]}</p>)}
                 </div>
 
-            </div> 
-            : null}
+            </section>}
         </main>
 }
 

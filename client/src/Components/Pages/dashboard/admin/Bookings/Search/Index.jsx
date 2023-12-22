@@ -47,39 +47,38 @@ function AdminDashBookingsSearch(){
         }
     }
 
-    return <>
-        <form onSubmit={handleSubmit} className={styles.search_form}>
-            <input type="text" 
-                    name="lastName" 
-                    value={lastName}
-                    onChange={(e) => setLastName(e.target.value)}
-                    placeholder="Nom de famille"/>
-            <input type="text" 
-                    name="firstName" 
-                    value={firstName}
-                    onChange={(e) => setFirstName(e.target.value)}
-                    placeholder="Prénom"/>  
-            <input type="email" 
-                    name="email" 
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="Email"/>     
-            <input type="text" 
-                    name="reference" 
-                    value={reference}
-                    onChange={(e) => setReference(e.target.value)}
-                    placeholder="Num. Réf."/> 
-            <input type="date" 
-                    name="bookingDate"
-                    value={bookingDate}
-                    onChange={(e) => setBookingDate(e.target.value)}/>
+    return <section className={styles.admin_db_section}>
+            <form onSubmit={handleSubmit} className={styles.search_form}>
+                <input type="text" 
+                        name="lastName" 
+                        value={lastName}
+                        onChange={(e) => setLastName(e.target.value)}
+                        placeholder="Nom de famille"/>
+                <input type="text" 
+                        name="firstName" 
+                        value={firstName}
+                        onChange={(e) => setFirstName(e.target.value)}
+                        placeholder="Prénom"/>  
+                <input type="email" 
+                        name="email" 
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="Email"/>     
+                <input type="text" 
+                        name="reference" 
+                        value={reference}
+                        onChange={(e) => setReference(e.target.value)}
+                        placeholder="Num. Réf."/> 
+                <input type="date" 
+                        name="bookingDate"
+                        value={bookingDate}
+                        onChange={(e) => setBookingDate(e.target.value)}/>
 
-            <button type="submit">rechercher</button>
-        </form>
+                <button type="submit">rechercher</button>
+            </form>
 
-        { msg && <p className={styles.msg}>{msg}</p>}
-
-    </>
+            { msg && <p className={styles.msg}>{msg}</p>}
+        </section>
 }
 
 export default AdminDashBookingsSearch;

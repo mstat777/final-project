@@ -10,7 +10,6 @@ function WithFetchDetail({child}){
     const { pathname } = useLocation();
 
     const urlDestination = pathname.slice(8);
-    //console.log("urlDestination = "+urlDestination);
 
     const { lodging, 
             lodgingImages,
@@ -31,10 +30,7 @@ function WithFetchDetail({child}){
         }  
     },[lodging.coordinates]);
     
-    return <> 
-        {(lodging && lodgingImages[0] && packs[0] && activities[0]) && 
-            <Child/>}
-        </>
+    return (lodging && lodgingImages[0] && packs[0] && activities[0]) && <Child/>
 }
 
 export default WithFetchDetail;
