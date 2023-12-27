@@ -24,7 +24,7 @@ const getAllDestinations = async (req, res) => {
 const getAllDataIfPacks = async (req, res) => {
     //console.log(req.body);
     const queryDest = "SELECT * FROM destinations WHERE name = ?";
-    const [datasDest] = await Query.findByValue(queryDest, req.body.searchDestination);
+    const [datasDest] = await Query.queryByValue(queryDest, req.body.searchDestination);
 
     // pour faire une recherche nb d'inputs dynamique :
     let queryEnding = "";
@@ -43,16 +43,16 @@ const getAllDataIfPacks = async (req, res) => {
 
     const queryPacks = "SELECT * FROM packs WHERE destination_id = ?" + queryEnding + " ORDER BY departure_date";
     //console.log("queryPacks = "+queryPacks);
-    const [datasPacks] = await Query.findByArrayDatas(queryPacks, bodyData);
+    const [datasPacks] = await Query.queryByArray(queryPacks, bodyData);
 
     const queryLodg = "SELECT * FROM lodgings WHERE id = ?";
-    const [datasLodg] = await Query.findByValue(queryLodg, datasDest[0].lodging_id);
+    const [datasLodg] = await Query.queryByValue(queryLodg, datasDest[0].lodging_id);
 
     const queryDestImg = "SELECT url_image FROM destinations_images WHERE destination_id = ?";
-    const [datasDestImg] = await Query.findByValue(queryDestImg, datasDest[0].id);
+    const [datasDestImg] = await Query.queryByValue(queryDestImg, datasDest[0].id);
 
     const queryLodgImg = "SELECT url_image FROM lodgings_images WHERE lodging_id = ?";
-    const [datasLodgImg] = await Query.findByValue(queryLodgImg, datasLodg[0].id);
+    const [datasLodgImg] = await Query.queryByValue(queryLodgImg, datasLodg[0].id);
 
     res.status(200).json({ msg: "packs trouvés", 
                            datasDest,
@@ -66,20 +66,20 @@ const getAllDataIfPacks = async (req, res) => {
 const getAllDataAllPacks = async (req, res) => {
     // récupérer les données de la destination et de l'hébérgement :
     const queryDest = "SELECT * FROM destinations WHERE name = ?";
-    const [datasDest] = await Query.findByValue(queryDest, req.params.name);
+    const [datasDest] = await Query.queryByValue(queryDest, req.params.name);
 
     // récupérer les données des packs :
     const queryPacks = "SELECT * FROM packs WHERE destination_id = ?";
-    const [datasPacks] = await Query.findByValue(queryPacks, datasDest[0].id);
+    const [datasPacks] = await Query.queryByValue(queryPacks, datasDest[0].id);
 
     const queryLodg = "SELECT * FROM lodgings WHERE id = ?";
-    const [datasLodg] = await Query.findByValue(queryLodg, datasDest[0].lodging_id);
+    const [datasLodg] = await Query.queryByValue(queryLodg, datasDest[0].lodging_id);
 
     const queryDestImg = "SELECT url_image FROM destinations_images WHERE destination_id = ?";
-    const [datasDestImg] = await Query.findByValue(queryDestImg, datasDest[0].id);
+    const [datasDestImg] = await Query.queryByValue(queryDestImg, datasDest[0].id);
 
     const queryLodgImg = "SELECT url_image FROM lodgings_images WHERE lodging_id = ?";
-    const [datasLodgImg] = await Query.findByValue(queryLodgImg, datasLodg[0].id);
+    const [datasLodgImg] = await Query.queryByValue(queryLodgImg, datasLodg[0].id);
 
     res.status(200).json({ msg: "packs trouvés",  
                            datasDest,
@@ -96,23 +96,23 @@ const getDestinationAllData = async (req, res) => {
     //console.log("name = "+name);
     // récupérer les données de la destination et de l'hébérgement :
     const queryDest = "SELECT * FROM destinations WHERE name = ?";
-    const [datasDest] = await Query.findByValue(queryDest, req.params.name);
+    const [datasDest] = await Query.queryByValue(queryDest, req.params.name);
 
     // récupérer les données des packs :
     const queryPacks = "SELECT * FROM packs WHERE destination_id = ?";
-    const [datasPacks] = await Query.findByValue(queryPacks, datasDest[0].id);
+    const [datasPacks] = await Query.queryByValue(queryPacks, datasDest[0].id);
 
     const queryLodg = "SELECT * FROM lodgings WHERE id = ?";
-    const [datasLodg] = await Query.findByValue(queryLodg, datasDest[0].lodging_id);
+    const [datasLodg] = await Query.queryByValue(queryLodg, datasDest[0].lodging_id);
 
     const queryDestImg = "SELECT url_image FROM destinations_images WHERE destination_id = ?";
-    const [datasDestImg] = await Query.findByValue(queryDestImg, datasDest[0].id);
+    const [datasDestImg] = await Query.queryByValue(queryDestImg, datasDest[0].id);
 
     const queryLodgImg = "SELECT url_image FROM lodgings_images WHERE lodging_id = ?";
-    const [datasLodgImg] = await Query.findByValue(queryLodgImg, datasLodg[0].id);
+    const [datasLodgImg] = await Query.queryByValue(queryLodgImg, datasLodg[0].id);
 
     const queryAct = "SELECT * FROM activities AS a JOIN destinations_activities AS da ON a.id = da.activity_id WHERE da.destination_id = ?";
-    const [datasAct] = await Query.findByValue(queryAct, datasDest[0].id);
+    const [datasAct] = await Query.queryByValue(queryAct, datasDest[0].id);
 
     res.status(200).json({ msg: "packs trouvés",  
                            datasDest,
@@ -127,19 +127,19 @@ const getDestinationAllData = async (req, res) => {
 const getPackAllData = async (req, res) => {
     // récupérer les données de la destination et de l'hébérgement :
     const queryPacks = "SELECT * FROM packs WHERE id = ?";
-    const [datasPacks] = await Query.findByValue(queryPacks, req.params.id);
+    const [datasPacks] = await Query.queryByValue(queryPacks, req.params.id);
 
     // récupérer les données de la destination :
     const queryDest = "SELECT * FROM destinations WHERE id = ?";
-    const [datasDest] = await Query.findByValue(queryDest, datasPacks[0].destination_id);
+    const [datasDest] = await Query.queryByValue(queryDest, datasPacks[0].destination_id);
 
     // récupérer les données de l'hébérgement :
     const queryLodg = "SELECT * FROM lodgings WHERE id = ?";
-    const [datasLodg] = await Query.findByValue(queryLodg, datasDest[0].lodging_id);
+    const [datasLodg] = await Query.queryByValue(queryLodg, datasDest[0].lodging_id);
 
     // récupérer les données des activités :
     const queryAct = "SELECT * FROM activities AS a JOIN destinations_activities AS da ON a.id = da.activity_id WHERE da.destination_id = ?";
-    const [datasAct] = await Query.findByValue(queryAct, datasPacks[0].destination_id);
+    const [datasAct] = await Query.queryByValue(queryAct, datasPacks[0].destination_id);
 
     res.status(200).json({ msg: "pack trouvé",  
                            datasPacks,
@@ -151,37 +151,37 @@ const getPackAllData = async (req, res) => {
 // chercher une destination par nom :
 const getDestinationByName = async (req, res) => {
     const query = "SELECT id, reference, name, country, continent, overview, departure_place, url_initial_image, lodging_id FROM destinations WHERE name = ?";
-    const [datas] = await Query.findByValue(query, req.params.name);
+    const [datas] = await Query.queryByValue(query, req.params.name);
     res.status(200).json({ msg: "destination trouvée", datas })
 }
 // toutes les images de la destination :
 const getImagesDestination = async (req, res) => {
     const query = "SELECT id, name, url_image FROM destinations_images WHERE destination_id = ?";
-    const [datas] = await Query.findByValue(query, req.params.id);
+    const [datas] = await Query.queryByValue(query, req.params.id);
     res.status(200).json({ msg: "images trouvées", datas })
 }
 // toutes les images de l'hébérgement :
 const getImagesLodging = async (req, res) => {
     const query = "SELECT id, name, url_image FROM lodgings_images WHERE lodging_id = ?";
-    const [datas] = await Query.findByValue(query, req.params.id);
+    const [datas] = await Query.queryByValue(query, req.params.id);
     res.status(200).json({ msg: "images trouvées", datas })
 } 
 // chercher un hébérgement par ID :
 const getLodgingById = async (req, res) => {
     const query = "SELECT * FROM lodgings WHERE id = ?";
-    const [datas] = await Query.findByValue(query, req.params.id);
+    const [datas] = await Query.queryByValue(query, req.params.id);
     res.status(200).json({ msg: "hébérgement trouvé", datas })
 }
 // chercher un pack par ID de destination :
 const getPacksByDestination = async (req, res) => {
     const query = "SELECT * FROM packs WHERE destination_id = ?";
-    const [datas] = await Query.findByValue(query, req.params.id);
+    const [datas] = await Query.queryByValue(query, req.params.id);
     res.status(200).json({ msg: "packs trouvés", datas })
 }
 // chercher une activité par ID de destination :
 const getActivitiesByDestination = async (req, res) => {
     const query = "SELECT * FROM activities AS a JOIN destinations_activities AS da ON a.id = da.activity_id WHERE da.destination_id = ?";
-    const [datas] = await Query.findByValue(query, req.params.id);
+    const [datas] = await Query.queryByValue(query, req.params.id);
     res.status(200).json({ msg: "activités trouvées", datas })
 }
 // le pack "Best Promo" (celui avec la plus grande réduction) :

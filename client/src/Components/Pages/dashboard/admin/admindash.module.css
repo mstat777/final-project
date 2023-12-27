@@ -2,13 +2,15 @@
 /* ----------------------- VERSION MOBILE ----------------------- */
 /******************************************************************/
 .admin_db_main {
-    /*margin-top: 290px;*/
     padding-bottom: 3em;
     text-align: center;
 }
 
-.admin_db_section  h2,
-.admin_db_main  h2 {
+
+.admin_db_section  h1,
+.admin_db_main  h1 {
+    margin: .8em;
+    font-size: 3rem;
     text-transform: uppercase;
 }
 
@@ -78,7 +80,6 @@
 .modify_form {
     display: flex;
     flex-direction: column;
-    /*max-width: 500px;*/
     margin: 1em auto; 
     padding: 1.5em;
     font-size: 1.4rem;
@@ -165,7 +166,6 @@
 
 .modify_label > button,
 .create_label > button {
-    /*align-self: center;*/
     display: flex;
     align-items: center;
     justify-content: center;
@@ -182,9 +182,7 @@
     display: flex;
     align-items: center;
     margin-bottom: 1em;
-    /*padding: .5em 1em;*/
     border: none;
-    /*background-color: antiquewhite;*/
 }
 
 /*** les textes ***/
@@ -249,9 +247,11 @@
 
 .ok_msg {
     color: rgb(0, 143, 49);
+    text-align: center;
 }
 .err_msg {
     color: var(--highlight-color);
+    text-align: center;
 }
 
 .msg_instructions {
@@ -280,19 +280,19 @@
     }
 
     .admin_db_section {
-        margin: 2em;
+        margin: 60px 2em 2em;
     }    
 
     .admin_db_account_form {
         max-width: 600px;
     }
 
-    /* ----------------- MODIFY FORM ------------------ */
+    /* -------------- CREATE/MODIFY FORM --------------- */
     .modify_form {
+        max-width: 800px;
         margin: 1em 2em; 
     }
 
-    /* ----------------- CREATE FORM ------------------ */
     .db_create_form {
         margin: 1em 4em 2em 4em;
     }

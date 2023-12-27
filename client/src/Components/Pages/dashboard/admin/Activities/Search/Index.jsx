@@ -1,4 +1,4 @@
-import styles from './search.module.css';
+import styles from '../../search.module.css';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 

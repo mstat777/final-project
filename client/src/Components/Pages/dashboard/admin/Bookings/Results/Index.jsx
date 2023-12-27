@@ -49,7 +49,6 @@ function AdminDashBookingResults(){
                         </thead>
 
                         <tbody>
-                        {/*console.log(resultsBookings)*/}
                         {resultsBookings.map((result, index) => 
                             <tr key={index}>
                                 <td>{index+1}</td>

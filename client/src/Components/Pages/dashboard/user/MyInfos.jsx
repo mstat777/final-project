@@ -14,7 +14,7 @@ function UserDashboardMyInfos(){
     const { userInfo } = useSelector(state => state.user);
 
     // les champs du formulaire :
-    const [formData, setFormData] = useState({
+    const [inputs, setInputs] = useState({
         lastName: "",
         firstName: "",
         email: "",
@@ -55,7 +55,7 @@ function UserDashboardMyInfos(){
             try {
                 const dataUser = await (await fetch(`${BASE_URL}/api/v.0.1/user/${userInfo.userID}`)).json();
                 // initialiser les données utilisateur :
-                setFormData({
+                setInputs({
                     lastName: dataUser.datas[0].last_name,
                     firstName: dataUser.datas[0].first_name,
                     email: dataUser.datas[0].email,
@@ -73,20 +73,20 @@ function UserDashboardMyInfos(){
 
     // on vérifie tous les champs avant de soumettre le formulaire :
     const checkFormValidation = () => {
-        const lNameVerif = validateInput("lastName", formData.lastName.trim());
-        const fNameVerif = validateInput("firstName", formData.firstName.trim());
+        const lNameVerif = validateInput("lastName", inputs.lastName.trim());
+        const fNameVerif = validateInput("firstName", inputs.firstName.trim());
         // si un numéro de tél est rempli, on vérifie. Si non, on vérifie pas, car ce n'est pas un champ obligatoire :
         let telVerif = { isValid: true, msg: '' }
-        if (formData.tel) {
-            telVerif = validateInput("tel", formData.tel.trim());
+        if (inputs.tel) {
+            telVerif = validateInput("tel", inputs.tel.trim());
         }
         // si un numéro de tél est rempli, on vérifie. Si non, on vérifie pas, car ce n'est pas un champ obligatoire :
         let addressVerif = { isValid: true, msg: '' }
-        if (formData.address) {
-            addressVerif = validateInput("address", formData.address.trim());
+        if (inputs.address) {
+            addressVerif = validateInput("address", inputs.address.trim());
         }
         //
-        const bDateVerif = validateInput("birthDate", formData.birthDate);
+        const bDateVerif = validateInput("birthDate", inputs.birthDate);
 
         // rassembler toutes les messages d'erreur pour les afficher au-dessous du formulaire :
         setErrMsg(lNameVerif.msg 
@@ -115,7 +115,7 @@ function UserDashboardMyInfos(){
             const res = await fetch(`${BASE_URL}/api/v.0.1/user/modify-user-info`, {
                 method: "post",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(formData)
+                body: JSON.stringify(inputs)
             });
             const json = await res.json();
             
@@ -126,11 +126,11 @@ function UserDashboardMyInfos(){
     }
 
     const activateInput = (inputName) => {
-        setDisableInput({ ...formData, [inputName]: false });
+        setDisableInput({ ...inputs, [inputName]: false });
     }
 
     const handleChange = (e) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+        setInputs({ ...inputs, [e.target.name]: e.target.value });
     }
 
     function handleSubmit(e) {
@@ -139,7 +139,7 @@ function UserDashboardMyInfos(){
         checkFormValidation();
     }
 
-    return formData && 
+    return inputs && 
         <main className={styles.user_db_main}>
         
             <h2>mes informations personnelles</h2>
@@ -149,7 +149,7 @@ function UserDashboardMyInfos(){
                     <span>Nom :</span>
                     <input type="text" 
                         name="lastName" 
-                        value={formData.lastName}
+                        value={inputs.lastName}
                         onChange={handleChange}
                         disabled={disableInput.lastName}/>
                     <button type="button" onClick={() => activateInput("lastName")}>
@@ -161,7 +161,7 @@ function UserDashboardMyInfos(){
                     <span>Prénom :</span>
                     <input type="text" 
                         name="firstName" 
-                        value={formData.firstName}
+                        value={inputs.firstName}
                         onChange={handleChange}
                         disabled={disableInput.firstName}/>
                     <button type="button" onClick={() => activateInput("firstName")}>
@@ -173,7 +173,7 @@ function UserDashboardMyInfos(){
                     <span>Email :</span>
                     <input type="email" 
                         name="email" 
-                        value={formData.email}
+                        value={inputs.email}
                         className={styles.email}
                         disabled={true}/>
                 </label>
@@ -182,7 +182,7 @@ function UserDashboardMyInfos(){
                     <span>Numéro de téléphone :</span>
                     <input type="tel" 
                         name="tel" 
-                        value={formData.tel}
+                        value={inputs.tel}
                         onChange={handleChange}
                         disabled={disableInput.tel}/>
                     <button type="button" onClick={() => activateInput("tel")}>
@@ -194,7 +194,7 @@ function UserDashboardMyInfos(){
                     <span>Adresse postale :</span>
                     <textarea
                         name="address" 
-                        value={formData.address}
+                        value={inputs.address}
                         onChange={handleChange}
                         disabled={disableInput.address}/>
                     <button type="button" onClick={() => activateInput("address")}>
@@ -207,7 +207,7 @@ function UserDashboardMyInfos(){
                     <input type="date" 
                         name="birthDate" 
                         min="1923-01-01"
-                        value={formData.birthDate}
+                        value={inputs.birthDate}
                         onChange={handleChange}
                         disabled={disableInput.birthDate}/>
                     <button type="button" onClick={() => activateInput("birthDate")}>
@@ -219,7 +219,7 @@ function UserDashboardMyInfos(){
                     <span>Métier :</span>
                     <input type="text" 
                         name="occupation" 
-                        value={formData.occupation}
+                        value={inputs.occupation}
                         onChange={handleChange}
                         disabled={disableInput.occupation}/>
                     <button type="button" onClick={() => activateInput("occupation")}>

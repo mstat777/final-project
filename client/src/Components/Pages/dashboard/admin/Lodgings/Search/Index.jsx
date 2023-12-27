@@ -1,4 +1,4 @@
-import styles from './search.module.css';
+import styles from '../../search.module.css';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 
@@ -18,11 +18,8 @@ function AdminDashLodgingSearch(){
     async function handleSubmit(e) {
         e.preventDefault();
         if (!name) {
-            //setMsg("Vous n'avez rien rempli !");
             dispatch(setResultsLodgings([]));
         } else {
-            console.log("handleSubmit() called");
-            
             const res = await fetch(`${BASE_URL}/api/v.0.1/admin/lodgings`, {
                 method: "post",
                 headers: { "Content-Type": "application/json" },
@@ -30,8 +27,6 @@ function AdminDashLodgingSearch(){
             });
             const json = await res.json();
             if(res.status === 200){
-                console.log(json.datas[0]);
-                console.log("fetch successfull");
                 dispatch(setResultsLodgings(json.datas));
             } else {
                 console.log("res.status n'est pas OK!!!");
@@ -42,7 +37,7 @@ function AdminDashLodgingSearch(){
     return <div className={styles.admin_db_section}>
             <form onSubmit={handleSubmit} className={styles.search_form}>
                 <input type="text" 
-                        name="name" 
+                        name="nameLodging" 
                         value={name}
                         onChange={(e) => setName(e.target.value)}
                         placeholder="Nom d'hébergement"/>

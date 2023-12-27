@@ -38,11 +38,9 @@ import UserDashBookingModifiedSummary from "./Components/Pages/dashboard/user/Su
 import AdminDashBookings from './Components/Pages/dashboard/admin/Bookings/Index';
 
 import AdminDashDestinations from './Components/Pages/dashboard/admin/Destinations/Index';
-//import AdminDashDestinationModify from './Components/Pages/dashboard/admin/Destinations/Modify/Index';
 
 import AdminDashLodgings from './Components/Pages/dashboard/admin/Lodgings/Index';
-import AdminDashLodgingModify from './Components/Pages/dashboard/admin/Lodgings/Modify/Index';
-import AdminDashLodgingCreate from './Components/Pages/dashboard/admin/Lodgings/Create/Index';
+import AdminDashLodgingCreateModify from './Components/Pages/dashboard/admin/Lodgings/CreateModify/Index';
 
 import AdminDashPacks from './Components/Pages/dashboard/admin/Packs/Index';
 
@@ -132,8 +130,8 @@ function App() {
                     <Route path="destinations/modify/:index" element={<WithAdminAuth child={AdminDashDestinations} auth="true" adminAuth="true"/>}/>
 
                     <Route path="lodgings" element={<WithAdminAuth child={AdminDashLodgings} auth="true" adminAuth="true"/>}/>
-                    <Route path="lodgings/create" element={<WithAdminAuth child={AdminDashLodgings} auth="true" adminAuth="true"/>}/>
-                    <Route path="lodgings/modify/:index" element={<WithAdminAuth child={AdminDashLodgings} auth="true" adminAuth="true"/>}/>
+                    <Route path="lodgings/create" element={<WithAdminAuth child={AdminDashLodgingCreateModify} auth="true" adminAuth="true"/>}/>
+                    <Route path="lodgings/modify/:index" element={<WithAdminAuth child={AdminDashLodgingCreateModify} auth="true" adminAuth="true"/>}/>
 
                     <Route path="packs" element={<WithAdminAuth child={AdminDashPacks} auth="true" adminAuth="true"/>}/>
                     <Route path="packs/create" element={<WithAdminAuth child={AdminDashPacks} auth="true" adminAuth="true"/>}/>

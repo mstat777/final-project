@@ -42,7 +42,6 @@ function Summary(){
         }
 
         const filtered = myArray.filter(el => el.nb_adults > 0 || el.nb_children > 0);
-        console.log(filtered);
         return filtered;
     }
 

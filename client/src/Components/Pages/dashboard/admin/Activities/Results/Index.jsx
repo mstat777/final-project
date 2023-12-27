@@ -22,8 +22,6 @@ function AdminDashBookingResults(){
     },[resultsActivities.length])
 
     return <>
-        { console.log(resultsActivities)}
-        { console.log("showResults = "+showResults)}
         { showResults && 
         <div className={styles.admin_db_section}>
         {resultsActivities[0] ? 

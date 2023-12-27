@@ -21,8 +21,6 @@ function AdminDashPackResults(){
     },[resultsPacks.length])
 
     return <>
-        { console.log(resultsPacks)}
-        { console.log("showResults = "+showResults)}
         { showResults && 
         <div className={styles.admin_db_section}>
             {resultsPacks[0] ? <>
