@@ -14,9 +14,8 @@ function UserDashboardMyBookings(){
     const BASE_URL = process.env.REACT_APP_BASE_URL;
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
+    const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
     const { userInfo } = useSelector(state => state.user);
-
     const [ userBookings, setUserBookings] = useState([]);
 
     // pour afficher des messages suite à la suppression :
@@ -24,11 +23,8 @@ function UserDashboardMyBookings(){
     const [errMsg, setErrMsg] = useState('');
 
     // remonter au top de la page lors de chargement
-    const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
-    const isTabletOrDesktop = useMediaQuery({ query: '(min-width: 768px)' });
     useEffect(() => {
-        if (isMobile) { window.scrollTo(0, 160); }
-        if (isTabletOrDesktop) { window.scrollTo(0, 0); }
+        window.scrollTo(0, 0);
     }, [])
 
     // on récupère les données de toutes les réservations effectuées par l'utilisateur :

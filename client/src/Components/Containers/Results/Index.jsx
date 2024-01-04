@@ -13,11 +13,12 @@ function Results() {
     const { destinationImages } = useSelector((state) => state.allTravel);
 
     const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
-    const isTabletOrDesktop = useMediaQuery({ query: '(min-width: 768px)' });
-
+    const isTablet = useMediaQuery({ query: '(min-width: 768px) and (max-width: 1099px)' });
+    const isDesktop = useMediaQuery({ query: '(min-width: 1100px)' });
     useEffect(() => {
         if (isMobile) { window.scrollTo(0, 160); }
-        if (isTabletOrDesktop) { window.scrollTo(0, 200); }
+        if (isTablet) { window.scrollTo(0, 400); }
+        if (isDesktop) { window.scrollTo(0, 200); }
     }, [destination]);
 
     return (!destination && !packs[0] && !destinationImages[0]) ? 

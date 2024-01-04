@@ -2,7 +2,6 @@ import styles from './Summary.module.scss';
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { useMediaQuery } from "react-responsive";
 import MainBtn from '../../Containers/buttons/MainBtn/Index';
 
 function Summary(){
@@ -21,11 +20,8 @@ function Summary(){
     const [bookedActivities, setBookedActivities] = useState([]);
 
     // remonter au top de la page lors de chargement
-    const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
-    const isTabletOrDesktop = useMediaQuery({ query: '(min-width: 768px)' });
     useEffect(() => {
-        if (isMobile) { window.scrollTo(0, 160); }
-        if (isTabletOrDesktop) { window.scrollTo(0, 0); }
+        window.scrollTo(0, 0);
     }, [])
 
     // récupérer les données uniquement des activités réservées pour pouvoir les envoyer dans la BDD

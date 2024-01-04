@@ -2,11 +2,9 @@ import styles from './user.module.scss';
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate, Link } from "react-router-dom";
-import { useMediaQuery } from "react-responsive";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faLock, faEye, faEyeSlash, faPhone, faEnvelope, faLocationDot, faCakeCandles, faBriefcase } from '@fortawesome/free-solid-svg-icons';
 import { faUser as faUserReg } from '@fortawesome/free-regular-svg-icons';
-
 import { validateInput } from '../../Functions/sanitize';
 import { setLogMessage } from '../../../store/slices/user';
 
@@ -41,11 +39,8 @@ function Signup(){
     const [isFormValidated, setIsFormValidated] = useState(false);
 
     // remonter au top de la page lors de chargement
-    const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
-    const isTabletOrDesktop = useMediaQuery({ query: '(min-width: 768px)' });
     useEffect(() => {
-        if (isMobile) { window.scrollTo(0, 160); }
-        if (isTabletOrDesktop) { window.scrollTo(0, 0); }
+        window.scrollTo(0, 0);
     }, [])
 
     function handlePassIconToggle() {
@@ -141,7 +136,7 @@ function Signup(){
 
     return <main id="signup">
 
-            <section className={styles.signup}>
+            <section className={`${styles.sign_section} ${styles.signup}`}>
                 <h1>Je crée mon compte</h1>     
 
                 <form onSubmit={handleSubmit} className={styles.sign_form}>

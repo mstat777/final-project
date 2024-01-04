@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import { signout } from "../../../store/slices/user.js";
 
-function WithAdminAuth({child, auth, authAdmin}){
+function WithAdminAuth({child, auth}){
     const BASE_URL = process.env.REACT_APP_BASE_URL;
     const dispatch = useDispatch();
     const navigate = useNavigate();

@@ -1,13 +1,15 @@
 import styles from './Header.module.scss';
 import { NavLink } from 'react-router-dom';
+import { useMediaQuery } from "react-responsive";
 import logo from '../../../assets/img/logo-dimitravel-02-90p45p.png';
 import Burger from '../buttons/Burger/Index';
  
 function Header() {
+    const isMobile = useMediaQuery({query: '(max-width: 767px)'});
 
     return <header className={styles.header}>
                 <nav className={styles.nav}>
-                    <div className={styles.nav_upper}>
+                    <div className={styles.nav_outer}>
                         <NavLink to={"/"} 
                             onClick={() => window.scrollTo(0, 0)}
                             className={styles.nav_logo_ctn}>
@@ -16,11 +18,12 @@ function Header() {
                     
                         <Burger/>
                     </div>
-                    <ul className={styles.nav_lower}>
+                    {!isMobile &&
+                    <ul className={styles.nav_inner}>
                         <li><NavLink to={"/holidays"}>séjours</NavLink></li>
                         <li><NavLink to={"/agency"}>agence</NavLink></li>
                         <li><NavLink to={"/contact"}>contact</NavLink></li>
-                    </ul>
+                    </ul>}
                 </nav>
             </header>
 }

@@ -68,7 +68,6 @@ function AdminDashLayout() {
 function App() {
     return <BrowserRouter basename="/">
             <Routes>
-
                 <Route path="/" element={<BasicLayout/>}>
                     <Route index element={<WithFetch child={Home}/>}/>
                     <Route path="search" element={<WithFetch child={Home}/>}/>
@@ -93,9 +92,9 @@ function App() {
 
                 {/* DASHBOARD utilisateur */}
                 <Route path="/db/user" element={<UserDashLayout/>}>
-                    {/* afficher les infos persos de l'utilisateur */}
+                    {/* infos persos de l'utilisateur */}
                     <Route path="my-infos" element={<WithAuth child={UserDashMyInfos} auth="true"/>}/>
-                    {/* afficher les réservations de l'utilisateur */}
+                    {/* réservations de l'utilisateur */}
                     <Route path="my-bookings/:id" element={<WithAuth child={UserDashMyBookings} auth="true"/>}/>
                     {/* modifier une réservation de l'utilisateur */}
                     <Route path="booking-modify" element={<WithAuth child={UserDashBookingModify} auth="true"/>}/>
@@ -106,33 +105,31 @@ function App() {
                 {/* DASHBOARD admin/superadmin */}
                 <Route path="/db/admin" element={<AdminDashLayout/>}>
                     
-                    <Route path="my-infos" element={<WithAuth child={UserDashMyInfos} auth="true" adminAuth="true"/>}/>
-                    <Route path="my-bookings/:id" element={<WithAuth child={UserDashMyBookings} auth="true" adminAuth="true"/>}/>
+                    <Route path="my-infos" element={<WithAuth child={UserDashMyInfos} auth="true"/>}/>
+                    <Route path="my-bookings/:id" element={<WithAuth child={UserDashMyBookings} auth="true"/>}/>
 
                     {/* pages d'administration */}
-                    <Route path="bookings" element={<WithAdminAuth child={AdminDashBookings} auth="true" adminAuth="true"/>}/>
-                    <Route path="bookings/search" element={<WithAdminAuth child={AdminDashBookings} auth="true" adminAuth="true"/>}/>
+                    <Route path="bookings" element={<WithAdminAuth child={AdminDashBookings} auth="true"/>}/>
+                    <Route path="bookings/search" element={<WithAdminAuth child={AdminDashBookings} auth="true"/>}/>
 
-                    <Route path="destinations" element={<WithAdminAuth child={AdminDashDestinations} auth="true" adminAuth="true"/>}/>
-                    <Route path="destinations/create" element={<WithAdminAuth child={AdminDashDestinations} auth="true" adminAuth="true"/>}/>
-                    <Route path="destinations/modify/:index" element={<WithAdminAuth child={AdminDashDestinations} auth="true" adminAuth="true"/>}/>
+                    <Route path="destinations" element={<WithAdminAuth child={AdminDashDestinations} auth="true"/>}/>
+                    <Route path="destinations/create" element={<WithAdminAuth child={AdminDashDestinations} auth="true"/>}/>
+                    <Route path="destinations/modify/:index" element={<WithAdminAuth child={AdminDashDestinations} auth="true"/>}/>
 
-                    <Route path="lodgings" element={<WithAdminAuth child={AdminDashLodgings} auth="true" adminAuth="true"/>}/>
-                    <Route path="lodgings/create" element={<WithAdminAuth child={AdminDashLodgingCreateModify} auth="true" adminAuth="true"/>}/>
-                    <Route path="lodgings/modify/:index" element={<WithAdminAuth child={AdminDashLodgingCreateModify} auth="true" adminAuth="true"/>}/>
+                    <Route path="lodgings" element={<WithAdminAuth child={AdminDashLodgings} auth="true"/>}/>
+                    <Route path="lodgings/create" element={<WithAdminAuth child={AdminDashLodgingCreateModify} auth="true"/>}/>
+                    <Route path="lodgings/modify/:index" element={<WithAdminAuth child={AdminDashLodgingCreateModify} auth="true"/>}/>
 
-                    <Route path="packs" element={<WithAdminAuth child={AdminDashPacks} auth="true" adminAuth="true"/>}/>
-                    <Route path="packs/create" element={<WithAdminAuth child={AdminDashPacks} auth="true" adminAuth="true"/>}/>
-                    <Route path="packs/modify/:index" element={<WithAdminAuth child={AdminDashPacks} auth="true" adminAuth="true"/>}/>
+                    <Route path="packs" element={<WithAdminAuth child={AdminDashPacks} auth="true"/>}/>
+                    <Route path="packs/create" element={<WithAdminAuth child={AdminDashPacks} auth="true"/>}/>
+                    <Route path="packs/modify/:index" element={<WithAdminAuth child={AdminDashPacks} auth="true"/>}/>
 
-                    <Route path="activities" element={<WithAdminAuth child={AdminDashActivities} auth="true" adminAuth="true"/>}/>
-                    <Route path="activities/search" element={<WithAdminAuth child={AdminDashActivities} auth="true" adminAuth="true"/>}/>
+                    <Route path="activities" element={<WithAdminAuth child={AdminDashActivities} auth="true"/>}/>
+                    <Route path="activities/search" element={<WithAdminAuth child={AdminDashActivities} auth="true"/>}/>
 
-                    <Route path="users" element={<WithAdminAuth child={AdminDashUsers} auth="true" adminAuth="true"/>}/>
-                    <Route path="users/search" element={<WithAdminAuth child={AdminDashUsers} auth="true" adminAuth="true"/>}/>
-
+                    <Route path="users" element={<WithAdminAuth child={AdminDashUsers} auth="true"/>}/>
+                    <Route path="users/search" element={<WithAdminAuth child={AdminDashUsers} auth="true"/>}/>
                 </Route>
-
             </Routes>
         </BrowserRouter>
 }

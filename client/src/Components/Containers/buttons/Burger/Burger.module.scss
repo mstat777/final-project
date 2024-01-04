@@ -3,8 +3,8 @@
 /* -------------- LE BOUTON BURGER ----------------- */
 .burger_btn {
     position: absolute;
+    top: .8em;
     right: 2em;
-    top: 1.5em;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -41,11 +41,9 @@
     }
 
     @media screen and (min-width: $br-tablet) {
-        top: .8em;
         right: 3em;
     }
     @media screen and (min-width: $br-desktop) {
-        top: .8em;
         right: calc(6vw + 1em);
     }
 }
@@ -93,18 +91,18 @@
             }
         }
         > .user_icon {
-            margin-bottom: .5em;
-            font-size: 3rem;
+            margin-bottom: .4em;
+            font-size: 2.5rem;
         }
         > p {
             padding-left: .5em;
         }
-        > .small_txt {
+        .small_txt {
             margin: 0;
             font-size: 1.4rem;
             text-align: center;
         }
-        > .user_txt {
+        .user_txt {
             margin-top: .2em;
             padding: .2em 0 .2em .3em;
             font-weight: 500;
@@ -114,14 +112,14 @@
             text-overflow: ellipsis;
             background-color: $primary-color;
         }
-        > hr {
+        hr {
             margin: .5em 0;
             border: 1px solid $grey-color;
         }
         /* ------- LIEN DANS LE CONTAINEUR MENU -------- */
-        .burger_item {
-            display: inline-block;
-            margin-top: 1em;
+        a {
+            display: block;
+            margin: 8px 0;
             padding: .5em;
             border-radius: .4em;
             font-weight: 500;
@@ -131,14 +129,18 @@
                 background-color: #cfd4e9;
             }
         }
-        .burger_item_signout {
-            align-self: center;
-            margin-top: 2em;
-            padding: .4em .8em;
-            border-radius: .4em;
-            color: $primary-color;
-            background-color: $darkgrey-color;
-            text-align: center;
+        .main_links_ctn {
+            a {
+                align-self: center;
+                margin-top: 10px;
+                padding: .4em .8em;
+                color: $primary-color;
+                background-color: $tertiary-color;
+                text-align: center;
+            }
+            .sign {
+                background-color: $darkgrey-color;
+            }
         }
     }
 }

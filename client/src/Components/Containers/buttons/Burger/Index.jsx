@@ -2,6 +2,7 @@ import styles from './Burger.module.scss';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
+import { useMediaQuery } from "react-responsive";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { faXmark } from '@fortawesome/free-solid-svg-icons';
@@ -9,15 +10,15 @@ import { getTokenData } from '../../../Functions/getTokenData';
 
 function Burger() {
     const SK = process.env.REACT_APP_SK;
+    const TOKEN = localStorage.getItem("auth");
 
     const navigate = useNavigate();
+    const isMobile = useMediaQuery({query: '(max-width: 767px)'});
 
     const { userInfo } = useSelector(state => state.user);
 
     const [burgerOpen, setBurgerOpen] = useState(false);
     const [isHovering, setIsHovering] = useState(false);
-
-    const TOKEN = localStorage.getItem("auth");
 
     // si l'utilisateur est authentifié, mais par ex. a rafraichi la page, on vérifie le token et si valide, on récupère ses identifiants :
     useEffect(() => {
@@ -27,8 +28,8 @@ function Burger() {
     },[userInfo.isLogged])
 
     const toggleBurgerOrLogin = () => {
-        if (!userInfo.isLogged) {
-            !TOKEN ? navigate("/user/signin") : setBurgerOpen(!burgerOpen);
+        if (!isMobile && !userInfo.isLogged && !TOKEN) {
+            navigate("/user/signin");
         } else {
             setBurgerOpen(!burgerOpen);
         }
@@ -37,7 +38,6 @@ function Burger() {
     const handleMouseOver = () => {
         setIsHovering(true);
     };
-    
     const handleMouseOut = () => {
         setIsHovering(false);
     };
@@ -45,13 +45,14 @@ function Burger() {
     return <nav className={`${styles.burger_menu} ${burgerOpen ? styles.show_burger_menu : styles.hide_burger_menu }`}>
 
             {/* ---------- le containeur des liens ------------ */}
-            {(userInfo.isLogged || TOKEN) && userInfo.userID ? 
-                <div className={styles.burger_items_ctn}>
-  
-                    <button onClick={toggleBurgerOrLogin} className={styles.burger_cross_btn}>
-                        <FontAwesomeIcon icon={faXmark} className={styles.burger_cross}/>
-                    </button>
+            <div className={styles.burger_items_ctn}>
+                <button onClick={toggleBurgerOrLogin} className={styles.burger_cross_btn}>
+                    <FontAwesomeIcon icon={faXmark} className={styles.burger_cross}/>
+                </button>
 
+                {/* uniquement si logué : */}
+                {((userInfo.isLogged || TOKEN) && userInfo.userID) && 
+                <>
                     <FontAwesomeIcon icon={faUser} className={styles.user_icon}/>
 
                     <p className={styles.small_txt}>
@@ -61,28 +62,37 @@ function Burger() {
                     <hr/>
                     
                     {(userInfo.accountType === "client") && 
-                    <>
-                        <NavLink to={"/db/user/my-infos"} className={styles.burger_item}>Mes informations</NavLink>
-                        <NavLink to={`/db/user/my-bookings/${userInfo.userID}`} className={styles.burger_item}>Mes réservations</NavLink>
-                    </>}
+                    <div>
+                        <NavLink to={"/db/user/my-infos"}>Mes infos</NavLink>
+                        <NavLink to={`/db/user/my-bookings/${userInfo.userID}`}>Mes réservations</NavLink>
+                    </div>}
 
                     {(userInfo.accountType === "admin" || userInfo.accountType === "superadmin") && 
-                    <>
-                        <NavLink to={"/db/admin/my-infos"} className={styles.burger_item}>Info personnelles</NavLink>
-                        <NavLink to={`/db/admin/my-bookings/${userInfo.userID}`} className={styles.burger_item}>Mes réservations</NavLink>
+                    <div>
+                        <NavLink to={"/db/admin/my-infos"}>Mes infos</NavLink>
+                        <NavLink to={`/db/admin/my-bookings/${userInfo.userID}`}>Mes réservations</NavLink>
                         <hr/>
-                        <NavLink to={"/db/admin/bookings"} className={styles.burger_item}>Réservations</NavLink>
-                        <NavLink to={"/db/admin/destinations"} className={styles.burger_item}>Destinations</NavLink>
-                        <NavLink to={"/db/admin/lodgings"} className={styles.burger_item}>Hébergements</NavLink>
-                        <NavLink to={"/db/admin/packs"} className={styles.burger_item}>Packs</NavLink>
-                        <NavLink to={"/db/admin/activities"} className={styles.burger_item}>Activités</NavLink>
-                        <NavLink to={"/db/admin/users"} className={styles.burger_item}>Clients</NavLink>
-                    </>}
-                    
-                    <NavLink to={"/user/signout"} className={styles.burger_item_signout} onClick={() => toggleBurgerOrLogin()}>déconnexion</NavLink>
-                </div>
-                : null
-            }
+                        <NavLink to={"/db/admin/bookings"}>Réservations</NavLink>
+                        <NavLink to={"/db/admin/destinations"}>Destinations</NavLink>
+                        <NavLink to={"/db/admin/lodgings"}>Hébergements</NavLink>
+                        <NavLink to={"/db/admin/packs"}>Packs</NavLink>
+                        <NavLink to={"/db/admin/activities"}>Activités</NavLink>
+                        <NavLink to={"/db/admin/users"}>Clients</NavLink>
+                    </div>}
+                </>}   
+
+                {isMobile &&
+                <div className={styles.main_links_ctn}>
+                    <NavLink to={"/holidays"}>séjours</NavLink>
+                    <NavLink to={"/agency"}>agence</NavLink>
+                    <NavLink to={"/contact"}>contact</NavLink>
+
+                    {(userInfo.isLogged || TOKEN) ?
+                    <NavLink to={"/user/signout"} className={styles.sign} onClick={() => toggleBurgerOrLogin()}>déconnexion</NavLink> : 
+                    <NavLink to={"/user/signin"} className={styles.sign} onClick={() => toggleBurgerOrLogin()}>connexion</NavLink>
+                    }
+                </div>}
+            </div>
             
             {/* ---------- LE BOUTON BURGER ------------ */}
             <button onClick={toggleBurgerOrLogin} 
@@ -97,7 +107,6 @@ function Burger() {
                 </span>}
                 <FontAwesomeIcon icon={faUser} className={styles.burger_icon}/>
             </button>
-
         </nav>
 }
 
