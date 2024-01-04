@@ -2,7 +2,6 @@ import styles from './Booking.module.scss';
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { useMediaQuery } from "react-responsive";
 import { calculatePrices,
         incrNbAdultsPack, 
         decrNbAdultsPack, 
@@ -43,11 +42,8 @@ function Booking(){
     const [checkBoxes, setCheckBoxes] = useState(myArray);
 
     // remonter au top de la page lors de chargement
-    const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
-    const isTabletOrDesktop = useMediaQuery({ query: '(min-width: 768px)' });
     useEffect(() => {
-        if (isMobile) { window.scrollTo(0, 160); }
-        if (isTabletOrDesktop) { window.scrollTo(0, 0); }
+        window.scrollTo(0, 0);
     }, [])
     
     // on récupère tous les prix (pack + activités) de la BDD, les regroupe en arrays pour les passer au Store :

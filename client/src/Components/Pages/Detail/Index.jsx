@@ -12,13 +12,11 @@ import icon from './img/marker-icon.png';
 import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 
 import tripadvisorLogo from '../../Containers/TripadvisorNote/img/tripadvisor-logo-50-32.png'
-
-import { choosePack } from "../../../store/slices/user";  
-
-import Slideshow from '../../Containers/Slideshow/Index';
 import TripadvisorNote from '../../Containers/TripadvisorNote/Index';
+import Slideshow from '../../Containers/Slideshow/Index';
 import { fetchActivities } from '../../Functions/fetchData';
 import { formatDate } from '../../Functions/utils';
+import { choosePack } from "../../../store/slices/user";  
 
 import SeeMore from '../../Containers/SeeMore/Index';
 import MainBtn from '../../Containers/buttons/MainBtn/Index';
@@ -26,6 +24,7 @@ import MainBtn from '../../Containers/buttons/MainBtn/Index';
 function Detail(){
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
 
     const { destination, 
             lodging, 
@@ -43,11 +42,8 @@ function Detail(){
     L.Marker.prototype.options.icon = DefaultIcon;
 
     // remonter au top de la page lors de chargement
-    const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
-    const isTabletOrDesktop = useMediaQuery({ query: '(min-width: 768px)' });
     useEffect(() => {
-        if (isMobile) { window.scrollTo(0, 160); }
-        if (isTabletOrDesktop) { window.scrollTo(0, 0); }
+        window.scrollTo(0, 0);
     }, [])
 
     // on récupère les données des activités liées à la destination :

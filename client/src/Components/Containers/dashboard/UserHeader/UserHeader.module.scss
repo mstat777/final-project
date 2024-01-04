@@ -20,13 +20,13 @@
 
 .user_db_header {
     background-color: $secondary-color;
+    margin-top: 60px;
 
     @media screen and (min-width: $br-tablet) {
         position: fixed;
         top: 0;
         left: 0;
         right: 0;
-        margin-top: 60px;
     }
 
     .user_db_nav {
@@ -40,7 +40,7 @@
             @include ctn;
             margin-bottom: .5em;
             /* le containeur de l'icon user */
-            .user_db_image_ctn {
+            > div {
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -48,7 +48,6 @@
                 width: 30px;
                 border-radius: 50%;
                 background-color: rgb(122, 191, 141);
-                cursor: pointer;
                 .user_db_image {
                     font-size: 1.6rem;
                 }
@@ -56,22 +55,24 @@
         }
         .user_db_links_ctn {
             @include ctn;
-            .link_signout,
-            .link {
+            a {
                 @include link_el(white);
                 width: 100%;
                 margin-bottom: .5em;
+                transition: all .3s;
+                &:hover {
+                    color: $primary-color;
+                }
             }
             .link_home {
                 @include link_el(white);
                 margin-top: .5em;
-                background-color: black;
-            }
-            .link_signout {
-                @include link_el($highlight-color);
-                display: inline-block;
-                width: unset;
-                background-color: $primary-color;
+                border-radius: 4px;
+                background-color: $darkgrey-color;
+                &:hover {
+                    color: white;
+                    background-color: $grey-color;
+                }
             }
         }
 
@@ -85,7 +86,7 @@
                 margin: 0;
                 margin-right: .5em;
         
-                .user_db_image_ctn {
+                > div {
                     height: 36px;
                     width: 36px;
                     margin-bottom: 0;
@@ -97,22 +98,22 @@
                     white-space: nowrap;
                     text-overflow: ellipsis;
                 }
-            }
-        
+            }   
             .user_db_links_ctn {
                 flex-direction: row;
                 justify-self: center;
         
-                .link,
-                .link_signout {  
+                a {  
                     display: flex;
                     align-items: center;
                     width: unset;
                     margin: 0 .5em;
-                }
-                .link {
+                    border-radius: 4px;
                     color: $tertiary-color;
                     background-color: $primary-color;
+                    &:hover {
+                        color: $secondary-color;
+                    }
                 }
                 .link_home {
                     margin-top: 0;
@@ -133,8 +134,7 @@
                     max-width: 240px;
                     margin-left: .4em;
                 }
-            }
-        
+            }    
             .user_db_links_ctn {
                 padding-left: 4em;
         

@@ -138,9 +138,14 @@
                 background-color: $tertiary-color;
                 text-align: center;
             }
-            .sign {
-                background-color: $darkgrey-color;
-            }
+        }
+        .sign {
+            display: block;
+            margin-top: 10px;
+            padding: .4em .8em;
+            color: $primary-color;
+            background-color: $darkgrey-color;
+            text-align: center;
         }
     }
 }

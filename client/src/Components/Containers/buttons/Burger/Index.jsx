@@ -82,16 +82,16 @@ function Burger() {
                 </>}   
 
                 {isMobile &&
-                <div className={styles.main_links_ctn}>
-                    <NavLink to={"/holidays"}>séjours</NavLink>
-                    <NavLink to={"/agency"}>agence</NavLink>
-                    <NavLink to={"/contact"}>contact</NavLink>
+                    <div className={styles.main_links_ctn}>
+                        <NavLink to={"/holidays"}>séjours</NavLink>
+                        <NavLink to={"/agency"}>agence</NavLink>
+                        <NavLink to={"/contact"}>contact</NavLink>
+                    </div>}
 
-                    {(userInfo.isLogged || TOKEN) ?
+                {(userInfo.isLogged || TOKEN) ?
                     <NavLink to={"/user/signout"} className={styles.sign} onClick={() => toggleBurgerOrLogin()}>déconnexion</NavLink> : 
                     <NavLink to={"/user/signin"} className={styles.sign} onClick={() => toggleBurgerOrLogin()}>connexion</NavLink>
-                    }
-                </div>}
+                }
             </div>
             
             {/* ---------- LE BOUTON BURGER ------------ */}
