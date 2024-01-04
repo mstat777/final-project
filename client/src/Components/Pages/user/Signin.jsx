@@ -1,4 +1,4 @@
-import styles from './user.module.css';
+import styles from './user.module.scss';
 import { useState, useEffect } from 'react';
 import { useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
@@ -71,12 +71,12 @@ function Signin(){
 
     return <main id="signin">
 
-            <div className={styles.signin_div}>
+            <section className={styles.signin}>
 
                 { (logMessage && !email && !password) && 
                     <p className={styles.ok_msg}>{logMessage}</p> }
                 
-                <h2>Je me connecte</h2>
+                <h1>Je me connecte</h1>
 
                 <form onSubmit={handleSubmit} className={styles.sign_form}>
 
@@ -88,7 +88,6 @@ function Signin(){
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 onFocus={() => setMsg('')}
-                                className={styles.sign_input}
                                 required/>
                     </div>
                     <div className={styles.input_ctn}> 
@@ -113,7 +112,7 @@ function Signin(){
                 { msg ? <p className={styles.err_msg}>{msg}</p> : null }
 
                 <p>Vous n'avez pas encore de compte ? <Link to="/user/signup">En créer un</Link></p>
-            </div>
+            </section>
 
         </main>
 }

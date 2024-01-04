@@ -1,10 +1,6 @@
-import { useNavigate } from 'react-router-dom';
+import styles from '../../results.module.scss';
 import { useSelector } from 'react-redux';
-import styles from '../../results.module.css';
 import { useState, useEffect } from 'react';
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPencil, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
 function AdminDashUserResults(){
 

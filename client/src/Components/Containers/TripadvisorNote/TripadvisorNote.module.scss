@@ -1,0 +1,20 @@
+.note_ctn {
+    display: flex;
+    align-items: center;
+
+    .note_circle {
+        height: .7em;
+        width: .7em;
+        margin: 3px;
+        border: 1px solid rgb(25,171,106);
+        outline: 2px solid rgb(25,171,106);
+        border-radius: 50%;
+        overflow: hidden;
+    
+        &_fill {
+            height: .7em;
+            width: .7em;
+            background-color: rgb(25,171,106);
+        }
+    }
+}

@@ -1,0 +1,151 @@
+@import '../../../../variables.scss';
+
+@mixin ctn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+@mixin link_el($color) {
+    display: block;
+    padding: .5em 1em;
+    font-weight: 500;
+    text-align: center;
+    color: $color;
+    transition: color .4s, background-color .4s;
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.user_db_header {
+    background-color: $secondary-color;
+
+    @media screen and (min-width: $br-tablet) {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        margin-top: 60px;
+    }
+
+    .user_db_nav {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin: 1em;
+
+        /* le containeur de l'icon et le mail user */
+        .user_db_user_ctn {
+            @include ctn;
+            margin-bottom: .5em;
+            /* le containeur de l'icon user */
+            .user_db_image_ctn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                height: 30px;
+                width: 30px;
+                border-radius: 50%;
+                background-color: rgb(122, 191, 141);
+                cursor: pointer;
+                .user_db_image {
+                    font-size: 1.6rem;
+                }
+            }
+        }
+        .user_db_links_ctn {
+            @include ctn;
+            .link_signout,
+            .link {
+                @include link_el(white);
+                width: 100%;
+                margin-bottom: .5em;
+            }
+            .link_home {
+                @include link_el(white);
+                margin-top: .5em;
+                background-color: black;
+            }
+            .link_signout {
+                @include link_el($highlight-color);
+                display: inline-block;
+                width: unset;
+                background-color: $primary-color;
+            }
+        }
+
+        @media screen and (min-width: $br-tablet) {
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            margin: .5em 2em;
+        
+            .user_db_user_ctn {
+                margin: 0;
+                margin-right: .5em;
+        
+                .user_db_image_ctn {
+                    height: 36px;
+                    width: 36px;
+                    margin-bottom: 0;
+                }
+                span {
+                    max-width: 150px;
+                    color: white;
+                    overflow: hidden;
+                    white-space: nowrap;
+                    text-overflow: ellipsis;
+                }
+            }
+        
+            .user_db_links_ctn {
+                flex-direction: row;
+                justify-self: center;
+        
+                .link,
+                .link_signout {  
+                    display: flex;
+                    align-items: center;
+                    width: unset;
+                    margin: 0 .5em;
+                }
+                .link {
+                    color: $tertiary-color;
+                    background-color: $primary-color;
+                }
+                .link_home {
+                    margin-top: 0;
+                }
+            }
+        }
+
+        @media screen and (min-width: $br-desktop) {
+            flex-direction: row;
+            justify-content: center;
+        
+            .user_db_user_ctn {
+                position: absolute;
+                left: 2em;
+                flex-direction: row;
+        
+                span {
+                    max-width: 240px;
+                    margin-left: .4em;
+                }
+            }
+        
+            .user_db_links_ctn {
+                padding-left: 4em;
+        
+                > * {
+                    vertical-align: bottom;
+                }
+                .link_home {
+                    display: inline-block;
+                    margin-top: 0;
+                }
+            }
+        }
+    }
+}

@@ -1,8 +1,8 @@
+import styles from './Holidays.module.scss';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { useEffect } from 'react';
 import Loading from "../../Containers/Loading/Index";
-import styles from './holidays.module.css';
 
 function Holidays(){
     const IMG_URL = process.env.REACT_APP_IMG_URL;
@@ -22,7 +22,7 @@ function Holidays(){
 
                     {allContinents.map((cont, i) => 
                         <ul key={i} className={styles.continent_ctn}>
-                            <h2 className={styles.continent_txt}>{cont}</h2>
+                            <h2>{cont}</h2>
 
                             {destinationsWithContinents
                             .filter((dest) => dest.continent === cont)
@@ -33,8 +33,8 @@ function Holidays(){
                                                 alt="image de la destination"/>
                                     
                                         <div className={styles.info_ctn}>
-                                            <p className={styles.country_txt}>{dest.country}</p>
-                                            <h3 className={styles.destination_txt}>{dest.name}</h3>                    
+                                            <p>{dest.country}</p>
+                                            <h3>{dest.name}</h3> 
                                         </div>
                                     </Link>  
                                 </li>

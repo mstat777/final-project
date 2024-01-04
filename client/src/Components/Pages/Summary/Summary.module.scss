@@ -1,0 +1,80 @@
+@import '../../../variables.scss';
+
+.summary_section {
+    display: flex;
+    flex-direction: column;
+    margin: 1em;
+    border: 1px solid $lightgrey-color;
+    
+    h1 {
+        margin: 1em;
+        font-size: 2.2rem;
+    }
+
+    .summary_ctn {
+        margin: 0 1em;
+        text-align: left;
+        h2 {
+            display: none;
+        }
+        > *:nth-child(10) {
+            display: inline-block;
+            margin: 0;
+        }
+        b {
+            font-weight: 500;
+        }
+        .summary_activities {
+            > li {
+                margin-left: 2em;
+                list-style-type: circle;
+            }
+        }
+        .nota_bene {
+            margin: 2em 0;
+            font-size: 1.4rem;
+        }
+        label {
+            select {
+                padding: .1em .4em;
+                font-weight: 500;
+                color: white;
+                background-color: $tertiary-color;
+            }
+        }
+    }
+    /* le bouton "confirmer la réservation" */
+    > button {
+        margin: 2.5em auto;
+        padding: .7em .9em .6em;
+        font-size: 1.6rem; 
+    }
+
+    @media screen and (min-width: $br-tablet) {
+        margin: 2em 4em;
+        padding: 0 1em;
+        label {
+            > p {
+                display: inline-block;
+            }
+            select {
+                margin-left: 1em;
+            }
+        }
+    }
+
+    @media screen and (min-width: $br-desktop) {
+        max-width: 950px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+.modify_section {
+    @media screen and (min-width: $br-tablet) {
+        margin-top: 96px;
+    }
+    @media screen and (min-width: $br-desktop) {
+        margin-top: 76px;
+    }
+}

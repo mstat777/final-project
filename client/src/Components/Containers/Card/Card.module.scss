@@ -1,0 +1,139 @@
+@import '../../../variables.scss';
+
+@mixin headings($fsize) {
+    font-size: $fsize;
+    overflow: hidden; 
+    white-space: nowrap; 
+    text-overflow: ellipsis;
+}
+
+.card {
+    display: flex;
+    height: 180px;
+    width: 100%;
+    max-width: 600px;
+    margin-bottom: 1em; 
+    border: 1px solid $primary-color;
+    border-radius: 5px;
+    box-shadow: 2px 2px 6px $primary-color;
+    overflow: hidden;
+
+    > img {
+        display: inline-block;
+        height: 100%;
+        width: 50%;
+        object-fit: cover;
+        object-position: center;
+    }
+
+    &_info {
+        display: inline-block;
+        width: 50%;
+        padding-top: .5em;
+        > h3 {
+            @include headings(2rem);
+            margin: .3em .3em .3em .4em;
+            font-weight: 600;
+        }
+        > h4 {
+            @include headings(1.6rem);
+            margin: .6em .3em 0;
+            color: $secondary-color;
+        }
+        .price_percent_ctn {
+            display: flex;
+            align-items: flex-end;
+            justify-content: flex-end;
+            margin: .5em;
+        
+            .percent_ctn {
+                display: inline-block;
+                margin-bottom: .1em;
+                padding: .2em .4em;
+                font-size: 1.2rem;
+                text-align: right;
+                color: white;
+                background-color: $secondary-color;
+                > span {
+                    margin: 0 .2em;
+                    font-size: 2rem;
+                    font-weight: 500;
+                }
+            }
+            .price_ctn {
+                display: inline-flex;
+                flex-direction: column;
+                width: 60%;
+                font-size: 1.2rem;
+            
+                .price_txt {
+                    margin: 0;
+                    font-size: 2.5rem;
+                    font-weight: 600;
+                    color: $highlight-color;
+                    sup {
+                        font-size: 1.2rem;
+                    }
+                }
+            }
+        }
+        .center {
+            justify-content: center;
+        }
+        > button {
+            margin: 1em auto .5em;
+            padding: .4em .7em;
+        }
+    }
+
+    @media screen and (min-width: $br-tablet) {
+        height: 200px;
+        &_info {
+            padding: 1em;
+            > h3 {
+                margin: .3em auto;
+                font-size: 2.2rem;
+            }
+            > h4 {
+                margin: .3em auto;
+                font-size: 1.8rem;
+            }
+            .price_percent_ctn {
+                justify-content: center;
+                margin: 1em auto;
+                .price_ctn {
+                    flex-direction: row;
+                    align-items: flex-end;
+                    justify-content: center;
+                    > span {
+                        &:first-child {
+                            margin-bottom: .3em;
+                            margin-right: .5em;
+                        }
+                    }
+                }
+            }
+            > button {
+                margin: 1em auto;
+            }
+        }
+    }
+
+    @media screen and (min-width: $br-desktop) {
+        flex-direction: column;
+        height: 380px;
+        width: 300px;
+        margin-left: 1em;
+        margin-right: 1em;
+        > img {
+            height: 200px;
+            width: 100%;
+        }
+        &_info {
+            display: block;
+            height: 180px;
+            width: 100%;
+            padding: .5em;
+        }
+    }
+}

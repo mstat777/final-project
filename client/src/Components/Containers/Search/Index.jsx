@@ -1,8 +1,7 @@
-import styles from './search.module.css';
+import styles from './Search.module.scss';
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate, useSearchParams } from 'react-router-dom';
-
 import { setDestination, 
             setPacks,
             setLodging, 
@@ -11,9 +10,9 @@ import { setDestination,
             } from "../../../store/slices/travel";
 
 import { formatCoordinates } from '../../Functions/utils';
-
 import Results from '../Results/Index';
 import Suggestions from './Suggestions/Index';
+import MainBtn from '../buttons/MainBtn/Index';
 
 function Search() {
     const BASE_URL = process.env.REACT_APP_BASE_URL;
@@ -95,7 +94,7 @@ function Search() {
         }
        
         if (searchDestination){
-            console.log("searchDestination (init) = "+searchDestination);  
+            //console.log("searchDestination (init) = "+searchDestination);  
             checkDestination();
         }
     },[searchDestination, searchDate, searchPrice]);
@@ -206,7 +205,7 @@ function Search() {
                             placeholder="Prix max. / personne"/>
                 </div>
                 <div className={styles.button_ctn}>
-                    <button type="submit">rechercher</button>
+                    <MainBtn type="submit" text="rechercher"/>
                 </div>
                 <Suggestions 
                     destinationInput={destinationInput} 

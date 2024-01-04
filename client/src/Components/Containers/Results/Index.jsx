@@ -1,16 +1,13 @@
-import styles from './results.module.css';
+import styles from './Results.module.scss';
 import { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { useLocation } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
 import Loading from '../Loading/Index';
 import Slideshow from '../Slideshow/Index';
 import { cheapestPack } from '../../Functions/utils.js';
 
 function Results() {
-    const { pathname } = useLocation();
-
     const { destination } = useSelector((state) => state.allTravel);
     const { packs } = useSelector((state) => state.allTravel);
     const { destinationImages } = useSelector((state) => state.allTravel);
@@ -28,14 +25,14 @@ function Results() {
             <section id="resultsContainer" className={styles.results_section}>
                 <h2>Résultat de la recherche</h2>
                 <article>
-                    <div className={styles.slider_ctn}>
+                    <div className={styles.slideshow_ctn}>
                         {destinationImages[0] && 
                         <Slideshow type="destination"/>}
                     </div>
         
                     <div>
                         <h3>{destination.name}</h3>
-                        <span className={styles.country_txt}>{destination.country}</span>
+                        <p className={styles.country_txt}>{destination.country}</p>
                         <p className={styles.overview}>{destination.overview}</p>
                         <p>dès <span className={styles.price}>{packs[0] && cheapestPack(packs)}&euro;</span> TTC/adulte</p>
                         <Link to={`/detail/${destination.name}`} className={styles.discover_btn}>découvrir</Link>

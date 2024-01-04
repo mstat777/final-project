@@ -1,4 +1,4 @@
-import styles from "./home.module.css";
+import styles from "./Home.module.scss";
 import Search from "../../Containers/Search/Index";
 import banner from '../../../assets/img/bg/pexels-asad-photo-maldives-1430677.jpg';
 import Card from "../../Containers/Card/Index";

@@ -1,0 +1,142 @@
+@import './variables.scss';
+
+/*************************************************************/
+/* ----------------------- GENERALES ----------------------- */
+/*************************************************************/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 62.5%;
+}
+
+body{
+    font-size: 1.6rem;
+    font-family: $main-font;  
+    background-color: white;
+    > div {
+        min-height: 100vh; // pour positionner le footer toujours en bas de la page
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+/********* HEADINGS *********/
+h1 {
+	font-weight: 500;
+	font-size: 3.6rem;
+    margin: 3rem;
+	color: $tertiary-color;
+}
+
+h2 {
+	font-weight: 500;
+	font-size: 2.5rem;
+    margin: 2rem;
+    color: $tertiary-color;
+}
+
+h3 {
+	font-weight: 500;
+	font-size: 2.2rem;
+    margin: 1.6rem;
+    color: $tertiary-color;
+}
+
+h4 {
+	font-weight: 600;
+	font-size: 1.8rem;
+    margin: 1.2rem;
+    color: $highlight-color;
+}
+
+a {
+    text-decoration: none;
+    text-transform: uppercase;
+    display: inline-block;
+}
+
+li {
+    list-style: none;
+}
+
+p {
+    margin: 10px 0;
+}
+
+img {
+    display: block;
+    width: 100%;
+    max-height: 100%;
+}
+
+/********* TABLES *********/
+table {
+	border-collapse: collapse;
+    font-size: 1.4rem;
+    thead {
+        th {
+            padding: 1em;
+            border: 1px solid $lightgrey-color;
+            font-weight: 400;
+            text-align: center;
+        }
+    }
+    tbody {
+        tr {
+            td {
+                border: 1px solid $lightgrey-color;
+                text-align: center;
+            }
+            &:nth-child(odd) {
+                td {
+                    background-color: $verylightgrey-color;
+                }
+            }
+        }
+    }
+    tfoot {
+        th {
+            border-top: 1px solid $grey-color;
+        }
+    }
+}
+
+/********* FORM ELEMENTS *********/
+input[type="text"],
+input[type="password"],
+input[type="search"],
+input[type="email"],
+input[type="tel"],
+input[type="date"],
+input[type="number"],
+input[type*="date"],
+select,
+textarea {
+	display: inline-block;
+	font-size: 1.6rem;
+    font-family: $main-font; 
+	color: $darkgrey-color; 
+	border: 1px solid $lightgrey-color;
+	border-radius: 0.4em;
+}
+textarea {
+	display: block;
+    resize: none;
+}
+
+::placeholder {
+    font-weight: 400;
+	color: $grey-color; 
+}
+
+main {
+	width: 100%;
+	text-align: center;
+    @media screen and (min-width: $br-tablet) {
+        margin-top: 60px;
+    }
+}

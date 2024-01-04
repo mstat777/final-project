@@ -1,4 +1,4 @@
-import styles from './confirmation.module.css';
+import styles from './Confirmation.module.scss';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import { useMediaQuery } from "react-responsive";

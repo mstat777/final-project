@@ -1,0 +1,176 @@
+@import '../../../../variables.scss';
+
+.admin_db_main {
+    padding-bottom: 3em;
+    text-align: center;
+
+    h1 {
+        margin: .8em;
+        font-size: 3rem;
+        text-transform: uppercase;
+    }
+
+    .admin_db_link {
+        margin-left: 1em;
+        padding: .3em .7em;
+        border: none;
+        border-radius: 6px;
+        color: white;
+        text-transform: uppercase;
+        background-color: $tertiary-color;
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+    .admin_db_section {
+        margin: 1em;
+
+        /* Page Créer/modifier/supprimer */
+        .form {
+            display: flex;
+            flex-direction: column;
+            max-width: 500px;
+            margin: 1em auto; 
+            padding: 1.5em;
+            font-size: 1.4rem;
+            background-color: $primary-color;
+        
+            label {
+                display: flex;
+                /*align-items: flex-start;*/
+                align-items: center;
+                justify-content: flex-end;
+                margin-bottom: 1em;
+                border: none;
+            
+                > span {
+                    display: inline-block;
+                    width: 42%;
+                    max-width: 250px;
+                    margin-top: .2em;
+                    margin-right: .5em;
+                    padding-right: .5em;
+                    text-align: right;
+                    white-space: nowrap;
+                    overflow: hidden;
+                }
+            
+                > *:nth-child(2) {
+                    display: inline-block;
+                    width: 50%;
+                    margin-left: .5em;
+                    margin-right: 0;
+                    padding: .2em .5em;
+                    font-size: 1.6rem;
+                    font-weight: 500;
+                    color: $darkgrey-color;
+                }
+                textarea {
+                    height: 11em;
+                }
+            
+                /*** les boutons Modif ***/
+                button {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    height: 1.5em;
+                    width: 1.5em;
+                    margin-top: .2em;
+                    margin-left: .5em;
+                    border: none;
+                    background-color: $secondary-color;
+                    transition: opacity .3s;
+                    &:hover {
+                        cursor: pointer;
+                        opacity: .7;
+                    }
+            
+                    .modify_icon {
+                        font-size: .8em;
+                        color: white;
+                    }
+                }
+            }
+        
+            .main_btn_ctn {
+                margin: 0 auto;
+            
+                .save_btn,
+                .delete_btn {
+                    display: inline-block;
+                    margin: 1em .5em;
+                    padding: .5em .7em .5em;
+                    border: none;
+                    border-radius: .4em;
+                    font-weight: 500;
+                    letter-spacing: .1em;
+                    text-transform: uppercase;
+                    color: white;
+                    background-color: $tertiary-color;
+                    &:hover {
+                        cursor: pointer;
+                    }
+                }
+                .delete_btn {
+                    border: 1px solid $highlight-color;
+                    color: $highlight-color;
+                    background-color: white;
+                }
+            }
+        }
+
+        @media screen and (min-width: $br-desktop) {
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+            .form {
+                width: 90%;
+                margin: 1em auto; 
+            }
+        }
+    }
+
+    textarea:disabled,
+    input[type="email"]:disabled,
+    input[type="tel"]:disabled,
+    input[type="date"]:disabled,
+    input[type="text"]:disabled {
+        color: $grey-color;
+        background-color: #f5f5f5;
+    }
+
+    .ok_msg {
+        color: rgb(0, 143, 49);
+        text-align: center;
+    }
+    .err_msg {
+        color: $highlight-color;
+        text-align: center;
+    }
+
+    @media screen and (min-width: $br-tablet) {
+        display: inline-block;
+        margin-top: 60px;
+        padding: 1em;
+    
+        .admin_db_section {
+            margin: 60px 2em 2em;
+    
+            .form {
+                max-width: 800px;
+                margin: 1em 4em 2em 4em;
+                label {
+                    justify-content: center;
+                    > span {
+                        width: 30%;
+                    }
+                    > *:nth-child(2) {
+                        width: 60%;
+                    }
+                }
+            }
+        }    
+    }
+}

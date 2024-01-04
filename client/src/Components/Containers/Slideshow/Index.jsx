@@ -1,4 +1,4 @@
-import styles from './slideshow.module.css';
+import styles from './Slideshow.module.scss';
 import React, {useState} from 'react';
 import { useSelector } from 'react-redux';
 import SlideshowBtn from './SlideshowBtn';

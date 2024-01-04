@@ -1,0 +1,163 @@
+@import '../../../../variables.scss';
+
+/* -------------- LE BOUTON BURGER ----------------- */
+.burger_btn {
+    position: absolute;
+    right: 2em;
+    top: 1.5em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 2.2em;
+    width: 2.2em;
+    border: 2px solid $tertiary-color;
+    border-radius: 1.1em;
+    box-sizing: border-box;
+    overflow: hidden;
+    font-size: 1.6rem;
+    color: $primary-color;
+    background-color: $tertiary-color;
+    transition: color .5s, background-color .5s, width .5s, content .5s;
+    &:hover {
+        cursor: pointer;   
+        width: 9em;
+        color: $tertiary-color;
+        background-color: white; 
+        &_text {
+            color: $tertiary-color;
+        }
+    }
+    &:focus {
+        visibility: hidden;
+    }
+    &_text {
+        color: rgba(47, 74, 122, 0);
+        transition: color 3s;
+    }
+    /* l'image dans le bouton burger */
+    .burger_icon {
+        height: 1.6rem;
+        width: 1.6rem;
+    }
+
+    @media screen and (min-width: $br-tablet) {
+        top: .8em;
+        right: 3em;
+    }
+    @media screen and (min-width: $br-desktop) {
+        top: .8em;
+        right: calc(6vw + 1em);
+    }
+}
+
+/* CONTAINEUR PRINCIPAL du menu burger (caché par défaut) */
+.burger_menu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 101;
+
+    .burger_items_ctn {
+        position: fixed;
+        right: -200px; // caché par défaut
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        width: 200px;
+        padding: 3.5em 1.2em 0;
+        font-size: 1.4rem;
+        background-color: #b8bfda;
+        visibility: hidden;
+        transition: all 1s ease-out;
+        z-index: 200;
+    
+        .burger_cross_btn {
+            position: absolute;
+            top: .7em;
+            left: .7em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: .5em;
+            border: none;
+            border-radius: 50%;
+            background-color: inherit;
+            transition: background-color .6s;
+            &:hover {
+                cursor: pointer;
+                background-color: #cfd4e9;
+            }
+            .burger_cross {
+                height: 2rem;
+                width: 2rem;
+            }
+        }
+        > .user_icon {
+            margin-bottom: .5em;
+            font-size: 3rem;
+        }
+        > p {
+            padding-left: .5em;
+        }
+        > .small_txt {
+            margin: 0;
+            font-size: 1.4rem;
+            text-align: center;
+        }
+        > .user_txt {
+            margin-top: .2em;
+            padding: .2em 0 .2em .3em;
+            font-weight: 500;
+            text-align: center;
+            overflow: hidden; 
+            white-space: nowrap; 
+            text-overflow: ellipsis;
+            background-color: $primary-color;
+        }
+        > hr {
+            margin: .5em 0;
+            border: 1px solid $grey-color;
+        }
+        /* ------- LIEN DANS LE CONTAINEUR MENU -------- */
+        .burger_item {
+            display: inline-block;
+            margin-top: 1em;
+            padding: .5em;
+            border-radius: .4em;
+            font-weight: 500;
+            color: black;
+            &:hover {
+                cursor: pointer;
+                background-color: #cfd4e9;
+            }
+        }
+        .burger_item_signout {
+            align-self: center;
+            margin-top: 2em;
+            padding: .4em .8em;
+            border-radius: .4em;
+            color: $primary-color;
+            background-color: $darkgrey-color;
+            text-align: center;
+        }
+    }
+}
+
+.show_burger_menu {
+    .burger_items_ctn {
+        right: 0;
+        visibility: visible;
+        transition: all 1s ease-out;
+    }
+}
+/* Afficher/cacher le containeur principal */
+.show {
+    visibility: visible;
+    opacity: 1;
+    transition: all 2s;
+}
+.hide {
+    visibility: hidden;
+    opacity: 0;
+    transition: all .5s;
+}

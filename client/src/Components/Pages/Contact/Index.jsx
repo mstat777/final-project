@@ -1,10 +1,9 @@
-import styles from './contact.module.css';
+import styles from './Contact.module.scss';
 import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPhone } from '@fortawesome/free-solid-svg-icons';
-
 import { validateInput } from '../../Functions/sanitize';
+import MainBtn from '../../Containers/buttons/MainBtn/Index';
 
 function Contact(){
     const BASE_URL = process.env.REACT_APP_BASE_URL;
@@ -82,7 +81,7 @@ function Contact(){
                 <article>
                     <h2>nous contacter</h2>
                     <form onSubmit={handleSubmit} className={styles.contact_form}>
-                        <label className={styles.contact_label}>  
+                        <label>  
                             <span>Nom :</span>
                             <input type="text" 
                                 name="userName" 
@@ -92,7 +91,7 @@ function Contact(){
                                 required/> 
                         </label>
 
-                        <label className={styles.contact_label}> 
+                        <label> 
                             <span>Mail :</span>
                             <input type="email" 
                                 name="userEmail" 
@@ -102,7 +101,7 @@ function Contact(){
                                 required/> 
                         </label>
 
-                        <label className={styles.contact_label}> 
+                        <label> 
                             <span>Message :</span>
                             <textarea name="userMessage"
                                 value={userMessage}
@@ -116,7 +115,7 @@ function Contact(){
 
                         <div>
                             <div>
-                                <button type="submit">envoyer</button>
+                                <MainBtn type="submit" text="envoyer"/>
                             </div>
                         </div>
                     </form>

@@ -1,4 +1,4 @@
-import styles from '../admindash.module.css';
+import styles from '../admindash.module.scss';
 
 import AdminDashActivitiesSearch from './Search/Index';
 import AdminDashActivitiesResults from './Results/Index';

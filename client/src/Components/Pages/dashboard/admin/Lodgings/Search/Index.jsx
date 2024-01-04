@@ -1,7 +1,6 @@
-import styles from '../../search.module.css';
+import styles from '../../search.module.scss';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-
 import { setResultsLodgings } from '../../../../../../store/slices/dashboard.js';
 
 function AdminDashLodgingSearch(){

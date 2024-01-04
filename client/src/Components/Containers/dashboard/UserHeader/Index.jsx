@@ -1,4 +1,4 @@
-import styles from './userheader.module.css';
+import styles from './UserHeader.module.scss';
 import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 

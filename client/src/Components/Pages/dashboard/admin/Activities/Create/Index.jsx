@@ -1,4 +1,4 @@
-import styles from '../dashboard.module.css';
+import styles from '../dashboard.module.scss';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 

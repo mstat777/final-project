@@ -1,4 +1,4 @@
-import styles from './agency.module.css';
+import styles from './Agency.module.scss';
 import agency_photo from '../../../assets/img/agency-pexels-cadomaestro-1170412.jpg';
 
 import { useEffect } from "react";

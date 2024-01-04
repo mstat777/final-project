@@ -1,0 +1,159 @@
+@import '../../../../../variables.scss';
+
+.user_db_main {
+    margin-top: 1em;
+    padding-bottom: 3em;
+    text-align: center;
+
+    h1 {
+        margin: 1em;
+        font-size: 2.2rem;
+        text-transform: uppercase;
+    }
+    .user_db_section {
+        margin: 1em;
+
+        .bookings_main_ctn {
+            width: 95%;
+            margin: 0 auto;
+
+            .booking_ctn {
+                display: grid;
+                grid-template-columns: repeat(6, 1fr);
+                grid-template-rows: 1fr 1fr 1fr;
+                gap: .3em;
+                margin-top: .5em;
+                padding: .3em .4em;
+                border: 1px solid grey;
+                border-radius: .5em;
+                font-size: 1.4rem;
+                background-color: $verylightgrey-color;
+
+                @media screen and (min-width: $br-tablet) {
+                    max-width: 900px;
+                    grid-template-columns: repeat(10, 1fr);
+                    grid-template-rows: 1fr 1fr;
+                    margin: .5em auto 0;
+                    padding: .5em 2em;
+                    font-size: 1.6rem;
+                }   
+                > div {
+                    display: flex;
+                    justify-content: left;
+                    align-items: center;      
+                    > span {
+                        overflow: hidden;
+                        white-space: nowrap;
+                        text-overflow: ellipsis;
+                    }
+                    > span:first-child {
+                        text-align: left;
+                    }
+                    > span:nth-child(2) {
+                        margin-left: .4em;
+                        font-weight: 500;
+                    }
+                }
+                /* row-start/col-start/row-end/col-end */
+                .el_index {
+                    grid-area: 1/1/2/2;
+                    @media screen and (min-width: $br-tablet) {
+                        grid-area: 1/1/2/2;
+                    }
+                }
+                .el_d_created {
+                    grid-area: 1/2/2/5;
+                    @media screen and (min-width: $br-tablet) {
+                        grid-area: 1/2/2/4;
+                    }
+                }
+                .el_btn_ctn {
+                    grid-area: 1/5/2/7;
+                    @media screen and (min-width: $br-tablet) {
+                        grid-area: 2/10/3/11;
+                    }
+                    button {
+                        height: 20px;
+                        width: 20px;
+                        border-radius: 10px;
+                        background-color: white;
+                        .modify_icon {
+                            margin-top: .1em;
+                            color: rgb(50, 124, 72);
+                        }
+                        .delete_icon {
+                            color: $highlight-color;
+                        }
+                    }
+                }
+                .el_destination {
+                    grid-area: 2/1/3/4;
+                    @media screen and (min-width: $br-tablet) {
+                        grid-area: 1/4/2/7;
+                    }
+                }
+                .el_country {
+                    grid-area: 2/4/3/7;
+                    @media screen and (min-width: $br-tablet) {
+                        grid-area: 1/7/2/11;
+                    }
+                }
+                .el_adults {
+                    grid-area: 3/1/4/3;
+                    @media screen and (min-width: $br-tablet) {
+                        grid-area: 2/1/3/4;
+                    }
+                }
+                .el_children {
+                    grid-area: 3/3/4/5;
+                    @media screen and (min-width: $br-tablet) {
+                        grid-area: 2/4/3/7;
+                    }
+                }
+                .el_total_pr {
+                    grid-area: 3/5/4/7;
+                    @media screen and (min-width: $br-tablet) {
+                        grid-area: 2/7/3/10;
+                    }
+                }
+            }
+            button {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin: 0 auto;
+                border: none;
+                border-radius: 4px;
+                text-transform: uppercase;
+                background-color: transparent;
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+        }
+        .ok_msg {
+            color: rgb(0, 143, 49);
+            text-align: center;
+        }
+        .err_msg {
+            color: $highlight-color;
+            text-align: center;
+        }
+    }
+
+    @media screen and (min-width: $br-tablet) {
+        display: inline-block;
+        margin-top: 132px;
+        padding: 1em auto;
+        .user_db_section {
+            margin: 2em;
+        }    
+    }
+    @media screen and (min-width: $br-desktop) {
+        margin-top: 112px;
+        .user_db_section {
+            max-width: 1000px;
+            margin: 2em auto; 
+        }
+    }
+}

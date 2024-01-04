@@ -1,7 +1,8 @@
-import styles from '../../../Summary/summary.module.css';
+import styles from '../../../Summary/Summary.module.scss';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import MainBtn from '../../../../Containers/buttons/MainBtn/Index';
 
 function UserDashBookingModifiedSummary() {
     const BASE_URL = process.env.REACT_APP_BASE_URL;
@@ -23,7 +24,6 @@ function UserDashBookingModifiedSummary() {
     function getOldActivities(){
         const oldArray = [];
         for(let i = 0; i < activities.length; i++){
-            console.log("i = "+i);
             const myObject = {
                 nb_adults: 0,
                 nb_children: 0,
@@ -32,10 +32,10 @@ function UserDashBookingModifiedSummary() {
                 id: 0
             };
 
-            console.log("bookedData.datasBookAct.length = "+bookedData.datasBookAct.length);
+            //console.log("bookedData.datasBookAct.length = "+bookedData.datasBookAct.length);
             for(let j = 0; j < bookedData.datasBookAct.length; j++){
-                console.log("bookedData.datasBookAct[j].activity_id = "+bookedData.datasBookAct[j].activity_id);
-                console.log("activities[0].id = "+activities[i].id);
+                //console.log("bookedData.datasBookAct[j].activity_id = "+bookedData.datasBookAct[j].activity_id);
+                //console.log("activities[0].id = "+activities[i].id);
 
                 if (bookedData.datasBookAct[j].activity_id === activities[i].id) {
                     console.log(bookedData.datasBookAct[j]);
@@ -46,9 +46,9 @@ function UserDashBookingModifiedSummary() {
                     myObject.id = bookedData.datasBookAct[j].id;
                 } 
             }   
-            oldArray.push(myObject);
+            //oldArray.push(myObject);
         }
-        console.log(oldArray);
+        //console.log(oldArray);
         return oldArray;
     }
 
@@ -101,7 +101,7 @@ function UserDashBookingModifiedSummary() {
 
     // confirmer les données et faire une réservation :
     async function handleConfirm() {
-        const res = await fetch(`${BASE_URL}/api/v.0.1/user/booking/modify`, {
+        const res = await fetch(`${BASE_URL}/api/v.0.1/booking/modify`, {
             method: "post",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ 
@@ -124,41 +124,41 @@ function UserDashBookingModifiedSummary() {
 
     return <main id="summary">
             {(destination && lodging && packs[0] && activities[0] && bookingInfo.nb_adults && bookedData.datasBook[0]) &&
-            <section className={styles.summary_section}>
+            <section className={`${styles.summary_section} ${styles.modify_section}`}>
                 <h1>Voici le récapitulatif de votre réservation :</h1>
 
                 <article className={styles.summary_ctn}>
                     <h2>Récapitulatif</h2>
-                    <p>Nom et pays de la destination : <span>{destination.name}</span>, <span>{destination.country}</span></p>
-                    <p>Nom de l'hébergement : <span>{lodging.name}</span></p>
-                    <p>Date de départ : <span>{packs[id].departure_date.slice(0, packs[id].departure_date.indexOf('T'))}</span></p>
-                    <p>Date de retour : <span>{packs[id].return_date.slice(0, packs[id].return_date.indexOf('T'))}</span></p> 
-                    <p>Durée : <span>{packs[id].duration+1}</span> jours / <span>{packs[id].duration}</span> nuits</p>  
-                    <p>Nombre d'adultes : <span>{bookingInfo.nb_adults.pack}</span></p>
-                    <p>Nombre d'enfants : <span>{bookingInfo.nb_children.pack}</span></p>
-                    <p>Prix du pack (sans activités) : <span>{bookingInfo.prices.total_pack}</span> &euro;</p>
+                    <p>Nom et pays de la destination : <b>{destination.name}</b>, <b>{destination.country}</b></p>
+                    <p>Nom de l'hébergement : <b>{lodging.name}</b></p>
+                    <p>Date de départ : <b>{packs[id].departure_date.slice(0, packs[id].departure_date.indexOf('T'))}</b></p>
+                    <p>Date de retour : <b>{packs[id].return_date.slice(0, packs[id].return_date.indexOf('T'))}</b></p> 
+                    <p>Durée : <b>{packs[id].duration+1}</b> jours / <b>{packs[id].duration}</b> nuits</p>  
+                    <p>Nombre d'adultes : <b>{bookingInfo.nb_adults.pack}</b></p>
+                    <p>Nombre d'enfants : <b>{bookingInfo.nb_children.pack}</b></p>
+                    <p>Prix du pack (sans activités) : <b>{bookingInfo.prices.total_pack}</b> &euro;</p>
                     <p>Activités choisies : </p>
                     {onlyBookedAct.length ?
                     <ul className={styles.summary_activities}>
                     {onlyBookedAct.filter(el => el.nb_adults > 0 || el.nb_children > 0).map((activity, i) => 
                         <li key={i}>
-                            <span>{activity.name}</span> pour <span>{activity.nb_adults}</span> adulte(s) et <span>{activity.nb_children}</span> enfant(s) au prix de <span>{activity.price_total_act}</span> &euro;
+                            <b>{activity.name}</b> pour <b>{activity.nb_adults}</b> adulte(s) et <b>{activity.nb_children}</b> enfant(s) au prix de <b>{activity.price_total_act}</b> &euro;
                         </li>
                     )}
-                    </ul> : <span>aucune activité choisie</span>
+                    </ul> : <span><b> aucune activité choisie</b></span>
                     }
-                    <p>Prix total des activités : <span>{bookingInfo.prices.total_activities}</span> &euro;</p>
+                    <p>Prix total des activités : <b>{bookingInfo.prices.total_activities}</b> &euro;</p>
                     <hr/>
-                    <p>Prix total de la réservation : <span>{bookingInfo.prices.total_all}</span> &euro;</p>
+                    <p>Prix total de la réservation : <b>{bookingInfo.prices.total_all}</b> &euro;</p>
 
                     {/* si l'utilisateur n'a pas encore payé : */}
                     {bookedData.datasBook[0].status === "en cours" ? 
-                        <p>A PAYER : <span>{bookingInfo.prices.total_all}</span> &euro;</p> : null}
+                        <p>A PAYER : <b>{bookingInfo.prices.total_all}</b> &euro;</p> : null}
 
                     {/* si l'utilisateur a déjà payé : */}
                     {bookedData.datasBook[0].status === "validée" && <>
-                        <p>Montant déjà payé : <span>{parseFloat(bookedData.datasBook[0].price_total_booking)}</span> &euro; TTC</p> 
-                        <p>RESTE A PAYER : <span>{bookingInfo.prices.total_all - bookedData.datasBook[0].price_total_booking}</span> &euro; TTC</p> 
+                        <p>Montant déjà payé : <b>{parseFloat(bookedData.datasBook[0].price_total_booking)}</b> &euro; TTC</p> 
+                        <p>RESTE A PAYER : <b>{bookingInfo.prices.total_all - bookedData.datasBook[0].price_total_booking}</b> &euro; TTC</p> 
                     </>}
                 </article>
 
@@ -166,7 +166,7 @@ function UserDashBookingModifiedSummary() {
                     <h2>Paiement</h2>
                     <p className={styles.nota_bene}>NB : Cher client, après la confirmation de réservation de votre part, vous recevrez un mail confirmation de reception de la réservation. Vous disposerez de 24 heures pour effectuer le paiement ou votre réservation sera annulée.</p>
                     <label>
-                        Comment souhaitez-vous effectuer le paiement ?
+                        <p>Comment souhaitez-vous effectuer le paiement ?</p>
                         <select value={paymentType} onChange={handlePaymentChange}>
                             {paymentOptions.map((option) => (
                                 <option value={option.value} key={option.value}>{option.label}</option>
@@ -175,7 +175,7 @@ function UserDashBookingModifiedSummary() {
                     </label>
                 </article>
 
-                <button onClick={handleConfirm} className={styles.summary_confirm_btn}>confirmer la réservation</button>
+                <MainBtn onClick={handleConfirm} className={styles.confirm_btn} text="confirmer la réservation"/>
             </section>}
         </main>
 }

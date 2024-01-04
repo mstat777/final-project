@@ -1,14 +1,10 @@
-import { useNavigate } from 'react-router-dom';
+import styles from '../../admindash.module.scss';
 import { useSelector } from 'react-redux';
-import styles from '../../admindash.module.css';
 import { useState, useEffect } from 'react';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencil } from '@fortawesome/free-solid-svg-icons';
 
 function AdminDashUserModify(){
-    const navigate = useNavigate();
-
     // les champs du formulaire :
     const [formData, setFormData] = useState({
         nameLodg: "",

@@ -1,4 +1,4 @@
-import styles from './tripadvisornote.module.css';
+import styles from './TripadvisorNote.module.scss';
 
 function TripadvisorNote({note}){
     const maxNote = 5;

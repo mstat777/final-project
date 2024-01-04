@@ -1,6 +1,7 @@
-import styles from './card.module.css';
+import styles from './Card.module.scss';
 import { useNavigate } from 'react-router-dom';
 import { fetchDestinationAllPacks } from '../../Functions/fetchData';
+import MainBtn from '../buttons/MainBtn/Index';
 
 function Card({type, data}){
     const IMG_URL = process.env.REACT_APP_IMG_URL;
@@ -35,9 +36,9 @@ function Card({type, data}){
                         </div>
 
                     </div>
-                    <button
+                    <MainBtn
                         onClick={() => handleClick(data.name)}          
-                        className={styles.discover_btn}>découvrir</button>
+                        text="découvrir"/>
                 </div>
             </article>    
 }

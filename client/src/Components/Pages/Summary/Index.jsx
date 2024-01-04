@@ -1,8 +1,9 @@
-import styles from './summary.module.css';
+import styles from './Summary.module.scss';
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useMediaQuery } from "react-responsive";
+import MainBtn from '../../Containers/buttons/MainBtn/Index';
 
 function Summary(){
     const BASE_URL = process.env.REACT_APP_BASE_URL;
@@ -71,7 +72,7 @@ function Summary(){
         });
         console.log(activitiesForDB);
 
-        const res = await fetch(`${BASE_URL}/api/v.0.1/user/booking/create`, {
+        const res = await fetch(`${BASE_URL}/api/v.0.1/booking/create`, {
             method: "post",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ 
@@ -98,34 +99,34 @@ function Summary(){
 
                 <article className={styles.summary_ctn}>
                     <h2>Récapitulatif</h2>
-                    <p>Nom et pays de la destination : <span>{destination.name}</span>, <span>{destination.country}</span></p>
-                    <p>Nom de l'hébergement : <span>{lodging.name}</span></p>
-                    <p>Date de départ : <span>{packs[id].departure_date.slice(0, packs[id].departure_date.indexOf('T'))}</span></p>
-                    <p>Date de retour : <span>{packs[id].return_date.slice(0, packs[id].return_date.indexOf('T'))}</span></p> 
-                    <p>Durée : <span>{packs[id].duration+1}</span> jours / <span>{packs[id].duration}</span> nuits</p>  
-                    <p>Nombre d'adultes : <span>{bookingInfo.nb_adults.pack}</span></p>
-                    <p>Nombre d'enfants : <span>{bookingInfo.nb_children.pack}</span></p>
-                    <p>Prix du pack (sans activités) : <span>{bookingInfo.prices.total_pack}</span> &euro;</p>
+                    <p>Nom et pays de la destination : <b>{destination.name}</b>, <b>{destination.country}</b></p>
+                    <p>Nom de l'hébergement : <b>{lodging.name}</b></p>
+                    <p>Date de départ : <b>{packs[id].departure_date.slice(0, packs[id].departure_date.indexOf('T'))}</b></p>
+                    <p>Date de retour : <b>{packs[id].return_date.slice(0, packs[id].return_date.indexOf('T'))}</b></p> 
+                    <p>Durée : <b>{packs[id].duration+1}</b> jours / <b>{packs[id].duration}</b> nuits</p>  
+                    <p>Nombre d'adultes : <b>{bookingInfo.nb_adults.pack}</b></p>
+                    <p>Nombre d'enfants : <b>{bookingInfo.nb_children.pack}</b></p>
+                    <p>Prix du pack (sans activités) : <b>{bookingInfo.prices.total_pack}</b> &euro;</p>
                     <p>Activités choisies : </p>
                     {bookedActivities.length ?
-                    <ul className={styles.summary_activities}>
-                    {bookedActivities.map((activity, i) => 
-                        <li key={i}>
-                            <span>{activity.name}</span> pour <span>{activity.nb_adults}</span> adulte(s) et <span>{activity.nb_children}</span> enfant(s) au prix de <span>{activity.price_total_act}</span> &euro;
-                        </li>
-                    )}
-                    </ul> : <span>aucune activité choisie</span>
+                        <ul className={styles.summary_activities}>
+                        {bookedActivities.map((activity, i) => 
+                            <li key={i}>
+                                <b>{activity.name}</b> pour <b>{activity.nb_adults}</b> adulte(s) et <b>{activity.nb_children}</b> enfant(s) au prix de <b>{activity.price_total_act}</b> &euro;
+                            </li>
+                        )}
+                        </ul> : <span><b> aucune activité choisie</b></span>
                     }
-                    <p>Prix total des activités : <span>{bookingInfo.prices.total_activities}</span> &euro;</p>
+                    <p>Prix total des activités : <b>{bookingInfo.prices.total_activities}</b> &euro;</p>
                     <hr/>
-                    <p>Prix total de la réservation : <span>{bookingInfo.prices.total_all}</span> &euro;</p>
+                    <p>Prix total de la réservation : <b>{bookingInfo.prices.total_all}</b> &euro;</p>
                 </article>
 
                 <article className={styles.summary_ctn}>
                     <h2>Paiement</h2>
                     <p className={styles.nota_bene}>NB : Cher client, après la confirmation de réservation de votre part, vous recevrez un mail confirmation de reception de la réservation. Vous disposerez de 24 heures pour effectuer le paiement ou votre réservation sera annulée.</p>
                     <label>
-                        Comment souhaitez-vous effectuer le paiement ?
+                        <p>Comment souhaitez-vous effectuer le paiement ?</p>
                         <select value={paymentType} onChange={handlePaymentChange}>
                             {paymentOptions.map((option) => (
                                 <option value={option.value} key={option.value}>{option.label}</option>
@@ -134,7 +135,7 @@ function Summary(){
                     </label>
                 </article>
 
-                <button onClick={handleConfirm} className={styles.summary_confirm_btn}>confirmer la réservation</button>
+                <MainBtn onClick={handleConfirm} className={styles.confirm_btn} text="confirmer la réservation"/>
             </section>     
         </main>
 }

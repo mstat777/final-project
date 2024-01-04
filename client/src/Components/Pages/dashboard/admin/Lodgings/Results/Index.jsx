@@ -1,8 +1,7 @@
-import { useNavigate, Link } from 'react-router-dom';
+import styles from '../../results.module.scss';
+import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import styles from '../../results.module.css';
 import { useState, useEffect } from 'react';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencil } from '@fortawesome/free-solid-svg-icons';
 
@@ -28,7 +27,7 @@ function AdminDashLodgingResults(){
             <section className={styles.admin_db_section}>
                 {resultsLodgings[0] ? 
                 <>
-                    <h3>Résultats</h3>
+                    <h2>Résultats</h2>
                     <table className={styles.results_table}>
                         <thead>
                             <tr> 

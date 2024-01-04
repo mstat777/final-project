@@ -1,10 +1,8 @@
-import styles from '../../admindash.module.css';
+import styles from '../../admindash.module.scss';
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 function AdminDashDestinationsCreate(){
     const BASE_URL = process.env.REACT_APP_BASE_URL;
-    const navigate = useNavigate();
 
     const [reference, setReference] = useState("");
     const [nameDest, setNameDest] = useState("");

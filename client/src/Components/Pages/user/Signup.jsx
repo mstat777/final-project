@@ -1,10 +1,8 @@
+import styles from './user.module.scss';
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate, Link } from "react-router-dom";
 import { useMediaQuery } from "react-responsive";
-
-import styles from './user.module.css';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faLock, faEye, faEyeSlash, faPhone, faEnvelope, faLocationDot, faCakeCandles, faBriefcase } from '@fortawesome/free-solid-svg-icons';
 import { faUser as faUserReg } from '@fortawesome/free-regular-svg-icons';
@@ -143,8 +141,8 @@ function Signup(){
 
     return <main id="signup">
 
-            <div className={styles.signup_div}>
-                <h2>Je crée mon compte</h2>     
+            <section className={styles.signup}>
+                <h1>Je crée mon compte</h1>     
 
                 <form onSubmit={handleSubmit} className={styles.sign_form}>
                     <div className={styles.input_ctn}> 
@@ -154,7 +152,6 @@ function Signup(){
                                 placeholder="Nom*"
                                 value={lastName}
                                 onChange={(e) => setLastName(e.target.value)}
-                                className={styles.sign_input}
                                 required/>
                     </div>
                     <div className={styles.input_ctn}> 
@@ -164,7 +161,6 @@ function Signup(){
                                 placeholder="Prénom*"
                                 value={firstName}
                                 onChange={(e) => setFirstName(e.target.value)}
-                                className={styles.sign_input}
                                 required/>
                     </div>            
                     <div className={styles.input_ctn}> 
@@ -174,7 +170,6 @@ function Signup(){
                                 placeholder="Email*"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                className={styles.sign_input}
                                 required/>
                     </div>
                     <div className={styles.input_ctn}> 
@@ -183,16 +178,14 @@ function Signup(){
                                 name="tel" 
                                 placeholder="Numéro de téléphone"
                                 value={tel}
-                                onChange={(e) => setTel(e.target.value)}
-                                className={styles.sign_input}/> 
+                                onChange={(e) => setTel(e.target.value)}/> 
                     </div>
                     <div className={styles.input_ctn}> 
                         <FontAwesomeIcon icon={faLocationDot} className={styles.input_icon}/>  
                         <textarea name="address" 
                                 placeholder="Adresse postale"
                                 value={address}
-                                onChange={(e) => setAddress(e.target.value)}
-                                className={styles.sign_textarea} />
+                                onChange={(e) => setAddress(e.target.value)}/>
                     </div>
                     <div className={styles.input_ctn}> 
                         <FontAwesomeIcon icon={faCakeCandles} className={styles.input_icon}/>  
@@ -203,7 +196,6 @@ function Signup(){
                                 value={birthDate}
                                 onChange={(e) => setBirthDate(e.target.value)}
                                 onFocus={() => setInputDateType("date")}
-                                className={styles.sign_input}
                                 required/> 
                         </div>
                     <div className={styles.input_ctn}> 
@@ -213,8 +205,7 @@ function Signup(){
                                 name="occupation" 
                                 placeholder="Métier"
                                 value={occupation}
-                                onChange={(e) => setOccupation(e.target.value)}
-                                className={styles.sign_input}/>
+                                onChange={(e) => setOccupation(e.target.value)}/>
                         </div>
                     <div className={styles.input_ctn}> 
                         <FontAwesomeIcon icon={faLock} className={styles.input_icon}/>
@@ -223,7 +214,6 @@ function Signup(){
                                 placeholder="Mot de passe*"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
-                                className={styles.pass_input}
                                 required/>
                         <span className={styles.pass_icon_ctn} onClick={handlePassIconToggle}>
                             <FontAwesomeIcon icon={passIcon} className={styles.pass_icon}/>
@@ -254,7 +244,7 @@ function Signup(){
                 { errMsg ? <p className={styles.err_msg}>{errMsg}</p> : null}
                 { (msg && !lastName) ? 
                         <p className={styles.err_msg}>{msg}</p> : null}
-            </div>
+            </section>
 
         </main>
 }

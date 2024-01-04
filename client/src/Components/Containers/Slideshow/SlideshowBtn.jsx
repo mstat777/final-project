@@ -1,5 +1,5 @@
 import React from 'react';
-import styles from './slideshow.module.css';
+import styles from './Slideshow.module.scss';
 import leftArrow from "./icons/left-arrow-back-svgrepo-com.svg";
 import rightArrow from "./icons/right-arrow-next-svgrepo-com.svg";
 

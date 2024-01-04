@@ -1,6 +1,5 @@
-import styles from '../admindash.module.css';
+import styles from '../admindash.module.scss';
 import { Link, useLocation } from 'react-router-dom';
-
 import AdminDashLodgingSearch from './Search/Index';
 import AdminDashLodgingResults from './Results/Index';
 import AdminDashLodgingCreateModify from './CreateModify/Index';

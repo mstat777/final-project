@@ -1,4 +1,4 @@
-import styles from './booking.module.css';
+import styles from './Booking.module.scss';
 import { useEffect, useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -14,9 +14,9 @@ import { calculatePrices,
         decrNbChildrenActivity
     } from "../../../store/slices/booking";
 import { verifyBooking } from '../../Functions/verifyBooking';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCirclePlus, faCircleMinus } from '@fortawesome/free-solid-svg-icons';
+import MainBtn from '../../Containers/buttons/MainBtn/Index';
 
 function Booking(){
     const IMG_URL = process.env.REACT_APP_IMG_URL;
@@ -164,7 +164,7 @@ function Booking(){
 
                 <section className={styles.booking_activities_ctn}>
                     <h2>Les activités à choisir</h2>
-                    <span>Veuillez choisir entre les activités suivantes :</span>
+                    <p>Veuillez choisir entre les activités suivantes :</p>
                     {activities.map((activity, i) => 
                         <article className={styles.booking_activity} key={i}>
                             <div className={styles.booking_activity_title}>
@@ -220,12 +220,12 @@ function Booking(){
                 <article className={styles.booking_totals_ctn}>
                     <h2>Récapitulatif des montants à payer</h2>
                     <p>Vous avez sélectionné le pack suivant :</p>
-                    <p>Prix total du pack : <span>{bookingInfo.prices.total_pack}</span> &euro; TTC</p> 
-                    <p>Prix total des activités choisies : <span>{bookingInfo.prices.total_activities}</span> &euro; TTC</p> 
-                    <p>PRIX TOTAL A PAYER : <span>{bookingInfo.prices.total_all}</span> &euro; TTC</p> 
+                    <p>Prix total du pack : <b>{bookingInfo.prices.total_pack}</b> &euro; TTC</p> 
+                    <p>Prix total des activités choisies : <b>{bookingInfo.prices.total_activities}</b> &euro; TTC</p> 
+                    <p>PRIX TOTAL A PAYER : <b>{bookingInfo.prices.total_all}</b> &euro; TTC</p> 
                 </article>
 
-                <button onClick={handleSubmitBooking} className={styles.booking_btn}>réserver</button>
+                <MainBtn onClick={handleSubmitBooking} className={styles.booking_btn} text="réserver"/>
 
                 <div className={styles.error_ctn}>
                     {errors.map((el, i) => el[i] &&

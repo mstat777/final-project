@@ -1,8 +1,9 @@
-import styles from './footer.module.css';
+import styles from './Footer.module.scss';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faTwitter, faInstagram, faYoutube } from '@fortawesome/free-brands-svg-icons';
+import MainBtn from '../buttons/MainBtn/Index';
 
 function Footer() {
     const BASE_URL = process.env.REACT_APP_BASE_URL;
@@ -66,7 +67,7 @@ function Footer() {
                 </div>
 
                 <div>
-                    <h2 className={styles.footer_title}>inscription newsletter</h2>
+                    <h2>inscription newsletter</h2>
                     <p>J'accepte de recevoir les offres commerciales et newsletters de Dimitravel</p>
 
                     <form onSubmit={handleSubmit} className={styles.newsletter_form}>
@@ -80,7 +81,7 @@ function Footer() {
                             onInvalid={emailAlertMsg}
                             onInput={(e) => e.target.setCustomValidity('')}
                             required/>
-                        <button type="submit">OK</button>
+                        <MainBtn type="submit" text="OK"/>
                     </form>
 
                     { okMsg && 

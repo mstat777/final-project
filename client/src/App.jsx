@@ -1,4 +1,4 @@
-import './App.css';
+import './App.scss';
 import { BrowserRouter, Routes, Route, Outlet } from 'react-router-dom';
 
 // ---------------------- HOCs --------------------------
@@ -25,56 +25,44 @@ import Confirmation from "./Components/Pages/Confirmation/Index";
 import Signin from "./Components/Pages/user/Signin";
 import Signup from "./Components/Pages/user/Signup";
 import Signout from "./Components/Pages/user/Signout";
-// Page Not Found :
 import NotFound from "./Components/Pages/NotFound/Index";
 
 // ------------------- User Dashboard -----------------------
-import UserDashMyInfos from "./Components/Pages/dashboard/user/MyInfos";
-import UserDashMyBookings from "./Components/Pages/dashboard/user/MyBookings";
-import UserDashBookingModify from "./Components/Pages/dashboard/user/Modify/Index";
+import UserDashMyInfos from "./Components/Pages/dashboard/user/MyInfos/Index";
+import UserDashMyBookings from "./Components/Pages/dashboard/user/MyBookings/Index";
+import UserDashBookingModify from "./Components/Pages/dashboard/user/ModifyBooking/Index";
 import UserDashBookingModifiedSummary from "./Components/Pages/dashboard/user/Summary/Index";
 
 // ------------------- Admin Dashboard ----------------------
 import AdminDashBookings from './Components/Pages/dashboard/admin/Bookings/Index';
-
 import AdminDashDestinations from './Components/Pages/dashboard/admin/Destinations/Index';
-
 import AdminDashLodgings from './Components/Pages/dashboard/admin/Lodgings/Index';
 import AdminDashLodgingCreateModify from './Components/Pages/dashboard/admin/Lodgings/CreateModify/Index';
-
 import AdminDashPacks from './Components/Pages/dashboard/admin/Packs/Index';
-
 import AdminDashActivities from './Components/Pages/dashboard/admin/Activities/Index';
-
 import AdminDashUsers from './Components/Pages/dashboard/admin/Users/Index';
 
 function BasicLayout() {
-    return (
-        <>
-        <Header/>
-        <Outlet/>
-        <Footer/>
+    return <>
+            <Header/>
+            <Outlet/>
+            <Footer/>
         </>
-    )
 }
 
 function UserDashLayout() {
-    return (
-        <>
-        <Header/>
-        <UserDashHeader/>
-        <Outlet/>
+    return <>
+            <Header/>
+            <UserDashHeader/>
+            <Outlet/>
         </>
-    )
 }
 
 function AdminDashLayout() {
-    return (
-        <>
-        <AdminDashHeader/>
-        <Outlet/>
+    return <>
+            <AdminDashHeader/>
+            <Outlet/>
         </>
-    )
 }
 
 function App() {

@@ -1,4 +1,4 @@
-import styles from './burger.module.css';
+import styles from './Burger.module.scss';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';

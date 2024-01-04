@@ -1,8 +1,7 @@
-import styles from '../../admindash.module.css';
+import styles from '../../admindash.module.scss';
 import { useLocation, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencil } from '@fortawesome/free-solid-svg-icons';
 
@@ -170,9 +169,9 @@ function AdminDashLodgingCreateModify(){
                     <h1>créer/modifier/supprimer un hébergement</h1>
 
                     <form onSubmit={handleSubmit} 
-                          className={styles.modify_form}
+                          className={styles.form}
                           encType="multipart/form-data">
-                        <label className={styles.modify_label}>
+                        <label>
                             <span>Nom de l'hébergement :</span>
                             <input type="text" 
                                    name="nameLodg" 
@@ -185,7 +184,7 @@ function AdminDashLodgingCreateModify(){
                             </button>
                         </label>
 
-                        <label className={styles.modify_label}>
+                        <label>
                             <span>Type de l'hébergement :</span>
                             <input type="text" 
                                    name="typeLodg" 
@@ -198,7 +197,7 @@ function AdminDashLodgingCreateModify(){
                             </button>
                         </label>
 
-                        <label className={styles.modify_label}>
+                        <label>
                             <span>Description :</span>
                             <textarea name="overview" 
                                       value={inputs.overview}
@@ -210,7 +209,7 @@ function AdminDashLodgingCreateModify(){
                             </button>
                         </label>
 
-                        <label className={styles.modify_label}>
+                        <label>
                             <span>Equipement :</span>
                             <textarea name="facilities" 
                                       value={inputs.facilities}
@@ -222,7 +221,7 @@ function AdminDashLodgingCreateModify(){
                             </button>
                         </label>
 
-                        <label className={styles.modify_label}>
+                        <label>
                             <span>Logement :</span>
                             <textarea name="rooms" 
                                       value={inputs.rooms}
@@ -234,7 +233,7 @@ function AdminDashLodgingCreateModify(){
                             </button>
                         </label> 
 
-                        <label className={styles.modify_label}>
+                        <label>
                             <span>Restauration :</span>
                             <textarea name="foodDrink" 
                                       value={inputs.foodDrink}
@@ -246,7 +245,7 @@ function AdminDashLodgingCreateModify(){
                             </button>
                         </label> 
 
-                        <label className={styles.modify_label}>
+                        <label>
                             <span>Formules :</span>
                             <textarea name="mealPlans" 
                                       value={inputs.mealPlans}
@@ -258,7 +257,7 @@ function AdminDashLodgingCreateModify(){
                             </button>
                         </label> 
 
-                        <label className={styles.modify_label}>
+                        <label>
                             <span>Loisirs :</span>
                             <textarea name="entertainment" 
                                       value={inputs.entertainment}
@@ -270,7 +269,7 @@ function AdminDashLodgingCreateModify(){
                             </button>
                         </label> 
 
-                        <label className={styles.modify_label}>
+                        <label>
                             <span>Image initiale :</span>
                             <input type="file" 
                                 name="imageInitial" 
@@ -278,7 +277,7 @@ function AdminDashLodgingCreateModify(){
                                 onChange={(e) => setImageInitial(e.target.files[0])}
                                 />
                         </label>
-                        <label className={styles.modify_label}>
+                        <label>
                             <span>Images pour slideshow :</span>
                             <input type="file" 
                                 name="imageAll" 
@@ -290,7 +289,7 @@ function AdminDashLodgingCreateModify(){
                                 />
                         </label>
 
-                        <label className={styles.modify_label}>
+                        <label>
                             <span>Enfants :</span>
                             <textarea
                                 name="children" 
@@ -302,7 +301,7 @@ function AdminDashLodgingCreateModify(){
                             </button>
                         </label> 
 
-                        <label className={styles.modify_label}>
+                        <label>
                             <span>Note Tripadvisor :</span>
                             <input type="text" 
                                 name="tripadvisor" 
@@ -314,7 +313,7 @@ function AdminDashLodgingCreateModify(){
                             </button>
                         </label> 
 
-                        <label className={styles.modify_label}>
+                        <label>
                             <span>Coordonnées :</span>
                             <input type="text" 
                                 name="coordinates" 

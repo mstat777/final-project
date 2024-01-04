@@ -1,4 +1,4 @@
-import styles from './detail.module.css';
+import styles from './Detail.module.scss';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -21,6 +21,7 @@ import { fetchActivities } from '../../Functions/fetchData';
 import { formatDate } from '../../Functions/utils';
 
 import SeeMore from '../../Containers/SeeMore/Index';
+import MainBtn from '../../Containers/buttons/MainBtn/Index';
 
 function Detail(){
     const dispatch = useDispatch();
@@ -60,7 +61,7 @@ function Detail(){
             <section className={styles.detail_section}>
                 <h1>Informations détaillées de la destination choisie</h1>
 
-                <div className={styles.slider_ctn}>
+                <div className={styles.slideshow_ctn}>
                     <Slideshow type="lodging"/>
                 </div>
                 
@@ -70,10 +71,10 @@ function Detail(){
                 </section>
                 
                 <section className={styles.packs_main_ctn}>
-                    <h2 className={styles.pack_heading}>Sélectionner un pack</h2>
+                    <h2>Sélectionner un pack</h2>
                     { packs.map((pack, index) => 
                     <article key={index} className={styles.pack_ctn}>
-                        <div className={styles.pack_el_departure_d}>
+                        <div>
                             <span>{!isMobile && "date de "} départ :</span> 
                             <span>{formatDate(pack.departure_date)}</span>
                         </div>
@@ -81,7 +82,7 @@ function Detail(){
                             <span>p{!isMobile && "rix"}/adulte :</span>
                             <span className={styles.price_txt}>{Math.round(pack.price_adults)}</span>&euro;
                         </div> 
-                        <div className={styles.pack_el_return_d}>
+                        <div>
                             <span>{!isMobile && "date de "} retour :</span>
                             <span>{formatDate(pack.return_date)}</span>
                         </div> 
@@ -89,17 +90,17 @@ function Detail(){
                             <span>p{!isMobile && "rix"}/enfant :</span>
                             <span className={styles.price_txt}>{Math.round(pack.price_children)}</span>&euro;
                         </div> 
-                        <div className={styles.pack_el_duration}>
+                        <div>
                             <span>durée :</span>
                             <span>{pack.duration+1}</span>J / <span>{pack.duration}</span>N
                         </div>  
-                        <div className={styles.pack_el_button_ctn}>
-                            <button 
-                            onClick={() => {
-                                dispatch(choosePack(index));
-                                navigate(`/booking/${index}`);
-                            }} 
-                            className={styles.book_btn}>réserver</button>
+                        <div>
+                            <MainBtn 
+                                onClick={() => {
+                                    dispatch(choosePack(index));
+                                    navigate(`/booking/${index}`);
+                                }} 
+                                className={styles.book_btn} text="réserver"/>
                         </div> 
                     </article>
                     )}

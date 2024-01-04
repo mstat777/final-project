@@ -1,4 +1,4 @@
-import styles from './seemore.module.css';
+import styles from './SeeMore.module.scss';
 import { useState } from 'react';
 
 function SeeMore(props) {

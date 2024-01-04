@@ -32,16 +32,11 @@ export const bookingSlice = createSlice({
             // calculer pour les packs :
             const price_pack_adults = state.bookingInfo.nb_adults.pack * action.payload.price_adults_pack;
             const price_pack_children = state.bookingInfo.nb_children.pack * action.payload.price_children_pack;
-
             state.bookingInfo.prices.total_pack = price_pack_adults + price_pack_children;
-
-            //console.log("action.payload.price_adults_activities = "+action.payload.price_adults_activities);
 
             let sum_adults = 0;
             let sum_children = 0;
             for (let i=0; i < state.bookingInfo.nb_adults.activities.length; i++ ) {
-                //console.log("action.payload.price_adults_activities[i]= "+action.payload.price_adults_activities[i]);
-                //console.log("state.bookingInfo.nb_adults.activities[i] = "+state.bookingInfo.nb_adults.activities[i]);
                 // calculer le prix total de chaque activité pour tous les adultes (on l'affiche sur la page Summary)
                 state.bookingInfo.prices.total_adults[i] = state.bookingInfo.nb_adults.activities[i] * action.payload.price_adults_activities[i];
                 // calculer la somme des prix totaux de tous les activités pour tous les adultes
@@ -51,12 +46,7 @@ export const bookingSlice = createSlice({
                 // calculer la somme des prix totaux de tous les activités pour tous les enfants
                 sum_children += state.bookingInfo.prices.total_children[i];
             }
-            //console.log("sum_adults = "+sum_adults);
-            //console.log("sum_children = "+sum_children);
-
             state.bookingInfo.prices.total_activities = sum_adults + sum_children;
-            //console.log("state.bookingInfo.prices.total_activities = "+state.bookingInfo.prices.total_activities);
-
             state.bookingInfo.prices.total_all = state.bookingInfo.prices.total_pack + state.bookingInfo.prices.total_activities;
         },
         resetCounters: (state, action) => {
@@ -138,7 +128,6 @@ export const bookingSlice = createSlice({
         },
         setNbInBooking: (state, action) => {
             state.bookingInfo.nb_adults = action.payload.nb_adults;
-            //console.log(action.payload.nb_adults);
             state.bookingInfo.nb_children = action.payload.nb_children;
         }
     }

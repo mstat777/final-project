@@ -1,0 +1,45 @@
+@import '../../../variables.scss';
+
+.home_main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-bottom: 2em;
+
+    h1 {
+        position: absolute;
+        display: none;
+    }
+    
+    .home_banner {
+        display: none;
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        object-position: 50% 70%;
+
+        @media screen and (min-width: $br-tablet) {
+            display: block;
+        }        
+    }
+
+    .cards_ctn {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex-wrap: wrap;
+        width: 90%;
+        margin: 0 auto;
+        h2 {
+            width: 100%;
+            margin-left: 0;
+            margin-right: 0;
+        }
+        @media screen and (min-width: $br-desktop) {
+            flex-direction: row;
+            justify-content: center;
+            width: 95%;
+            max-width: 1200px;
+        }
+    }
+}

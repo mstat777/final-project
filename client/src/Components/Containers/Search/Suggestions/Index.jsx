@@ -1,4 +1,4 @@
-import styles from '../search.module.css';
+import styles from '../Search.module.scss';
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 

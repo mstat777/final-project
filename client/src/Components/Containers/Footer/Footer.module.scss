@@ -1,0 +1,93 @@
+@import '../../../variables.scss';
+
+.footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: auto;
+    padding: 1em;
+    font-size: 1.4rem;
+    text-align: center;
+    background-color: $primary-color;
+
+    &_links {
+        > div {
+            display: flex;
+            flex-direction: column;
+            margin: .5em auto 1em;
+    
+            h2 {
+                margin: 10px 0;
+                font-size: 1.6rem;
+                text-transform: uppercase;
+            }
+    
+            a {
+                margin-bottom: .5em;
+                font-size: 1.4rem;
+                color: $tertiary-color;
+                text-transform: none;
+            }
+    
+            &:nth-child(3) {
+                padding-left: 3em;
+                padding-right: 3em;
+            }
+    
+            .footer_social {
+                display: flex;
+                margin: 0 auto 1em;
+                svg {
+                    margin: auto .5em;
+                    color: $tertiary-color;
+                    font-size: 2.5rem;
+                }
+            }
+    
+            .newsletter_form {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                input {
+                    width: 80%;
+                    padding: .3em;
+                    border: none;
+                    font-size: 1.4rem;
+                    font-weight: 500;
+                }
+                button {
+                    margin-left: 4px;
+                    padding: .4em .5em .3em;
+                }
+            }
+    
+            .ok_msg,
+            .err_msg {
+                width: 100%;
+                margin: 0 auto;
+                padding: 0 1em;
+                color: rgb(0, 143, 49);
+            }
+            .err_msg{
+                color: $highlight-color;
+            }
+        }
+
+        @media screen and (min-width: $br-desktop) {
+            max-width: 1100px;
+            display: flex;
+        
+            > div {
+                width: 33.33%;
+            }
+        }
+    }
+
+    &_legal {
+        p {
+            display: block;
+            margin-bottom: 0;
+            color: black;
+        }
+    }
+}

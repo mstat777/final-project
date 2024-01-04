@@ -1,4 +1,4 @@
-import styles from '../../admindash.module.css';
+import styles from '../../admindash.module.scss';
 import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';

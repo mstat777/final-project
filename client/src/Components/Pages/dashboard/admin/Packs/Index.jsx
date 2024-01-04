@@ -1,10 +1,9 @@
-import styles from '../admindash.module.css';
+import styles from '../admindash.module.scss';
 import { Link, useLocation } from 'react-router-dom';
 
 import AdminDashPacksSearch from './Search/Index';
 import AdminDashPacksResults from './Results/Index';
 import AdminDashPackCreate from './Create/Index';
-//import AdminDashPackModify from './Modify/Index';
 
 function AdminDashPacks(){
     const {pathname} = useLocation();
