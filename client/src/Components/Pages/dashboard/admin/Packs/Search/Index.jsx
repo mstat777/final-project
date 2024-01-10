@@ -1,8 +1,8 @@
 import styles from '../../search.module.scss';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-
 import { setResultsPacks } from '../../../../../../store/slices/dashboard.js';
+import MainBtn from '../../../../../Containers/buttons/MainBtn/Index';
 
 function AdminDashPackSearch(){
     const BASE_URL = process.env.REACT_APP_BASE_URL;
@@ -12,44 +12,48 @@ function AdminDashPackSearch(){
 
     // afficher un message si la destination n'est pas trouvée  
     const [msg, setMsg] = useState("");
+
+    useEffect(() => {
+        dispatch(setResultsPacks([]));
+        setMsg("");
+        setName("");
+    }, [])
     
-    // en cliquant le bouton "RECHERCHER" :
     async function handleSubmit(e) {
         e.preventDefault();
-        if (!name) {
-            //setMsg("Vous n'avez rien rempli !");
-            dispatch(setResultsPacks([]));
-        } else {
-            console.log("handleSubmit() called");
-            
-            const res = await fetch(`${BASE_URL}/api/v.0.1/admin/lodgings`, {
+        if (name) {
+            const res = await fetch(`${BASE_URL}/api/v.0.1/admin/packs`, {
                 method: "post",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({name})
             });
             const json = await res.json();
             if(res.status === 200){
-                console.log("fetch successfull");
                 dispatch(setResultsPacks(json.datas));
+                setMsg("");
+            } else if(res.status === 404) {
+                dispatch(setResultsPacks([]));
+                setMsg(json.msg);
             } else {
-                console.log("res.status n'est pas OK!!!");
+                console.log(res.status);
             }
         }
     }
 
-    return <div className={styles.admin_db_section}>
+    return <section>
             <form onSubmit={handleSubmit} className={styles.search_form}>
                 <input type="text" 
-                        name="name" 
+                        name="namePack" 
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        placeholder="Nom d'hébérgement"/>
+                        onFocus={() => setMsg("")}
+                        placeholder="Nom de destination"/>
 
-                <button type="submit">rechercher</button>
+                <MainBtn type="submit" text="rechercher"/>
             </form>
 
-            { msg && <p className={styles.msg}>{msg}</p>}
-        </div>
+            { msg && <p className={styles.msg_nok}>{msg}</p>}
+        </section>
 }
 
 export default AdminDashPackSearch;

@@ -1,28 +1,29 @@
 import styles from '../../search.module.scss';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-
 import { setResultsDestinations } from '../../../../../../store/slices/dashboard.js';
+import MainBtn from '../../../../../Containers/buttons/MainBtn/Index';
 
 function AdminDashDestinationSearch(){
     const BASE_URL = process.env.REACT_APP_BASE_URL;
     const dispatch = useDispatch();
 
-    const [reference, setReference] = useState("");
     const [name, setName] = useState("");
+    const [reference, setReference] = useState("");
 
     // afficher un message si la destination n'est pas trouvée  
     const [msg, setMsg] = useState("");
     
-    // en cliquant le bouton "RECHERCHER" :
+    useEffect(() => {
+        dispatch(setResultsDestinations([]));
+        setMsg("");
+        setName("");
+        setReference("");
+    }, [])
+    
     async function handleSubmit(e) {
         e.preventDefault();
-        if (!name && !reference) {
-            //setMsg("Vous n'avez rien rempli !");
-            dispatch(setResultsDestinations([]));
-        } else {
-            console.log("handleSubmit() called");
-            
+        if (name || reference) {
             const res = await fetch(`${BASE_URL}/api/v.0.1/admin/destinations`, {
                 method: "post",
                 headers: { "Content-Type": "application/json" },
@@ -33,32 +34,39 @@ function AdminDashDestinationSearch(){
             });
             const json = await res.json();
             if(res.status === 200){
-                console.log("fetch successfull");
-                dispatch(setResultsDestinations(json.datas));
+                if (json.datas.length) {
+                    dispatch(setResultsDestinations(json.datas));
+                    setMsg("");
+                } else {
+                    dispatch(setResultsDestinations([]));
+                    setMsg("Aucun résultat trouvé");
+                }
             } else {
-                console.log("res.status n'est pas OK!!!");
+                console.log(res.status);
             }
         }
     }
 
-    return <div className={styles.admin_db_section}>
+    return <section>
             <form onSubmit={handleSubmit} className={styles.search_form}>
                 <input type="text" 
                         name="name" 
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        placeholder="Destination"/>   
+                        onFocus={() => setMsg("")}
+                        placeholder="Nom de destination"/>   
                 <input type="text" 
                         name="reference" 
                         value={reference}
                         onChange={(e) => setReference(e.target.value)}
+                        onFocus={() => setMsg("")}
                         placeholder="Num. Réf."/> 
 
-                <button type="submit">rechercher</button>
+                <MainBtn type="submit" text="rechercher"/>
             </form>
 
-            { msg && <p className={styles.msg}>{msg}</p>}
-        </div>
+            {msg && <p className={styles.msg_nok}>{msg}</p>}
+        </section>
 }
 
 export default AdminDashDestinationSearch;

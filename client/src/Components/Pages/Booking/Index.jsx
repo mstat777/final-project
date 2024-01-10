@@ -13,6 +13,7 @@ import { calculatePrices,
         decrNbChildrenActivity
     } from "../../../store/slices/booking";
 import { verifyBooking } from '../../Functions/verifyBooking';
+import { formatDate } from '../../Functions/utils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCirclePlus, faCircleMinus } from '@fortawesome/free-solid-svg-icons';
 import MainBtn from '../../Containers/buttons/MainBtn/Index';
@@ -118,8 +119,8 @@ function Booking(){
                         <h3>{lodging.name}</h3>
                         <p className={styles.destination_name}>{destination.name}</p>
                         <p className={styles.booking_info_h}>Vous avez sélectionné le pack suivant :</p>
-                        <p>Date de départ : <b>{packs[id].departure_date.slice(0, packs[id].departure_date.indexOf('T'))}</b></p>
-                        <p>Date de retour : <b>{packs[id].return_date.slice(0, packs[id].return_date.indexOf('T'))}</b></p> 
+                        <p>Date de départ : <b>{formatDate(packs[id].departure_date)}</b></p>
+                        <p>Date de retour : <b>{formatDate(packs[id].return_date)}</b></p> 
                         <p>Durée : <b>{packs[id].duration+1}</b> jours / <b>{packs[id].duration}</b> nuits</p>  
                         <p>Prix/TTC/adulte : <b>{packs[id].price_adults}</b> &euro;</p> 
                         <p>Prix/TTC/enfant : <b>{packs[id].price_children}</b> &euro;</p> 

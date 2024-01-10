@@ -11,52 +11,40 @@ function AdminDashLodgingResults(){
     // afficher le containeur des résultats :
     const [showResults, setShowResults] = useState(false);
 
-    // ne pas afficher de résultats au début:
-    useEffect(() => {
-        setShowResults(false);
-    },[])
-
     // si des résultats trouvés, afficher le containeur :
     useEffect(() => {
-        if (resultsLodgings.length) {
-            setShowResults(true);
-        }
+        resultsLodgings.length && setShowResults(true);
     },[resultsLodgings.length])
 
-    return showResults && 
+    return (showResults && resultsLodgings[0]) &&
             <section className={styles.admin_db_section}>
-                {resultsLodgings[0] ? 
-                <>
-                    <h2>Résultats</h2>
-                    <table className={styles.results_table}>
-                        <thead>
-                            <tr> 
-                                <th>N&deg;</th> 
-                                <th>nom</th>
-                                <th>type</th>
-                                <th>description</th>
-                                <th>modifier</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>  
-                        { resultsLodgings.map((el, i) => 
-                            <tr key={i}>
-                                <td>{i+1}</td>
-                                <td>{el.l.name}</td>
-                                <td>{el.l.type}</td>
-                                <td>{el.l.overview}</td>
-                                <td>
-                                    <Link to={`/db/admin/lodgings/modify/${i}`}>
-                                        <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
-                                    </Link>
-                                </td>
-                            </tr>
-                        )}
-                        </tbody>
-                    </table>
-                </> : <p className={styles.msg_nok}>Aucun résultat trouvé</p>
-                }
+                <h2>Résultats</h2>
+                <table className={styles.results_table}>
+                    <thead>
+                        <tr> 
+                            <th>N&deg;</th> 
+                            <th>Nom</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                            <th>Modifier</th>
+                        </tr>
+                    </thead>
+                    <tbody>  
+                    { resultsLodgings.map((el, i) => 
+                        <tr key={i}>
+                            <td>{i+1}</td>
+                            <td><b>{el.l.name}</b></td>
+                            <td>{el.l.type}</td>
+                            <td className={styles.justify}>{el.l.overview}</td>
+                            <td>
+                                <Link to={`/db/admin/lodgings/modify/${i}`}>
+                                    <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
+                                </Link>
+                            </td>
+                        </tr>
+                    )}
+                    </tbody>
+                </table>
             </section>
 }
 

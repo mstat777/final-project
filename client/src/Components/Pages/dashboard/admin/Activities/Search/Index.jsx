@@ -1,85 +1,72 @@
 import styles from '../../search.module.scss';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-
 import { setResultsActivities } from '../../../../../../store/slices/dashboard.js';
+import MainBtn from '../../../../../Containers/buttons/MainBtn/Index';
 
 function AdminDashActivitiesSearch(){
     const BASE_URL = process.env.REACT_APP_BASE_URL;
     const dispatch = useDispatch();
 
-    const [lastName, setLastName] = useState("");
-    const [firstName, setFirstName] = useState("");
-    const [email, setEmail] = useState("");
-    const [reference, setReference] = useState("");
-    const [bookingDate, setBookingDate] = useState("");
+    const [name, setName] = useState("");
+    const [type, setType] = useState("");
 
     // afficher un message si la destination n'est pas trouvée  
     const [msg, setMsg] = useState("");
+
+    useEffect(() => {
+        dispatch(setResultsActivities([]));
+        setMsg("");
+        setName("");
+        setType("");
+    }, [])
     
-    // en cliquant le bouton "RECHERCHER" :
     async function handleSubmit(e) {
         e.preventDefault();
-        if (!lastName && !firstName && !email && !reference && !bookingDate) {
-            //setMsg("Vous n'avez rien rempli !");
-            dispatch(setResultsActivities([]));
-        } else {
-            console.log("handleSubmit() called");
-            
-            const res = await fetch(`${BASE_URL}/api/v.0.1/admin/bookings`, {
+        if (name || type) {
+            const res = await fetch(`${BASE_URL}/api/v.0.1/admin/activities`, {
                 method: "post",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    lastName,
-                    firstName,
-                    email,
-                    reference,
-                    bookingDate
+                    name,
+                    type
                 })
             });
             const json = await res.json();
             if(res.status === 200){
-                console.log("fetch successfull");
-                dispatch(setResultsActivities(json.datas));
+                if (json.datas.length) {
+                    dispatch(setResultsActivities(json.datas));
+                    setMsg("");
+                } else {
+                    dispatch(setResultsActivities([]));
+                    setMsg("Aucun résultat trouvé");
+                }
             } else {
                 console.log("res.status n'est pas OK!!!");
             }
         }
     }
 
-    return <div className={styles.admin_db_section}>
-
+    return <section className={styles.admin_db_section}>
             <form onSubmit={handleSubmit} className={styles.search_form}>
                 <input type="text" 
-                        name="lastName" 
-                        value={lastName}
-                        onChange={(e) => setLastName(e.target.value)}
-                        placeholder="Nom de famille"/>
+                        name="name" 
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        onFocus={() => setMsg("")}
+                        placeholder="Nom d'activité"/>
                 <input type="text" 
-                        name="firstName" 
-                        value={firstName}
-                        onChange={(e) => setFirstName(e.target.value)}
-                        placeholder="Prénom"/>  
-                <input type="email" 
-                        name="email" 
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                        placeholder="Email"/>     
-                <input type="text" 
-                        name="reference" 
-                        value={reference}
-                        onChange={(e) => setReference(e.target.value)}
-                        placeholder="Num. Réf."/> 
-                <input type="date" 
-                        name="bookingDate"
-                        value={bookingDate}
-                        onChange={(e) => setBookingDate(e.target.value)}/>
+                        name="type" 
+                        value={type}
+                        onChange={(e) => setType(e.target.value)}
+                        onFocus={() => setMsg("")}
+                        placeholder="Type"/>  
 
-                <button type="submit">rechercher</button>
+                <MainBtn type="submit" text="rechercher"/>
             </form>
 
-            { msg && <p className={styles.msg}>{msg}</p>}
-        </div>
+            { msg && <p className={styles.msg_nok}>{msg}</p>}
+        </section>
 }
 
 export default AdminDashActivitiesSearch;

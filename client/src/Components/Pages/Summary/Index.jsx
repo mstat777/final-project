@@ -2,10 +2,12 @@ import styles from './Summary.module.scss';
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { formatDate } from '../../Functions/utils';
 import MainBtn from '../../Containers/buttons/MainBtn/Index';
 
 function Summary(){
     const BASE_URL = process.env.REACT_APP_BASE_URL;
+    const TOKEN = localStorage.getItem("auth");
     const navigate = useNavigate();
 
     let { id } = useParams();
@@ -66,11 +68,11 @@ function Summary(){
             delete el.name;
             activitiesForDB.push(Object.values(el));
         });
-        console.log(activitiesForDB);
 
         const res = await fetch(`${BASE_URL}/api/v.0.1/booking/create`, {
             method: "post",
-            headers: { "Content-Type": "application/json" },
+            headers: { "Content-Type": "application/json",
+                        Authentication: "Bearer " + TOKEN },
             body: JSON.stringify({ 
                 nb_adults: bookingInfo.nb_adults.pack,
                 nb_children: bookingInfo.nb_children.pack,
@@ -82,7 +84,6 @@ function Summary(){
             })
         });
         const json = await res.json();
-        
         if ( res.status === 201) {
             navigate("/confirmation");
         }
@@ -97,8 +98,8 @@ function Summary(){
                     <h2>Récapitulatif</h2>
                     <p>Nom et pays de la destination : <b>{destination.name}</b>, <b>{destination.country}</b></p>
                     <p>Nom de l'hébergement : <b>{lodging.name}</b></p>
-                    <p>Date de départ : <b>{packs[id].departure_date.slice(0, packs[id].departure_date.indexOf('T'))}</b></p>
-                    <p>Date de retour : <b>{packs[id].return_date.slice(0, packs[id].return_date.indexOf('T'))}</b></p> 
+                    <p>Date de départ : <b>{formatDate(packs[id].departure_date)}</b></p>
+                    <p>Date de retour : <b>{formatDate(packs[id].return_date)}</b></p> 
                     <p>Durée : <b>{packs[id].duration+1}</b> jours / <b>{packs[id].duration}</b> nuits</p>  
                     <p>Nombre d'adultes : <b>{bookingInfo.nb_adults.pack}</b></p>
                     <p>Nombre d'enfants : <b>{bookingInfo.nb_children.pack}</b></p>

@@ -1,29 +1,25 @@
 import styles from '../../results.module.scss';
-import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPencil, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { trimDate, formatDate } from '../../../../../Functions/utils';
 
 function AdminDashBookingResults(){
-    const navigate = useNavigate();
-
     const { resultsBookings } = useSelector((state) => state.dashboard);
 
     // afficher le containeur des résultats :
     const [showResults, setShowResults] = useState(false);
 
+    useEffect(() => {
+        setShowResults(false);
+    },[])
+
     // si des résultats trouvés, afficher le containeur :
     useEffect(() => {
-        if (resultsBookings.length) {
-            setShowResults(true);
-        }
+        resultsBookings.length && setShowResults(true);
     },[resultsBookings.length])
 
-    return showResults && 
+    return (showResults && resultsBookings[0]) &&
             <section className={styles.admin_db_section}>
-                {resultsBookings[0] ? 
-                <>
                     <h2>Résultats</h2>
                     <table className={styles.results_table}>
                         <thead>
@@ -42,54 +38,29 @@ function AdminDashBookingResults(){
                                 <th>Mail client</th>
                                 <th>Statut</th>
                                 <th>Date réservation</th>
-                                <th>modif.</th>
-                                <th>suppr.</th>
                             </tr>
                         </thead>
-
                         <tbody>
-                        {resultsBookings.map((result, index) => 
-                            <tr key={index}>
-                                <td>{index+1}</td>
-                                <td>{result.p.reference}</td> 
-                                <td>{result.d.name}</td> 
-                                <td>{result.d.country}</td> 
-                                <td>{result.p.departure_date.slice(0, result.p.departure_date.indexOf('T'))}</td>
-                                <td>{result.p.return_date.slice(0, result.p.return_date.indexOf('T'))}</td>
-                                <td>{result.p.duration+1}J/{result.p.duration}N</td>  
-                                <td>{result.b.price_total_booking} &euro;</td> 
-                                <td>{result.u.last_name}</td> 
-                                <td>{result.u.first_name}</td> 
-                                <td>{result.u.tel}</td> 
-                                <td>{result.u.email}</td> 
-                                <td>{result.b.status}</td> 
-                                <td>{result.b.date_created.slice(0, result.b.date_created.indexOf('T'))}</td>
-                                <td>
-                                    <button type="button" 
-                                            onClick={() => {
-                                                navigate(`/dashboard/admin/bookings/modify/${result.id}`);
-                                            }} 
-                                            className={styles.book_btn}>
-                                        <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
-                                    </button>
-                                </td> 
-                                <td>
-                                    <button type="button" 
-                                            onClick={() => {
-                                                navigate(`/dashboard/admin/bookings/delete/${result.id}`);
-                                            }} 
-                                            className={styles.book_btn}>
-                                        <FontAwesomeIcon icon={faTrashCan} className={styles.delete_icon}/>
-                                    </button>
-                                </td> 
-
+                        {resultsBookings.map((el, i) => 
+                            <tr key={i}>
+                                <td>{i+1}</td>
+                                <td>{el.p.reference}</td> 
+                                <td>{el.d.name}</td> 
+                                <td>{el.d.country}</td> 
+                                <td>{formatDate(el.p.departure_date)}</td>
+                                <td>{formatDate(el.p.return_date)}</td>
+                                <td>{el.p.duration+1}J/{el.p.duration}N</td>  
+                                <td>{el.b.price_total_booking} &euro;</td> 
+                                <td>{el.u.last_name}</td> 
+                                <td>{el.u.first_name}</td> 
+                                <td>{el.u.tel}</td> 
+                                <td>{el.u.email}</td> 
+                                <td>{el.b.status}</td> 
+                                <td>{trimDate(el.b.date_created)}</td>
                             </tr>
-                            )}
-
+                        )}
                         </tbody>
                     </table> 
-                </> : <p className={styles.msg_nok}>Aucun résultat trouvé</p>
-                }
             </section>
 }
 

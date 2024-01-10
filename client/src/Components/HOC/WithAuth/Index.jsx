@@ -25,7 +25,7 @@ function WithAuth({child, auth}){
                         headers: { Authentication: "Bearer " + TOKEN }
                     });
 
-                    if (res.status === 401) {                     
+                    if (res.status === 401) {  
                         localStorage.removeItem("auth");
                         dispatch(signout());
                         navigate("/");
@@ -36,7 +36,6 @@ function WithAuth({child, auth}){
                     }
                 }
             }
-
             if (!auth) {
                 navigate("/user/signin");
             }

@@ -1,26 +1,30 @@
 import { Router } from "express";
-import { getAllUserBookings,
-        getBookingAllData,
-        createBooking,
+import { createBooking,
         modifyBooking,
-        deleteBooking
-        } from "../controller/booking.js";
+        deleteBooking,
+        getBookingByMultiInputs,
+        getAllUserBookings,
+        getBookingAllData} from "../controller/booking.js";
+import { auth } from "../middlewares/auth.js";
 
 const router = Router();
 
+// créer une réservation (confirmer sur la page Sommaire("Summary"))
+router.post("/create", auth, createBooking);
+
+// l'utilisateur supprime une de ses réservations :
+router.post("/modify", auth, modifyBooking);
+
+// l'utilisateur supprime une de ses réservations :
+router.post("/delete", auth, deleteBooking);
+
+// trouver une réservation via le form de recherche (nom/prénom/mail utilisateur, réf. pack, date réservation) :
+router.post("/find", auth, getBookingByMultiInputs);
+
 // trouver toutes les réservations par l'ID de l'utilisateur :
-router.get("/mybookings/:id", getAllUserBookings);
+router.get("/user/:id", auth, getAllUserBookings);
 
 // toutes les données de la réservation (pack + activités) nécessaires pour la modifier :
-router.post('/all-data', getBookingAllData);
-
-// créer une réservation (confirmer sur la page Sommaire("Summary"))
-router.post("/create", createBooking);
-
-// l'utilisateur supprime une de ses réservations :
-router.post("/modify", modifyBooking);
-
-// l'utilisateur supprime une de ses réservations :
-router.post("/delete", deleteBooking);
+router.post('/all-data', auth, getBookingAllData);
 
 export default router;

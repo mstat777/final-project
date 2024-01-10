@@ -59,10 +59,10 @@ function Signup(){
             const errPrivacyMsg = "Veuillez cocher la case pour accepter les conditions d'utilisations.\n"
             setErrMsg(errMsg+errPrivacyMsg);
         } else if (checkBoxPrivacy){
-            console.log("checkBoxPrivacy = "+checkBoxPrivacy);
             // on vérifie tous les champs :
             const lNameVerif = validateInput("lastName", lastName.trim());
-            const fNameVerif = validateInput("firstName",firstName.trim());
+            const fNameVerif = validateInput("firstName", firstName.trim());
+            const emailVerif = validateInput("email", email.trim());
             // si un numéro de tél est rempli, on vérifie. Si non, on vérifie pas, car ce n'est pas un champ obligatoire :
             let telVerif = { isValid: true, msg: '' }
             if (tel) {
@@ -74,12 +74,13 @@ function Signup(){
                 addressVerif = validateInput("address", address.trim());
             }
             //
-            const bDateVerif = validateInput("birthDate",birthDate);
-            const passVerif= validateInput("password",password.trim());
+            const bDateVerif = validateInput("birthDate", birthDate);
+            const passVerif= validateInput("password", password.trim());
 
             // rassembler toutes les messages d'erreur pour les afficher au-dessous du formulaire :
             setErrMsg(lNameVerif.msg 
                         + fNameVerif.msg 
+                        + emailVerif.msg
                         + telVerif.msg
                         + addressVerif.msg
                         + bDateVerif.msg 
@@ -87,11 +88,12 @@ function Signup(){
             // si tous les champs obligatoires sont validés, on valide le formulaire :
             ( lNameVerif.isValid && 
             fNameVerif.isValid && 
+            emailVerif.isValid &&
             telVerif.isValid &&
             addressVerif.isValid &&
             bDateVerif.isValid && 
             passVerif.isValid ) ? setIsFormValidated(true) : setIsFormValidated(false);
-            console.log("isFormValidated = "+isFormValidated);
+            //console.log("isFormValidated = "+isFormValidated);
         }
     }
 
@@ -130,7 +132,6 @@ function Signup(){
 
     function handleSubmit(e) {
         e.preventDefault();
-        // vérifier si tous les champs sont valides :
         checkFormValidation();
     }
 

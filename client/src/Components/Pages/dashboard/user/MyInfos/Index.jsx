@@ -2,6 +2,7 @@ import styles from './MyInfos.module.scss';
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useMediaQuery } from "react-responsive";
+import { formatDate } from '../../../../Functions/utils.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencil } from '@fortawesome/free-solid-svg-icons';
 import { validateInput } from '../../../../Functions/sanitize';
@@ -9,6 +10,8 @@ import MainBtn from '../../../../Containers/buttons/MainBtn/Index';
 
 function UserDashboardMyInfos(){
     const BASE_URL = process.env.REACT_APP_BASE_URL;
+    const TOKEN = localStorage.getItem("auth");
+
     // pour récuperer l'ID de l'utilisateur :
     const { userInfo } = useSelector(state => state.user);
 
@@ -52,7 +55,9 @@ function UserDashboardMyInfos(){
     useEffect(() => {
         async function fetchUser() {
             try {
-                const dataUser = await (await fetch(`${BASE_URL}/api/v.0.1/user/${userInfo.userID}`)).json();
+                const dataUser = await (await fetch(`${BASE_URL}/api/v.0.1/user/${userInfo.userID}`, {
+                    headers: { Authentication: "Bearer " + TOKEN }
+                })).json();
                 // initialiser les données utilisateur :
                 setInputs({
                     lastName: dataUser.datas[0].last_name,
@@ -60,7 +65,7 @@ function UserDashboardMyInfos(){
                     email: dataUser.datas[0].email,
                     tel: dataUser.datas[0].tel,
                     address: dataUser.datas[0].address,
-                    birthDate: dataUser.datas[0].birth_date.slice(0,dataUser.datas[0].birth_date.indexOf('T')),
+                    birthDate: formatDate(dataUser.datas[0].birth_date),
                     occupation: dataUser.datas[0].occupation
                 });
             } catch (error) {
@@ -113,7 +118,8 @@ function UserDashboardMyInfos(){
             console.log("User Data modif form sent!");
             const res = await fetch(`${BASE_URL}/api/v.0.1/user/modify-user-info`, {
                 method: "post",
-                headers: { "Content-Type": "application/json" },
+                headers: { "Content-Type": "application/json",
+                            Authentication: "Bearer " + TOKEN },
                 body: JSON.stringify(inputs)
             });
             const json = await res.json();

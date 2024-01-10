@@ -1,51 +1,5 @@
 import Query from "../model/Query.js";
 
-
-// trouver toutes les réservations d'un utilisateur :
-const getAllUserBookings = async (req, res) => {
-    try {
-        // récupérer les données du pack réservé :
-        const query = "SELECT b.*, p.*, d.id, d.name, d.country FROM bookings AS b JOIN packs AS p ON b.pack_id = p.id JOIN destinations AS d ON p.destination_id = d.id WHERE b.user_id = ?";
-        const [datas] = await Query.queryByValueNTables(query, req.params.id);
-        res.status(200).json({ datas });
-    } catch (err) {
-        throw Error(err)
-    }
-}
-
-// trouver toutes les données de la réservation (pack + activités) nécessaires pour la modifier :
-const getBookingAllData = async (req, res) => {
-    try {
-        // récupérer les données de la réservation :
-        const queryBook = "SELECT * FROM bookings WHERE id = ?";
-        const [datasBook] = await Query.queryByValue(queryBook, req.body.bookingID);
-
-        // récupérer les données du pack :
-        const queryPack = "SELECT * FROM packs WHERE id = ?";
-        const [datasPack] = await Query.queryByValue(queryPack, datasBook[0].pack_id);
-
-        // récupérer les données de la destination :
-        const queryDest = "SELECT id, name, country FROM destinations WHERE id = ?";
-        const [datasDest] = await Query.queryByValue(queryDest, datasPack[0].destination_id);
-
-        // récupérer les données des activités :
-        const queryBookAct = "SELECT * FROM booked_activities WHERE booking_id = ?";
-        const [datasBookAct] = await Query.queryByValue(queryBookAct, req.body.bookingID);
-
-        // le nb d'activités :
-        const queryNbAct = "SELECT COUNT(*) AS total FROM destinations_activities WHERE destination_id = ?";
-        const [datasNbAct] = await Query.queryByValue(queryNbAct, datasPack[0].destination_id);
-
-        res.status(200).json({ datasBook,
-                            datasPack,
-                            datasDest,
-                            datasBookAct,
-                            datasNbAct });
-    } catch (err) {
-        throw Error(err)
-    }
-}
-
 // enregistrer la réservation du pack et des activités :
 const createBooking = async (req, res) => {
     try {
@@ -161,10 +115,100 @@ const deleteBooking = async (req, res) => {
     }
 }
 
+// trouver une réservation par plusieurs critères :
+const getBookingByMultiInputs = async (req, res) => {
+    try {
+        let queryEnding = "";
+        let areMultipleInputs = false;
+        const bodyData = [];
+        if (req.body.lastName !== ''){
+            if (areMultipleInputs) { queryEnding += " AND"; }
+            queryEnding += " u.last_name = ?";
+            bodyData.push(req.body.lastName);
+            areMultipleInputs = true;
+        }
+        if (req.body.firstName !== ''){
+            if (areMultipleInputs) { queryEnding += " AND"; }
+            queryEnding += " u.first_name = ?";
+            bodyData.push(req.body.firstName);
+            areMultipleInputs = true;
+        }
+        if (req.body.email !== ''){
+            if (areMultipleInputs) { queryEnding += " AND"; }
+            queryEnding += " u.email = ?";
+            bodyData.push(req.body.email);
+            areMultipleInputs = true;
+        }
+        if (req.body.reference !== ''){
+            if (areMultipleInputs) { queryEnding += " AND"; }
+            queryEnding += " p.reference = ?";
+            bodyData.push(req.body.reference);
+            areMultipleInputs = true;
+        }
+        if (req.body.bookingDate !== ''){
+            if (areMultipleInputs) { queryEnding += " AND"; }
+            queryEnding += " b.date_created > ? AND b.date_created < ?";
+            bodyData.push(req.body.bookingDate);
+            const endDate = req.body.bookingDate+"T23:59:59";
+            bodyData.push(endDate);
+            areMultipleInputs = true;
+        }
+        const query = "SELECT b.id, b.nb_adults, b.nb_children, b.price_total_booking, b.payment_type, b.status, b.date_created, u.first_name, u.last_name, u.email, u.tel, p.reference, p.departure_date, p.return_date, p.duration, d.name, d.country, d.departure_place FROM bookings AS b JOIN users AS u ON u.id = b.user_id JOIN packs AS p ON p.id = b.pack_id JOIN destinations AS d ON d.id = p.destination_id WHERE"+queryEnding;
+        const [datas] = await Query.queryByArrayNTables(query, bodyData);
+        res.status(200).json({datas});
+    } catch (err) {
+        throw Error(err);
+    }
+} 
+
+// trouver toutes les réservations d'un utilisateur :
+const getAllUserBookings = async (req, res) => {
+    try {
+        const query = "SELECT b.*, p.*, d.id, d.name, d.country FROM bookings AS b JOIN packs AS p ON b.pack_id = p.id JOIN destinations AS d ON p.destination_id = d.id WHERE b.user_id = ?";
+        const [datas] = await Query.queryByValueNTables(query, req.params.id);
+        res.status(200).json({ datas });
+    } catch (err) {
+        throw Error(err)
+    }
+}
+
+// trouver toutes les données de la réservation (pack + activités) nécessaires pour la modifier :
+const getBookingAllData = async (req, res) => {
+    try {
+        // récupérer les données de la réservation :
+        const queryBook = "SELECT * FROM bookings WHERE id = ?";
+        const [datasBook] = await Query.queryByValue(queryBook, req.body.bookingID);
+
+        // récupérer les données du pack :
+        const queryPack = "SELECT * FROM packs WHERE id = ?";
+        const [datasPack] = await Query.queryByValue(queryPack, datasBook[0].pack_id);
+
+        // récupérer les données de la destination :
+        const queryDest = "SELECT id, name, country FROM destinations WHERE id = ?";
+        const [datasDest] = await Query.queryByValue(queryDest, datasPack[0].destination_id);
+
+        // récupérer les données des activités :
+        const queryBookAct = "SELECT * FROM booked_activities WHERE booking_id = ?";
+        const [datasBookAct] = await Query.queryByValue(queryBookAct, req.body.bookingID);
+
+        // le nb d'activités :
+        const queryNbAct = "SELECT COUNT(*) AS total FROM destinations_activities WHERE destination_id = ?";
+        const [datasNbAct] = await Query.queryByValue(queryNbAct, datasPack[0].destination_id);
+        res.status(200).json({ datasBook,
+                            datasPack,
+                            datasDest,
+                            datasBookAct,
+                            datasNbAct });
+    } catch (err) {
+        throw Error(err)
+    }
+}
+
 export { 
-    getAllUserBookings,
-    getBookingAllData,
     createBooking,
     modifyBooking,
-    deleteBooking
+    deleteBooking,
+    getBookingByMultiInputs,
+    getAllUserBookings,
+    getBookingAllData,
 }

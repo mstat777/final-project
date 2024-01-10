@@ -16,6 +16,7 @@ import { calculatePrices,
     } from "../../../../../store/slices/booking.js";
 import { setDestination, setPacks, setLodging, setActivities } from '../../../../../store/slices/travel.js';
 import { verifyBooking } from '../../../../Functions/verifyBooking';
+import { formatDate } from '../../../../Functions/utils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCirclePlus, faCircleMinus } from '@fortawesome/free-solid-svg-icons';
 import MainBtn from '../../../../Containers/buttons/MainBtn/Index';
@@ -148,7 +149,6 @@ function ModifyBooking(){
     useEffect(() => {
         if (bookingInfo.prices.total_all) {
             setIsAllDataLoaded(true);
-            //console.log('isAllDataLoaded = '+isAllDataLoaded);
         }
     },[bookingInfo.prices.total_all]);
 
@@ -159,7 +159,6 @@ function ModifyBooking(){
         if (bookingInfo.nb_adults.pack && 
             pricesList.price_adults_activities.length) {
             dispatch(calculatePrices(pricesList));
-            //console.log('prix calculés');
         }
     },[bookingInfo.nb_adults, bookingInfo.nb_children, pricesList.price_adults_activities.length]);
 
@@ -190,8 +189,8 @@ function ModifyBooking(){
                         <h3>{lodging.name}</h3>
                         <p className={styles.destination_name}>{destination.name}</p>
                         <p>Paramètres du pack :</p>
-                        <p>Date de départ : <b>{packs[id].departure_date.slice(0, packs[id].departure_date.indexOf('T'))}</b></p>
-                        <p>Date de retour : <b>{packs[id].return_date.slice(0, packs[id].return_date.indexOf('T'))}</b></p> 
+                        <p>Date de départ : <b>{formatDate(packs[id].departure_date)}</b></p>
+                        <p>Date de retour : <b>{formatDate(packs[id].return_date)}</b></p> 
                         <p>Durée : <b>{packs[id].duration+1}</b> jours / <b>{packs[id].duration}</b> nuits</p>  
                         <p>Prix/TTC/adulte : <b>{packs[id].price_adults}</b> &euro;</p> 
                         <p>Prix/TTC/enfant : <b>{packs[id].price_children}</b> &euro;</p> 

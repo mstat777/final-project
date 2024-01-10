@@ -21,26 +21,17 @@
     input[name*=Name],
     input[name*=name],
     input[name=reference],
+    input[name=type],
     input[name*=Date] {
         width: 49%;
     }
-    input[name=nameLodging] {
+    input[name=nameLodging],
+    input[name=namePack] {
         width: 100%;
     }
-    
-    button {
-        display: block;
-        margin: 0 auto;
-        padding: .5em .7em .4em;
-        border: none;
-        border-radius: 6px;
-        font-weight: 500;
-        color: white;
-        letter-spacing: .1em;
-        text-transform: uppercase;
-        background-color: $tertiary-color;
-        &:hover {
-            cursor: pointer;
-        }
-    }
+}
+
+.msg_nok {
+    font-weight: 500;
+    color: $highlight-color;
 }

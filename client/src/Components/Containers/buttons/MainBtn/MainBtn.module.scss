@@ -11,8 +11,9 @@
     letter-spacing: .1em;
     text-transform: uppercase;
     background-color: $tertiary-color;
-
+    transition: opacity .3s;
     &:hover {
         cursor: pointer;
+        opacity: .7;
     }
 }

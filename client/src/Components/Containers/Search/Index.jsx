@@ -181,7 +181,7 @@ function Search() {
                             name="destination" 
                             value={destinationInput}
                             onChange={handleChange}
-                            onFocus={() => setMsg('')}
+                            onFocus={() => setMsg("")}
                             maxLength={maxNameLength}
                             placeholder="Destination"
                             required/>
@@ -192,16 +192,16 @@ function Search() {
                             onChange={(e) => setDepartureDate(e.target.value)}
                             onFocus={() => {
                                 setInputDateType("date"); 
-                                setMsg('');}}
+                                setMsg("");}}
                             placeholder="Date de départ"/>
                     <input type="text" 
                             pattern="^\d{0,5}(\.\d{1,2})?$"
                             name="maxPrice" 
                             value={maxPrice}
                             onChange={(e) => setMaxPrice(e.target.value)}
-                            onFocus={() => setMsg('')}
+                            onFocus={() => setMsg("")}
                             onInvalid={priceAlertMsg}
-                            onInput={(e) => e.target.setCustomValidity('')}
+                            onInput={(e) => e.target.setCustomValidity("")}
                             placeholder="Prix max. / personne"/>
                 </div>
                 <div className={styles.button_ctn}>

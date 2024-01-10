@@ -8,9 +8,9 @@ function AdminDashLodgings(){
     const {pathname} = useLocation();
 
     return <main className={styles.admin_db_main}>
-                <h1>Hébergements</h1>
                 { pathname === "/db/admin/lodgings" && 
                     <>
+                        <h1>Hébergements</h1>
                         <section>
                             <p>Créer un nouvel hébergement : 
                                 <Link to={`/db/admin/lodgings/create`}className={styles.admin_db_link}>créer</Link>

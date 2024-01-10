@@ -1,27 +1,22 @@
 @import '../../../../variables.scss';
 
 .results_table {
-    margin: 0 auto;
+    margin: 0 1em;
     color: $darkgrey-color;
     font-family: $secondary-font;
 
     th {
+        padding: .2em .5em;
         background-color: $primary-color;
     }
-    th,
-    td {
-        padding: .2em .5em;
-    }
-
+    
     tbody {
+        td {
+            padding: .2em .5em;
+            text-align: center;
+        }
         td:first-child {
             color: $grey-color;
-        }
-        td:nth-child(3) {
-            font-weight: 600;
-        }
-        td:nth-child(8) {
-            text-align: right;
         }
     }
 
@@ -49,9 +44,8 @@
         max-width: 1200px;
         margin: 0 auto;
     }
-}
 
-.msg_nok {
-    font-weight: 500;
-    color: $highlight-color;
+    .justify {
+        text-align: justify;
+    }
 }

@@ -2,10 +2,12 @@ import styles from '../../../Summary/Summary.module.scss';
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { formatDate } from '../../../../Functions/utils';
 import MainBtn from '../../../../Containers/buttons/MainBtn/Index';
 
 function UserDashBookingModifiedSummary() {
     const BASE_URL = process.env.REACT_APP_BASE_URL;
+    const TOKEN = localStorage.getItem("auth");
     const navigate = useNavigate();
 
     // sélectionner le 1er pack suite à la fetch :
@@ -32,13 +34,8 @@ function UserDashBookingModifiedSummary() {
                 id: 0
             };
 
-            //console.log("bookedData.datasBookAct.length = "+bookedData.datasBookAct.length);
             for(let j = 0; j < bookedData.datasBookAct.length; j++){
-                //console.log("bookedData.datasBookAct[j].activity_id = "+bookedData.datasBookAct[j].activity_id);
-                //console.log("activities[0].id = "+activities[i].id);
-
                 if (bookedData.datasBookAct[j].activity_id === activities[i].id) {
-                    console.log(bookedData.datasBookAct[j]);
                     myObject.nb_adults = bookedData.datasBookAct[j].nb_adults;
                     myObject.nb_children = bookedData.datasBookAct[j].nb_children;
                     myObject.price_total_act = bookedData.datasBookAct[j].price_total_act;
@@ -46,9 +43,7 @@ function UserDashBookingModifiedSummary() {
                     myObject.id = bookedData.datasBookAct[j].id;
                 } 
             }   
-            //oldArray.push(myObject);
         }
-        //console.log(oldArray);
         return oldArray;
     }
 
@@ -73,10 +68,8 @@ function UserDashBookingModifiedSummary() {
                 myObject.booking_id = bookedData.datasBook[0].id;
                 myObject.name = activities[i].name;
             }
-
             newArray.push(myObject);
         }
-
         return newArray;
     }
 
@@ -103,7 +96,8 @@ function UserDashBookingModifiedSummary() {
     async function handleConfirm() {
         const res = await fetch(`${BASE_URL}/api/v.0.1/booking/modify`, {
             method: "post",
-            headers: { "Content-Type": "application/json" },
+            headers: { "Content-Type": "application/json",
+                        Authentication: "Bearer " + TOKEN },
             body: JSON.stringify({ 
                 nb_adults: bookingInfo.nb_adults.pack,
                 nb_children: bookingInfo.nb_children.pack,
@@ -114,7 +108,6 @@ function UserDashBookingModifiedSummary() {
                 oldBookedActiv: getOldActivities()
             })
         });
-
         const json = await res.json();
         
         if ( res.status === 201) {
@@ -131,8 +124,8 @@ function UserDashBookingModifiedSummary() {
                     <h2>Récapitulatif</h2>
                     <p>Nom et pays de la destination : <b>{destination.name}</b>, <b>{destination.country}</b></p>
                     <p>Nom de l'hébergement : <b>{lodging.name}</b></p>
-                    <p>Date de départ : <b>{packs[id].departure_date.slice(0, packs[id].departure_date.indexOf('T'))}</b></p>
-                    <p>Date de retour : <b>{packs[id].return_date.slice(0, packs[id].return_date.indexOf('T'))}</b></p> 
+                    <p>Date de départ : <b>{formatDate(packs[id].departure_date)}</b></p>
+                    <p>Date de retour : <b>{formatDate(packs[id].return_date)}</b></p> 
                     <p>Durée : <b>{packs[id].duration+1}</b> jours / <b>{packs[id].duration}</b> nuits</p>  
                     <p>Nombre d'adultes : <b>{bookingInfo.nb_adults.pack}</b></p>
                     <p>Nombre d'enfants : <b>{bookingInfo.nb_children.pack}</b></p>

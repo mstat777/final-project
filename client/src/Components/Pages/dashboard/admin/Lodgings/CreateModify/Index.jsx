@@ -4,12 +4,15 @@ import { useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencil } from '@fortawesome/free-solid-svg-icons';
+import MainBtn from '../../../../../Containers/buttons/MainBtn/Index';
+import BtnWithPopup from '../../../../../Containers/buttons/BtnWithPopup/Index';
 
 function AdminDashLodgingCreateModify(){
     const BASE_URL = process.env.REACT_APP_BASE_URL;
+    const TOKEN = localStorage.getItem("auth");
 
     const { pathname } = useLocation(); // 'create' ou 'modify'
-    const { index } = useParams(); // l'index de l'hébergement sélectionné
+    const { index } = useParams(); // l'indice de l'hébergement sélectionné
 
     const { resultsLodgings } = useSelector((state) => state.dashboard);
 
@@ -31,19 +34,20 @@ function AdminDashLodgingCreateModify(){
     const [imageInitial, setImageInitial] = useState(null);
     const [imagesAll, setImagesAll] = useState([]);
 
-    // activer/désactiver les champs :
+    // Si création, les champs sont actifs. Si modification, désactivés :
+    const initialState = pathname.includes("modify");
     const [disableInput, setDisableInput] = useState({
-        nameLodg: true,
-        typeLodg: true,
-        overview: true,
-        facilities: true,
-        rooms: true,
-        foodDrink: true,
-        mealPlans: true,
-        entertainment: true,
-        children: true,
-        tripadvisor: true,
-        coordinates: true
+        nameLodg: initialState,
+        typeLodg: initialState,
+        overview: initialState,
+        facilities: initialState,
+        rooms: initialState,
+        foodDrink: initialState,
+        mealPlans: initialState,
+        entertainment: initialState,
+        children: initialState,
+        tripadvisor: initialState,
+        coordinates: initialState
     });
 
     // ne pas soumettre le formulaire, si les inputs ne sont pas valides:
@@ -69,14 +73,13 @@ function AdminDashLodgingCreateModify(){
                 coordinates: resultsLodgings[index].l.coordinates
             });
         }
-    },[resultsLodgings[index]])
+    },[resultsLodgings[index]]);
 
     // on vérifie tous les champs avant de soumettre le formulaire :
     const checkFormValidation = () => {
         // PAS ENCORE DÉVELOPPÉ : ce sera développé plus tard
         setIsModFormValidated(true);
     }
-
     useEffect(() => {
         if (isModFormValidated === true) {
             submitForm();
@@ -90,7 +93,6 @@ function AdminDashLodgingCreateModify(){
 
     async function submitForm() {
         const formData = new FormData();
-
         formData.append('name', inputs.nameLodg);
         formData.append('type', inputs.typeLodg);
         formData.append('overview', inputs.overview);
@@ -108,13 +110,12 @@ function AdminDashLodgingCreateModify(){
         });
 
         if (isModFormValidated) {
-            //console.log(pathname.includes('modify'));
             // s'il s'agit d'une modif d'un hébergement déjà existant :
             if (pathname.includes("modify")){
-                console.log(resultsLodgings[index].l.id);
                 formData.append('id', resultsLodgings[index].l.id);
                 const res = await fetch(`${BASE_URL}/api/v.0.1/admin/lodgings/modify`, {
                     method: "POST",
+                    headers: { Authentication: "Bearer " + TOKEN },
                     body: formData
                 });     
                 if (res.status === 200) {
@@ -125,6 +126,7 @@ function AdminDashLodgingCreateModify(){
             if (pathname.includes("create")){
                 const res = await fetch(`${BASE_URL}/api/v.0.1/admin/lodgings/create`, {
                     method: "POST",
+                    headers: { Authentication: "Bearer " + TOKEN },
                     body: formData
                 });
                 const json = await res.json();
@@ -134,11 +136,11 @@ function AdminDashLodgingCreateModify(){
     }
 
     async function handleDelete() {
-        console.log("Lodging delete data query sent!");
         inputs.id = resultsLodgings[index].l.id;
         const res = await fetch(`${BASE_URL}/api/v.0.1/admin/lodgings/delete`, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
+            headers: { "Content-Type": "application/json",
+                        Authentication: "Bearer " + TOKEN },
             body: JSON.stringify(inputs)
         });
         const json = await res.json();
@@ -175,13 +177,16 @@ function AdminDashLodgingCreateModify(){
                             <span>Nom de l'hébergement :</span>
                             <input type="text" 
                                    name="nameLodg" 
+                                   className={styles.bold}
                                    value={inputs.nameLodg}
                                    onChange={handleChange}
                                    onFocus={clearMessages}
-                                   disabled={disableInput.nameLodg}/>
+                                   disabled={disableInput.nameLodg}
+                                   required/>
+                            {pathname.includes("modify") && 
                             <button type="button" onClick={() => activateInput("nameLodg")}>
                                 <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
-                            </button>
+                            </button>}
                         </label>
 
                         <label>
@@ -192,9 +197,10 @@ function AdminDashLodgingCreateModify(){
                                    onChange={handleChange}
                                    onFocus={clearMessages}
                                    disabled={disableInput.typeLodg}/>
+                            {pathname.includes("modify") && 
                             <button type="button" onClick={() => activateInput("typeLodg")}>
                                 <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
-                            </button>
+                            </button>}
                         </label>
 
                         <label>
@@ -204,9 +210,10 @@ function AdminDashLodgingCreateModify(){
                                       onChange={handleChange}
                                       onFocus={clearMessages}
                                       disabled={disableInput.overview}/>
+                            {pathname.includes("modify") && 
                             <button type="button" onClick={() => activateInput("overview")}>
                                 <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
-                            </button>
+                            </button>}
                         </label>
 
                         <label>
@@ -216,9 +223,10 @@ function AdminDashLodgingCreateModify(){
                                       onChange={handleChange}
                                       onFocus={clearMessages}
                                       disabled={disableInput.facilities}/>
+                            {pathname.includes("modify") && 
                             <button type="button" onClick={() => activateInput("facilities")}>
                                 <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
-                            </button>
+                            </button>}
                         </label>
 
                         <label>
@@ -228,9 +236,10 @@ function AdminDashLodgingCreateModify(){
                                       onChange={handleChange}
                                       onFocus={clearMessages}
                                       disabled={disableInput.rooms}/>
+                            {pathname.includes("modify") && 
                             <button type="button" onClick={() => activateInput("rooms")}>
                                 <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
-                            </button>
+                            </button>}
                         </label> 
 
                         <label>
@@ -240,9 +249,10 @@ function AdminDashLodgingCreateModify(){
                                       onChange={handleChange}
                                       onFocus={clearMessages}
                                       disabled={disableInput.foodDrink}/>
+                            {pathname.includes("modify") && 
                             <button type="button" onClick={() => activateInput("foodDrink")}>
                                 <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
-                            </button>
+                            </button>}
                         </label> 
 
                         <label>
@@ -252,9 +262,10 @@ function AdminDashLodgingCreateModify(){
                                       onChange={handleChange}
                                       onFocus={clearMessages}
                                       disabled={disableInput.mealPlans}/>
+                            {pathname.includes("modify") && 
                             <button type="button" onClick={() => activateInput("mealPlans")}>
                                 <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
-                            </button>
+                            </button>}
                         </label> 
 
                         <label>
@@ -264,9 +275,10 @@ function AdminDashLodgingCreateModify(){
                                       onChange={handleChange}
                                       onFocus={clearMessages}
                                       disabled={disableInput.entertainment}/>
+                            {pathname.includes("modify") && 
                             <button type="button" onClick={() => activateInput("entertainment")}>
                                 <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
-                            </button>
+                            </button>}
                         </label> 
 
                         <label>
@@ -296,9 +308,10 @@ function AdminDashLodgingCreateModify(){
                                 value={inputs.children}
                                 onChange={handleChange}
                                 disabled={disableInput.children}/>
+                            {pathname.includes("modify") && 
                             <button type="button" onClick={() => activateInput("children")}>
                                 <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
-                            </button>
+                            </button>}
                         </label> 
 
                         <label>
@@ -308,9 +321,10 @@ function AdminDashLodgingCreateModify(){
                                 value={inputs.tripadvisor}
                                 onChange={handleChange}
                                 disabled={disableInput.tripadvisor}/>
+                            {pathname.includes("modify") && 
                             <button type="button" onClick={() => activateInput("tripadvisor")}>
                                 <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
-                            </button>
+                            </button>}
                         </label> 
 
                         <label>
@@ -321,22 +335,22 @@ function AdminDashLodgingCreateModify(){
                                 onChange={handleChange}
                                 disabled={disableInput.coordinates}
                                 placeholder="(format décimal)"/>
+                            {pathname.includes("modify") && 
                             <button type="button" onClick={() => activateInput("coordinates")}>
                                 <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
-                            </button>
+                            </button>}
                         </label>           
 
                         <div className={styles.main_btn_ctn}>
-                            <button type="submit" 
-                                    className={styles.save_btn}>
-                                enregistrer</button>
-                            <button type="button"
-                                    onClick={handleDelete}
-                                    className={styles.delete_btn}>
-                                supprimer</button>
+                            <MainBtn type="submit" 
+                                    text="enregistrer"/>
+                            <BtnWithPopup
+                                type="button" 
+                                clickFunc={handleDelete}
+                                text="supprimer"/>
                         </div>
-
                     </form>
+                    
                     { errMsg && <p className={styles.err_msg}>{errMsg}</p> }
                     { okMsg && <p className={styles.ok_msg}>{okMsg}</p> }
                 </>}

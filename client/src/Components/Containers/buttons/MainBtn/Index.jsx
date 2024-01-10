@@ -1,10 +1,13 @@
 import styles from './MainBtn.module.scss';
 
 function MainBtn(props){
-    const {text, onClick} = props;
+    const {type, text, onClick} = props;
 
-    return <button onClick={onClick} className={styles.button}>
-                {text}
+    return <button 
+                type={type}
+                onClick={onClick} 
+                className={styles.button}>
+                    {text}
             </button>
 }
 

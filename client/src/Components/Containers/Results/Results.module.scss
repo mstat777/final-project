@@ -1,6 +1,7 @@
 @import '../../../variables.scss';
 
 .results_section {
+    width: 100%;
     max-width: 1000px;
     margin: 2em auto;
 
@@ -54,6 +55,7 @@
             padding: 2em;
         
             .slideshow_ctn {
+                min-width: 520px;
                 width: 90%;
                 margin: 1em auto;
             }
@@ -78,6 +80,7 @@
                 }
             }
             .slideshow_ctn {
+                width: 560px;
                 margin: 1em;
             }
         }

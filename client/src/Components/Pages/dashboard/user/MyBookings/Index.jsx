@@ -3,15 +3,17 @@ import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useMediaQuery } from "react-responsive";
-
+import { modifyBooking } from '../../../../../store/slices/user';
+import { setBookedData } from '../../../../../store/slices/booking';
+import { trimDate } from '../../../../Functions/utils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencil, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
-import { modifyBooking } from '../../../../../store/slices/user';
-import { setBookedData } from '../../../../../store/slices/booking';
 
 function UserDashboardMyBookings(){
     const BASE_URL = process.env.REACT_APP_BASE_URL;
+    const TOKEN = localStorage.getItem("auth");
+
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
@@ -31,7 +33,8 @@ function UserDashboardMyBookings(){
     useEffect(() => {
         async function fetchBookings() {
             try {
-                const dataBookings = await (await fetch(`${BASE_URL}/api/v.0.1/booking/mybookings/${userInfo.userID}`)).json();
+                const dataBookings = await (await fetch(`${BASE_URL}/api/v.0.1/booking/user/${userInfo.userID}`, 
+                    { headers: { Authentication: "Bearer " + TOKEN }})).json();
                 setUserBookings(dataBookings.datas);
             } catch (error) {
                 console.log(error);
@@ -46,7 +49,8 @@ function UserDashboardMyBookings(){
             // récupérer toutes les données de la réservation sélectionnée :
             const res = await fetch(`${BASE_URL}/api/v.0.1/booking/all-data`, {
                 method: "post",
-                headers: { "Content-Type": "application/json" },
+                headers: { "Content-Type": "application/json",
+                            Authentication: "Bearer " + TOKEN },
                 body: JSON.stringify({ bookingID })
             });
             const dataAll = await res.json();
@@ -63,7 +67,7 @@ function UserDashboardMyBookings(){
                 dispatch(modifyBooking(bookingIDs));
                 navigate("/db/user/booking-modify");
             }  else {
-                //console.log(res.status);
+                console.log(res.status);
             }
         } catch (error) {
             console.log(error);
@@ -76,7 +80,8 @@ function UserDashboardMyBookings(){
         if (shouldRemove) {
             const res = await fetch(`${BASE_URL}/api/v.0.1/booking/delete`, {
                 method: "post",
-                headers: { "Content-Type": "application/json" },
+                headers: { "Content-Type": "application/json",
+                            Authentication: "Bearer " + TOKEN },
                 body: JSON.stringify({ id })
             });
             const json = await res.json();
@@ -106,7 +111,7 @@ function UserDashboardMyBookings(){
                             </div>
                             <div className={styles.el_d_created}>
                                 <span>date :</span>
-                                <span>{new Date(booking.b.date_created).toLocaleString().slice(0,-9)}</span>
+                                <span>{trimDate(booking.b.date_created)}</span>
                             </div>
                             <div className={styles.el_btn_ctn}>
                                 <button type="button"

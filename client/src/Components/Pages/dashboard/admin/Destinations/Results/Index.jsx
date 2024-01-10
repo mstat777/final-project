@@ -1,14 +1,11 @@
 import styles from '../../results.module.scss';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPencil, faTrashCan } from '@fortawesome/free-solid-svg-icons';
+import { faPencil } from '@fortawesome/free-solid-svg-icons';
 
 function AdminDashDestinationResults(){
-    const navigate = useNavigate();
-
     const { resultsDestinations } = useSelector((state) => state.dashboard);
 
     // afficher le containeur des résultats :
@@ -16,18 +13,12 @@ function AdminDashDestinationResults(){
 
     // si des résultats trouvés, afficher le containeur :
     useEffect(() => {
-        if (resultsDestinations.length) {
-            setShowResults(true);
-        }
+        resultsDestinations.length && setShowResults(true);
     },[resultsDestinations.length])
 
-    return <>
-        { console.log(resultsDestinations)}
-        { console.log("showResults = "+showResults)}
-        { showResults && 
-        <div className={styles.admin_db_section}>
-            {resultsDestinations[0] ? <>
-            <h3>Résultats</h3>
+    return (showResults && resultsDestinations[0]) &&
+        <section className={styles.admin_db_section}>
+            <h2>Résultats</h2>
             <table className={styles.results_table}>
                 <thead>
                     <tr> 
@@ -42,37 +33,27 @@ function AdminDashDestinationResults(){
                         <th>modifier</th>
                     </tr>
                 </thead>
-
                 <tbody>  
                 { resultsDestinations.map((el, i) => 
                     <tr key={i}>
                         <td>{i+1}</td>
                         <td>{el.d.reference}</td>
-                        <td>{el.d.name}</td>
+                        <td><b>{el.d.name}</b></td>
                         <td>{el.d.country}</td>
                         <td>{el.d.continent}</td>
                         <td>{el.d.overview}</td>
                         <td>{el.d.departure_place}</td>
                         <td>{el.d.date_created.slice(0, el.d.date_created.indexOf('T'))}</td>
                         <td>
-                            <button type="button" 
-                                    onClick={() => {
-                                        navigate(`/dashboard/admin/destinations/modify/${i}`);
-                                    }} 
-                                    className={styles.book_btn}>
+                            <Link to={`/db/admin/destinations/modify/${i}`}>
                                 <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
-                            </button>
+                            </Link>
                         </td>
                     </tr>
                 )}
                 </tbody>
-
             </table>
-            </>
-            : <p className={styles.msg_nok}>Aucun résultat trouvé</p>
-            }
-        </div>}
-    </>
+        </section>
 }
 
 export default AdminDashDestinationResults;

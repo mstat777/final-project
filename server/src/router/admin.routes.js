@@ -1,21 +1,28 @@
 import { Router } from "express";
 
-import {
-        getAllLodgingsID,
+import {getAllLodgingsID,
         getAllDestinationsID,
-        getBookingByMultiInputs,
-        getDestinationByMultiInputs,
         getLodgingByMultiInputs,
+        getDestinationByMultiInputs,
+        getPackByMultiInputs,
+        getActivityByMultiInputs,
+        getUserByMultiInputs,
 
         modifyLodging,
+        modifyDestination,
+        modifyPack,
+        modifyActivity,
 
         createLodging,
         createDestination,
         createPack,
         createActivity,
-
-        deleteLodging
-        } from "../controller/admin.js";
+        
+        deleteLodging,
+        deleteDestination,
+        deletePack,
+        deleteActivity } from "../controller/admin.js";
+import { auth } from '../middlewares/auth.js';
 
 const router = Router();
 
@@ -27,23 +34,32 @@ const router = Router();
 router.get("/lodgings/id/all", getAllLodgingsID);
 router.get("/destinations/id/all", getAllDestinationsID);
 
-// trouver une réservation via le form de recherche (nom/prénom/mail utilisateur, réf. pack, date réservation) :
-router.post("/bookings", getBookingByMultiInputs);
-// trouver une réservation via le form de recherche :
-router.post("/destinations", getDestinationByMultiInputs);
 // trouver un hébérgement via le form de recherche :
 router.post("/lodgings", getLodgingByMultiInputs);
+// trouver une destination via le form de recherche :
+router.post("/destinations", getDestinationByMultiInputs);
+// trouver un hébérgement via le form de recherche :
+router.post("/packs", getPackByMultiInputs);
+// trouver un utilisateur via le form de recherche :
+router.post("/activities", getActivityByMultiInputs);
+// trouver un utilisateur via le form de recherche :
+router.post("/users", getUserByMultiInputs);
 
-// modifier dans la BDD :
-router.post("/lodgings/modify", modifyLodging);
-
-// créer (insérer dans la BDD) :
-router.post("/lodgings/create", createLodging);
-router.post("/destinations/create", createDestination);
-router.post("/packs/create", createPack);
-router.post("/activities/create", createActivity);
-
-// supprimer de la BDD:
-router.post("/lodgings/delete", deleteLodging);
+// ------------------ chemins protegés ---------------------
+// MODIFIER dans la BDD :
+router.post("/lodgings/modify", auth, modifyLodging);
+router.post("/destinations/modify", auth, modifyDestination);
+router.post("/packs/modify", auth, modifyPack);
+router.post("/activities/modify", auth, modifyActivity);
+// CRÉER (insérer dans la BDD) :
+router.post("/lodgings/create", auth, createLodging);
+router.post("/destinations/create", auth, createDestination);
+router.post("/packs/create", auth, createPack);
+router.post("/activities/create", auth, createActivity);
+// SUPPRIMER de la BDD:
+router.post("/lodgings/delete", auth, deleteLodging);
+router.post("/destinations/delete", auth, deleteDestination);
+router.post("/packs/delete", auth, deletePack);
+router.post("/activities/delete", auth, deleteActivity);
 
 export default router;

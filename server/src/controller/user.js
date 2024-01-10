@@ -96,6 +96,7 @@ const createUserAccount = async (req, res) => {
 // modifier les infos persos de l'utilisateur :
 const modifyUserInfo = async (req, res) => {
     try {
+        console.log("modify user info called");
         let msg = "";
         const bodyData = [
             req.body.lastName,

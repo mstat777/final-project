@@ -1,0 +1,59 @@
+@import '../../../../variables.scss';
+
+.btn_popup_ctn {
+    position: relative;
+    display: inline-block;
+    
+    button {
+        transition: all .3s;
+    }
+
+    > button {
+        display: block;
+        margin: 0 auto;
+        padding: .6em .7em .5em;
+        border: 1px solid $highlight-color;
+        border-radius: 6px;
+        font-weight: 500;
+        color: $highlight-color;
+        letter-spacing: .1em;
+        text-transform: uppercase;        
+        background-color: white;
+        &:hover {
+            cursor: pointer;
+        }
+    }
+    .popup {
+        position: absolute;
+        top: 0;
+        right: -270px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 270px;
+        height: 60px;
+        border: 2px solid $secondary-color;
+        border-radius: 10px;
+        background-color: $verylightgrey-color;
+    
+        > * {
+            display: inline-block;
+        }
+        p {
+            margin-right: .5em;
+        }
+        button {
+            border: 1px solid;
+            color: $tertiary-color;
+            background-color: white;
+            &:hover {
+                color: white;
+                background-color: $secondary-color;
+                opacity: .9;
+            }
+        }
+        .hide {
+            display: none;
+        }
+    }
+}

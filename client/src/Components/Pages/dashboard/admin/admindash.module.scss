@@ -1,6 +1,7 @@
 @import '../../../../variables.scss';
 
 .admin_db_main {
+    margin-top: 0;
     padding-bottom: 3em;
     text-align: center;
 
@@ -9,7 +10,6 @@
         font-size: 3rem;
         text-transform: uppercase;
     }
-
     .admin_db_link {
         margin-left: 1em;
         padding: .3em .7em;
@@ -25,7 +25,6 @@
 
     .admin_db_section {
         margin: 1em;
-
         /* Page Créer/modifier/supprimer */
         .form {
             display: flex;
@@ -36,11 +35,14 @@
             font-size: 1.4rem;
             background-color: $primary-color;
         
+            > p {
+                width: 95%;
+                text-align: right;
+            }
             label {
                 display: flex;
-                /*align-items: flex-start;*/
-                align-items: center;
-                justify-content: flex-end;
+                align-items: flex-start;
+                justify-content: flex-start;
                 margin-bottom: 1em;
                 border: none;
             
@@ -48,14 +50,12 @@
                     display: inline-block;
                     width: 42%;
                     max-width: 250px;
-                    margin-top: .2em;
-                    margin-right: .5em;
+                    margin-top: 5px;
                     padding-right: .5em;
                     text-align: right;
                     white-space: nowrap;
                     overflow: hidden;
-                }
-            
+                }      
                 > *:nth-child(2) {
                     display: inline-block;
                     width: 50%;
@@ -69,7 +69,38 @@
                 textarea {
                     height: 11em;
                 }
-            
+                textarea:disabled,
+                input[type="email"]:disabled,
+                input[type="tel"]:disabled,
+                input[type="date"]:disabled,
+                input[type="text"]:disabled {
+                    color: $grey-color;
+                    background-color: #f5f5f5;
+                }
+                input[type="file"] {
+                    > span {
+                        color: $highlight-color;
+                    }
+                    &::file-selector-button {
+                        margin-right: .5em;
+                        padding: .4em .7em .3em;
+                        border: none;
+                        border-radius: 6px;
+                        font-size: 1.2rem;                  font-weight: 500;
+                        color: white;
+                        letter-spacing: .1em;
+                        text-transform: uppercase;
+                        background-color: $secondary-color;
+                        &:hover {
+                            cursor: pointer;
+                        }
+                    }
+                }
+                input[type="file" i] {
+                    font-family: $main-font;
+                    font-weight: 400;
+                    font-size: 1.4rem;
+                }
                 /*** les boutons Modif ***/
                 button {
                     display: flex;
@@ -77,7 +108,7 @@
                     justify-content: center;
                     height: 1.5em;
                     width: 1.5em;
-                    margin-top: .2em;
+                    margin-top: 4px;
                     margin-left: .5em;
                     border: none;
                     background-color: $secondary-color;
@@ -86,37 +117,20 @@
                         cursor: pointer;
                         opacity: .7;
                     }
-            
                     .modify_icon {
                         font-size: .8em;
                         color: white;
                     }
                 }
+                .bold {
+                    font-weight: 600;
+                }
             }
-        
             .main_btn_ctn {
                 margin: 0 auto;
-            
-                .save_btn,
-                .delete_btn {
+                button {
                     display: inline-block;
                     margin: 1em .5em;
-                    padding: .5em .7em .5em;
-                    border: none;
-                    border-radius: .4em;
-                    font-weight: 500;
-                    letter-spacing: .1em;
-                    text-transform: uppercase;
-                    color: white;
-                    background-color: $tertiary-color;
-                    &:hover {
-                        cursor: pointer;
-                    }
-                }
-                .delete_btn {
-                    border: 1px solid $highlight-color;
-                    color: $highlight-color;
-                    background-color: white;
                 }
             }
         }
@@ -131,16 +145,6 @@
             }
         }
     }
-
-    textarea:disabled,
-    input[type="email"]:disabled,
-    input[type="tel"]:disabled,
-    input[type="date"]:disabled,
-    input[type="text"]:disabled {
-        color: $grey-color;
-        background-color: #f5f5f5;
-    }
-
     .ok_msg {
         color: rgb(0, 143, 49);
         text-align: center;
@@ -153,21 +157,19 @@
     @media screen and (min-width: $br-tablet) {
         display: inline-block;
         margin-top: 60px;
-        padding: 1em;
     
         .admin_db_section {
-            margin: 60px 2em 2em;
+            margin: 2em auto;
     
             .form {
                 max-width: 800px;
-                margin: 1em 4em 2em 4em;
+                margin: 1em auto 2em;
                 label {
-                    justify-content: center;
                     > span {
                         width: 30%;
                     }
                     > *:nth-child(2) {
-                        width: 60%;
+                        width: 65%;
                     }
                 }
             }
