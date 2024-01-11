@@ -96,7 +96,7 @@ const createUserAccount = async (req, res) => {
 // modifier les infos persos de l'utilisateur :
 const modifyUserInfo = async (req, res) => {
     try {
-        console.log("modify user info called");
+        console.log(req.body);
         let msg = "";
         const bodyData = [
             req.body.lastName,
@@ -106,11 +106,36 @@ const modifyUserInfo = async (req, res) => {
             req.body.birthDate,
             req.body.occupation,
             req.body.email
-        ]
-        const queryUser = "UPDATE users SET last_name = ?, first_name = ?, tel = ?, address = ?, birth_date = ?, occupation = ? WHERE email = ?";
-        await Query.queryByArray(queryUser, bodyData);
+        ];
+        let queryUpdateUser = "UPDATE users SET last_name = ?, first_name = ?, tel = ?, address = ?, birth_date = ?, occupation = ?";
+        // si le mdp est à modifier :
+        if (req.body.passwordNew) {
+            console.log("on va changer le mdp");
+            // on vérifie si l'ancien mdp est correct
+            const queryUser = "SELECT password FROM users WHERE email = ?";
+            const [user] = await Query.queryByValue(queryUser, req.body.email);
+            const same = await compare(req.body.passwordOld, user[0].password);
 
-        msg = "utilisateur créé";
+            if (same) {
+                console.log("les memes");
+                queryUpdateUser += ", password = ? WHERE email = ?";
+                const newPswd = await hash(req.body.passwordNew, SALT);
+                bodyData.pop();
+                bodyData.push(newPswd);
+                bodyData.push(req.body.email);
+            } else {
+                console.log("pas les memes");
+                msg = "Mot de passe erroné.";
+                res.status(409).json({ msg });
+                return;
+            }
+        } else {
+            queryUpdateUser += " WHERE email = ?";
+        }
+        console.log(queryUpdateUser);
+        console.log(bodyData);
+        await Query.queryByArray(queryUpdateUser, bodyData);
+        msg = "données d'utilisateur modifiées";
         res.status(201).json({ msg });
     } catch (err) {
         throw Error(err)

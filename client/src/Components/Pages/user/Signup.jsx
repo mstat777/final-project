@@ -43,6 +43,7 @@ function Signup(){
         window.scrollTo(0, 0);
     }, [])
 
+    // afficher/cacher les mdp :
     function handlePassIconToggle() {
         if (passInputType === "password") {
             setPassIcon(faEye);
@@ -141,7 +142,7 @@ function Signup(){
                 <h1>Je crée mon compte</h1>     
 
                 <form onSubmit={handleSubmit} className={styles.sign_form}>
-                    <div className={styles.input_ctn}> 
+                    <label> 
                         <FontAwesomeIcon icon={faUser} className={styles.input_icon}/>  
                         <input type="text" 
                                 name="lastName" 
@@ -149,8 +150,8 @@ function Signup(){
                                 value={lastName}
                                 onChange={(e) => setLastName(e.target.value)}
                                 required/>
-                    </div>
-                    <div className={styles.input_ctn}> 
+                    </label>
+                    <label> 
                         <FontAwesomeIcon icon={faUserReg} className={styles.input_icon}/>  
                         <input type="text" 
                                 name="firstName" 
@@ -158,8 +159,8 @@ function Signup(){
                                 value={firstName}
                                 onChange={(e) => setFirstName(e.target.value)}
                                 required/>
-                    </div>            
-                    <div className={styles.input_ctn}> 
+                    </label>            
+                    <label> 
                         <FontAwesomeIcon icon={faEnvelope} className={styles.input_icon}/>  
                         <input type="email" 
                                 name="email" 
@@ -167,23 +168,23 @@ function Signup(){
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 required/>
-                    </div>
-                    <div className={styles.input_ctn}> 
+                    </label>
+                    <label> 
                         <FontAwesomeIcon icon={faPhone} className={styles.input_icon}/>  
                         <input type="tel" 
                                 name="tel" 
                                 placeholder="Numéro de téléphone"
                                 value={tel}
                                 onChange={(e) => setTel(e.target.value)}/> 
-                    </div>
-                    <div className={styles.input_ctn}> 
+                    </label>
+                    <label> 
                         <FontAwesomeIcon icon={faLocationDot} className={styles.input_icon}/>  
                         <textarea name="address" 
                                 placeholder="Adresse postale"
                                 value={address}
                                 onChange={(e) => setAddress(e.target.value)}/>
-                    </div>
-                    <div className={styles.input_ctn}> 
+                    </label>
+                    <label> 
                         <FontAwesomeIcon icon={faCakeCandles} className={styles.input_icon}/>  
                         <input type={inputDateType} 
                                 name="birthDate" 
@@ -193,8 +194,8 @@ function Signup(){
                                 onChange={(e) => setBirthDate(e.target.value)}
                                 onFocus={() => setInputDateType("date")}
                                 required/> 
-                        </div>
-                    <div className={styles.input_ctn}> 
+                    </label>
+                    <label> 
                         <FontAwesomeIcon icon={faBriefcase} className={styles.input_icon}/>  
                         <input type="text" 
                                 pattern="[a-zA-ZÀ-Ÿ-\s]{0,50}"
@@ -202,8 +203,8 @@ function Signup(){
                                 placeholder="Métier"
                                 value={occupation}
                                 onChange={(e) => setOccupation(e.target.value)}/>
-                        </div>
-                    <div className={styles.input_ctn}> 
+                    </label>
+                    <label> 
                         <FontAwesomeIcon icon={faLock} className={styles.input_icon}/>
                         <input type={passInputType}  
                                 name="password" 
@@ -211,11 +212,13 @@ function Signup(){
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
                                 required/>
-                        <span className={styles.pass_icon_ctn} onClick={handlePassIconToggle}>
-                            <FontAwesomeIcon icon={passIcon} className={styles.pass_icon}/>
-                        </span>
-                    </div>
-                    <div className={styles.input_ctn}> 
+                        <button type="button"
+                            className={styles.pass_icon_ctn} 
+                            onClick={handlePassIconToggle}>
+                                <FontAwesomeIcon icon={passIcon} className={styles.pass_icon}/>
+                        </button>
+                    </label>
+                    <label> 
                         <label className={styles.label_checkbox}>
                             <input type="checkbox" 
                                 name="checkBoxNewsL"
@@ -223,8 +226,8 @@ function Signup(){
                                 onChange={() => setCheckBoxNewsL(!checkBoxNewsL)}/>
                             <span>Je souhaite m'inscrire à la newsletter</span>
                         </label>
-                    </div>
-                    <div className={styles.input_ctn}> 
+                    </label>
+                    <label> 
                         <label className={styles.label_checkbox}>
                             <input type="checkbox" 
                                 name="checkBoxPrivacy"
@@ -232,7 +235,7 @@ function Signup(){
                                 onChange={() => setCheckBoxPrivacy(!checkBoxPrivacy)}/>
                             <span>En cochant cette case, vous déclarez avoir lu et accepter nos <Link>conditions d'utilisation</Link> et la <Link>politique de confidentialité</Link></span>
                         </label>
-                    </div>
+                    </label>
 
                     <button type="submit">s'inscrire</button>
                 </form>

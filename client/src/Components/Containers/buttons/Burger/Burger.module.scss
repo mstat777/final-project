@@ -53,7 +53,7 @@
     position: fixed;
     top: 0;
     right: 0;
-    z-index: 101;
+    z-index: 100;
 
     .burger_items_ctn {
         position: fixed;
@@ -67,7 +67,7 @@
         background-color: #b8bfda;
         visibility: hidden;
         transition: all 1s ease-out;
-        z-index: 200;
+        z-index: 101;
     
         .burger_cross_btn {
             position: absolute;

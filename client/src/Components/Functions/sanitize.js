@@ -28,6 +28,8 @@ function validateInput(name, userData){
 
     // les inputs dont le nom contient 'Password/password' 
     if (name.match(/Password/i)) {
+        console.log(name);
+        console.log(userData);
         if (userData.length < 8) { 
             result.msg +="Le mot de passe doit être composé d'au moins 8 caractères.\n";
             result.isValid = false;

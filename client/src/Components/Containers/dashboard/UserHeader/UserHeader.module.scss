@@ -21,6 +21,7 @@
 .user_db_header {
     background-color: $secondary-color;
     margin-top: 60px;
+    z-index: 99;
 
     @media screen and (min-width: $br-tablet) {
         position: fixed;

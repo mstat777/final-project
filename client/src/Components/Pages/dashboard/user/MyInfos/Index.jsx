@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import { useMediaQuery } from "react-responsive";
 import { formatDate } from '../../../../Functions/utils.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPencil } from '@fortawesome/free-solid-svg-icons';
+import { faPencil, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { validateInput } from '../../../../Functions/sanitize';
 import MainBtn from '../../../../Containers/buttons/MainBtn/Index';
 
@@ -23,17 +23,35 @@ function UserDashboardMyInfos(){
         tel: "",
         address: "",
         birthDate: "",
-        occupation: ""
+        occupation: "",
+        passwordOld: "",
+        passwordNew: "",
+        passwordNew2: ""
     });
 
     // activer/désactiver les champs :
-    const [disableInput, setDisableInput] = useState({
+    const [disableInputs, setDisableInputs] = useState({
         lastName: true,
         firstName: true,
         tel: true,
         address: true,
         birthDate: true,
         occupation: true
+    });
+
+    // afficher/cacher les champs de modif du mdp :
+    const [showPswdModif, setShowPswdModif] = useState(false);
+
+    // pour l'icone "l'oeil" d'affichage du mdp :
+    const [passInputType, setPassInputType] = useState({
+        old: "password",
+        new: "password",
+        new2: "password"
+    });
+    const [passIcon, setPassIcon] = useState({
+        old: faEyeSlash,
+        new: faEyeSlash,
+        new2: faEyeSlash
     });
 
     // pour ne pas soumettre le formulaire, si les inputs ne sont pas valides:
@@ -49,7 +67,19 @@ function UserDashboardMyInfos(){
     useEffect(() => {
         if (isMobile) { window.scrollTo(0, 160); }
         if (isTabletOrDesktop) { window.scrollTo(0, 0); }
-    }, [])
+        if (errMsg || okMsg) { window.scrollTo(0, document.body.scrollHeight); }
+    }, [errMsg, okMsg])
+
+    // afficher/cacher les mdp :
+    function handlePassIconToggle(e) {
+        if (passInputType[e.currentTarget.name] === "password") {
+            setPassIcon({...passIcon, [e.currentTarget.name]: faEye});
+            setPassInputType({...passInputType, [e.currentTarget.name]: 'text'});
+        } else {
+            setPassIcon({...passIcon, [e.currentTarget.name]: faEyeSlash});
+            setPassInputType({...passInputType, [e.currentTarget.name]: 'password'});
+        }
+    }
 
     // on récupère les données de l'utilisateur pour 'automatiquement' remplir le formulaire lors du chargement de la page :
     useEffect(() => {
@@ -77,22 +107,47 @@ function UserDashboardMyInfos(){
 
     // on vérifie tous les champs avant de soumettre le formulaire :
     const checkFormValidation = () => {
+        // si modification de mdp :
+        if (inputs.passwordOld || inputs.passwordNew || inputs.passwordNew2) {
+            if (!inputs.passwordOld) {
+                setErrMsg("Vous n'avez pas renseigné votre ancien mot de passe.");
+                return;
+            } 
+            if (!inputs.passwordNew) {
+                setErrMsg("Vous n'avez pas indiqué un nouveau mot de passe.");
+                return;
+            }
+            if (!inputs.passwordNew2) {
+                setErrMsg("La confirmation du nouveau mot de passe est erronée.");
+                return;
+            }
+            if (inputs.passwordNew !== inputs.passwordNew2){
+                setErrMsg("La confirmation du nouveau mot de passe est erronée.");
+                return;
+            }
+            // vérifier le nouveau mot de passe :
+            const passVerif = validateInput("passwordNew", inputs.passwordNew); 
+            if (!passVerif.isValid) {
+                setErrMsg(passVerif.msg);
+                return;
+            } 
+        }
+        // Vérifier les champs obligatoires :
         const lNameVerif = validateInput("lastName", inputs.lastName.trim());
         const fNameVerif = validateInput("firstName", inputs.firstName.trim());
-        // si un numéro de tél est rempli, on vérifie. Si non, on vérifie pas, car ce n'est pas un champ obligatoire :
+        const bDateVerif = validateInput("birthDate", inputs.birthDate);
+
+        // Vérifier les champs facultatifs (si remplis) :
         let telVerif = { isValid: true, msg: '' }
         if (inputs.tel) {
             telVerif = validateInput("tel", inputs.tel.trim());
         }
-        // si un numéro de tél est rempli, on vérifie. Si non, on vérifie pas, car ce n'est pas un champ obligatoire :
         let addressVerif = { isValid: true, msg: '' }
         if (inputs.address) {
             addressVerif = validateInput("address", inputs.address.trim());
         }
-        //
-        const bDateVerif = validateInput("birthDate", inputs.birthDate);
 
-        // rassembler toutes les messages d'erreur pour les afficher au-dessous du formulaire :
+        // afficher toutes les messages d'erreur :
         setErrMsg(lNameVerif.msg 
                     + fNameVerif.msg 
                     + telVerif.msg
@@ -104,7 +159,6 @@ function UserDashboardMyInfos(){
         telVerif.isValid &&
         addressVerif.isValid &&
         bDateVerif.isValid) ? setIsFormValidated(true) : setIsFormValidated(false);
-        console.log("isFormValidated = "+isFormValidated);
     }
 
     useEffect(() => {
@@ -115,23 +169,23 @@ function UserDashboardMyInfos(){
 
     async function submitForm() {
         if (isFormValidated) {
-            console.log("User Data modif form sent!");
             const res = await fetch(`${BASE_URL}/api/v.0.1/user/modify-user-info`, {
                 method: "post",
                 headers: { "Content-Type": "application/json",
                             Authentication: "Bearer " + TOKEN },
                 body: JSON.stringify(inputs)
             });
-            const json = await res.json();
-            
+            const json = await res.json();  
             if (res.status === 201) {
                 setOkMsg("Les modifications ont été enregistrée.")
+            } else {
+                setErrMsg(json.msg)
             }
         }
     }
 
     const activateInput = (inputName) => {
-        setDisableInput({ ...inputs, [inputName]: false });
+        setDisableInputs({ ...disableInputs, [inputName]: false });
     }
 
     const handleChange = (e) => {
@@ -155,7 +209,7 @@ function UserDashboardMyInfos(){
                         name="lastName" 
                         value={inputs.lastName}
                         onChange={handleChange}
-                        disabled={disableInput.lastName}/>
+                        disabled={disableInputs.lastName}/>
                     <button type="button" onClick={() => activateInput("lastName")}>
                         <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
                     </button>
@@ -167,7 +221,7 @@ function UserDashboardMyInfos(){
                         name="firstName" 
                         value={inputs.firstName}
                         onChange={handleChange}
-                        disabled={disableInput.firstName}/>
+                        disabled={disableInputs.firstName}/>
                     <button type="button" onClick={() => activateInput("firstName")}>
                         <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
                     </button>
@@ -188,7 +242,7 @@ function UserDashboardMyInfos(){
                         name="tel" 
                         value={inputs.tel}
                         onChange={handleChange}
-                        disabled={disableInput.tel}/>
+                        disabled={disableInputs.tel}/>
                     <button type="button" onClick={() => activateInput("tel")}>
                         <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
                     </button>
@@ -200,7 +254,7 @@ function UserDashboardMyInfos(){
                         name="address" 
                         value={inputs.address}
                         onChange={handleChange}
-                        disabled={disableInput.address}/>
+                        disabled={disableInputs.address}/>
                     <button type="button" onClick={() => activateInput("address")}>
                         <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
                     </button>
@@ -213,7 +267,7 @@ function UserDashboardMyInfos(){
                         min="1923-01-01"
                         value={inputs.birthDate}
                         onChange={handleChange}
-                        disabled={disableInput.birthDate}/>
+                        disabled={disableInputs.birthDate}/>
                     <button type="button" onClick={() => activateInput("birthDate")}>
                         <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
                     </button>
@@ -225,11 +279,59 @@ function UserDashboardMyInfos(){
                         name="occupation" 
                         value={inputs.occupation}
                         onChange={handleChange}
-                        disabled={disableInput.occupation}/>
+                        disabled={disableInputs.occupation}/>
                     <button type="button" onClick={() => activateInput("occupation")}>
                         <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
                     </button>
                 </label>
+
+                <label>
+                    <span>Mot de passe :</span>
+                    <button type="button" 
+                            className={styles.passwordBtn}
+                            onClick={() => setShowPswdModif(true)}>modifier mon mot de passe</button>
+                </label>
+                {showPswdModif && <>
+                    <label>
+                        <span>Mot de passe actuel :</span>
+                        <input type={passInputType.old}  
+                            name="passwordOld" 
+                            value={inputs.passwordOld}
+                            onChange={handleChange}/>
+                        <button type="button"
+                                className={styles.pass_icon_ctn} 
+                                name="old" 
+                                onClick={handlePassIconToggle}>
+                            <FontAwesomeIcon icon={passIcon.old} className={styles.pass_icon}/>
+                        </button>
+                    </label>    
+                    <label>
+                        <span>Nouveau mot de passe :</span>
+                        <input type={passInputType.new}  
+                            name="passwordNew" 
+                            value={inputs.passwordNew}
+                            onChange={handleChange}/>
+                        <button type="button"
+                                className={styles.pass_icon_ctn} 
+                                name="new" 
+                                onClick={handlePassIconToggle}>
+                            <FontAwesomeIcon icon={passIcon.new} className={styles.pass_icon}/>
+                        </button>
+                    </label> 
+                    <label>
+                        <span>Confirmer le nouveau mdp :</span>
+                        <input type={passInputType.new2}  
+                            name="passwordNew2" 
+                            value={inputs.passwordNew2}
+                            onChange={handleChange}/>
+                        <button type="button"
+                                className={styles.pass_icon_ctn} 
+                                name="new2" 
+                                onClick={handlePassIconToggle}>
+                            <FontAwesomeIcon icon={passIcon.new2} className={styles.pass_icon}/>
+                        </button>
+                    </label> 
+                </>}
 
                 <MainBtn type="submit" text="enregistrer"/>
             </form>

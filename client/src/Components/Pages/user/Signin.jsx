@@ -16,7 +16,6 @@ function Signin(){
     
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-
     const [msg, setMsg] = useState('');
 
     /* pour l'oeil d'affichage du mdp */
@@ -40,7 +39,6 @@ function Signin(){
     
     async function handleSubmit(e){
         e.preventDefault();
-
         const res = await fetch(`${BASE_URL}/api/v.0.1/user/signin`, {
             method: "post",
             headers: { "Content-Type": "application/json" },
@@ -73,7 +71,7 @@ function Signin(){
 
                 <form onSubmit={handleSubmit} className={styles.sign_form}>
 
-                    <div className={styles.input_ctn}> 
+                    <label> 
                         <FontAwesomeIcon icon={faUser} className={styles.input_icon}/>
                         <input type="email" 
                                 name="email" 
@@ -82,8 +80,8 @@ function Signin(){
                                 onChange={(e) => setEmail(e.target.value)}
                                 onFocus={() => setMsg('')}
                                 required/>
-                    </div>
-                    <div className={styles.input_ctn}> 
+                    </label>
+                    <label> 
                         <FontAwesomeIcon icon={faLock} className={styles.input_icon}/>
                         <input type={passInputType} 
                                 name="password" 
@@ -93,10 +91,12 @@ function Signin(){
                                 onFocus={() => setMsg('')}
                                 className={styles.pass_input}
                                 required/>
-                        <span className={styles.pass_icon_ctn} onClick={handlePassIconToggle}>
+                        <button type="button"
+                            className={styles.pass_icon_ctn} 
+                            onClick={handlePassIconToggle}>
                             <FontAwesomeIcon icon={passIcon} className={styles.pass_icon}/>
-                        </span>    
-                    </div>
+                        </button>    
+                    </label>
                     
                     <button type="submit">se connecter</button>
 
