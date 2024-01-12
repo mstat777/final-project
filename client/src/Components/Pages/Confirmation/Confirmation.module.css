@@ -1,0 +1,17 @@
+.confirmation_section {
+  display: flex;
+  flex-direction: column;
+  max-width: 600px;
+  margin: 1.5rem auto;
+  border: 1px solid rgb(204, 204, 204);
+}
+@media screen and (min-width: 768px) {
+  .confirmation_section {
+    margin: 6rem auto;
+  }
+}
+@media screen and (min-width: 1100px) {
+  .confirmation_section {
+    margin: 12.5rem auto;
+  }
+}/*# sourceMappingURL=Confirmation.module.css.map */

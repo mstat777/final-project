@@ -2,7 +2,7 @@
 
 @mixin link_el($color) {
     display: block;
-    padding: .5em 1em;
+    padding: .8rem 1.5rem;
     font-size: 1.4rem; 
     font-weight: 500;
     text-align: center;
@@ -10,6 +10,8 @@
     transition: color .4s, background-color .4s;
     &:hover {
         cursor: pointer;
+        color: $tertiary-color;
+        background-color: $primary-color;
     }
 }
 
@@ -21,10 +23,10 @@
         flex-direction: column;
         align-items: center;
         width: 100%;
-        margin: .5em auto;
+        margin: .8rem auto;
 
         a:hover {
-            border-radius: 4px;
+            border-radius: .4rem;
             color: white;
             background-color: var(--tertiary-color);
         }
@@ -33,11 +35,11 @@
         .link {
             @include link_el(white);
             width: 100%;
-            margin-bottom: .5em;
+            margin-bottom: .8rem;
         }
         .link_home {
             @include link_el(white);
-            margin-top: .5em;
+            margin-top: .8rem;
             background-color: black;
         } 
         .link_signout {
@@ -58,16 +60,16 @@
                 display: flex;
                 align-items: center;
                 width: 100%;
-                padding: .2em .5em;
-                border-radius: 4px;
+                padding: .3rem .8rem;
+                border-radius: .4rem;
                 background-color: rgb(122, 191, 141);
                 /* le containeur de l'icon user */
                 .admin_db_image_ctn {
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    height: 30px;
-                    width: 30px;
+                    height: 3rem;
+                    width: 3rem;
                     background-color: rgb(122, 191, 141);
                     cursor: pointer;
                     .admin_db_image {
@@ -77,8 +79,11 @@
                 /* le mail user */
                 .admin_db_email {
                     display: inline-block;
-                    margin-left: .5em;
+                    margin-left: .8rem;
                     color: rgb(0, 0, 0);
+                    overflow: hidden; 
+                    white-space: nowrap; 
+                    text-overflow: ellipsis;
                     z-index: 101;
                 }
             }
@@ -99,7 +104,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-top: .5em;
+            margin-top: .8rem;
         }
     }
     
@@ -116,24 +121,24 @@
             flex-direction: row;
             align-items: center;
             justify-content: space-between;
-            height: 36px;
+            height: 3.6rem;
             width: auto;
-            margin: 12px 2em;
+            margin: 1.2rem 3rem;
     
             .admin_db_dropdown {
                 width: 200px;
-                margin: auto .2em;
+                margin: auto .3rem;
                 overflow: hidden;
         
                 .admin_db_user_ctn {
                     margin: 0;
-                    margin-right: .5em;
+                    margin-right: .8rem;
                     padding-top: 0;
                     padding-bottom: 0;
         
                     .admin_db_image_ctn {
-                        height: 36px;
-                        width: 36px;
+                        height: 3.6rem;
+                        width: 3.6rem;
                         margin-bottom: 0;
                     }
                     /* le mail user */
@@ -149,7 +154,7 @@
             .admin_db_links_ctn {
                 flex-direction: row;
                 align-items: center;
-                justify-content: space-between;
+                justify-content: flex-end;
                 width: calc(100% - 220px);
                 margin-top: 0;
             }      

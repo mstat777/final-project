@@ -41,7 +41,7 @@ const getAllDataIfPacks = async (req, res) => {
     }
     //console.log("queryEnding = "+queryEnding);
 
-    const queryPacks = "SELECT * FROM packs WHERE destination_id = ?" + queryEnding + " ORDER BY departure_date";
+    const queryPacks = "SELECT * FROM packs WHERE places_left > 0 AND destination_id = ?" + queryEnding + " ORDER BY departure_date";
     //console.log("queryPacks = "+queryPacks);
     const [datasPacks] = await Query.queryByArray(queryPacks, bodyData);
 

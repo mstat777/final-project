@@ -1,0 +1,254 @@
+@charset "UTF-8";
+.booking_section {
+  display: flex;
+  flex-direction: column;
+  margin: 1.5rem auto;
+  /*** styler les activités ***/
+  /* le bouton "réserver */
+}
+.booking_section > h1 {
+  margin: 0 0 0.8rem;
+  font-size: 3rem;
+  text-transform: uppercase;
+}
+.booking_section .hidden {
+  display: none;
+}
+.booking_section article h2 {
+  display: none;
+  margin-top: 0;
+  text-transform: uppercase;
+}
+.booking_section article > p {
+  margin: 0.6rem 3rem;
+  text-align: left;
+}
+.booking_section .booking_info_top {
+  display: flex;
+  flex-direction: column-reverse;
+  overflow: hidden;
+}
+.booking_section .booking_info_top .booking_info_ctn {
+  margin-bottom: 2rem;
+}
+.booking_section .booking_info_top .booking_info_ctn h3 {
+  font-size: 1.8rem;
+  color: rgb(231, 19, 105);
+}
+.booking_section .booking_info_top .booking_info_ctn > p {
+  margin: 0.8rem 3rem;
+  font-size: 1.4rem;
+  text-align: left;
+}
+.booking_section .booking_info_top .booking_info_ctn .destination_name {
+  margin-bottom: 3rem;
+  font-size: 2.2rem;
+  font-weight: 500;
+  text-align: center;
+  color: rgb(47, 74, 122);
+}
+.booking_section .booking_info_top .booking_info_ctn b {
+  font-weight: 500;
+}
+.booking_section .booking_info_top .main_img {
+  align-self: flex-start;
+  width: 90%;
+  margin: 1.5rem auto;
+}
+.booking_section .booking_inputs_ctn .booking_inputs {
+  display: flex;
+  align-items: center;
+  vertical-align: middle;
+  margin: 0.8rem 3rem;
+  text-align: left;
+}
+.booking_section .booking_inputs_ctn .booking_inputs span {
+  display: inline-block;
+  margin-right: 0.8rem;
+}
+.booking_section .booking_inputs_ctn .booking_inputs button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  border: none;
+  border-radius: 50%;
+}
+.booking_section .booking_inputs_ctn .booking_inputs input {
+  width: 4rem;
+  height: 2.4rem;
+  padding: 0 auto;
+  font-weight: 700;
+  text-align: center;
+  background-color: #def;
+}
+.booking_section .booking_activities_ctn {
+  text-align: left;
+}
+.booking_section .booking_activities_ctn > h2 {
+  display: none;
+}
+.booking_section .booking_activities_ctn > p {
+  display: block;
+  margin: 1.5rem 3rem 0.8rem;
+}
+.booking_section .booking_activities_ctn .booking_activity {
+  margin: 0.8rem 1.5rem;
+  padding: 1.5rem;
+  border: 1px solid rgb(204, 204, 204);
+}
+.booking_section .booking_activities_ctn .booking_activity .booking_activity_title {
+  margin: 1.5rem 0.8rem;
+}
+.booking_section .booking_activities_ctn .booking_activity .booking_activity_title label {
+  font-weight: 500;
+}
+.booking_section .booking_activities_ctn .booking_activity .booking_activity_title label input {
+  vertical-align: middle;
+  margin-right: 0.8rem;
+  margin-bottom: 0.3rem;
+}
+.booking_section .booking_activities_ctn .booking_activity .booking_activity_inputs {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  vertical-align: middle;
+  margin-bottom: 1.5rem;
+}
+.booking_section .booking_activities_ctn .booking_activity .booking_activity_inputs > div {
+  display: flex;
+  align-items: center;
+  margin: 0 0 1rem 3rem;
+}
+.booking_section .booking_activities_ctn .booking_activity .booking_activity_inputs > div span {
+  display: inline-block;
+  margin-right: 0.8rem;
+}
+.booking_section .booking_activities_ctn .booking_activity .booking_activity_inputs > div button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  border: none;
+  border-radius: 50%;
+}
+.booking_section .booking_activities_ctn .booking_activity .booking_activity_inputs > div input {
+  width: 4rem;
+  height: 2.4rem;
+  padding: 0 auto;
+  font-weight: 700;
+  text-align: center;
+  background-color: #def;
+}
+@media screen and (min-width: 768px) {
+  .booking_section .booking_activities_ctn .booking_activity .booking_activity_inputs {
+    flex-direction: row;
+    align-items: center;
+  }
+  .booking_section .booking_activities_ctn .booking_activity .booking_activity_inputs span {
+    margin: 0 0.8rem 0 3rem;
+  }
+  .booking_section .booking_activities_ctn .booking_activity .booking_activity_inputs > div {
+    margin-left: 0;
+  }
+}
+.booking_section .booking_activities_ctn .booking_activity p {
+  padding: 0;
+}
+.booking_section .booking_totals_ctn {
+  display: inline-block;
+  margin: 1.5rem auto 1.5em 3rem;
+}
+.booking_section .booking_totals_ctn > *:first-child {
+  margin: 1.3rem;
+}
+.booking_section .booking_totals_ctn b {
+  font-weight: 500;
+}
+.booking_section > button {
+  margin: 1.5rem auto 0;
+  padding: 0.8rem 1.5rem;
+}
+.booking_section .error_ctn {
+  margin: 0 3rem 1.5rem;
+  color: rgb(231, 19, 105);
+}
+.booking_section .fa_circle {
+  height: 100%;
+  width: auto;
+  color: #3f9ae9;
+}
+.booking_section .places_left {
+  color: rgb(231, 19, 105);
+}
+@media screen and (min-width: 768px) {
+  .booking_section {
+    max-width: 1000px;
+    padding: 3rem;
+  }
+  .booking_section article > p {
+    margin-left: 3rem;
+    text-align: center;
+  }
+  .booking_section .booking_info_top {
+    flex-direction: row;
+  }
+  .booking_section .booking_info_top .booking_info_ctn {
+    width: calc(100% - 500px);
+    margin: 1.5rem 0 0 0;
+    padding-left: 0.8rem;
+  }
+  .booking_section .booking_info_top .booking_info_ctn h3 {
+    margin-top: 3rem;
+  }
+  .booking_section .booking_info_top .booking_info_ctn .destination_name {
+    margin-bottom: 3rem;
+  }
+  .booking_section .booking_info_top .booking_info_ctn .booking_info_h {
+    font-size: 1.8rem;
+    margin-bottom: 2.4rem;
+  }
+  .booking_section .booking_info_top .main_img {
+    width: 80%;
+    max-width: 600px;
+    margin: 1.5rem;
+  }
+  .booking_section .booking_inputs_ctn {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .booking_section .booking_inputs_ctn > p {
+    width: 100%;
+  }
+  .booking_section .booking_inputs_ctn .booking_inputs {
+    display: inline-flex;
+    margin: 0.8rem 0;
+  }
+  .booking_section .booking_inputs_ctn .booking_inputs span {
+    margin: 0 0.8rem 0 3rem;
+  }
+  .booking_section .booking_totals_ctn {
+    margin: 0 auto 1.5rem;
+  }
+  .booking_section .booking_totals_ctn > p {
+    text-align: left;
+  }
+}
+@media screen and (min-width: 1100px) {
+  .booking_section {
+    margin: 3rem auto;
+    border: 1px solid rgb(204, 204, 204);
+  }
+  .booking_section .main_img {
+    width: 500px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .modify_section {
+    margin-top: 70px;
+  }
+}/*# sourceMappingURL=Booking.module.css.map */

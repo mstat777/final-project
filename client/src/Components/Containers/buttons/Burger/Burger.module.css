@@ -1,0 +1,168 @@
+@charset "UTF-8";
+/* -------------- LE BOUTON BURGER ----------------- */
+.burger_btn {
+  position: absolute;
+  top: 1.3rem;
+  right: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 3.6rem;
+  width: 3.6rem;
+  border: 2px solid rgb(47, 74, 122);
+  border-radius: 1.8rem;
+  box-sizing: border-box;
+  overflow: hidden;
+  font-size: 1.6rem;
+  color: #def;
+  background-color: rgb(47, 74, 122);
+  transition: color 0.5s, background-color 0.5s, width 0.5s, content 0.5s;
+  /* l'image dans le bouton burger */
+}
+.burger_btn:hover {
+  cursor: pointer;
+  width: 14.5rem;
+  color: rgb(47, 74, 122);
+  background-color: white;
+}
+.burger_btn:hover_text {
+  color: rgb(47, 74, 122);
+}
+.burger_btn:focus {
+  visibility: hidden;
+}
+.burger_btn_text {
+  color: rgba(47, 74, 122, 0);
+  transition: color 3s;
+}
+.burger_btn .burger_icon {
+  height: 1.6rem;
+  width: 1.6rem;
+}
+@media screen and (min-width: 768px) {
+  .burger_btn {
+    right: 5rem;
+  }
+}
+@media screen and (min-width: 1100px) {
+  .burger_btn {
+    right: calc(6vw + 1.6rem);
+  }
+}
+
+/* CONTAINEUR PRINCIPAL du menu burger (caché par défaut) */
+.burger_menu {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 100;
+}
+.burger_menu .burger_items_ctn {
+  position: fixed;
+  right: -200px;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 200px;
+  padding: 5.5rem 2rem 0;
+  font-size: 1.4rem;
+  background-color: #b8bfda;
+  visibility: hidden;
+  transition: all 1s ease-out;
+  z-index: 101;
+  /* ------- LIEN DANS LE CONTAINEUR MENU -------- */
+}
+.burger_menu .burger_items_ctn .burger_cross_btn {
+  position: absolute;
+  top: 1.2rem;
+  left: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem;
+  border: none;
+  border-radius: 50%;
+  background-color: inherit;
+  transition: background-color 0.6s;
+}
+.burger_menu .burger_items_ctn .burger_cross_btn:hover {
+  cursor: pointer;
+  background-color: #cfd4e9;
+}
+.burger_menu .burger_items_ctn .burger_cross_btn .burger_cross {
+  height: 2rem;
+  width: 2rem;
+}
+.burger_menu .burger_items_ctn > .user_icon {
+  margin-bottom: 0.6rem;
+  font-size: 2.5rem;
+}
+.burger_menu .burger_items_ctn > p {
+  padding-left: 0.8rem;
+}
+.burger_menu .burger_items_ctn .small_txt {
+  margin: 0;
+  font-size: 1.4rem;
+  text-align: center;
+}
+.burger_menu .burger_items_ctn .user_txt {
+  margin-top: 0.3rem;
+  padding: 0.3rem 0 0.3rem 0.5rem;
+  font-weight: 500;
+  text-align: center;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  background-color: #def;
+}
+.burger_menu .burger_items_ctn hr {
+  margin: 0.8rem 0;
+  border: 1px solid grey;
+}
+.burger_menu .burger_items_ctn a {
+  display: block;
+  margin: 8px 0;
+  padding: 0.8rem;
+  border-radius: 0.6rem;
+  font-weight: 500;
+  color: black;
+}
+.burger_menu .burger_items_ctn a:hover {
+  cursor: pointer;
+  background-color: #cfd4e9;
+}
+.burger_menu .burger_items_ctn .main_links_ctn a {
+  align-self: center;
+  margin-top: 1rem;
+  padding: 0.6rem 1.2rem;
+  color: #def;
+  background-color: rgb(47, 74, 122);
+  text-align: center;
+}
+.burger_menu .burger_items_ctn .sign {
+  display: block;
+  margin-top: 1rem;
+  padding: 0.6rem 1.2rem;
+  color: #def;
+  background-color: #333;
+  text-align: center;
+}
+
+.show_burger_menu .burger_items_ctn {
+  right: 0;
+  visibility: visible;
+  transition: all 1s ease-out;
+}
+
+/* Afficher/cacher le containeur principal */
+.show {
+  visibility: visible;
+  opacity: 1;
+  transition: all 2s;
+}
+
+.hide {
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.5s;
+}/*# sourceMappingURL=Burger.module.css.map */

@@ -1,0 +1,160 @@
+@charset "UTF-8";
+.signin {
+  margin: 5rem auto;
+  /* le lien pour créer un compte */
+}
+.signin a {
+  margin-left: 0.8rem;
+  font-weight: 500;
+  color: rgb(231, 19, 105);
+}
+@media screen and (min-width: 768px) {
+  .signin {
+    margin-top: 10rem;
+    margin-bottom: 15rem;
+  }
+}
+
+.signup {
+  margin: 0 auto 3rem;
+  /* liens pour les docs : conditions gén., etc... */
+}
+.signup a {
+  color: white;
+  text-decoration: underline;
+  text-transform: none;
+}
+@media screen and (min-width: 768px) {
+  .signup {
+    margin-bottom: 5rem;
+  }
+}
+
+/* fond - image transparente : 
+.signin,
+.signup {
+    position: relative;
+    background-color: white;
+    &:before {
+        content: ' ';
+        display: block;
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0.5;
+        background-image: url("../../../assets/img/bg/pexels-picjumbocom-196663.jpg");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+}*/
+.sign_section > h1 {
+  margin: 2rem;
+  font-size: 2.6rem;
+  text-transform: uppercase;
+}
+.sign_section .sign_form {
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+  margin: 1.5rem auto;
+  padding: 2.4rem 2.4rem 1.5rem;
+  background-color: #3f9ae9;
+  /* agrandir les points de mdp */
+}
+.sign_section .sign_form > * {
+  margin-bottom: 1.5rem;
+  padding: 0.8rem 1.5rem;
+  border: none;
+}
+.sign_section .sign_form > label {
+  position: relative;
+  padding: 0;
+  /* l'oeil d'affichage du mdp */
+}
+.sign_section .sign_form > label .input_icon {
+  position: absolute;
+  left: 1.3rem;
+  top: 0.8rem;
+  font-size: 1.6rem;
+  color: rgb(47, 74, 122);
+}
+.sign_section .sign_form > label > textarea,
+.sign_section .sign_form > label > input {
+  width: 100%;
+  padding: 0.6rem 4rem;
+  font-weight: 500;
+}
+.sign_section .sign_form > label .pass_icon_ctn {
+  position: absolute;
+  right: 0.8rem;
+  top: 0;
+  height: 3.2rem;
+  width: 3.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background-color: transparent;
+}
+.sign_section .sign_form > label .pass_icon_ctn:hover {
+  cursor: pointer;
+}
+.sign_section .sign_form > label .pass_icon_ctn .pass_icon {
+  font-size: 1.6rem;
+  color: rgb(47, 74, 122);
+}
+.sign_section .sign_form > label .label_checkbox {
+  display: flex;
+  align-items: flex-start;
+}
+.sign_section .sign_form > label .label_checkbox > input {
+  display: block;
+  margin-top: 0.3rem;
+  margin-right: 0.8rem;
+  border: 2px solid white;
+}
+.sign_section .sign_form > label .label_checkbox > span {
+  max-width: 95%;
+  display: inline-block;
+  font-size: 1.4rem;
+  text-align: justify;
+  color: white;
+}
+.sign_section .sign_form input[type=password]:not(:-moz-placeholder-shown) {
+  font-family: Verdana, sans-serif;
+}
+.sign_section .sign_form input[type=password]:not(:placeholder-shown) {
+  font-family: Verdana, sans-serif;
+}
+.sign_section .sign_form > button {
+  display: block;
+  margin: 0 auto;
+  padding: 1rem 1.2rem 0.8rem;
+  border: none;
+  border-radius: 0.6rem;
+  font-weight: 500;
+  color: white;
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+  background-color: rgb(47, 74, 122);
+}
+.sign_section .sign_form > button:hover {
+  cursor: pointer;
+}
+.sign_section .ok_msg,
+.sign_section .err_msg {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  color: rgb(231, 19, 105);
+  white-space: break-spaces;
+}
+.sign_section .ok_msg {
+  font-size: 2rem;
+  font-weight: 500;
+  color: rgb(0, 143, 49);
+}/*# sourceMappingURL=user.module.css.map */

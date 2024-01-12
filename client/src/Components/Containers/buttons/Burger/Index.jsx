@@ -9,7 +9,6 @@ import { faXmark } from '@fortawesome/free-solid-svg-icons';
 import { getTokenData } from '../../../Functions/getTokenData';
 
 function Burger() {
-    const SK = process.env.REACT_APP_SK;
     const TOKEN = localStorage.getItem("auth");
 
     const navigate = useNavigate();
@@ -73,11 +72,14 @@ function Burger() {
                         <NavLink to={`/db/admin/my-bookings/${userInfo.userID}`}>Mes réservations</NavLink>
                         <hr/>
                         <NavLink to={"/db/admin/bookings"}>Réservations</NavLink>
-                        <NavLink to={"/db/admin/destinations"}>Destinations</NavLink>
-                        <NavLink to={"/db/admin/lodgings"}>Hébergements</NavLink>
-                        <NavLink to={"/db/admin/packs"}>Packs</NavLink>
-                        <NavLink to={"/db/admin/activities"}>Activités</NavLink>
                         <NavLink to={"/db/admin/users"}>Clients</NavLink>
+                        {userInfo.accountType === "superadmin" &&
+                        <>
+                            <NavLink to={"/db/admin/destinations"}>Destinations</NavLink>
+                            <NavLink to={"/db/admin/lodgings"}>Hébergements</NavLink>
+                            <NavLink to={"/db/admin/packs"}>Packs</NavLink>
+                            <NavLink to={"/db/admin/activities"}>Activités</NavLink>
+                        </>}
                     </div>}
                 </>}   
 

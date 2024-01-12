@@ -1,0 +1,43 @@
+.results_table {
+  margin: 0 1.5rem;
+  color: #333;
+  font-family: "Lato", sans-serif;
+}
+.results_table th {
+  padding: 0.3rem 0.8rem;
+  background-color: #def;
+}
+.results_table tbody td {
+  padding: 0.3rem 0.8rem;
+  text-align: center;
+}
+.results_table tbody td:first-child {
+  color: grey;
+}
+.results_table a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 0.3rem 0.8rem;
+  border: none;
+  border-radius: 0.4rem;
+  text-transform: uppercase;
+  background-color: transparent;
+}
+.results_table a .modify_icon {
+  margin-top: 0.1rem;
+  color: rgb(50, 124, 72);
+}
+.results_table a .delete_icon {
+  color: rgb(231, 19, 105);
+}
+@media screen and (min-width: 1100px) {
+  .results_table {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+}
+.results_table .justify {
+  text-align: justify;
+}/*# sourceMappingURL=results.module.css.map */

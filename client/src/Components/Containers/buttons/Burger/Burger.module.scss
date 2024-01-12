@@ -3,15 +3,15 @@
 /* -------------- LE BOUTON BURGER ----------------- */
 .burger_btn {
     position: absolute;
-    top: .8em;
-    right: 2em;
+    top: 1.3rem;
+    right: 3rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 2.2em;
-    width: 2.2em;
+    height: 3.6rem;
+    width: 3.6rem;
     border: 2px solid $tertiary-color;
-    border-radius: 1.1em;
+    border-radius: 1.8rem;
     box-sizing: border-box;
     overflow: hidden;
     font-size: 1.6rem;
@@ -20,7 +20,7 @@
     transition: color .5s, background-color .5s, width .5s, content .5s;
     &:hover {
         cursor: pointer;   
-        width: 9em;
+        width: 14.5rem;
         color: $tertiary-color;
         background-color: white; 
         &_text {
@@ -41,10 +41,10 @@
     }
 
     @media screen and (min-width: $br-tablet) {
-        right: 3em;
+        right: 5rem;
     }
     @media screen and (min-width: $br-desktop) {
-        right: calc(6vw + 1em);
+        right: calc(6vw + 1.6rem);
     }
 }
 
@@ -62,7 +62,7 @@
         flex-direction: column;
         height: 100%;
         width: 200px;
-        padding: 3.5em 1.2em 0;
+        padding: 5.5rem 2rem 0;
         font-size: 1.4rem;
         background-color: #b8bfda;
         visibility: hidden;
@@ -71,12 +71,12 @@
     
         .burger_cross_btn {
             position: absolute;
-            top: .7em;
-            left: .7em;
+            top: 1.2rem;
+            left: 1.2rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: .5em;
+            padding: .8rem;
             border: none;
             border-radius: 50%;
             background-color: inherit;
@@ -91,11 +91,11 @@
             }
         }
         > .user_icon {
-            margin-bottom: .4em;
+            margin-bottom: .6rem;
             font-size: 2.5rem;
         }
         > p {
-            padding-left: .5em;
+            padding-left: .8rem;
         }
         .small_txt {
             margin: 0;
@@ -103,8 +103,8 @@
             text-align: center;
         }
         .user_txt {
-            margin-top: .2em;
-            padding: .2em 0 .2em .3em;
+            margin-top: .3rem;
+            padding: .3rem 0 .3rem .5rem;
             font-weight: 500;
             text-align: center;
             overflow: hidden; 
@@ -113,15 +113,15 @@
             background-color: $primary-color;
         }
         hr {
-            margin: .5em 0;
+            margin: .8rem 0;
             border: 1px solid $grey-color;
         }
         /* ------- LIEN DANS LE CONTAINEUR MENU -------- */
         a {
             display: block;
             margin: 8px 0;
-            padding: .5em;
-            border-radius: .4em;
+            padding: .8rem;
+            border-radius: .6rem;
             font-weight: 500;
             color: black;
             &:hover {
@@ -132,8 +132,8 @@
         .main_links_ctn {
             a {
                 align-self: center;
-                margin-top: 10px;
-                padding: .4em .8em;
+                margin-top: 1rem;
+                padding: .6rem 1.2rem;
                 color: $primary-color;
                 background-color: $tertiary-color;
                 text-align: center;
@@ -141,8 +141,8 @@
         }
         .sign {
             display: block;
-            margin-top: 10px;
-            padding: .4em .8em;
+            margin-top: 1rem;
+            padding: .6rem 1.2rem;
             color: $primary-color;
             background-color: $darkgrey-color;
             text-align: center;

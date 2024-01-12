@@ -5,7 +5,7 @@
     flex-direction: column;
     align-items: center;
     margin-top: auto;
-    padding: 1em;
+    padding: 1.5rem;
     font-size: 1.4rem;
     text-align: center;
     background-color: $primary-color;
@@ -14,31 +14,31 @@
         > div {
             display: flex;
             flex-direction: column;
-            margin: .5em auto 1em;
+            margin: .8rem auto 1.5rem;
     
             h2 {
-                margin: 10px 0;
+                margin: 1rem 0;
                 font-size: 1.6rem;
                 text-transform: uppercase;
             }
     
             a {
-                margin-bottom: .5em;
+                margin-bottom: .8em;
                 font-size: 1.4rem;
                 color: $tertiary-color;
                 text-transform: none;
             }
     
             &:nth-child(3) {
-                padding-left: 3em;
-                padding-right: 3em;
+                padding-left: 5rem;
+                padding-right: 5rem;
             }
     
             .footer_social {
                 display: flex;
-                margin: 0 auto 1em;
+                margin: 0 auto 1.5rem;
                 svg {
-                    margin: auto .5em;
+                    margin: auto .8rem;
                     color: $tertiary-color;
                     font-size: 2.5rem;
                 }
@@ -50,14 +50,14 @@
                 justify-content: center;
                 input {
                     width: 80%;
-                    padding: .3em;
+                    padding: .5rem;
                     border: none;
                     font-size: 1.4rem;
                     font-weight: 500;
                 }
                 button {
-                    margin-left: 4px;
-                    padding: .4em .5em .3em;
+                    margin-left: .5rem;
+                    padding: .6rem .8em .5rem;
                 }
             }
     
@@ -65,7 +65,7 @@
             .err_msg {
                 width: 100%;
                 margin: 0 auto;
-                padding: 0 1em;
+                padding: 0 1.5rem;
                 color: rgb(0, 143, 49);
             }
             .err_msg{

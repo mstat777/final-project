@@ -1,0 +1,148 @@
+.user_db_main {
+  margin-top: 1.5rem;
+  padding-bottom: 5rem;
+  text-align: center;
+}
+.user_db_main h1 {
+  margin: 1.5rem;
+  font-size: 2.2rem;
+  text-transform: uppercase;
+}
+.user_db_main .user_account_form {
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+  margin: 1.5rem auto;
+  padding: 2.4rem 2rem;
+  font-size: 1.4rem;
+  background-color: #def;
+}
+.user_db_main .user_account_form label {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin-bottom: 1.5rem;
+  border: none;
+  /*** les saisies ***/
+  /*** les boutons Modif ***/
+  /* l'oeil d'affichage du mdp */
+}
+.user_db_main .user_account_form label > span {
+  display: inline-block;
+  width: 42%;
+  margin: 0.5rem 0.8rem 0 0;
+  text-align: right;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.user_db_main .user_account_form label > *:nth-child(2) {
+  display: inline-block;
+  width: 48%;
+  padding: 0.3rem 0.8rem;
+  font-size: 1.6rem;
+  font-weight: 500;
+}
+.user_db_main .user_account_form label input,
+.user_db_main .user_account_form label textarea {
+  display: block;
+  width: 60%;
+  margin-left: 0.8rem;
+  margin-right: 0;
+  padding: 0.2rem 0.6rem;
+}
+.user_db_main .user_account_form label textarea {
+  height: 10rem;
+}
+.user_db_main .user_account_form label textarea:disabled,
+.user_db_main .user_account_form label input[type=email]:disabled,
+.user_db_main .user_account_form label input[type=tel]:disabled,
+.user_db_main .user_account_form label input[type=date]:disabled,
+.user_db_main .user_account_form label input[type=text]:disabled {
+  color: grey;
+  background-color: #f5f5f5;
+}
+.user_db_main .user_account_form label > button {
+  display: inline-block;
+  align-items: center;
+  justify-content: center;
+  height: 2rem;
+  width: 2rem;
+  margin: 0.4rem 0 0 0.8rem;
+  border: none;
+  border-radius: 0.2rem;
+  background-color: rgb(47, 74, 122);
+  transition: opacity 0.3s;
+}
+.user_db_main .user_account_form label > button:hover {
+  cursor: pointer;
+  opacity: 0.7;
+}
+.user_db_main .user_account_form label > button .modify_icon {
+  font-size: 1.2rem;
+  color: white;
+}
+.user_db_main .user_account_form label .passwordBtn {
+  margin-top: 0;
+  text-align: left;
+  text-decoration: underline;
+  background-color: transparent;
+}
+.user_db_main .user_account_form label .pass_icon_ctn {
+  position: absolute;
+  right: 4rem;
+  top: 0;
+  height: 2rem;
+  width: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: transparent;
+}
+.user_db_main .user_account_form label .pass_icon_ctn:hover {
+  cursor: pointer;
+}
+.user_db_main .user_account_form label .pass_icon_ctn .pass_icon {
+  font-size: 1.4rem;
+  color: rgb(47, 74, 122);
+}
+.user_db_main .user_account_form label:nth-child(8) > button {
+  margin-top: 0.2rem;
+}
+.user_db_main .user_account_form > button {
+  margin: 1.5rem auto 0;
+  padding: 0.8rem 1rem 0.6rem;
+}
+.user_db_main .ok_msg {
+  color: rgb(0, 143, 49);
+  text-align: center;
+}
+.user_db_main .err_msg {
+  max-width: 600px;
+  margin: 1rem auto;
+  padding: 0 1.5rem;
+  color: rgb(231, 19, 105);
+  text-align: left;
+  white-space: break-spaces;
+}
+@media screen and (min-width: 768px) {
+  .user_db_main {
+    display: inline-block;
+    margin-top: 132px;
+    padding: 1.5rem auto;
+  }
+  .user_db_main .user_account_form {
+    max-width: 600px;
+  }
+  .user_db_main .user_account_form > label {
+    /* l'oeil d'affichage du mdp */
+  }
+  .user_db_main .user_account_form > label .pass_icon_ctn {
+    right: 4.5rem;
+  }
+}
+@media screen and (min-width: 1100px) {
+  .user_db_main {
+    margin-top: 112px;
+  }
+}/*# sourceMappingURL=MyInfos.module.css.map */

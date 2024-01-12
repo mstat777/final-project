@@ -1,22 +1,22 @@
 @import '../../../variables.scss';
 
 .signin {
-    margin: 3em auto;
+    margin: 5rem auto;
     /* le lien pour créer un compte */
     a {
-        margin-left: .5em;
+        margin-left: .8rem;
         font-weight: 500;
         color: $highlight-color;
     }
 
     @media screen and (min-width: $br-tablet) {
-        margin-top: 7em;
-        margin-bottom: 10em;
+        margin-top: 10rem;
+        margin-bottom: 15rem;
     }
 }
 
 .signup {
-    margin: 0 auto 2em;
+    margin: 0 auto 3rem;
     /* liens pour les docs : conditions gén., etc... */
     a {
         color: white;
@@ -25,7 +25,7 @@
     }
 
     @media screen and (min-width: $br-tablet) {
-        margin-bottom: 3em;
+        margin-bottom: 5rem;
     }
 }
 
@@ -60,13 +60,13 @@
         display: flex;
         flex-direction: column;
         max-width: 500px;
-        margin: 1em auto; 
-        padding: 1.5em 1.5em 1em;
+        margin: 1.5rem auto; 
+        padding: 2.4rem 2.4rem 1.5rem;
         background-color: $secondary-color;
     
         > * {
-            margin-bottom: 1em;
-            padding: .5em 1em;
+            margin-bottom: 1.5rem;
+            padding: .8rem 1.5rem;
             border: none;
         }
     
@@ -76,24 +76,24 @@
         
             .input_icon {
                 position: absolute;
-                left: .8em;
-                top: .5em;
+                left: 1.3rem;
+                top: .8rem;
                 font-size: 1.6rem;
                 color: $tertiary-color;
             }
             > textarea,
             > input {
                 width: 100%;
-                padding: .4em 2.4em;
+                padding: .6rem 4rem;
                 font-weight: 500;
             }
             /* l'oeil d'affichage du mdp */
             .pass_icon_ctn {
                 position: absolute;
-                right: .5em;
-                top: .2em;
-                height: 2.1em;
-                width: 2.1em;
+                right: .8rem;
+                top: 0;
+                height: 3.2rem;
+                width: 3.2rem;
                 display: flex;
                 align-items: center;
                 justify-content: center;
@@ -112,8 +112,8 @@
                 align-items: flex-start;
                 > input {
                     display: block;
-                    margin-top: .2em;
-                    margin-right: .5em;
+                    margin-top: .3rem;
+                    margin-right: .8rem;
                     border: 2px solid white;
                 }
                 > span {
@@ -134,12 +134,12 @@
         > button {
             display: block;
             margin: 0 auto;
-            padding: .6em .7em .5em;
+            padding: 1rem 1.2rem .8rem;
             border: none;
-            border-radius: .4em;
+            border-radius: .6rem;
             font-weight: 500;
             color: white;
-            letter-spacing: .1em;
+            letter-spacing: .1rem;
             text-transform: uppercase;
             background-color: $tertiary-color;
             &:hover {
@@ -153,7 +153,7 @@
         width: 100%;
         max-width: 600px;
         margin: 0 auto;
-        padding: 0 1em;
+        padding: 0 1.5rem;
         color: $highlight-color;
         white-space: break-spaces;
     }

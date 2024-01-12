@@ -1,0 +1,174 @@
+.user_db_main {
+  margin-top: 1.5rem;
+  padding-bottom: 5rem;
+  text-align: center;
+}
+.user_db_main h1 {
+  margin: 1.5rem;
+  font-size: 2.2rem;
+  text-transform: uppercase;
+}
+.user_db_main .user_db_section {
+  margin: 1.5rem;
+}
+.user_db_main .user_db_section .bookings_main_ctn {
+  width: 95%;
+  margin: 0 auto;
+}
+.user_db_main .user_db_section .bookings_main_ctn .booking_ctn {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: 1fr 1fr 1fr;
+  gap: 0.5rem;
+  margin-top: 0.8rem;
+  padding: 0.5rem;
+  border: 1px solid grey;
+  border-radius: 0.8rem;
+  font-size: 1.4rem;
+  background-color: #f9f9f9;
+  /* row-start/col-start/row-end/col-end */
+}
+@media screen and (min-width: 768px) {
+  .user_db_main .user_db_section .bookings_main_ctn .booking_ctn {
+    max-width: 900px;
+    grid-template-columns: repeat(10, 1fr);
+    grid-template-rows: 1fr 1fr;
+    margin: 0.8rem auto 0;
+    padding: 0.8rem 3rem;
+    font-size: 1.6rem;
+  }
+}
+.user_db_main .user_db_section .bookings_main_ctn .booking_ctn > div {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+.user_db_main .user_db_section .bookings_main_ctn .booking_ctn > div > span {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.user_db_main .user_db_section .bookings_main_ctn .booking_ctn > div > span:first-child {
+  text-align: left;
+}
+.user_db_main .user_db_section .bookings_main_ctn .booking_ctn > div > span:nth-child(2) {
+  margin-left: 0.6rem;
+  font-weight: 500;
+}
+.user_db_main .user_db_section .bookings_main_ctn .booking_ctn .el_index {
+  grid-area: 1/1/2/2;
+}
+@media screen and (min-width: 768px) {
+  .user_db_main .user_db_section .bookings_main_ctn .booking_ctn .el_index {
+    grid-area: 1/1/2/2;
+  }
+}
+.user_db_main .user_db_section .bookings_main_ctn .booking_ctn .el_d_created {
+  grid-area: 1/2/2/5;
+}
+@media screen and (min-width: 768px) {
+  .user_db_main .user_db_section .bookings_main_ctn .booking_ctn .el_d_created {
+    grid-area: 1/2/2/4;
+  }
+}
+.user_db_main .user_db_section .bookings_main_ctn .booking_ctn .el_btn_ctn {
+  grid-area: 1/5/2/7;
+}
+@media screen and (min-width: 768px) {
+  .user_db_main .user_db_section .bookings_main_ctn .booking_ctn .el_btn_ctn {
+    grid-area: 2/10/3/11;
+  }
+}
+.user_db_main .user_db_section .bookings_main_ctn .booking_ctn .el_btn_ctn button {
+  height: 2rem;
+  width: 2rem;
+  border-radius: 1rem;
+  background-color: white;
+}
+.user_db_main .user_db_section .bookings_main_ctn .booking_ctn .el_btn_ctn button .modify_icon {
+  margin-top: 0.1rem;
+  color: rgb(50, 124, 72);
+}
+.user_db_main .user_db_section .bookings_main_ctn .booking_ctn .el_btn_ctn button .delete_icon {
+  color: rgb(231, 19, 105);
+}
+.user_db_main .user_db_section .bookings_main_ctn .booking_ctn .el_destination {
+  grid-area: 2/1/3/4;
+}
+@media screen and (min-width: 768px) {
+  .user_db_main .user_db_section .bookings_main_ctn .booking_ctn .el_destination {
+    grid-area: 1/4/2/7;
+  }
+}
+.user_db_main .user_db_section .bookings_main_ctn .booking_ctn .el_country {
+  grid-area: 2/4/3/7;
+}
+@media screen and (min-width: 768px) {
+  .user_db_main .user_db_section .bookings_main_ctn .booking_ctn .el_country {
+    grid-area: 1/7/2/11;
+  }
+}
+.user_db_main .user_db_section .bookings_main_ctn .booking_ctn .el_adults {
+  grid-area: 3/1/4/3;
+}
+@media screen and (min-width: 768px) {
+  .user_db_main .user_db_section .bookings_main_ctn .booking_ctn .el_adults {
+    grid-area: 2/1/3/4;
+  }
+}
+.user_db_main .user_db_section .bookings_main_ctn .booking_ctn .el_children {
+  grid-area: 3/3/4/5;
+}
+@media screen and (min-width: 768px) {
+  .user_db_main .user_db_section .bookings_main_ctn .booking_ctn .el_children {
+    grid-area: 2/4/3/7;
+  }
+}
+.user_db_main .user_db_section .bookings_main_ctn .booking_ctn .el_total_pr {
+  grid-area: 3/5/4/7;
+}
+@media screen and (min-width: 768px) {
+  .user_db_main .user_db_section .bookings_main_ctn .booking_ctn .el_total_pr {
+    grid-area: 2/7/3/10;
+  }
+}
+.user_db_main .user_db_section .bookings_main_ctn button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  border: none;
+  border-radius: 0.4rem;
+  text-transform: uppercase;
+  background-color: transparent;
+}
+.user_db_main .user_db_section .bookings_main_ctn button:hover {
+  cursor: pointer;
+}
+.user_db_main .user_db_section .ok_msg {
+  color: rgb(0, 143, 49);
+  text-align: center;
+}
+.user_db_main .user_db_section .err_msg {
+  color: rgb(231, 19, 105);
+  text-align: center;
+}
+@media screen and (min-width: 768px) {
+  .user_db_main {
+    display: inline-block;
+    margin-top: 132px;
+    padding: 1.5rem auto;
+  }
+  .user_db_main .user_db_section {
+    margin: 3rem;
+  }
+}
+@media screen and (min-width: 1100px) {
+  .user_db_main {
+    margin-top: 112px;
+  }
+  .user_db_main .user_db_section {
+    max-width: 1000px;
+    margin: 3rem auto;
+  }
+}/*# sourceMappingURL=MyBookings.module.css.map */

@@ -11,12 +11,12 @@
     > button {
         display: block;
         margin: 0 auto;
-        padding: .6em .7em .5em;
+        padding: 1rem 1.2rem .8rem;
         border: 1px solid $highlight-color;
         border-radius: 6px;
         font-weight: 500;
         color: $highlight-color;
-        letter-spacing: .1em;
+        letter-spacing: .1rem;
         text-transform: uppercase;        
         background-color: white;
         &:hover {
@@ -40,7 +40,7 @@
             display: inline-block;
         }
         p {
-            margin-right: .5em;
+            margin-right: .8rem;
         }
         button {
             border: 1px solid;

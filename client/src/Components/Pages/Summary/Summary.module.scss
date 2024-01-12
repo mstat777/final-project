@@ -3,16 +3,16 @@
 .summary_section {
     display: flex;
     flex-direction: column;
-    margin: 1em;
+    margin: 1.5rem;
     border: 1px solid $lightgrey-color;
     
     h1 {
-        margin: 1em;
+        margin: 1.5rem;
         font-size: 2.2rem;
     }
 
     .summary_ctn {
-        margin: 0 1em;
+        margin: 0 1.5rem;
         text-align: left;
         h2 {
             display: none;
@@ -26,17 +26,21 @@
         }
         .summary_activities {
             > li {
-                margin-left: 2em;
+                margin-left: 3rem;
                 list-style-type: circle;
             }
         }
         .nota_bene {
-            margin: 2em 0;
+            margin: 3rem 0;
             font-size: 1.4rem;
         }
         label {
+            > p {
+                display: inline-block;
+            }
             select {
-                padding: .1em .4em;
+                margin-left: 1.5rem;
+                padding: .2rem .6rem;
                 font-weight: 500;
                 color: white;
                 background-color: $tertiary-color;
@@ -45,22 +49,14 @@
     }
     /* le bouton "confirmer la réservation" */
     > button {
-        margin: 2.5em auto;
-        padding: .7em .9em .6em;
+        margin: 4rem auto;
+        padding: 1rem 1.5rem;
         font-size: 1.6rem; 
     }
 
     @media screen and (min-width: $br-tablet) {
-        margin: 2em 4em;
-        padding: 0 1em;
-        label {
-            > p {
-                display: inline-block;
-            }
-            select {
-                margin-left: 1em;
-            }
-        }
+        margin: 3rem 6rem;
+        padding: 0 1.5rem;
     }
 
     @media screen and (min-width: $br-desktop) {

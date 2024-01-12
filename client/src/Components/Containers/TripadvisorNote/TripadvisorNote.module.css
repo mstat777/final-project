@@ -1,0 +1,18 @@
+.note_ctn {
+  display: flex;
+  align-items: center;
+}
+.note_ctn .note_circle {
+  height: 1rem;
+  width: 1rem;
+  margin: 0.3rem;
+  border: 1px solid rgb(25, 171, 106);
+  outline: 2px solid rgb(25, 171, 106);
+  border-radius: 50%;
+  overflow: hidden;
+}
+.note_ctn .note_circle_fill {
+  height: 1rem;
+  width: 1rem;
+  background-color: rgb(25, 171, 106);
+}/*# sourceMappingURL=TripadvisorNote.module.css.map */

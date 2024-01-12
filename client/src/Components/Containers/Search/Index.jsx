@@ -8,7 +8,6 @@ import { setDestination,
             setLodgingImages,
             setDestinationImages 
             } from "../../../store/slices/travel";
-
 import { formatCoordinates } from '../../Functions/utils';
 import Results from '../Results/Index';
 import Suggestions from './Suggestions/Index';
@@ -48,6 +47,7 @@ function Search() {
 
     // la destination à fetcher (soit venant de l'URL, soit de la barre de recherche) : 'urlDestination' ou 'destinationInput'. Une fois définie, on démarre la recherche :
     const [searchDestination, setSearchDestination] = useState("");
+
     const [searchDate, setSearchDate] = useState("");
     const [searchPrice, setSearchPrice] = useState("");
 
@@ -62,27 +62,19 @@ function Search() {
 
     // supprimer l'ancienne destination lors du rafraichissement, le message d'erreur, cacher les résultats, récupérer le nom de destination de la requête URL (si existe) pour le chercher :
     useEffect(() => {
-        /*dispatch(setDestination({}));
-        dispatch(setLodging({}));
-        dispatch(setPacks([]));
-        dispatch(setDestinationImages([]));
-        dispatch(setLodgingImages([]));*/
         setIsFound(false);
         setMsg("");
         setShowResults(false);
-
-        if(!searchDestination){
-            if (urlDestination){
-                setSearchDestination(urlDestination);
-            }
+        if (urlDestination){
+            setSearchDestination(urlDestination);
         }
     }, []);
 
     // on vérifie si la destination demandée existe dans la BDD, chaque fois 'searchDestination' est modifié :
     useEffect(() => {
         function checkDestination(){
-            allDestinations.map((dest) => {
-                // si le nom de destination existe dans la BDD :
+            // si le nom de destination existe dans la BDD :
+            allDestinations.forEach((dest) => {
                 if (dest.toLowerCase() === searchDestination) {
                     setIsFound(true);
                 }
@@ -92,9 +84,7 @@ function Search() {
                 setShowResults(false);
             }
         }
-       
         if (searchDestination){
-            //console.log("searchDestination (init) = "+searchDestination);  
             checkDestination();
         }
     },[searchDestination, searchDate, searchPrice]);
@@ -121,20 +111,15 @@ function Search() {
                     dispatch(setLodging(json.datasLodg[0]));
                     dispatch(setDestinationImages(json.datasDestImg));
                     dispatch(setLodgingImages(json.datasLodgImg));
-                }  
-                // si aucun pack trouvé :
-                else {
-                    console.log("La dest. existe, mais aucun pack n'a été trouvé pour ces critères !!!");
+                } else {
                     setMsg("Aucun pack n'a été trouvé pour ces critères.\nVeuillez modifier la date ou le prix maximal.");
                     setShowResults(false);
                 }
                 navigate(`/search?destination=${searchDestination}`);
-
             } else {
-                console.log("res.status n'est pas OK!!!");
+                console.log(res.status);
             }
         }
-
         if (isFound) {
             setMsg('');
             searchPacks();
@@ -146,7 +131,7 @@ function Search() {
         if (lodging.coordinates) {
             formatCoordinates(lodging.coordinates);
         }  
-    },[destination]);
+    },[destination, lodging.coordinates]);
 
     // si on a les données de la destination et des packs enregistrées dans Store, on peut afficher les résultats :
     useEffect(() => {
@@ -177,14 +162,19 @@ function Search() {
     return <>
             <form onSubmit={handleSubmit} className={styles.search_form}>
                 <div className={styles.inputs_ctn}>
-                    <input type="text" 
-                            name="destination" 
-                            value={destinationInput}
-                            onChange={handleChange}
-                            onFocus={() => setMsg("")}
-                            maxLength={maxNameLength}
-                            placeholder="Destination"
-                            required/>
+                    <div>
+                        <input type="text" 
+                                name="destination" 
+                                value={destinationInput}
+                                onChange={handleChange}
+                                onFocus={() => setMsg("")}
+                                maxLength={maxNameLength}
+                                placeholder="Destination"
+                                required/>
+                        <Suggestions 
+                            destinationInput={destinationInput} 
+                            setDestinationInput={setDestinationInput}/>     
+                    </div>
                     <input type={inputDateType}  
                             name="departureDate" 
                             value={departureDate}
@@ -207,9 +197,6 @@ function Search() {
                 <div className={styles.button_ctn}>
                     <MainBtn type="submit" text="rechercher"/>
                 </div>
-                <Suggestions 
-                    destinationInput={destinationInput} 
-                    setDestinationInput={setDestinationInput}/>
             </form>
 
             {msg && <p className={styles.msg}>{msg}</p>}

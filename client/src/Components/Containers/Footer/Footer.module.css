@@ -1,0 +1,79 @@
+.footer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: auto;
+  padding: 1.5rem;
+  font-size: 1.4rem;
+  text-align: center;
+  background-color: #def;
+}
+.footer_links > div {
+  display: flex;
+  flex-direction: column;
+  margin: 0.8rem auto 1.5rem;
+}
+.footer_links > div h2 {
+  margin: 1rem 0;
+  font-size: 1.6rem;
+  text-transform: uppercase;
+}
+.footer_links > div a {
+  margin-bottom: 0.8em;
+  font-size: 1.4rem;
+  color: rgb(47, 74, 122);
+  text-transform: none;
+}
+.footer_links > div:nth-child(3) {
+  padding-left: 5rem;
+  padding-right: 5rem;
+}
+.footer_links > div .footer_social {
+  display: flex;
+  margin: 0 auto 1.5rem;
+}
+.footer_links > div .footer_social svg {
+  margin: auto 0.8rem;
+  color: rgb(47, 74, 122);
+  font-size: 2.5rem;
+}
+.footer_links > div .newsletter_form {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.footer_links > div .newsletter_form input {
+  width: 80%;
+  padding: 0.5rem;
+  border: none;
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+.footer_links > div .newsletter_form button {
+  margin-left: 0.5rem;
+  padding: 0.6rem 0.8em 0.5rem;
+}
+.footer_links > div .ok_msg,
+.footer_links > div .err_msg {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  color: rgb(0, 143, 49);
+}
+.footer_links > div .err_msg {
+  color: rgb(231, 19, 105);
+}
+@media screen and (min-width: 1100px) {
+  .footer_links {
+    max-width: 1100px;
+    display: flex;
+  }
+  .footer_links > div {
+    width: 33.33%;
+  }
+}
+.footer_legal p {
+  display: block;
+  margin-bottom: 0;
+  color: black;
+}/*# sourceMappingURL=Footer.module.css.map */

@@ -68,7 +68,7 @@ function UserDashboardMyInfos(){
         if (isMobile) { window.scrollTo(0, 160); }
         if (isTabletOrDesktop) { window.scrollTo(0, 0); }
         if (errMsg || okMsg) { window.scrollTo(0, document.body.scrollHeight); }
-    }, [errMsg, okMsg])
+    }, [isMobile, isTabletOrDesktop, errMsg, okMsg])
 
     // afficher/cacher les mdp :
     function handlePassIconToggle(e) {
@@ -162,27 +162,26 @@ function UserDashboardMyInfos(){
     }
 
     useEffect(() => {
+        async function submitForm() {
+            if (isFormValidated) {
+                const res = await fetch(`${BASE_URL}/api/v.0.1/user/modify-user-info`, {
+                    method: "post",
+                    headers: { "Content-Type": "application/json",
+                                Authentication: "Bearer " + TOKEN },
+                    body: JSON.stringify(inputs)
+                });
+                const json = await res.json();  
+                if (res.status === 201) {
+                    setOkMsg("Les modifications ont été enregistrée.")
+                } else {
+                    setErrMsg(json.msg)
+                }
+            }
+        }
         if (isFormValidated === true) {
             submitForm();
         }
     },[isFormValidated]);
-
-    async function submitForm() {
-        if (isFormValidated) {
-            const res = await fetch(`${BASE_URL}/api/v.0.1/user/modify-user-info`, {
-                method: "post",
-                headers: { "Content-Type": "application/json",
-                            Authentication: "Bearer " + TOKEN },
-                body: JSON.stringify(inputs)
-            });
-            const json = await res.json();  
-            if (res.status === 201) {
-                setOkMsg("Les modifications ont été enregistrée.")
-            } else {
-                setErrMsg(json.msg)
-            }
-        }
-    }
 
     const activateInput = (inputName) => {
         setDisableInputs({ ...disableInputs, [inputName]: false });

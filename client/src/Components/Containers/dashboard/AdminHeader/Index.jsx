@@ -28,11 +28,14 @@ function AdminDashboardHeader(){
     
                 <ul className={styles.admin_db_links_ctn}>
                     <li><NavLink to={"/db/admin/bookings"} className={styles.link}>Réservations</NavLink></li>
-                    <li><NavLink to={"/db/admin/destinations"} className={styles.link}>Destinations</NavLink></li>
-                    <li><NavLink to={"/db/admin/lodgings"} className={styles.link}>Hébergements</NavLink></li>
-                    <li><NavLink to={"/db/admin/packs"} className={styles.link}>Packs</NavLink></li>
-                    <li><NavLink to={"/db/admin/activities"} className={styles.link}>Activités</NavLink></li>
                     <li><NavLink to={"/db/admin/users"} className={styles.link}>Clients</NavLink></li>
+                    {userInfo.accountType === "superadmin" &&
+                    <>
+                        <li><NavLink to={"/db/admin/destinations"} className={styles.link}>Destinations</NavLink></li>
+                        <li><NavLink to={"/db/admin/lodgings"} className={styles.link}>Hébergements</NavLink></li>
+                        <li><NavLink to={"/db/admin/packs"} className={styles.link}>Packs</NavLink></li>
+                        <li><NavLink to={"/db/admin/activities"} className={styles.link}>Activités</NavLink></li>
+                    </>}
                 </ul>
             </nav>
         </header>

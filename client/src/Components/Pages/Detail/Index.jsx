@@ -53,7 +53,7 @@ function Detail(){
 
     return <main id="detail">
 
-            { (destination && lodging && activities) &&
+            { (destination && lodging && activities && packs) &&
             <section className={styles.detail_section}>
                 <h1>Informations détaillées de la destination choisie</h1>
 

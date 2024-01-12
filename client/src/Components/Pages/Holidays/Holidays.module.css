@@ -1,0 +1,116 @@
+.holidays_section {
+  width: 90%;
+  margin: 0.8rem auto 5rem;
+}
+.holidays_section h1 {
+  font-size: 2.5rem;
+  margin: 1.5rem;
+}
+.holidays_section .continent_ctn {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+}
+.holidays_section .continent_ctn h2 {
+  width: 90%;
+  margin: 1.5rem auto;
+  padding: 0.2rem 0;
+  border: 1px solid #3f9ae9;
+  font-size: 2.2rem;
+}
+.holidays_section .continent_ctn li {
+  display: inline-block;
+  width: 80%;
+  height: 100%;
+  margin: 0 auto 1.5rem;
+  box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  overflow: hidden;
+}
+.holidays_section .continent_ctn li:hover {
+  cursor: pointer;
+  outline: 4px solid #3f9ae9;
+  opacity: 0.8;
+}
+.holidays_section .continent_ctn li .destination_ctn {
+  display: flex;
+  align-items: top;
+  font-weight: 500;
+  transition: all 0.3s;
+}
+.holidays_section .continent_ctn li .destination_ctn img {
+  width: 30%;
+  aspect-ratio: 1/1;
+  max-height: unset;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: top;
+     object-position: top;
+}
+.holidays_section .continent_ctn li .destination_ctn .info_ctn {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 70%;
+  padding-left: 1rem;
+  box-sizing: border-box;
+  text-align: left;
+  overflow: hidden;
+}
+.holidays_section .continent_ctn li .destination_ctn .info_ctn > p:first-child {
+  margin-top: 0.5rem;
+  color: rgb(47, 74, 122);
+}
+.holidays_section .continent_ctn li .destination_ctn .info_ctn h3 {
+  margin: 0 0 1rem;
+  font-weight: 600;
+  font-size: 1.6rem;
+  color: rgb(231, 19, 105);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+@media screen and (min-width: 768px) {
+  .holidays_section {
+    margin: 1.5rem auto 5rem;
+  }
+  .holidays_section .continent_ctn {
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    width: 610px;
+    margin: 0 auto;
+  }
+  .holidays_section .continent_ctn h2 {
+    display: block;
+    width: 610px;
+    margin: 1.5rem auto;
+  }
+  .holidays_section .continent_ctn li {
+    position: relative;
+    width: 170px;
+    height: 170px;
+    margin: 0 1.5rem 1.5rem;
+  }
+  .holidays_section .continent_ctn li .destination_ctn img {
+    width: 100%;
+    -o-object-fit: contain;
+       object-fit: contain;
+    -o-object-position: bottom;
+       object-position: bottom;
+  }
+  .holidays_section .continent_ctn li .destination_ctn .info_ctn {
+    position: absolute;
+    display: block;
+    width: 170px;
+    margin: 0;
+    padding: 0 0.8rem;
+    background-color: #def;
+  }
+}
+@media screen and (min-width: 1100px) {
+  .holidays_section {
+    max-width: 1000px;
+  }
+}/*# sourceMappingURL=Holidays.module.css.map */

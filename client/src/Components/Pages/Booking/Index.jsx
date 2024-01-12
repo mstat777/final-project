@@ -20,25 +20,25 @@ import MainBtn from '../../Containers/buttons/MainBtn/Index';
 
 function Booking(){
     const IMG_URL = process.env.REACT_APP_IMG_URL;
-
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
     // on enregistre l'ID du pack sélectionné :
     let { id } = useParams();
 
-    const { destination } = useSelector((state) => state.allTravel);
-    const { packs } = useSelector((state) => state.allTravel);
-    const { lodging } = useSelector((state) => state.allTravel);
-    const { activities } =  useSelector((state) => state.allTravel);
+    // on vérifie si le bouton Submit a été clické
+    const [isSubmitPressed, setIsSubmitPressed] = useState(false);
 
+    const { destination, 
+            lodging, 
+            packs, 
+            activities } = useSelector((state) => state.allTravel);
     // stocker les données de la réservation :
     const { bookingInfo } = useSelector((state) => state.booking);
 
     // pour stocker les états des checkboxes :
     let myArray = []; 
-    activities.forEach(() => {
-        myArray.push(false);
+    activities.forEach((el, i) => {
+        (bookingInfo.nb_adults.activities[i] || bookingInfo.nb_children.activities[i]) ? myArray.push(true) : myArray.push(false);
     });
     const [checkBoxes, setCheckBoxes] = useState(myArray);
 
@@ -86,8 +86,7 @@ function Booking(){
             pricesList.price_children_activities) {
             dispatch(calculatePrices(pricesList));
         }
-    },[bookingInfo.nb_adults, bookingInfo.nb_children]);
-
+    },[bookingInfo.nb_adults, bookingInfo.nb_children, pricesList]);
 
     // afficher/cacher (via checkbox) les compteurs pour les activités :
     function handleChange(index) {
@@ -99,13 +98,18 @@ function Booking(){
     // stocker les erreurs lors de la vérification de la réservation :
     const [errors, setErrors] = useState([]);
 
-    // vérifier la réservation grâce à la fonction verifyBooking et passer à la page Summary, si OK :
-    function handleSubmitBooking(){
-        setErrors(verifyBooking());
-        // si aucune erreur trouvée, passe à la page Summary :
-        if (errors.every(el => el === false)) {
-            navigate(`/summary/${id}`);
+    // passer à la page Summary, si la vérif est OK :
+    useEffect(() => {
+        if (isSubmitPressed) {
+            if (!errors[0]) {
+                navigate(`/summary/${id}`);
+            }
         }
+    },[isSubmitPressed, errors[0]]);
+
+    function handleSubmitBooking(){
+        setErrors(verifyBooking(packs[id], activities, checkBoxes)); // vérifier les inputs
+        setIsSubmitPressed(true);
     }
 
     return <main id="booking">
@@ -124,8 +128,9 @@ function Booking(){
                         <p>Durée : <b>{packs[id].duration+1}</b> jours / <b>{packs[id].duration}</b> nuits</p>  
                         <p>Prix/TTC/adulte : <b>{packs[id].price_adults}</b> &euro;</p> 
                         <p>Prix/TTC/enfant : <b>{packs[id].price_children}</b> &euro;</p> 
+                        {(packs[id].places_left < 11) && <p className={styles.places_left}>Il ne reste que {packs[id].places_left} places !</p>}
                     </div>
-                    <img src={`${IMG_URL}/img/lodgings/${lodging.url_initial_image}`} alt="image de l'hébergement" className={styles.main_img}/>
+                    <img src={`${IMG_URL}/img/lodgings/${lodging.url_initial_image}`} alt="l'hébergement" className={styles.main_img}/>
                 </article>
 
                 <article className={styles.booking_inputs_ctn}>
@@ -175,8 +180,8 @@ function Booking(){
 
                             { checkBoxes[i] && 
                             <div className={styles.booking_activity_inputs}>
-                                <span>Adultes :</span>
                                 <div>
+                                    <span>Adultes :</span>
                                     <button onClick={()=>{dispatch(incrNbAdultsActivity(i))}}>
                                         <FontAwesomeIcon icon={faCirclePlus} className={styles.fa_circle}/>
                                     </button>
@@ -189,8 +194,8 @@ function Booking(){
                                     </button>
                                 </div>
 
-                                <span>Enfants :</span>
                                 <div>
+                                    <span>Enfants :</span>
                                     <button onClick={()=>{dispatch(incrNbChildrenActivity(i))}}>
                                         <FontAwesomeIcon icon={faCirclePlus} className={styles.fa_circle}/>
                                     </button>
@@ -207,6 +212,7 @@ function Booking(){
                             <div>
                                 <p>Type : {activity.type}</p>
                                 <p>Prix : adultes: {activity.price_adults}&euro;, enfants : {activity.price_children}&euro;</p>
+                                {(activity.places_left < 11) && <p className={styles.places_left}>Il ne reste que {activity.places_left} places !</p>}
                                 <p>{activity.overview}</p>
                             </div> 
                             
@@ -226,7 +232,7 @@ function Booking(){
 
                 <div className={styles.error_ctn}>
                     {errors.map((el, i) => el[i] &&
-                    <p>Erreur : {errors[i]}</p>)}
+                    <p key={i}>Erreur : {errors[i]}</p>)}
                 </div>
 
             </section>}

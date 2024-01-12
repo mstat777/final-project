@@ -64,7 +64,7 @@ li {
 }
 
 p {
-    margin: 10px 0;
+    margin: 1rem 0;
 }
 
 img {
@@ -79,7 +79,7 @@ table {
     font-size: 1.4rem;
     thead {
         th {
-            padding: 1em;
+            padding: 1.4rem;
             border: 1px solid $lightgrey-color;
             font-weight: 400;
             text-align: center;
@@ -121,7 +121,7 @@ textarea {
     font-family: $main-font; 
 	color: $darkgrey-color; 
 	border: 1px solid $lightgrey-color;
-	border-radius: 0.4em;
+	border-radius: .6rem;
 }
 textarea {
 	display: block;

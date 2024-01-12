@@ -1,0 +1,180 @@
+@charset "UTF-8";
+.admin_db_header {
+  background-color: #3f9ae9;
+}
+.admin_db_header .admin_db_nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  margin: 0.8rem auto;
+  /* les liens dans le nav */
+  /* --------- LES MENUS DEROULANTS dans la nav ----------- */
+}
+.admin_db_header .admin_db_nav a:hover {
+  border-radius: 0.4rem;
+  color: white;
+  background-color: var(--tertiary-color);
+}
+.admin_db_header .admin_db_nav .link_signout,
+.admin_db_header .admin_db_nav .link {
+  display: block;
+  padding: 0.8rem 1.5rem;
+  font-size: 1.4rem;
+  font-weight: 500;
+  text-align: center;
+  color: white;
+  transition: color 0.4s, background-color 0.4s;
+  width: 100%;
+  margin-bottom: 0.8rem;
+}
+.admin_db_header .admin_db_nav .link_signout:hover,
+.admin_db_header .admin_db_nav .link:hover {
+  cursor: pointer;
+  color: rgb(47, 74, 122);
+  background-color: #def;
+}
+.admin_db_header .admin_db_nav .link_home {
+  display: block;
+  padding: 0.8rem 1.5rem;
+  font-size: 1.4rem;
+  font-weight: 500;
+  text-align: center;
+  color: white;
+  transition: color 0.4s, background-color 0.4s;
+  margin-top: 0.8rem;
+  background-color: black;
+}
+.admin_db_header .admin_db_nav .link_home:hover {
+  cursor: pointer;
+  color: rgb(47, 74, 122);
+  background-color: #def;
+}
+.admin_db_header .admin_db_nav .link_signout {
+  display: block;
+  padding: 0.8rem 1.5rem;
+  font-size: 1.4rem;
+  font-weight: 500;
+  text-align: center;
+  color: rgb(231, 19, 105);
+  transition: color 0.4s, background-color 0.4s;
+}
+.admin_db_header .admin_db_nav .link_signout:hover {
+  cursor: pointer;
+  color: rgb(47, 74, 122);
+  background-color: #def;
+}
+.admin_db_header .admin_db_nav .admin_db_dropdown {
+  width: 200px;
+  overflow: hidden;
+  transition: all 0.3s;
+  /* Dropdown content ("hidden" par défaut) */
+}
+.admin_db_header .admin_db_nav .admin_db_dropdown:hover { /* afficher le menu déroulant au survol */ }
+.admin_db_header .admin_db_nav .admin_db_dropdown:hover .admin_db_dropdown_ctn {
+  display: block;
+}
+.admin_db_header .admin_db_nav .admin_db_dropdown .admin_db_user_ctn {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0.3rem 0.8rem;
+  border-radius: 0.4rem;
+  background-color: rgb(122, 191, 141);
+  /* le containeur de l'icon user */
+  /* le mail user */
+}
+.admin_db_header .admin_db_nav .admin_db_dropdown .admin_db_user_ctn .admin_db_image_ctn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 3rem;
+  width: 3rem;
+  background-color: rgb(122, 191, 141);
+  cursor: pointer;
+}
+.admin_db_header .admin_db_nav .admin_db_dropdown .admin_db_user_ctn .admin_db_image_ctn .admin_db_image {
+  font-size: 1.6rem;
+}
+.admin_db_header .admin_db_nav .admin_db_dropdown .admin_db_user_ctn .admin_db_email {
+  display: inline-block;
+  margin-left: 0.8rem;
+  color: rgb(0, 0, 0);
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  z-index: 101;
+}
+.admin_db_header .admin_db_nav .admin_db_dropdown .admin_db_dropdown_ctn {
+  display: none;
+  width: 100%;
+  background-color: rgb(122, 191, 141);
+  overflow: hidden;
+  z-index: 1;
+}
+.admin_db_header .admin_db_nav .admin_db_dropdown .admin_db_dropdown_ctn .link {
+  color: black;
+}
+.admin_db_header .admin_db_nav .admin_db_links_ctn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 0.8rem;
+}
+@media screen and (min-width: 768px) {
+  .admin_db_header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    align-items: center;
+    height: 60px;
+    z-index: 101;
+  }
+  .admin_db_header .admin_db_nav {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: 3.6rem;
+    width: auto;
+    margin: 1.2rem 3rem;
+  }
+  .admin_db_header .admin_db_nav .admin_db_dropdown {
+    width: 200px;
+    margin: auto 0.3rem;
+    overflow: hidden;
+  }
+  .admin_db_header .admin_db_nav .admin_db_dropdown .admin_db_user_ctn {
+    margin: 0;
+    margin-right: 0.8rem;
+    padding-top: 0;
+    padding-bottom: 0;
+    /* le mail user */
+  }
+  .admin_db_header .admin_db_nav .admin_db_dropdown .admin_db_user_ctn .admin_db_image_ctn {
+    height: 3.6rem;
+    width: 3.6rem;
+    margin-bottom: 0;
+  }
+  .admin_db_header .admin_db_nav .admin_db_dropdown .admin_db_user_ctn .admin_db_email {
+    max-width: 150px;
+    font-size: 1.4rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  .admin_db_header .admin_db_nav .admin_db_links_ctn {
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+    width: calc(100% - 220px);
+    margin-top: 0;
+  }
+  .admin_db_header .admin_db_nav .link {
+    display: inline-block;
+  }
+  .admin_db_header .admin_db_nav .link_signout,
+  .admin_db_header .admin_db_nav .link {
+    margin-bottom: 0;
+  }
+}/*# sourceMappingURL=AdminHeader.module.css.map */

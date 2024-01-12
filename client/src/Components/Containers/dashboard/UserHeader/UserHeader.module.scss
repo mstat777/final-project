@@ -8,7 +8,7 @@
 
 @mixin link_el($color) {
     display: block;
-    padding: .5em 1em;
+    padding: .8rem 1.5rem;
     font-weight: 500;
     text-align: center;
     color: $color;
@@ -34,19 +34,19 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin: 1em;
+        margin: 1.6rem;
 
         /* le containeur de l'icon et le mail user */
         .user_db_user_ctn {
             @include ctn;
-            margin-bottom: .5em;
+            margin-bottom: .8rem;
             /* le containeur de l'icon user */
             > div {
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                height: 30px;
-                width: 30px;
+                height: 3rem;
+                width: 3rem;
                 border-radius: 50%;
                 background-color: rgb(122, 191, 141);
                 .user_db_image {
@@ -59,7 +59,7 @@
             a {
                 @include link_el(white);
                 width: 100%;
-                margin-bottom: .5em;
+                margin-bottom: .8rem;
                 transition: all .3s;
                 &:hover {
                     color: $primary-color;
@@ -67,8 +67,8 @@
             }
             .link_home {
                 @include link_el(white);
-                margin-top: .5em;
-                border-radius: 4px;
+                margin-top: .8rem;
+                border-radius: .4rem;
                 background-color: $darkgrey-color;
                 &:hover {
                     color: white;
@@ -81,15 +81,15 @@
             flex-direction: row;
             align-items: center;
             justify-content: space-between;
-            margin: .5em 2em;
+            margin: .8rem 3rem;
         
             .user_db_user_ctn {
                 margin: 0;
-                margin-right: .5em;
+                margin-right: .8rem;
         
                 > div {
-                    height: 36px;
-                    width: 36px;
+                    height: 3.6rem;
+                    width: 3.6rem;
                     margin-bottom: 0;
                 }
                 span {
@@ -108,8 +108,8 @@
                     display: flex;
                     align-items: center;
                     width: unset;
-                    margin: 0 .5em;
-                    border-radius: 4px;
+                    margin: 0 .8rem;
+                    border-radius: .4rem;
                     color: $tertiary-color;
                     background-color: $primary-color;
                     &:hover {
@@ -128,16 +128,16 @@
         
             .user_db_user_ctn {
                 position: absolute;
-                left: 2em;
+                left: 3rem;
                 flex-direction: row;
         
                 span {
                     max-width: 240px;
-                    margin-left: .4em;
+                    margin-left: .6rem;
                 }
             }    
             .user_db_links_ctn {
-                padding-left: 4em;
+                padding-left: 6rem;
         
                 > * {
                     vertical-align: bottom;

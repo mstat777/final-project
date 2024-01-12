@@ -1,7 +1,7 @@
 import {createSlice} from "@reduxjs/toolkit";
 
+// pour stocker les infos lors du processus de réservation (nb de personnes, prix, etc.) :
 const initialState = {
-    // pour stocker les infos lors du processus de réservation (nb de personnes, prix, etc.) :
     bookingInfo: JSON.parse(localStorage.getItem("booking")) || {
         nb_adults: {
             pack: 0, // nb d'adultes par pack

@@ -1,0 +1,92 @@
+.contact_section {
+  margin: 3rem 1.5rem 5rem;
+}
+.contact_section h1 {
+  display: none;
+}
+.contact_section article {
+  margin-bottom: 3rem;
+}
+.contact_section article h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin: 1rem 0;
+  text-transform: uppercase;
+}
+.contact_section article .text_tel {
+  display: inline-block;
+  margin-bottom: 0;
+  font-size: 3rem;
+  color: rgb(231, 19, 105);
+  cursor: pointer;
+}
+.contact_section article .text_tel .phone_icon {
+  font-size: 2.8rem;
+  margin-right: 0.8rem;
+}
+.contact_section article small {
+  margin-top: 0;
+  margin-bottom: 2.4rem;
+  font-size: 1.2rem;
+}
+.contact_section article .contact_form {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 500px;
+  margin: 3rem auto;
+  padding: 2.4rem 2.4rem 1.5rem;
+  background-color: #3f9ae9;
+}
+.contact_section article .contact_form label,
+.contact_section article .contact_form > div {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-end;
+  width: 100%;
+  margin-bottom: 0.8rem;
+}
+.contact_section article .contact_form label > span {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  color: white;
+}
+.contact_section article .contact_form label > input,
+.contact_section article .contact_form label > textarea {
+  display: block;
+  width: 100%;
+  margin-top: 0.3rem;
+  padding: 0.6rem;
+  font-weight: 500;
+}
+.contact_section article .contact_form label > textarea {
+  height: auto;
+}
+.contact_section article .contact_form > div {
+  display: inline-block;
+  margin-top: 0.8rem;
+  margin-bottom: 0;
+}
+.contact_section article .contact_form > div button {
+  padding: 0.8rem 1rem 0.6rem;
+}
+@media screen and (min-width: 768px) {
+  .contact_section {
+    margin: 4em;
+  }
+  .contact_section .contact_form label {
+    flex-direction: row;
+    margin-bottom: 1.5rem;
+  }
+  .contact_section .contact_form label span {
+    margin-top: 0.6rem;
+    margin-right: 0.8rem;
+  }
+}
+
+.no_margin {
+  margin: 0;
+}/*# sourceMappingURL=Contact.module.css.map */

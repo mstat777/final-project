@@ -1,0 +1,73 @@
+@charset "UTF-8";
+.summary_section {
+  display: flex;
+  flex-direction: column;
+  margin: 1.5rem;
+  border: 1px solid rgb(204, 204, 204);
+  /* le bouton "confirmer la réservation" */
+}
+.summary_section h1 {
+  margin: 1.5rem;
+  font-size: 2.2rem;
+}
+.summary_section .summary_ctn {
+  margin: 0 1.5rem;
+  text-align: left;
+}
+.summary_section .summary_ctn h2 {
+  display: none;
+}
+.summary_section .summary_ctn > *:nth-child(10) {
+  display: inline-block;
+  margin: 0;
+}
+.summary_section .summary_ctn b {
+  font-weight: 500;
+}
+.summary_section .summary_ctn .summary_activities > li {
+  margin-left: 3rem;
+  list-style-type: circle;
+}
+.summary_section .summary_ctn .nota_bene {
+  margin: 3rem 0;
+  font-size: 1.4rem;
+}
+.summary_section .summary_ctn label > p {
+  display: inline-block;
+}
+.summary_section .summary_ctn label select {
+  margin-left: 1.5rem;
+  padding: 0.2rem 0.6rem;
+  font-weight: 500;
+  color: white;
+  background-color: rgb(47, 74, 122);
+}
+.summary_section > button {
+  margin: 4rem auto;
+  padding: 1rem 1.5rem;
+  font-size: 1.6rem;
+}
+@media screen and (min-width: 768px) {
+  .summary_section {
+    margin: 3rem 6rem;
+    padding: 0 1.5rem;
+  }
+}
+@media screen and (min-width: 1100px) {
+  .summary_section {
+    max-width: 950px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .modify_section {
+    margin-top: 96px;
+  }
+}
+@media screen and (min-width: 1100px) {
+  .modify_section {
+    margin-top: 76px;
+  }
+}/*# sourceMappingURL=Summary.module.css.map */

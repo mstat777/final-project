@@ -12,9 +12,9 @@
     height: 180px;
     width: 100%;
     max-width: 600px;
-    margin-bottom: 1em; 
+    margin-bottom: 1.5rem; 
     border: 1px solid $primary-color;
-    border-radius: 5px;
+    border-radius: .5rem;
     box-shadow: 2px 2px 6px $primary-color;
     overflow: hidden;
 
@@ -29,33 +29,33 @@
     &_info {
         display: inline-block;
         width: 50%;
-        padding-top: .5em;
+        padding-top: .8rem;
         > h3 {
             @include headings(2rem);
-            margin: .3em .3em .3em .4em;
+            margin: .5rem .5rem .5rem .7rem;
             font-weight: 600;
         }
         > h4 {
             @include headings(1.6rem);
-            margin: .6em .3em 0;
+            margin: 1rem .5rem 0;
             color: $secondary-color;
         }
         .price_percent_ctn {
             display: flex;
             align-items: flex-end;
             justify-content: flex-end;
-            margin: .5em;
+            margin: .8rem;
         
             .percent_ctn {
                 display: inline-block;
-                margin-bottom: .1em;
-                padding: .2em .4em;
+                margin-bottom: .1rem;
+                padding: .3rem .6rem;
                 font-size: 1.2rem;
                 text-align: right;
                 color: white;
                 background-color: $secondary-color;
                 > span {
-                    margin: 0 .2em;
+                    margin: 0 .3rem;
                     font-size: 2rem;
                     font-weight: 500;
                 }
@@ -81,40 +81,40 @@
             justify-content: center;
         }
         > button {
-            margin: 1em auto .5em;
-            padding: .4em .7em;
+            margin: 1.5rem auto .8rem;
+            padding: .6rem 1.2rem;
         }
     }
 
     @media screen and (min-width: $br-tablet) {
         height: 200px;
         &_info {
-            padding: 1em;
+            padding: 1.5rem;
             > h3 {
-                margin: .3em auto;
+                margin: .5rem auto;
                 font-size: 2.2rem;
             }
             > h4 {
-                margin: .3em auto;
+                margin: .5rem auto;
                 font-size: 1.8rem;
             }
             .price_percent_ctn {
                 justify-content: center;
-                margin: 1em auto;
+                margin: 1.5rem auto;
                 .price_ctn {
                     flex-direction: row;
                     align-items: flex-end;
                     justify-content: center;
                     > span {
                         &:first-child {
-                            margin-bottom: .3em;
-                            margin-right: .5em;
+                            margin-bottom: .5rem;
+                            margin-right: .8rem;
                         }
                     }
                 }
             }
             > button {
-                margin: 1em auto;
+                margin: 1.5rem auto;
             }
         }
     }
@@ -123,8 +123,8 @@
         flex-direction: column;
         height: 380px;
         width: 300px;
-        margin-left: 1em;
-        margin-right: 1em;
+        margin-left: 1.5rem;
+        margin-right: 1.5rem;
         > img {
             height: 200px;
             width: 100%;
@@ -133,7 +133,7 @@
             display: block;
             height: 180px;
             width: 100%;
-            padding: .5em;
+            padding: .8rem;
         }
     }
 }

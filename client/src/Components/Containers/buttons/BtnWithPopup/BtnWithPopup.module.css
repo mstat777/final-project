@@ -1,0 +1,54 @@
+.btn_popup_ctn {
+  position: relative;
+  display: inline-block;
+}
+.btn_popup_ctn button {
+  transition: all 0.3s;
+}
+.btn_popup_ctn > button {
+  display: block;
+  margin: 0 auto;
+  padding: 1rem 1.2rem 0.8rem;
+  border: 1px solid rgb(231, 19, 105);
+  border-radius: 6px;
+  font-weight: 500;
+  color: rgb(231, 19, 105);
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+  background-color: white;
+}
+.btn_popup_ctn > button:hover {
+  cursor: pointer;
+}
+.btn_popup_ctn .popup {
+  position: absolute;
+  top: 0;
+  right: -270px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 270px;
+  height: 60px;
+  border: 2px solid #3f9ae9;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+}
+.btn_popup_ctn .popup > * {
+  display: inline-block;
+}
+.btn_popup_ctn .popup p {
+  margin-right: 0.8rem;
+}
+.btn_popup_ctn .popup button {
+  border: 1px solid;
+  color: rgb(47, 74, 122);
+  background-color: white;
+}
+.btn_popup_ctn .popup button:hover {
+  color: white;
+  background-color: #3f9ae9;
+  opacity: 0.9;
+}
+.btn_popup_ctn .popup .hide {
+  display: none;
+}/*# sourceMappingURL=BtnWithPopup.module.css.map */

@@ -1,0 +1,134 @@
+.card {
+  display: flex;
+  height: 180px;
+  width: 100%;
+  max-width: 600px;
+  margin-bottom: 1.5rem;
+  border: 1px solid #def;
+  border-radius: 0.5rem;
+  box-shadow: 2px 2px 6px #def;
+  overflow: hidden;
+}
+.card > img {
+  display: inline-block;
+  height: 100%;
+  width: 50%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  -o-object-position: center;
+     object-position: center;
+}
+.card_info {
+  display: inline-block;
+  width: 50%;
+  padding-top: 0.8rem;
+}
+.card_info > h3 {
+  font-size: 2rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin: 0.5rem 0.5rem 0.5rem 0.7rem;
+  font-weight: 600;
+}
+.card_info > h4 {
+  font-size: 1.6rem;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin: 1rem 0.5rem 0;
+  color: #3f9ae9;
+}
+.card_info .price_percent_ctn {
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  margin: 0.8rem;
+}
+.card_info .price_percent_ctn .percent_ctn {
+  display: inline-block;
+  margin-bottom: 0.1rem;
+  padding: 0.3rem 0.6rem;
+  font-size: 1.2rem;
+  text-align: right;
+  color: white;
+  background-color: #3f9ae9;
+}
+.card_info .price_percent_ctn .percent_ctn > span {
+  margin: 0 0.3rem;
+  font-size: 2rem;
+  font-weight: 500;
+}
+.card_info .price_percent_ctn .price_ctn {
+  display: inline-flex;
+  flex-direction: column;
+  width: 60%;
+  font-size: 1.2rem;
+}
+.card_info .price_percent_ctn .price_ctn .price_txt {
+  margin: 0;
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: rgb(231, 19, 105);
+}
+.card_info .price_percent_ctn .price_ctn .price_txt sup {
+  font-size: 1.2rem;
+}
+.card_info .center {
+  justify-content: center;
+}
+.card_info > button {
+  margin: 1.5rem auto 0.8rem;
+  padding: 0.6rem 1.2rem;
+}
+@media screen and (min-width: 768px) {
+  .card {
+    height: 200px;
+  }
+  .card_info {
+    padding: 1.5rem;
+  }
+  .card_info > h3 {
+    margin: 0.5rem auto;
+    font-size: 2.2rem;
+  }
+  .card_info > h4 {
+    margin: 0.5rem auto;
+    font-size: 1.8rem;
+  }
+  .card_info .price_percent_ctn {
+    justify-content: center;
+    margin: 1.5rem auto;
+  }
+  .card_info .price_percent_ctn .price_ctn {
+    flex-direction: row;
+    align-items: flex-end;
+    justify-content: center;
+  }
+  .card_info .price_percent_ctn .price_ctn > span:first-child {
+    margin-bottom: 0.5rem;
+    margin-right: 0.8rem;
+  }
+  .card_info > button {
+    margin: 1.5rem auto;
+  }
+}
+@media screen and (min-width: 1100px) {
+  .card {
+    flex-direction: column;
+    height: 380px;
+    width: 300px;
+    margin-left: 1.5rem;
+    margin-right: 1.5rem;
+  }
+  .card > img {
+    height: 200px;
+    width: 100%;
+  }
+  .card_info {
+    display: block;
+    height: 180px;
+    width: 100%;
+    padding: 0.8rem;
+  }
+}/*# sourceMappingURL=Card.module.css.map */

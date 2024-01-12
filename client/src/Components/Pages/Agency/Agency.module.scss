@@ -2,8 +2,8 @@
 
 .agency_section {
     height: auto;
-    margin: 2em;
-    padding-bottom: 2em;
+    margin: 3rem;
+    padding-bottom: 3rem;
 
     > p {
         text-align: justify;
@@ -11,20 +11,20 @@
 
     @media screen and (min-width: $br-tablet) {
         max-width: 900px;
-        margin: 3em;
+        margin: 5rem;
         > img {
             float: left;
             width: 50%;
-            margin-right: 2em; 
+            margin-right: 3rem; 
         }
         > h2 {
             display: inline-block;
-            margin: .3em auto;
+            margin: .5rem auto;
         }
     }
 
     @media screen and (min-width: $br-desktop) {
         max-width: 900px;
-        margin: 3em auto;
+        margin: 5rem auto;
     }
 }

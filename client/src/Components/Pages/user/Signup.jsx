@@ -99,37 +99,36 @@ function Signup(){
     }
 
     useEffect(() => {
+        async function submitForm() {
+            if (isFormValidated) {
+                console.log("Signup form sent!");
+                const res = await fetch(`${BASE_URL}/api/v.0.1/user/signup`, {
+                    method: "post",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ 
+                        lastName,
+                        firstName,
+                        email, 
+                        tel,
+                        address,
+                        birthDate,
+                        occupation,
+                        password,
+                        checkBoxNewsL})
+                });
+                const json = await res.json();
+                setMsg(json.msg);
+                
+                if (res.status === 201) {
+                    dispatch(setLogMessage("Votre compte a bien été créé.\nVous pouvez désormais vous connecter."));
+                    navigate("/user/signin");
+                }
+            }
+        }
         if (isFormValidated === true) {
             submitForm();
         }
     },[isFormValidated]);
-
-    async function submitForm() {
-        if (isFormValidated) {
-            console.log("Signup form sent!");
-            const res = await fetch(`${BASE_URL}/api/v.0.1/user/signup`, {
-                method: "post",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ 
-                    lastName,
-                    firstName,
-                    email, 
-                    tel,
-                    address,
-                    birthDate,
-                    occupation,
-                    password,
-                    checkBoxNewsL})
-            });
-            const json = await res.json();
-            setMsg(json.msg);
-            
-            if (res.status === 201) {
-                dispatch(setLogMessage("Votre compte a bien été créé.\nVous pouvez désormais vous connecter."));
-                navigate("/user/signin");
-            }
-        }
-    }
 
     function handleSubmit(e) {
         e.preventDefault();
