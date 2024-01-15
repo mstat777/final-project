@@ -41,16 +41,22 @@
             select {
                 margin-left: 1.5rem;
                 padding: .2rem .6rem;
-                font-weight: 500;
-                color: white;
-                background-color: $tertiary-color;
+                font-family: $secondary-font;
+                font-weight: 700;
+                color: $tertiary-color;
+                //background-color: $secondary-color;
             }
         }
+    }
+
+    .msg_nok {
+        font-weight: 500;
+        color: $highlight-color;
     }
     /* le bouton "confirmer la réservation" */
     > button {
         margin: 4rem auto;
-        padding: 1rem 1.5rem;
+        padding: .8rem 1.5rem;
         font-size: 1.6rem; 
     }
 

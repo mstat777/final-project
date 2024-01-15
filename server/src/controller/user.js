@@ -33,8 +33,6 @@ const userSignIn = async (req, res) => {
             const same = await compare(req.body.password, user[0].password);
 
             if (same) {
-                console.log("utilisateur trouvé. mdp OK.");
-                //console.log(`server: ${msg}`);
                 const TOKEN = sign({email: user[0].email, accountType: user[0].account_type}, SK);
                 res.status(200).json({ 
                     TOKEN, 
@@ -80,7 +78,6 @@ const createUserAccount = async (req, res) => {
 
             // souscrire dans le Newsletter :
             if (req.body.checkBoxNewsL) {
-                console.log("req.body.email = "+req.body.email);
                 const queryNewsL = "INSERT INTO newsletter (email) VALUES (?)";
                 await Query.queryByValue(queryNewsL, req.body.email);
             }
@@ -96,7 +93,6 @@ const createUserAccount = async (req, res) => {
 // modifier les infos persos de l'utilisateur :
 const modifyUserInfo = async (req, res) => {
     try {
-        console.log(req.body);
         let msg = "";
         const bodyData = [
             req.body.lastName,
@@ -110,21 +106,18 @@ const modifyUserInfo = async (req, res) => {
         let queryUpdateUser = "UPDATE users SET last_name = ?, first_name = ?, tel = ?, address = ?, birth_date = ?, occupation = ?";
         // si le mdp est à modifier :
         if (req.body.passwordNew) {
-            console.log("on va changer le mdp");
             // on vérifie si l'ancien mdp est correct
             const queryUser = "SELECT password FROM users WHERE email = ?";
             const [user] = await Query.queryByValue(queryUser, req.body.email);
             const same = await compare(req.body.passwordOld, user[0].password);
 
             if (same) {
-                console.log("les memes");
                 queryUpdateUser += ", password = ? WHERE email = ?";
                 const newPswd = await hash(req.body.passwordNew, SALT);
                 bodyData.pop();
                 bodyData.push(newPswd);
                 bodyData.push(req.body.email);
             } else {
-                console.log("pas les memes");
                 msg = "Mot de passe erroné.";
                 res.status(409).json({ msg });
                 return;
@@ -132,8 +125,6 @@ const modifyUserInfo = async (req, res) => {
         } else {
             queryUpdateUser += " WHERE email = ?";
         }
-        console.log(queryUpdateUser);
-        console.log(bodyData);
         await Query.queryByArray(queryUpdateUser, bodyData);
         msg = "données d'utilisateur modifiées";
         res.status(201).json({ msg });

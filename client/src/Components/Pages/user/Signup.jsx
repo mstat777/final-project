@@ -7,6 +7,7 @@ import { faUser, faLock, faEye, faEyeSlash, faPhone, faEnvelope, faLocationDot, 
 import { faUser as faUserReg } from '@fortawesome/free-regular-svg-icons';
 import { validateInput } from '../../Functions/sanitize';
 import { setLogMessage } from '../../../store/slices/user';
+import MainBtn from '../../Containers/buttons/MainBtn/Index';
 
 function Signup(){
     const BASE_URL = process.env.REACT_APP_BASE_URL;
@@ -236,7 +237,7 @@ function Signup(){
                         </label>
                     </label>
 
-                    <button type="submit">s'inscrire</button>
+                    <MainBtn type="submit" text="s'inscrire"/>
                 </form>
 
                 { errMsg ? <p className={styles.err_msg}>{errMsg}</p> : null}

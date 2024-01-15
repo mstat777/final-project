@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { signin } from '../../../store/slices/user';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faLock, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import MainBtn from '../../Containers/buttons/MainBtn/Index';
 
 function Signin(){
     const BASE_URL = process.env.REACT_APP_BASE_URL;
@@ -98,7 +99,7 @@ function Signin(){
                         </button>    
                     </label>
                     
-                    <button type="submit">se connecter</button>
+                    <MainBtn type="submit" text="se connecter"/>
 
                 </form>
 

@@ -229,4 +229,4 @@ export {
     getBestThreePromoPacks,
     getTopDestination,
     getTopThreeDestinations
-};
+}

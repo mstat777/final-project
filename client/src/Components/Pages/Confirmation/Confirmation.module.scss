@@ -8,10 +8,10 @@
     border: 1px solid $lightgrey-color;
 
     @media screen and (min-width: $br-tablet) {
-        margin: 6rem auto;
+        margin: 20vh auto;
     }
     
     @media screen and (min-width: $br-desktop) {
-        margin: 12.5rem auto;
+        margin: 30vh auto;
     }
 }

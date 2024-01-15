@@ -9,12 +9,15 @@ const createBooking = async (req, res) => {
             nb_children: req.body.nb_children,
             price_total_booking: req.body.price_total_booking,
             paymentType: req.body.paymentType,
+            status: req.body.status,
             pack_id: req.body.pack_id,
             user_id: req.body.user_id
         };
-        const queryPack = "INSERT INTO bookings (nb_adults, nb_children, price_total_booking, payment_type, status, date_created, pack_id, user_id) VALUES (?, ?, ?, ?, 'en cours', CURRENT_TIMESTAMP(), ?, ?)";
+        console.log(datasPack);
+        const queryPack = "INSERT INTO bookings (nb_adults, nb_children, price_total_booking, payment_type, status, date_created, pack_id, user_id) VALUES (?, ?, ?, ?, ?, CURRENT_TIMESTAMP(), ?, ?)";
         await Query.queryByObject(queryPack, datasPack);
         // s'il y a des activités réservées, on les passe dans la table 'booked_activities' :
+        console.log(req.body.activities.length);
         if (req.body.activities.length) {
             // on récupère l'ID de la réservation :
             const queryLastBooking = "SELECT id FROM bookings WHERE user_id = ? ORDER BY date_created DESC LIMIT 1";

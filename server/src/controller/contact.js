@@ -27,4 +27,4 @@ const subscribeNewsletter = async (req, res) => {
 export { 
     sendMail,
     subscribeNewsletter
-};
+}

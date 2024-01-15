@@ -25,7 +25,7 @@ function verifyBooking(chosenPack, activities, checkBoxes){
         // message si case cochée, mais nb de personnes pas précisé :
         if (checkBoxes[i]) {
             if (bookingInfo.nb_adults.activities[i] + bookingInfo.nb_children.activities[i] === 0) {
-                errors.push(`Veuillez indiquer le nombre de personnes pour lesquels vous souhatez réserver l'activité sélectionnée.`);
+                errors.push(`Veuillez indiquer le nombre de personnes pour lesquels vous souhaitez réserver l'activité sélectionnée. Si vous ne souhaitez pas réserver cette activité, décochez la case.`);
             }
         }
     }); 

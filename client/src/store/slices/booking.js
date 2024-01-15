@@ -19,7 +19,9 @@ const initialState = {
             total_pack: 0, //la somme à payer que pour le pack
             total_activities: 0, //la somme des prix pour toutes les activités (adultes + enfants)
             total_all: 0 // = total_pack + total_activities
-        }
+        },
+        packID: '',
+        selectedActivities: []
     },
     bookedData: []
 }
@@ -55,6 +57,7 @@ export const bookingSlice = createSlice({
             state.bookingInfo.nb_children.activities = [];
             state.bookingInfo.prices.activity_per_adult = [];
             state.bookingInfo.prices.activity_per_child = [];
+            state.bookingInfo.selectedActivities = [];
         },
         initialiseCounters: (state, action) => {
             state.bookingInfo.nb_adults.pack = 0;
@@ -129,6 +132,12 @@ export const bookingSlice = createSlice({
         setNbInBooking: (state, action) => {
             state.bookingInfo.nb_adults = action.payload.nb_adults;
             state.bookingInfo.nb_children = action.payload.nb_children;
+        },
+        setPackID: (state, action) => {
+            state.bookingInfo.packID = action.payload;
+        },
+        setSelectedActivities: (state, action) => {
+            state.bookingInfo.selectedActivities = action.payload;
         }
     }
 });
@@ -146,7 +155,9 @@ export const {
     incrNbChildrenActivity, 
     decrNbChildrenActivity,
     setBookedData,
-    setNbInBooking
+    setNbInBooking,
+    setPackID,
+    setSelectedActivities
     } = bookingSlice.actions;
 
 export default bookingSlice.reducer;

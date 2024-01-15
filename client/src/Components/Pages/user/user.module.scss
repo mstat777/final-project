@@ -8,7 +8,6 @@
         font-weight: 500;
         color: $highlight-color;
     }
-
     @media screen and (min-width: $br-tablet) {
         margin-top: 10rem;
         margin-bottom: 15rem;
@@ -23,7 +22,6 @@
         text-decoration: underline;
         text-transform: none;
     }
-
     @media screen and (min-width: $br-tablet) {
         margin-bottom: 5rem;
     }
@@ -69,7 +67,6 @@
             padding: .8rem 1.5rem;
             border: none;
         }
-    
         > label {
             position: relative;
             padding: 0;
@@ -124,27 +121,10 @@
                     color: white;
                 }
             }
-        }
-    
+        }   
         /* agrandir les points de mdp */ 
         input[type="password"]:not(:placeholder-shown) {
             font-family: Verdana, sans-serif;
-        }
-    
-        > button {
-            display: block;
-            margin: 0 auto;
-            padding: 1rem 1.2rem .8rem;
-            border: none;
-            border-radius: .6rem;
-            font-weight: 500;
-            color: white;
-            letter-spacing: .1rem;
-            text-transform: uppercase;
-            background-color: $tertiary-color;
-            &:hover {
-                cursor: pointer;
-            }
         }
     }
     

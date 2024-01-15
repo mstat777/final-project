@@ -528,4 +528,4 @@ export {
         deleteDestination,
         deletePack,
         deleteActivity
-};
+}
