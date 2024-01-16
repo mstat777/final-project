@@ -12,7 +12,9 @@ function CheckoutForm({clientSecret}){
     const elements = useElements();
     const navigate = useNavigate();
 
-    const { bookingInfo } = useSelector((state) => state.booking);
+    //var cardElement = elements.create('card');
+
+    const { bookingInfo, bookedData, newBookedAct, oldBookedAct } = useSelector((state) => state.booking);
     const { userInfo } =  useSelector((state) => state.user);
 
     const [isProcessing, setIsProcessing] = useState(false);
@@ -25,7 +27,6 @@ function CheckoutForm({clientSecret}){
             return;
         } 
         setIsProcessing(true);
-
         const {error, paymentIntent} = await stripe.confirmCardPayment(
             clientSecret, {
                 payment_method: {
@@ -33,7 +34,6 @@ function CheckoutForm({clientSecret}){
                 }
             }
         );
-
         if (error) {
             setErrMsg(error.message);
             const redirectTimeout = setTimeout(() => {
@@ -42,23 +42,43 @@ function CheckoutForm({clientSecret}){
             return () => clearTimeout(redirectTimeout);
         } 
         else if (paymentIntent && paymentIntent.status === 'succeeded') {
-            setOkMsg("Statut de paiement : "+paymentIntent.status);
+            setOkMsg("Statut de paiement : RÉUSSI");
             // on enregistre la réservation dans la BDD :
-            const res = await fetch(`${BASE_URL}/api/v.0.1/booking/create`, {
-                method: "post",
-                headers: { "Content-Type": "application/json",
-                            Authentication: "Bearer " + TOKEN },
-                body: JSON.stringify({ 
-                    nb_adults: bookingInfo.nb_adults.pack,
-                    nb_children: bookingInfo.nb_children.pack,
-                    price_total_booking: bookingInfo.prices.total_all,
-                    paymentType: '1',
-                    status: 'validée',
-                    pack_id: bookingInfo.packID,
-                    user_id: userInfo.userID,
-                    activities: bookingInfo.selectedActivities
-                })
-            });
+            let res = null;
+            // deux cas : NOUVELLE réservation ou MODIF d'une rés. :
+            if (!bookedData.datasBook) { // NOUVELLE
+                res = await fetch(`${BASE_URL}/api/v.0.1/booking/create`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json",
+                                Authentication: "Bearer " + TOKEN },
+                    body: JSON.stringify({ 
+                        nb_adults: bookingInfo.nb_adults.pack,
+                        nb_children: bookingInfo.nb_children.pack,
+                        price_total_booking: bookingInfo.prices.total_all,
+                        paymentType: '1',
+                        status: 'validée',
+                        pack_id: bookingInfo.packID,
+                        user_id: userInfo.userID,
+                        activities: bookingInfo.selectedActivities
+                    })
+                });
+            } else { // MODIF d'une réservation
+                res = await fetch(`${BASE_URL}/api/v.0.1/booking/modify`, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json",
+                                Authentication: "Bearer " + TOKEN },
+                    body: JSON.stringify({ 
+                        nb_adults: bookingInfo.nb_adults.pack,
+                        nb_children: bookingInfo.nb_children.pack,
+                        price_total_booking: bookingInfo.prices.total_all,
+                        paymentType: '1',
+                        status: 'validée',
+                        bookingID: bookedData.datasBook[0].id,
+                        newBookedActiv: newBookedAct,
+                        oldBookedActiv: oldBookedAct
+                    })
+                });
+            }
             if (res.status === 201) {
                 const redirectTimeout = setTimeout(() => {
                     navigate("/confirmation");

@@ -26,7 +26,7 @@ function Signin(){
     // remonter au top de la page lors de chargement
     useEffect(() => {
         window.scrollTo(0, 0);
-    }, [])
+    }, []);
 
     function handlePassIconToggle() {
         if (passInputType === "password") {
@@ -48,7 +48,6 @@ function Signin(){
         const json = await res.json();
         if(res.status === 200){
             localStorage.setItem("auth", json.TOKEN);
-
             dispatch(signin(json));
 
             if (userInfo.chosenPackID === -1) { 
@@ -58,7 +57,6 @@ function Signin(){
             }    
         } else {
             setMsg(json.msg);
-            console.log("res.status n'est pas OK!!!");
         }
     }
 
@@ -107,7 +105,6 @@ function Signin(){
 
                 <p>Vous n'avez pas encore de compte ? <Link to="/user/signup">En créer un</Link></p>
             </section>
-
         </main>
 }
 

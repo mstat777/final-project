@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faTwitter, faInstagram, faYoutube } from '@fortawesome/free-brands-svg-icons';
 import MainBtn from '../buttons/MainBtn/Index';
+import { validateInput } from '../../Functions/sanitize';
 
 function Footer() {
     const BASE_URL = process.env.REACT_APP_BASE_URL;
@@ -11,28 +12,26 @@ function Footer() {
     const [okMsg, setOkMsg] = useState('');
     const [errMsg, setErrMsg] = useState('');
 
-    function emailAlertMsg(e){
-        e.target.setCustomValidity("Veuillez renseigner votre mail");
-    }
-
     async function handleSubmit(e) {
         e.preventDefault();
-        console.log("Newsletter form sent!");
 
-        const res = await fetch(`${BASE_URL}/api/v.0.1/contact/newsletter`, {
-            method: "post",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ userEmail })
-        });
-        const json = await res.json();
-        console.log(json.msg);
-        
-        if (res.status === 201) {
-            setOkMsg("Merci pour votre souscription.");
-            setUserEmail('');
-        } else if (res.status === 409) {
-            setErrMsg(json.msg);
-            setUserEmail('');
+        const emailVerif = validateInput("userEmail", userEmail.trim());
+        setErrMsg(emailVerif.msg);
+
+        if (emailVerif.isValid) {
+            const res = await fetch(`${BASE_URL}/api/v.0.1/contact/newsletter`, {
+                method: "post",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ userEmail })
+            });
+            const json = await res.json();
+            if (res.status === 201) {
+                setOkMsg("Merci pour votre souscription.");
+                setUserEmail('');
+            } else if (res.status === 409) {
+                setErrMsg(json.msg);
+                setUserEmail('');
+            }
         }
     }
 
@@ -78,8 +77,7 @@ function Footer() {
                             onFocus={() => {
                                 setOkMsg('');
                                 setErrMsg('');}}
-                            onInvalid={emailAlertMsg}
-                            onInput={(e) => e.target.setCustomValidity('')}
+                            placeholder="Email"
                             required/>
                         <MainBtn type="submit" text="OK"/>
                     </form>

@@ -61,16 +61,11 @@ function Signup(){
             const errPrivacyMsg = "Veuillez cocher la case pour accepter les conditions d'utilisations.\n"
             setErrMsg(errMsg+errPrivacyMsg);
         } else if (checkBoxPrivacy){
-            // on vérifie tous les champs :
             const lNameVerif = validateInput("lastName", lastName.trim());
             const fNameVerif = validateInput("firstName", firstName.trim());
             const emailVerif = validateInput("email", email.trim());
-            // si un numéro de tél est rempli, on vérifie. Si non, on vérifie pas, car ce n'est pas un champ obligatoire :
-            let telVerif = { isValid: true, msg: '' }
-            if (tel) {
-                telVerif = validateInput("tel", tel.trim());
-            }
-            // si un numéro de tél est rempli, on vérifie. Si non, on vérifie pas, car ce n'est pas un champ obligatoire :
+            const telVerif = validateInput("tel", tel.trim());
+            // si une adresse est renseignée, on la vérifie. Si non, on la vérifie pas, car pas obligatoire :
             let addressVerif = { isValid: true, msg: '' }
             if (address) {
                 addressVerif = validateInput("address", address.trim());
@@ -95,14 +90,12 @@ function Signup(){
             addressVerif.isValid &&
             bDateVerif.isValid && 
             passVerif.isValid ) ? setIsFormValidated(true) : setIsFormValidated(false);
-            //console.log("isFormValidated = "+isFormValidated);
         }
     }
 
     useEffect(() => {
         async function submitForm() {
             if (isFormValidated) {
-                console.log("Signup form sent!");
                 const res = await fetch(`${BASE_URL}/api/v.0.1/user/signup`, {
                     method: "post",
                     headers: { "Content-Type": "application/json" },
@@ -137,7 +130,6 @@ function Signup(){
     }
 
     return <main id="signup">
-
             <section className={`${styles.sign_section} ${styles.signup}`}>
                 <h1>Je crée mon compte</h1>     
 
@@ -173,9 +165,10 @@ function Signup(){
                         <FontAwesomeIcon icon={faPhone} className={styles.input_icon}/>  
                         <input type="tel" 
                                 name="tel" 
-                                placeholder="Numéro de téléphone"
+                                placeholder="Numéro de téléphone*"
                                 value={tel}
-                                onChange={(e) => setTel(e.target.value)}/> 
+                                onChange={(e) => setTel(e.target.value)}
+                                required/> 
                     </label>
                     <label> 
                         <FontAwesomeIcon icon={faLocationDot} className={styles.input_icon}/>  
@@ -244,7 +237,6 @@ function Signup(){
                 { (msg && !lastName) ? 
                         <p className={styles.err_msg}>{msg}</p> : null}
             </section>
-
         </main>
 }
 

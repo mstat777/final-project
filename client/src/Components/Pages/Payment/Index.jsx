@@ -9,7 +9,7 @@ import CheckoutForm from './CheckoutForm/Index';
 function Payment(){
     const BASE_URL = process.env.REACT_APP_BASE_URL;
     const TOKEN = localStorage.getItem("auth");
-    const { bookingInfo } = useSelector((state) => state.booking);
+    const { bookingInfo, bookedData } = useSelector((state) => state.booking);
 
     const [stripePromise, setStripePromise] = useState('');
     const [clientSecret, setClientSecret] = useState('');
@@ -52,6 +52,13 @@ function Payment(){
     useEffect(() => {
         async function getClientSecret(){
             try {
+                let toPay = 0;
+                // deux cas : une partie a déjà été payée ou tout est à payer :
+                if (bookedData.datasBook) {
+                    toPay = bookedData.datasBook[0].status !== "validée" ? bookingInfo.prices.total_all : bookingInfo.prices.total_all - bookedData.datasBook[0].price_total_booking;
+                } else {
+                    toPay = bookingInfo.prices.total_all;
+                }
                 const res = await fetch(`${BASE_URL}/api/v.0.1/payment/create-payment-intent`, {
                     method: "POST",
                     headers: { 
@@ -60,7 +67,7 @@ function Payment(){
                     body: JSON.stringify({
                         paymentMethodType: 'card',
                         currency: 'eur',
-                        amount: bookingInfo.prices.total_all*100
+                        amount: toPay*100
                     })
                 });
                 const { clientSecret } = await res.json();
@@ -77,11 +84,17 @@ function Payment(){
     return <main id="payment">
                 <section className={styles.payment_section}>
                     <h1>Paiement</h1>
-                    <p>Montant du paiement : {bookingInfo.prices.total_all.toFixed(2)} &euro;</p>
+                    {/* s'il reste à payer dans le cas de modif de la réservation : */}
+                    <p>Montant du paiement : {!bookedData.datasBook ? 
+                    bookingInfo.prices.total_all.toFixed(2) : bookedData.datasBook[0].status === "validée" ? 
+                    (bookingInfo.prices.total_all - bookedData.datasBook[0].price_total_booking).toFixed(2) :
+                    bookingInfo.prices.total_all.toFixed(2)} &euro;</p>
                     {stripePromise && clientSecret &&
                         <Elements 
                             stripe={stripePromise} 
-                            options={{ clientSecret, appearance }}
+                            options={{ 
+                                clientSecret, 
+                                appearance }}
                             key={clientSecret}>
                             <CheckoutForm clientSecret={clientSecret}/>
                         </Elements>

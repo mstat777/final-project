@@ -20,16 +20,14 @@ function validateInput(name, userData){
 
     // les inputs dont le nom contient 'Mail/mail' 
     if (name.match(/Mail/i)) {
-        if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(userData)) {
-            result.msg +="L'adresse mail n'est pas correct.\n";
+        if (!/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i.test(userData)) {
+            result.msg +="Le format de l'adresse mail n'est pas correct.\n";
             result.isValid = false;
         }
     }
 
     // les inputs dont le nom contient 'Password/password' 
     if (name.match(/Password/i)) {
-        console.log(name);
-        console.log(userData);
         if (userData.length < 8) { 
             result.msg +="Le mot de passe doit être composé d'au moins 8 caractères.\n";
             result.isValid = false;
@@ -74,13 +72,11 @@ function validateInput(name, userData){
             const today = new Date(); // la date d'auj
             // convertir la date de naiss. d'util. (string) en date
             const birthDate = new Date(userData); 
-
             let age = today.getFullYear() - birthDate.getFullYear();
             const m = today.getMonth() - birthDate.getMonth();
             if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
                 age--;
             }    
-
             if (age < 0) {
                 result.msg +="Vous n'avez pas saisi une date valide.\n";
                 result.isValid = false;

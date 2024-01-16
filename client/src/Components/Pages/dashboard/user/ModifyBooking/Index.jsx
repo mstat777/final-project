@@ -27,7 +27,17 @@ function ModifyBooking(){
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    //const [ isNbPeopleLoaded, setIsNbPeopleLoaded ] = useState(false);
+    // stocker les données de l'ancienne ("bookedData") et la nouvelle ("bookingInfo") réservations :
+    const { bookedData, bookingInfo } = useSelector((state) => state.booking);
+    const { userInfo } = useSelector((state) => state.user);
+    const { destination, lodging, packs, activities } = useSelector((state) => state.allTravel);
+
+    // on récupère l'ID du pack sélectionné :
+    const packID = userInfo.modifPackID;
+
+    // le bouton Submit clické ou pas
+    const [isSubmitPressed, setIsSubmitPressed] = useState(false);
+
     const [ isAllDataLoaded, setIsAllDataLoaded ] = useState(false);
 
     // stocker les états des checkboxes (on connait pas le nb) :
@@ -43,19 +53,6 @@ function ModifyBooking(){
         if (isMobile) { window.scrollTo(0, 160); }
         if (isTabletOrDesktop) { window.scrollTo(0, 0); }
     }, [])
-
-    // stocker les données de l'ancienne réservation :
-    const { bookedData } = useSelector((state) => state.booking);
-    // stocker les données de la nouvelle réservation :
-    const { bookingInfo } = useSelector((state) => state.booking);
-
-    const { userInfo } = useSelector((state) => state.user);
-    // on récupère l'ID du pack sélectionné :
-    const packID = userInfo.modifPackID;
-    // sélectionner le 1er pack suite à la fetch :
-    const id = 0;
-
-    const { destination, lodging, packs, activities } = useSelector((state) => state.allTravel);
 
     // initialiser les variables pour stocker les prix du pack et des activités associées :
     const [pricesList, setPricesList] = useState({
@@ -90,7 +87,6 @@ function ModifyBooking(){
                 adultsBookedAct.push(0);
                 childrenBookedAct.push(0);
             }
-            //console.log(bookedData);
 
             for (let i = 0; i < activities.length; i++) {
                 for (let j = 0; j < bookedData.datasBookAct.length; j++) {
@@ -121,8 +117,9 @@ function ModifyBooking(){
         if (bookingInfo.nb_adults.pack) {
             // initialiser les checkboxes :
             let myArray = []; 
-            activities.forEach(() => {
-                myArray.push(true);
+            activities.forEach((el, i) => {
+                bookingInfo.nb_adults.activities[i] || bookingInfo.nb_children.activities[i] ?
+                myArray.push(true) : myArray.push(false);
             });
             setCheckBoxes(myArray);
             
@@ -132,12 +129,11 @@ function ModifyBooking(){
             for (let i = 0; i < activities.length; i++) {
                 prices_adults[i] = activities[i].price_adults;
                 prices_children[i] = activities[i].price_children;
-                //console.log("activities[i].price_children = "+activities[i].price_children);
             }
             
             setPricesList({
-                price_adults_pack: packs[id].price_adults,
-                price_children_pack: packs[id].price_children,
+                price_adults_pack: packs[0].price_adults,
+                price_children_pack: packs[0].price_children,
                 // on a récupéré les prix de toutes les activités ci-dessus
                 price_adults_activities: prices_adults,
                 price_children_activities: prices_children
@@ -154,8 +150,6 @@ function ModifyBooking(){
 
     // CALCULER LES PRIX TOTAUX chaque fois le nb de personnes change :
     useEffect(() => {
-        //console.log("bookingInfo.nb_adults.pack = "+bookingInfo.nb_adults.pack);
-        //console.log("pricesList.price_adults_activities.length = "+pricesList.price_adults_activities.length);
         if (bookingInfo.nb_adults.pack && 
             pricesList.price_adults_activities.length) {
             dispatch(calculatePrices(pricesList));
@@ -169,13 +163,17 @@ function ModifyBooking(){
         setCheckBoxes(newArray);
     }
 
-    // vérifier la réservation grâce à la fonction verifyBooking et passer à la page Booking Modified Summary, si OK :
-    function handleSaveBooking(){
-        setErrors(verifyBooking());
-        // si aucune erreur trouvée, passe à la page Summary :
-        if (errors.every(el => el === false)) {
+    // passer à la page Summary, si la vérif est OK :
+    useEffect(() => {
+        if (isSubmitPressed && !errors[0]) {
             navigate(`/db/user/booking-summary`);
         }
+    },[isSubmitPressed, errors[0]]);
+
+    // vérifier la réservation grâce à la fonction verifyBooking et passer à la page Booking Modified Summary, si OK :
+    function handleSaveBooking(){
+        setErrors(verifyBooking(packs[0], activities, checkBoxes)); // vérifier les inputs
+        setIsSubmitPressed(true);
     }
 
     return <main id="booking-modify">
@@ -189,11 +187,11 @@ function ModifyBooking(){
                         <h3>{lodging.name}</h3>
                         <p className={styles.destination_name}>{destination.name}</p>
                         <p>Paramètres du pack :</p>
-                        <p>Date de départ : <b>{formatDate(packs[id].departure_date)}</b></p>
-                        <p>Date de retour : <b>{formatDate(packs[id].return_date)}</b></p> 
-                        <p>Durée : <b>{packs[id].duration+1}</b> jours / <b>{packs[id].duration}</b> nuits</p>  
-                        <p>Prix/TTC/adulte : <b>{packs[id].price_adults}</b> &euro;</p> 
-                        <p>Prix/TTC/enfant : <b>{packs[id].price_children}</b> &euro;</p> 
+                        <p>Date de départ : <b>{formatDate(packs[0].departure_date)}</b></p>
+                        <p>Date de retour : <b>{formatDate(packs[0].return_date)}</b></p> 
+                        <p>Durée : <b>{packs[0].duration+1}</b> jours / <b>{packs[0].duration}</b> nuits</p>  
+                        <p>Prix/TTC/adulte : <b>{packs[0].price_adults}</b> &euro;</p> 
+                        <p>Prix/TTC/enfant : <b>{packs[0].price_children}</b> &euro;</p> 
                     </div>
                     <img src={`${IMG_URL}/img/lodgings/${lodging.url_initial_image}`} alt="image de l'hébergement" className={styles.main_img}/>
                 </article>
@@ -237,16 +235,17 @@ function ModifyBooking(){
                             <div className={styles.booking_activity_title}>
                                 <label htmlFor={activity.id}>
                                     <input type="checkbox" 
+                                        id={activity.id}
                                         checked={ checkBoxes[i] } 
                                         onChange={() => handleChange(i)}/>
-                                    {activity.name}
+                                    <span>{activity.name}</span>
                                 </label>
                             </div>
 
                             { checkBoxes[i] && 
                             <div className={styles.booking_activity_inputs}>
-                                <span>Adultes :</span>
                                 <div>
+                                    <span>Adultes :</span>
                                     <button onClick={()=>{dispatch(incrNbAdultsActivity(i))}}>
                                         <FontAwesomeIcon icon={faCirclePlus} className={styles.fa_circle}/>
                                     </button>
@@ -259,8 +258,8 @@ function ModifyBooking(){
                                     </button>
                                 </div>
 
-                                <span>Enfants :</span>
                                 <div>
+                                    <span>Enfants :</span>
                                     <button onClick={()=>{dispatch(incrNbChildrenActivity(i))}}>
                                         <FontAwesomeIcon icon={faCirclePlus} className={styles.fa_circle}/>
                                     </button>
@@ -277,6 +276,7 @@ function ModifyBooking(){
                             <div>
                                 <p>Type : {activity.type}</p>
                                 <p>Prix : adultes: {activity.price_adults}&euro;, enfants : {activity.price_children}&euro;</p>
+                                {(activity.places_left < 11) && <p className={styles.places_left}>Il ne reste que {activity.places_left} places !</p>}
                                 <p>{activity.overview}</p>
                             </div>                     
                         </article>
@@ -301,7 +301,7 @@ function ModifyBooking(){
 
                 <div className={styles.error_ctn}>
                     {errors.map((el, i) => el[i] &&
-                    <p>Erreur : {errors[i]}</p>)}
+                    <p key={i}>Erreur : {errors[i]}</p>)}
                 </div>
 
             </section>}

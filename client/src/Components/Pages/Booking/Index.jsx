@@ -25,15 +25,18 @@ function Booking(){
     // on enregistre l'ID du pack sélectionné :
     let { id } = useParams();
 
-    // on vérifie si le bouton Submit a été clické
-    const [isSubmitPressed, setIsSubmitPressed] = useState(false);
-
     const { destination, 
             lodging, 
             packs, 
             activities } = useSelector((state) => state.allTravel);
     // stocker les données de la réservation :
     const { bookingInfo } = useSelector((state) => state.booking);
+
+    // le bouton Submit clické ou pas
+    const [isSubmitPressed, setIsSubmitPressed] = useState(false);
+
+    // stocker les erreurs lors de la vérification de la réservation :
+    const [errors, setErrors] = useState([]);
 
     // pour stocker les états des checkboxes :
     let myArray = []; 
@@ -95,15 +98,10 @@ function Booking(){
         setCheckBoxes(newArray);
     }
 
-    // stocker les erreurs lors de la vérification de la réservation :
-    const [errors, setErrors] = useState([]);
-
     // passer à la page Summary, si la vérif est OK :
     useEffect(() => {
-        if (isSubmitPressed) {
-            if (!errors[0]) {
-                navigate(`/summary/${id}`);
-            }
+        if (isSubmitPressed && !errors[0]) {
+            navigate(`/summary/${id}`);
         }
     },[isSubmitPressed, errors[0]]);
 
@@ -172,9 +170,10 @@ function Booking(){
                             <div className={styles.booking_activity_title}>
                                 <label htmlFor={activity.id}>
                                     <input type="checkbox" 
+                                        id={activity.id}
                                         checked={ checkBoxes[i] } 
                                         onChange={() => handleChange(i)}/>
-                                    {activity.name}
+                                    <span>{activity.name}</span>
                                 </label>
                             </div>
 

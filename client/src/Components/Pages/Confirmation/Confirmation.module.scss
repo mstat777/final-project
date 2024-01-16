@@ -4,14 +4,7 @@
     display: flex;
     flex-direction: column;
     max-width: 600px;
-    margin: 1.5rem auto;
+    margin: 30vh auto;
+    padding: 2rem;
     border: 1px solid $lightgrey-color;
-
-    @media screen and (min-width: $br-tablet) {
-        margin: 20vh auto;
-    }
-    
-    @media screen and (min-width: $br-desktop) {
-        margin: 30vh auto;
-    }
 }

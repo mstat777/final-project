@@ -77,10 +77,6 @@ function Summary(){
         }
     },[bookedActivities.length]);
 
-    function handlePaymentChange(e) {
-        setPaymentType(e.target.value);
-    }
-
     async function handleConfirm() {
         if (paymentType === '1') {
             navigate("/payment");
@@ -147,7 +143,7 @@ function Summary(){
                         <p>Comment souhaitez-vous effectuer le paiement ?</p>
                         <select 
                         defaultValue="0"
-                        onChange={handlePaymentChange}>
+                        onChange={(e) => setPaymentType(e.target.value)}>
                             {paymentOptions.map((option) => (
                                 <option value={option.value} key={option.value}>{option.label}</option>
                             ))}

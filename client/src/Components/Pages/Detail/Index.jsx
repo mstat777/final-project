@@ -67,7 +67,7 @@ function Detail(){
                 </section>
                 
                 <section className={styles.packs_main_ctn}>
-                    <h2>Sélectionner un pack</h2>
+                    <h2>Sélectionner un pack :</h2>
                     { packs.map((pack, index) => 
                     <article key={index} className={styles.pack_ctn}>
                         <div>

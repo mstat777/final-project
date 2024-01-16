@@ -84,6 +84,11 @@
                 padding: .6rem 4rem;
                 font-weight: 500;
             }
+            /* styler le date-picker */
+            input[type="date"]::-webkit-calendar-picker-indicator { 
+                margin-right: -2.5rem;
+            }
+
             /* l'oeil d'affichage du mdp */
             .pass_icon_ctn {
                 position: absolute;

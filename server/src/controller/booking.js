@@ -13,11 +13,9 @@ const createBooking = async (req, res) => {
             pack_id: req.body.pack_id,
             user_id: req.body.user_id
         };
-        console.log(datasPack);
         const queryPack = "INSERT INTO bookings (nb_adults, nb_children, price_total_booking, payment_type, status, date_created, pack_id, user_id) VALUES (?, ?, ?, ?, ?, CURRENT_TIMESTAMP(), ?, ?)";
         await Query.queryByObject(queryPack, datasPack);
         // s'il y a des activités réservées, on les passe dans la table 'booked_activities' :
-        console.log(req.body.activities.length);
         if (req.body.activities.length) {
             // on récupère l'ID de la réservation :
             const queryLastBooking = "SELECT id FROM bookings WHERE user_id = ? ORDER BY date_created DESC LIMIT 1";
@@ -29,7 +27,6 @@ const createBooking = async (req, res) => {
                 newData.push(el);
                 //console.log(el);
             });
-            console.log(newData);
             // on enregistre les activités réservées :
             const queryActivities = "INSERT INTO booked_activities (nb_adults, nb_children, price_total_act, activity_id, booking_id) VALUES ?";
             await Query.queryByArray(queryActivities, [newData]);
@@ -51,15 +48,17 @@ const modifyBooking = async (req, res) => {
             nb_children: req.body.nb_children,
             price_total_booking: req.body.price_total_booking,
             payment_type: req.body.paymentType,
+            status: req.body.status,
             id: req.body.bookingID
         };
-        const queryPack = "UPDATE bookings SET nb_adults = ?, nb_children = ?, price_total_booking = ?, payment_type = ? WHERE id = ?";
-        //const queryPack = "UPDATE bookings SET nb_adults = '2', nb_children = '3', price_total_booking = '11567.00', payment_type = '2' WHERE id = '35'";
+        console.log(datasPack);
+        const queryPack = "UPDATE bookings SET nb_adults = ?, nb_children = ?, price_total_booking = ?, payment_type = ?, status = ? WHERE id = ?";
         await Query.queryByObject(queryPack, datasPack);
 
         // -------------- modifier ACTIVITÉS ---------------
         // s'il y a des activités réservées, on les passe dans la table 'booked_activities' :
         // on compare le nouvel état avec l'ancien pour savoir quelles activités sont à mettre à jour, insérer, supprimer :
+        console.log(req.body);
         for(let i = 0; i < req.body.newBookedActiv.length; i++){
             if (req.body.newBookedActiv[i].activity_id && 
                 req.body.oldBookedActiv[i].activity_id ) {

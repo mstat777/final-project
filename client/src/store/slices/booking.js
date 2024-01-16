@@ -2,7 +2,8 @@ import {createSlice} from "@reduxjs/toolkit";
 
 // pour stocker les infos lors du processus de réservation (nb de personnes, prix, etc.) :
 const initialState = {
-    bookingInfo: JSON.parse(localStorage.getItem("booking")) || {
+    // données actuelles de la réservation
+    bookingInfo: {
         nb_adults: {
             pack: 0, // nb d'adultes par pack
             activities: [] // nb d'adultes par activité
@@ -23,7 +24,12 @@ const initialState = {
         packID: '',
         selectedActivities: []
     },
-    bookedData: []
+    // anciennes données de la réservation (afin de faire une MAJ)
+    bookedData: {},
+    // nouvel état de la réservation
+    newBookedAct: [],
+    // ancien état de la réservation
+    oldBookedAct: []
 }
 
 export const bookingSlice = createSlice({
@@ -138,7 +144,13 @@ export const bookingSlice = createSlice({
         },
         setSelectedActivities: (state, action) => {
             state.bookingInfo.selectedActivities = action.payload;
-        }
+        },
+        setNewBookedAct: (state, action) => {
+            state.newBookedAct = action.payload;
+        },
+        setOldBookedAct: (state, action) => {
+            state.oldBookedAct = action.payload;
+        },
     }
 });
 
@@ -157,7 +169,9 @@ export const {
     setBookedData,
     setNbInBooking,
     setPackID,
-    setSelectedActivities
+    setSelectedActivities,
+    setNewBookedAct,
+    setOldBookedAct
     } = bookingSlice.actions;
 
 export default bookingSlice.reducer;

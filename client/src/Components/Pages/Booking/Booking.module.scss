@@ -115,11 +115,14 @@
             .booking_activity_title {
                 margin: 1.5rem .8rem;
                 label {
-                    font-weight: 500;
                     input {
                         vertical-align: middle;
                         margin-right: .8rem;
                         margin-bottom: .3rem;
+                    }
+                    span {
+                        font-weight: 500;
+                        user-select: none;
                     }
                 }
             }

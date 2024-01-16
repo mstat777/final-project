@@ -5,6 +5,8 @@ function verifyBooking(chosenPack, activities, checkBoxes){
     const errors = [];
     const state = store.getState();
     const bookingInfo = state.booking.bookingInfo;
+    const bookedData = state.booking.bookedData;
+
     // vérfier si suffisamment de places dispo pour pouvoir réserver le pack :
     if (bookingInfo.nb_adults.pack + bookingInfo.nb_children.pack > chosenPack.places_left) {
         errors.push(`Il ne reste que ${chosenPack.places_left} places. Veuillez modifier le nombre de personnes pour lesquels vous réservez.`);
@@ -29,6 +31,22 @@ function verifyBooking(chosenPack, activities, checkBoxes){
             }
         }
     }); 
+
+    // UNIQUEMENT dans le cas de modif d'une réservation déjà validée/payée :
+    if (bookedData.datasBook) {
+        if (bookedData.datasBook[0].status === "validée") {
+            // si montant négatif (à rembourser) :
+            if (bookingInfo.prices.total_all - bookedData.datasBook[0].price_total_booking < 0) {
+                errors.push("Cette réservation a déjà été payée. Nous ne pouvons pas vous faire rembourser.");
+            }
+            // si moins de personnes indiquées dans le pack:
+            if (bookingInfo.nb_adults.pack < bookedData.datasBook[0].nb_adults ||
+            bookingInfo.nb_children.pack < bookedData.datasBook[0].nb_children) {
+                errors.push(`Vous avez déjà payé. Il n'est pas possible de réduire le nombre de personnes.`);
+            }
+        }
+    }
+    
     return errors;
 }
 
