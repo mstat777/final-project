@@ -22,14 +22,9 @@ function Contact(){
 
     // vérifier si tous les champs sont valides. Si OUI, le form est valide :
     const checkFormValidation = () => {
-        // on vérifie les champs :
         const nameVerif = validateInput("userName", userName.trim());
-        console.log("nameVerif.isValid = "+nameVerif.isValid);
-        // rassembler toutes les messages d'erreur pour les afficher au-dessous du formulaire :
         setMsg(nameVerif.msg);
-        // si tous les champs obligatoires sont validés, on valide le formulaire :
         nameVerif.isValid ? setIsFormValidated(true) : setIsFormValidated(false);
-        console.log("isFormValidated = "+isFormValidated);
     }
 
     useEffect(() => {
@@ -39,7 +34,6 @@ function Contact(){
     },[isFormValidated]);
 
     async function submitForm() {
-        console.log("Contact form sent!");
         /*
         const res = await fetch(`${BASE_URL}/api/v.0.1/contact/message`, {
             method: "post",
@@ -60,7 +54,6 @@ function Contact(){
 
     async function handleSubmit(e) {
         e.preventDefault();
-        // vérifier si tous les champs sont valides :
         checkFormValidation();
     }
 

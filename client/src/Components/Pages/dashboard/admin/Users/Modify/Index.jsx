@@ -64,7 +64,6 @@ function AdminDashUserModify(){
 
     async function submitForm() {
         if (isFormValidated) {
-            console.log("User Data modif form sent!");
             const res = await fetch(`${BASE_URL}/api/v.0.1/admin/lodgings/modify`, {
                 method: "post",
                 headers: { "Content-Type": "application/json" },
@@ -84,11 +83,9 @@ function AdminDashUserModify(){
                 })
             });
             const json = await res.json();
-            //console.log(json.msg);
             
             if (res.status === 201) {
                 setOkMsg("Les modifications ont été enregistrée.");
-                //navigate("/db/admin/lodgings");
             }
         }
     }
@@ -103,13 +100,10 @@ function AdminDashUserModify(){
 
     function handleSubmit(e) {
         e.preventDefault();
-        // vérifier si tous les champs sont valides :
         checkFormValidation();
     }
 
     return <>
-        { console.log(results)}
-        { console.log("showResults = "+showResults)}
         { showResults && 
         <div className={styles.admin_db_section}>
             {results[0] ? <>

@@ -8,7 +8,6 @@ const getPublishableKey = (req, res) => {
 
 const createPaymentIntent = async (req, res) => {
     try {
-        //console.log(req.body);
         const paymentIntent = await stripe.paymentIntents.create({
             amount: req.body.amount,
             currency: req.body.currency,

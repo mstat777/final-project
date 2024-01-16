@@ -1,8 +1,8 @@
 import styles from '../Payment.module.scss';
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
+import { useStripe, useElements, CardNumberElement, CardCvcElement, CardExpiryElement } from '@stripe/react-stripe-js';
 import MainBtn from '../../../Containers/buttons/MainBtn/Index';
 
 function CheckoutForm({clientSecret}){
@@ -11,9 +11,24 @@ function CheckoutForm({clientSecret}){
     const stripe = useStripe();
     const elements = useElements();
     const navigate = useNavigate();
-
-    //var cardElement = elements.create('card');
-
+/*
+    const options = {
+                style: {
+                    base: {
+                        fontSize: "1.4rem",
+                        color: "#424770",
+                        letterSpacing: "0.04rem",
+                        fontFamily: "Roboto, Source Code Pro, monospace, SFUIDisplay",
+                        "::placeholder": {
+                            color: "#aab7c4"
+                        }
+                    },
+                    invalid: {
+                        color: "#9e2146"
+                    },
+                }
+            };
+    */
     const { bookingInfo, bookedData, newBookedAct, oldBookedAct } = useSelector((state) => state.booking);
     const { userInfo } =  useSelector((state) => state.user);
 
@@ -30,7 +45,7 @@ function CheckoutForm({clientSecret}){
         const {error, paymentIntent} = await stripe.confirmCardPayment(
             clientSecret, {
                 payment_method: {
-                    card: elements.getElement(CardElement),
+                    card: elements.getElement(CardNumberElement),
                 }
             }
         );
@@ -93,7 +108,19 @@ function CheckoutForm({clientSecret}){
 
     return <>
         <form onSubmit={handleSubmit} className={styles.payment_form}>
-            <CardElement/>
+            <label>
+                <span>Num. carte</span>
+                <CardNumberElement/>
+            </label>
+            <label>
+                <span>Date d'expiration</span>
+                <CardExpiryElement/>
+            </label>
+            <label>
+                <span>CVC</span>
+                <CardCvcElement/>
+            </label>
+
             <MainBtn type="submit" 
                     disabled={isProcessing} 
                     text={isProcessing ? "traitement ..." : "payer"}/>

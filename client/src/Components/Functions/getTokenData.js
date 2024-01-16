@@ -9,16 +9,12 @@ async function getTokenData() {
     const res = await fetch(`${BASE_URL}/api/v.0.1/user/check-token`, {
         headers: { Authentication: "Bearer " + TOKEN }
     });
-    //console.log("token trouvé");
-    if (res.status === 401) {   
-        //console.log("le token n'est pas valid");                     
+    if (res.status === 401) {                      
         localStorage.removeItem("auth");
         store.dispatch(signout());
     }
     if (res.status === 200) {
-        //console.log("le token est valid"); 
         const json = await res.json();
-        //console.log(json);
         store.dispatch(setFromLocalStorage(json));
     }
 }

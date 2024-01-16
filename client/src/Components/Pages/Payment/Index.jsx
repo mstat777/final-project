@@ -14,7 +14,7 @@ function Payment(){
     const [stripePromise, setStripePromise] = useState('');
     const [clientSecret, setClientSecret] = useState('');
 
-    const appearance = {
+    /*const appearance = {
         theme: 'stripe',
         variables: {
             colorPrimary: variables.secondaryColor,
@@ -31,10 +31,14 @@ function Payment(){
         },
         rules: {
             '.Input': {
-                color: variables.colorPrimary,
+                color: variables.primaryColor,
+            },
+            '.StripeElement': {
+                color: variables.primaryColor,
+                colorBackground: 'white'
             },
         }
-    }
+    }*/
 
     useEffect(() => {
         async function getPK(){
@@ -94,7 +98,7 @@ function Payment(){
                             stripe={stripePromise} 
                             options={{ 
                                 clientSecret, 
-                                appearance }}
+                                /*appearance*/ }}
                             key={clientSecret}>
                             <CheckoutForm clientSecret={clientSecret}/>
                         </Elements>

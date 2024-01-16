@@ -19,17 +19,14 @@ const getAllDestinations = async (req, res) => {
     res.status(200).json({datas});
 }
 
-
 // cherche une destination dont les packs correspondent aux critères de la barre de recherche :
 const getAllDataIfPacks = async (req, res) => {
-    //console.log(req.body);
     const queryDest = "SELECT * FROM destinations WHERE name = ?";
     const [datasDest] = await Query.queryByValue(queryDest, req.body.searchDestination);
 
     // pour faire une recherche nb d'inputs dynamique :
     let queryEnding = "";
     const bodyData = [datasDest[0].id];
-    //console.log(bodyData);
 
     if (req.body.departureDate !== ''){
         queryEnding += " AND departure_date >= ?";
@@ -39,10 +36,8 @@ const getAllDataIfPacks = async (req, res) => {
         queryEnding += " AND price_adults <= ?";
         bodyData.push(req.body.maxPrice);
     }
-    //console.log("queryEnding = "+queryEnding);
 
     const queryPacks = "SELECT * FROM packs WHERE places_left > 0 AND destination_id = ?" + queryEnding + " ORDER BY departure_date";
-    //console.log("queryPacks = "+queryPacks);
     const [datasPacks] = await Query.queryByArray(queryPacks, bodyData);
 
     const queryLodg = "SELECT * FROM lodgings WHERE id = ?";
@@ -93,7 +88,6 @@ const getAllDataAllPacks = async (req, res) => {
 const getDestinationAllData = async (req, res) => {
     // si le nom de la destination vient de l'URL, il peur contenir "%20" qu'on doit remplacer par un vide :
     const name = req.params.name.replace("%20", " ");
-    //console.log("name = "+name);
     // récupérer les données de la destination et de l'hébérgement :
     const queryDest = "SELECT * FROM destinations WHERE name = ?";
     const [datasDest] = await Query.queryByValue(queryDest, req.params.name);
@@ -186,10 +180,8 @@ const getActivitiesByDestination = async (req, res) => {
 }
 // le pack "Best Promo" (celui avec la plus grande réduction) :
 const getBestPromoPack = async (req, res) => {
-    console.log("best promo");
     const query = "SELECT d.name, d.country, d.url_initial_image, p.discount, p.price_adults, p.id AS pack_id FROM packs AS p JOIN destinations AS d ON d.id = p.destination_id WHERE p.discount = (SELECT MAX(discount) FROM packs ORDER BY price_adults LIMIT 1)";
     const [datas] = await Query.find(query);
-    console.log(datas);
     res.status(200).json({datas});
 }
 // les 3 destinations avec la plus grande réduction sur les packs :

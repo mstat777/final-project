@@ -37,7 +37,7 @@ function AdminDashLodgingSearch(){
                     setMsg("Aucun résultat trouvé");
                 }
             } else {
-                console.log("res.status n'est pas OK!!!");
+                console.log(res.status);
             }
         }
     }

@@ -166,7 +166,7 @@ const modifyLodging = async (req, res) => {
             delete lodging.id;
             lodging.url_initial_image = files.file[0].newFilename;
             lodging.id = id;
-            //console.log(lodging);
+
             const query = "UPDATE lodgings SET name = ?, type = ?, overview = ?, facilities = ?, rooms = ?, food_drink = ?, meal_plans = ?, entertainment = ?, children = ?, tripadvisor = ?, coordinates = ?, url_initial_image = ? WHERE id = ?";
             await Query.queryByObject(query, lodging);
             msg = "hébérgement modifié";
@@ -196,7 +196,7 @@ const modifyDestination = async (req, res) => {
             delete destination.id;
             destination.url_initial_image = files.file[0].newFilename;
             destination.id = id;
-            //console.log(destination);
+
             const query = "UPDATE destinations SET reference = ?, name = ?, country = ?, continent = ?, overview = ?, departure_place = ?, lodging_id = ?, url_initial_image = ? WHERE id = ?";
             await Query.queryByObject(query, destination);
             msg = "destination modifiée";
@@ -294,7 +294,6 @@ const createLodging = async (req, res) => {
                 });
                 // on en aura pas besoin de la 1ere image, car elle sert uniquement pour image initiale :
                 urlArray.shift();
-                console.log(urlArray);
     
                 async function writeImage(imgData){
                     const queryInsertImages = "INSERT INTO lodgings_images (url_image, lodging_id) VALUES (?,?)";
@@ -329,7 +328,6 @@ const createDestination = async (req, res) => {
             for (const key in fields){
                 newDestination[key] = fields[key][0]; 
             }
-            console.log(newDestination);
 
             // vérifier si une destination avec le même nom existe déjà :
             const queryCheck = "SELECT name FROM destinations WHERE name = ?";
@@ -360,7 +358,6 @@ const createDestination = async (req, res) => {
                 });
                 // on en aura pas besoin de la 1ere image, car elle sert uniquement pour image initiale :
                 urlArray.shift();
-                console.log(urlArray);
 
                 async function writeImage(imgData){
                     const queryInsertImages = "INSERT INTO destinations_images (url_image, destination_id) VALUES (?,?)";
@@ -388,7 +385,6 @@ const createPack = async (req, res) => {
             for (const key in fields){
                 newPack[key] = fields[key][0]; 
             }
-            console.log(newPack);
             const query = "INSERT INTO packs (reference, departure_date, return_date, duration, price_adults, price_children, discount, places_total, places_left, destination_id) VALUES (?,?,?,?,?,?,?,?,?,?)";
             await Query.queryByObject(query, newPack);
     

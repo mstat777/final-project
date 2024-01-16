@@ -26,7 +26,6 @@ const userSignIn = async (req, res) => {
     try {
         let msg = "";
         const queryUser = "SELECT id, email, account_type, password FROM users WHERE email = ?";
-        //console.log("req.body.email = " + req.body.email);
         const [user] = await Query.queryByValue(queryUser, req.body.email);
         //si l'utilisateur est trouvé dans la BDD :
         if (user.length) {

@@ -37,7 +37,6 @@ function UserDashBookingModifiedSummary() {
     useEffect(() => {
         function getOldActivities(){
             const oldArray = [];
-            console.log(activities);
             for(let i = 0; i < activities.length; i++){
                 const myObject = {
                     nb_adults: 0,
@@ -58,11 +57,9 @@ function UserDashBookingModifiedSummary() {
                 } 
                 oldArray.push(myObject);
             }
-            console.log(oldArray);
             return oldArray;
         }
         if (bookedData.datasBookAct.length){
-            console.log(bookedData);
             dispatch(setOldBookedAct(getOldActivities()));
         }
     }, [bookedData.datasBookAct.length]);
@@ -91,7 +88,6 @@ function UserDashBookingModifiedSummary() {
                 }
                 newArray.push(myObject);
             }
-            console.log(newArray);
             return newArray;
         }
         if (bookedData.datasBook[0]) {
@@ -103,8 +99,6 @@ function UserDashBookingModifiedSummary() {
         if (paymentType === '1') {
             navigate("/payment");
         } else if (paymentType === '2' || paymentType === '3') {
-            console.log(newBookedAct);
-            console.log(oldBookedAct);
             const res = await fetch(`${BASE_URL}/api/v.0.1/booking/modify`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json",
