@@ -1,9 +1,9 @@
 import Stripe from 'stripe';
 
-const stripe = new Stripe(`${process.env.STRIPE_SECRET_KEY}`);
+const stripe = new Stripe(`${process.env.REACT_APP_STRIPE_SECRET_KEY}`);
 
 const getPublishableKey = (req, res) => {
-    res.send({publishableKey: `${process.env.STRIPE_PUBLISHABLE_KEY}`});
+    res.send({publishableKey: `${process.env.REACT_APP_STRIPE_PUBLISHABLE_KEY}`});
 }
 
 const createPaymentIntent = async (req, res) => {
