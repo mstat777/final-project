@@ -1,7 +1,7 @@
 import styles from '../../results.module.scss';
 import { useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
-import { trimDate, formatDate } from '../../../../../Functions/utils';
+import { formatDate } from '../../../../../Functions/utils';
 
 function AdminDashUserResults(){
     const { resultsUsers } = useSelector((state) => state.dashboard);
@@ -42,7 +42,7 @@ function AdminDashUserResults(){
                         <td>{el.u.address}</td>  
                         <td>{formatDate(el.u.birth_date)}</td>  
                         <td>{el.u.occupation}</td>    
-                        <td>{trimDate(el.u.date_created)}</td>              
+                        <td>{formatDate(el.u.date_created)}</td>              
                     </tr>
                 )}
                 </tbody>

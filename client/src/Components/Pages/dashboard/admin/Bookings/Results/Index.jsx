@@ -1,7 +1,7 @@
 import styles from '../../results.module.scss';
 import { useSelector } from 'react-redux';
 import { useState, useEffect } from 'react';
-import { trimDate, formatDate } from '../../../../../Functions/utils';
+import { formatDate } from '../../../../../Functions/utils';
 
 function AdminDashBookingResults(){
     const { resultsBookings } = useSelector((state) => state.dashboard);
@@ -56,7 +56,7 @@ function AdminDashBookingResults(){
                                 <td>{el.u.tel}</td> 
                                 <td>{el.u.email}</td> 
                                 <td>{el.b.status}</td> 
-                                <td>{trimDate(el.b.date_created)}</td>
+                                <td>{formatDate(el.b.date_created)}</td>
                             </tr>
                         )}
                         </tbody>

@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useMediaQuery } from "react-responsive";
 import { modifyBooking } from '../../../../../store/slices/user';
 import { setBookedData } from '../../../../../store/slices/booking';
-import { trimDate } from '../../../../Functions/utils';
+import { formatDate } from '../../../../Functions/utils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencil, faTrashCan } from '@fortawesome/free-solid-svg-icons';
 
@@ -111,7 +111,7 @@ function UserDashboardMyBookings(){
                             </div>
                             <div className={styles.el_d_created}>
                                 <span>date :</span>
-                                <span>{trimDate(booking.b.date_created)}</span>
+                                <span>{formatDate(booking.b.date_created)}</span>
                             </div>
                             <div className={styles.el_btn_ctn}>
                                 <button type="button"

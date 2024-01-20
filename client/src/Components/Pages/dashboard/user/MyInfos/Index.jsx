@@ -2,7 +2,7 @@ import styles from './MyInfos.module.scss';
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useMediaQuery } from "react-responsive";
-import { formatDate } from '../../../../Functions/utils.js';
+import { correctDate } from '../../../../Functions/utils.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencil, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import { validateInput } from '../../../../Functions/sanitize';
@@ -88,6 +88,11 @@ function UserDashboardMyInfos(){
                 const dataUser = await (await fetch(`${BASE_URL}/api/v.0.1/user/${userInfo.userID}`, {
                     headers: { Authentication: "Bearer " + TOKEN }
                 })).json();
+                /*const tempDate = new Date(dataUser.datas[0].birth_date);
+                const tempArray = tempDate.toLocaleDateString().split('/');
+                const newDate = new Date(`${tempArray[2]}-${tempArray[1]}-${tempArray[0]}`);
+                console.log(newDate);*/
+                
                 // initialiser les données utilisateur :
                 setInputs({
                     lastName: dataUser.datas[0].last_name,
@@ -95,7 +100,7 @@ function UserDashboardMyInfos(){
                     email: dataUser.datas[0].email,
                     tel: dataUser.datas[0].tel,
                     address: dataUser.datas[0].address,
-                    birthDate: formatDate(dataUser.datas[0].birth_date),
+                    birthDate: correctDate(dataUser.datas[0].birth_date),
                     occupation: dataUser.datas[0].occupation
                 });
             } catch (error) {

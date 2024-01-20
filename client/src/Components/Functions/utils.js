@@ -7,16 +7,21 @@ function cheapestPack(packs) {
 }
 
 // récupérer juste la date du format DATETIME :
-function trimDate(date) {
-    const newDate = new Date(date).toLocaleString().slice(0,-9);
-    return newDate;
+function formatDate(date) {
+    const tempDate = new Date(date).toLocaleString("fr-FR").slice(0,10);
+    return tempDate;
 }
 
-// formatter les dates du format DATE (ça corrige le bug '-1 jour'):
-function formatDate(date) {
-    const tempDate = new Date(date);
-    const tempArray = tempDate.toLocaleDateString().split('/');
-    const newDate = `${tempArray[2]}-${tempArray[1]}-${tempArray[0]}`;
+// formatter les dates du format DATE (ça corrige le bug '-1 jour') (pour les inputs préremplis):
+function correctDate(date) {
+    const oldDate = new Date(date);
+    console.log(oldDate);
+    const timeOffset = oldDate.getTimezoneOffset();
+    console.log(timeOffset);
+    const correctDate = new Date(oldDate.getTime() - (timeOffset*60*1000));
+    console.log(correctDate);
+    const newDate = correctDate.toISOString().split('T')[0];
+    console.log(newDate);
     return newDate;
 }
 
@@ -29,6 +34,6 @@ function formatCoordinates(coordinates){
 }
 
 export { cheapestPack,
-         trimDate,
          formatDate,
+         correctDate,
          formatCoordinates }
