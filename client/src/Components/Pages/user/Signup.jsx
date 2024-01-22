@@ -1,7 +1,7 @@
 import styles from './user.module.scss';
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faLock, faEye, faEyeSlash, faPhone, faEnvelope, faLocationDot, faCakeCandles, faBriefcase } from '@fortawesome/free-solid-svg-icons';
 import { faUser as faUserReg } from '@fortawesome/free-regular-svg-icons';
@@ -67,7 +67,7 @@ function Signup(){
             const fNameVerif = validateInput("firstName", firstName.trim());
             const emailVerif = validateInput("email", email.trim());
             const telVerif = validateInput("tel", tel.trim());
-            // si une adresse est renseignée, on la vérifie. Si non, on la vérifie pas, car pas obligatoire :
+            // si l'adresse est renseignée, on la vérifie. Si non, on la vérifie pas, car pas obligatoire :
             let addressVerif = { isValid: true, msg: '' }
             if (address) {
                 addressVerif = validateInput("address", address.trim());
@@ -76,7 +76,7 @@ function Signup(){
             const bDateVerif = validateInput("birthDate", birthDate);
             const passVerif= validateInput("password", password.trim());
 
-            // rassembler toutes les messages d'erreur pour les afficher au-dessous du formulaire :
+            // afficher tous les messages d'erreur :
             setErrMsg(lNameVerif.msg 
                         + fNameVerif.msg 
                         + emailVerif.msg
@@ -84,7 +84,7 @@ function Signup(){
                         + addressVerif.msg
                         + bDateVerif.msg 
                         + passVerif.msg);
-            // si tous les champs obligatoires sont validés, on valide le formulaire :
+            // form valide si tous les champs validés :
             ( lNameVerif.isValid && 
             fNameVerif.isValid && 
             emailVerif.isValid &&
@@ -228,7 +228,7 @@ function Signup(){
                                 name="checkBoxPrivacy"
                                 checked={ checkBoxPrivacy } 
                                 onChange={() => setCheckBoxPrivacy(!checkBoxPrivacy)}/>
-                            <span>En cochant cette case, vous déclarez avoir lu et accepter nos <Popup text="conditions d'utilisation" child={TermsOfUse}/> et la <Link>politique de confidentialité</Link></span>
+                            <span>En cochant cette case, vous déclarez avoir lu et accepter nos <Popup text="conditions d'utilisation" child={TermsOfUse}/> et la <Popup text="politique de confidentialité" child={TermsOfUse}/></span>
                         </label>
                     </label>
 

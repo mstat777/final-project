@@ -11,7 +11,8 @@ function Contact(){
     const [userEmail, setUserEmail] = useState('');
     const [userMessage, setUserMessage] = useState('');
 
-    const [msg, setMsg] = useState('');
+    const [okMsg, setOkMsg] = useState('');
+    const [errMsg, setErrMsg] = useState('');
 
     // pour ne pas soumettre le formulaire, si les inputs ne sont pas valids:
     const [isFormValidated, setIsFormValidated] = useState(false);
@@ -20,11 +21,14 @@ function Contact(){
         window.scrollTo(0, 0);
     }, []);
 
-    // vérifier si tous les champs sont valides. Si OUI, le form est valide :
+    // vérifier si tous les champs sont valides :
     const checkFormValidation = () => {
         const nameVerif = validateInput("userName", userName.trim());
-        setMsg(nameVerif.msg);
-        nameVerif.isValid ? setIsFormValidated(true) : setIsFormValidated(false);
+        const emailVerif = validateInput("email", userEmail.trim());
+        // afficher tous les messages d'erreur :
+        setErrMsg(nameVerif.msg + emailVerif.msg);
+        // form valide si tous les champs validés :
+        (nameVerif.isValid && emailVerif) ? setIsFormValidated(true) : setIsFormValidated(false);
     }
 
     useEffect(() => {
@@ -34,9 +38,8 @@ function Contact(){
     },[isFormValidated]);
 
     async function submitForm() {
-        /*
-        const res = await fetch(`${BASE_URL}/api/v.0.1/contact/message`, {
-            method: "post",
+        const res = await fetch(`${BASE_URL}/api/v.0.1/contact/sendmail`, {
+            method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ 
                 userName,
@@ -44,12 +47,13 @@ function Contact(){
                 userMessage})
         });
         const json = await res.json();
-        setMsg(json.msg);
         
         if (res.status === 201) {
-            dispatch(setLogMessage("Merci de nous avoir contacté.\nVotre message a bien été transmis à notre équipe."));
-        }*/
-        setMsg("Merci de nous avoir contacté.\nVotre message a bien été transmis à notre équipe.");
+            setOkMsg("Merci de nous avoir contacté.\nVotre message a bien été transmis à notre équipe.");
+        } else {
+            setErrMsg("Le message n'a pas été envoyé.");
+            console.log(res.status);
+        }
     }
 
     async function handleSubmit(e) {
@@ -58,7 +62,8 @@ function Contact(){
     }
 
     function handleOnFocus(){
-        setMsg("");
+        setOkMsg('');
+        setErrMsg('');
     }
 
     return <main id="contact">
@@ -113,8 +118,10 @@ function Contact(){
                         </div>
                     </form>
 
-                    { (msg && userName && userEmail && userMessage) ? 
-                        <p className={styles.msg}>{msg}</p> : null }
+                    { (okMsg && userName && userEmail && userMessage) ? 
+                        <p className={styles.ok_msg}>{okMsg}</p> : null }
+                    { (errMsg && userName && userEmail && userMessage) ? 
+                        <p className={styles.err_msg}>{errMsg}</p> : null }
 
                 </article>
                 

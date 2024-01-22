@@ -79,6 +79,21 @@
                 }
             }
         }
+
+        .ok_msg,
+        .err_msg {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+            color: $highlight-color;
+            white-space: break-spaces;
+        }
+        .ok_msg {
+            font-size: 2rem;
+            font-weight: 500;
+            color: rgb(0, 143, 49);
+        }
     }
 
     @media screen and (min-width: $br-tablet) {

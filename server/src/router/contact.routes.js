@@ -7,7 +7,7 @@ import {
 const router = Router();
 
 // envoyer un message du Contact form :
-router.post("/message", sendMail);
+router.post("/sendmail", sendMail);
 // envoyer un message du Newsletter form :
 router.post("/newsletter", subscribeNewsletter);
 
