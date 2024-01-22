@@ -8,6 +8,8 @@ import { faUser as faUserReg } from '@fortawesome/free-regular-svg-icons';
 import { validateInput } from '../../Functions/sanitize';
 import { setLogMessage } from '../../../store/slices/user';
 import MainBtn from '../../Containers/buttons/MainBtn/Index';
+import Popup from '../../Containers/Popup/Index';
+import TermsOfUse from '../General/TermsOfUse/Index';
 
 function Signup(){
     const BASE_URL = process.env.REACT_APP_BASE_URL;
@@ -226,7 +228,7 @@ function Signup(){
                                 name="checkBoxPrivacy"
                                 checked={ checkBoxPrivacy } 
                                 onChange={() => setCheckBoxPrivacy(!checkBoxPrivacy)}/>
-                            <span>En cochant cette case, vous déclarez avoir lu et accepter nos <Link>conditions d'utilisation</Link> et la <Link>politique de confidentialité</Link></span>
+                            <span>En cochant cette case, vous déclarez avoir lu et accepter nos <Popup text="conditions d'utilisation" child={TermsOfUse}/> et la <Link>politique de confidentialité</Link></span>
                         </label>
                     </label>
 
