@@ -3,22 +3,26 @@ import nodemailer from 'nodemailer';
 
 const sendMail = async (req, res) => {
     try {
-        console.log(req.body);
-        var name = req.body.userName;
-        var email = req.body.userEmail;
-        var message = req.body.userMessage;
-        var content = `name: ${name} \n email: ${email} \n message: ${message} `;
-        console.log(content);
-        var mail = {
+        const name = req.body.userName;
+        const email = req.body.userEmail;
+        const message = req.body.userMessage;
+        const mail = {
             from: name,
             to: process.env.MAIL_USER,
             subject: 'New Message from Contact Form',
-            text: content
+            text: `Du nom: ${name} \n email: ${email} \n message: ${message}`,
+            html : `<b>De :</b> ${name}
+                    <b>Email :</b> ${email}
+                    <b>Message :</b>
+                    ${message}`
         }
-        console.log(mail);
         const transport = {
-            host: 'smtp.hostinger.com',
-            port: 587,
+            host: "smtp.titan.email",
+            port: 465,
+            secure: true, 
+            tls: {
+                rejectUnauthorized: false,
+            },
             auth: {
                 user: process.env.MAIL_USER,
                 pass: process.env.MAIL_PWD
