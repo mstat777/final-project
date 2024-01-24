@@ -59,10 +59,17 @@ export const bookingSlice = createSlice({
         },
         resetCounters: (state, action) => {
             // supprimer les anciennes valeurs des tableaux :
+            state.bookingInfo.nb_adults.pack = 0;
             state.bookingInfo.nb_adults.activities = [];
+            state.bookingInfo.nb_children.pack = 0;
             state.bookingInfo.nb_children.activities = [];
             state.bookingInfo.prices.activity_per_adult = [];
             state.bookingInfo.prices.activity_per_child = [];
+            state.bookingInfo.prices.total_adults = [];
+            state.bookingInfo.prices.total_children = [];
+            state.bookingInfo.prices.total_pack = 0;
+            state.bookingInfo.prices.total_activities = 0;
+            state.bookingInfo.prices.total_all = 0;
             state.bookingInfo.selectedActivities = [];
         },
         initialiseCounters: (state, action) => {

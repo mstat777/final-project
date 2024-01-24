@@ -78,7 +78,7 @@ function ModifyBooking(){
         fetchPackAllData();
     },[]);
     
-    // récupérer les NOMBRES DE PERSONNES pour chaque activité et pack :
+    // récupérer les NOMBRES DE PERSONNES pour chaque activité réservée et pour le pack :
     useEffect(() => {
         if (destination && lodging && packs[0] && activities[0]){      
             const adultsBookedAct = [];
@@ -87,7 +87,6 @@ function ModifyBooking(){
                 adultsBookedAct.push(0);
                 childrenBookedAct.push(0);
             }
-
             for (let i = 0; i < activities.length; i++) {
                 for (let j = 0; j < bookedData.datasBookAct.length; j++) {
                     if (bookedData.datasBookAct[j].activity_id === activities[i].id) {
@@ -110,38 +109,35 @@ function ModifyBooking(){
             }
             dispatch(setNbInBooking(numberPeople));
         }
-    },[destination, lodging, packs[0], activities[0]]);
+    },[destination, lodging, packs[0], activities[0]], JSON.stringify(bookedData));
 
     // si on a les nb de personnes -> on récupère LES PRIX PAR PERSONNE (pack & activités), les formatte et les stocke dans le Store (pour pouvoir les afficher):
     useEffect(() => {  
-        console.log(bookingInfo.nb_adults.pack);
         if (bookingInfo.nb_adults.pack) {
             // initialiser les checkboxes :
             let myArray = []; 
             activities.forEach((el, i) => {
                 bookingInfo.nb_adults.activities[i] || bookingInfo.nb_children.activities[i] ?
                 myArray.push(true) : myArray.push(false);
-                console.log(bookingInfo.nb_adults.activities[i]);
-                console.log(bookingInfo.nb_children.activities[i]);
             });
             setCheckBoxes(myArray);
             
             // des variables pour stocker tous les prix (du pack et des activités) qu'on va récupèrer de la BDD, les regroupe en arrays pour les passer au Store :
             let prices_adults = [];
             let prices_children = [];
-            for (let i = 0; i < activities.length; i++) {
-                prices_adults[i] = parseFloat(activities[i].price_adults);
-                prices_children[i] = parseFloat(activities[i].price_children);
+            for (let i = 0; i < bookedData.datasAct.length; i++) {
+                prices_adults[i] = parseFloat(bookedData.datasAct[i].price_adults);
+                prices_children[i] = parseFloat(bookedData.datasAct[i].price_children);
             }
             setPricesList({
-                price_adults_pack: parseFloat(packs[0].price_adults),
-                price_children_pack: parseFloat(packs[0].price_children),
+                price_adults_pack: parseFloat(bookedData.datasPack[0].price_adults),
+                price_children_pack: parseFloat(bookedData.datasPack[0].price_children),
                 // on a récupéré les prix de toutes les activités ci-dessus
                 price_adults_activities: prices_adults,
                 price_children_activities: prices_children
             });
         }
-    },[bookingInfo.nb_adults.pack]);
+    },[JSON.stringify(bookingInfo.nb_adults), JSON.stringify(bookingInfo.nb_children)]);
 
     // si toutes les données sont chargées, on peut afficher la page :
     useEffect(() => {
@@ -182,8 +178,6 @@ function ModifyBooking(){
             {isAllDataLoaded &&
             <section className={`${styles.booking_section} ${styles.modify_section}`}>
                 <h1>modifier votre réservation</h1>
-                { console.log(bookingInfo)}
-                {console.log(bookedData)}
                 <article className={styles.booking_info_top}>
                     <h2>Information concernant le pack choisi</h2>
                     <div className={styles.booking_info_ctn}>

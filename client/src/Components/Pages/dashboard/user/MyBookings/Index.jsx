@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useMediaQuery } from "react-responsive";
 import { modifyBooking } from '../../../../../store/slices/user';
-import { setBookedData } from '../../../../../store/slices/booking';
+import { resetCounters, setBookedData } from '../../../../../store/slices/booking';
 import { formatDate } from '../../../../Functions/utils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencil, faTrashCan } from '@fortawesome/free-solid-svg-icons';
@@ -48,8 +48,8 @@ function UserDashboardMyBookings(){
     // modifier une des réservations de l'utilisateur :
     async function handleModify(bookingID, packID) {
         try {
-            console.log("bookingID= "+bookingID);
-            console.log("packID= "+packID);
+            // on supprime d'abord les données temporaires :
+            dispatch(resetCounters());
             // récupérer toutes les données de la réservation sélectionnée :
             const res = await fetch(`${BASE_URL}/api/v.0.1/booking/all-data`, {
                 method: "post",
@@ -97,7 +97,6 @@ function UserDashboardMyBookings(){
             <section className={styles.user_db_section}>
 
                 <h1>mes réservations</h1>
-                { console.log(bookingInfo)}
 
                 {userBookings[0] ? 
                 <>

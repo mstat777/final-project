@@ -186,18 +186,24 @@ const getBookingAllData = async (req, res) => {
         const queryDest = "SELECT id, name, country FROM destinations WHERE id = ?";
         const [datasDest] = await Query.queryByValue(queryDest, datasPack[0].destination_id);
 
-        // récupérer les données des activités :
+        // les donnéeses activités :
+        const queryAct = "SELECT * FROM activities AS a JOIN destinations_activities AS da ON a.id = da.activity_id WHERE da.destination_id = ?";
+        const [datasAct] = await Query.queryByValue(queryAct, datasPack[0].destination_id);
+
+        // récupérer les données des activités réservées :
         const queryBookAct = "SELECT * FROM booked_activities WHERE booking_id = ?";
         const [datasBookAct] = await Query.queryByValue(queryBookAct, req.body.bookingID);
 
-        // le nb d'activités :
-        const queryNbAct = "SELECT COUNT(*) AS total FROM destinations_activities WHERE destination_id = ?";
-        const [datasNbAct] = await Query.queryByValue(queryNbAct, datasPack[0].destination_id);
+        // le nb d'activités réservées :
+        const queryNbActRes = "SELECT COUNT(*) AS total FROM destinations_activities WHERE destination_id = ?";
+        const [datasNbActRes] = await Query.queryByValue(queryNbActRes, datasPack[0].destination_id);
+
         res.status(200).json({ datasBook,
                             datasPack,
                             datasDest,
+                            datasAct,
                             datasBookAct,
-                            datasNbAct });
+                            datasNbActRes });
     } catch (err) {
         throw Error(err)
     }
