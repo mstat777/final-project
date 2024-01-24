@@ -6,14 +6,23 @@ import { createBooking,
         getAllUserBookings,
         getBookingAllData} from "../controller/booking.js";
 import { auth } from "../middlewares/auth.js";
+import { validationRules, validateResult } from "../middlewares/validate.js";
 
 const router = Router();
 
 // créer une réservation (confirmer sur la page Sommaire("Summary"))
-router.post("/create", auth, createBooking);
+router.post("/create", 
+            auth, 
+            validationRules('createBooking'), 
+            validateResult, 
+            createBooking);
 
-// l'utilisateur supprime une de ses réservations :
-router.post("/modify", auth, modifyBooking);
+// l'utilisateur modifie une de ses réservations :
+router.post("/modify", 
+            auth, 
+            validationRules('modifyBooking'), 
+            validateResult, 
+            modifyBooking);
 
 // l'utilisateur supprime une de ses réservations :
 router.post("/delete", auth, deleteBooking);

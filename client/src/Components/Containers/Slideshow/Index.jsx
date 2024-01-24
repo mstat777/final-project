@@ -1,5 +1,5 @@
 import styles from './Slideshow.module.scss';
-import React, {useState} from 'react';
+import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import SlideshowBtn from './SlideshowBtn';
 
@@ -53,14 +53,14 @@ function Slideshow({type}){
                 destinationImages.map((el, index) =>
                 <div key={index}
                         className={slideIndex === index + 1 ? `${styles.slide} ${styles.active_anim}` : `${styles.slide}`}> 
-                    <img src={`${IMG_URL}/img/destinations/${el.url_image}`} alt="images représantantes cette destination"/>
+                    <img src={`${IMG_URL}/img/destinations/${el.url_image}`} alt="la destination"/>
                 </div>
                 )}
                 { type === "lodging" &&
                 lodgingImages.map((el, index) =>
                 <div key={index}
                         className={slideIndex === index + 1 ? `${styles.slide} ${styles.active_anim}` : `${styles.slide}`}> 
-                    <img src={`${IMG_URL}/img/lodgings/${el.url_image}`} alt="images représantantes cet hébérgement"/>
+                    <img src={`${IMG_URL}/img/lodgings/${el.url_image}`} alt="l'hébergement"/>
                 </div>
                 )}
                 <SlideshowBtn moveSlide={nextSlide} direction={"next"} />

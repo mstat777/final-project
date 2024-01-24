@@ -70,10 +70,10 @@ function Search() {
         }
     }, []);
 
-    // on vérifie si la destination demandée existe dans la BDD, chaque fois 'searchDestination' est modifié :
+    // on cherche la destination dans la BDD, chaque fois 'searchDestination' est modifié :
     useEffect(() => {
         function checkDestination(){
-            // si le nom de destination existe dans la BDD :
+            // si la destination existe dans la BDD :
             allDestinations.forEach((dest) => {
                 if (dest.toLowerCase() === searchDestination) {
                     setIsFound(true);
@@ -89,7 +89,7 @@ function Search() {
         }
     },[searchDestination, searchDate, searchPrice]);
 
-    // si la destination est trouvée (existe), on cherche s'il y a des packs qui correspondent aux critères :
+    // si destination trouvée, on cherche s'il y a des packs qui correspondent aux critères :
     useEffect(() => {
         async function searchPacks(){
             const res = await fetch(`${BASE_URL}/api/v.0.1/travel/destinations-and-packs`, {
@@ -150,7 +150,6 @@ function Search() {
         setDestinationInput(e.target.value);
     }
     
-    // en cliquant le bouton "RECHERCHER" :
     function handleSubmit(e) {
         e.preventDefault();
         setIsFound(false);

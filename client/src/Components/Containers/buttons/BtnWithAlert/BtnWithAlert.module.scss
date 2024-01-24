@@ -1,6 +1,6 @@
 @import '../../../../variables.scss';
 
-.btn_popup_ctn {
+.btn_alert_ctn {
     position: relative;
     display: inline-block;
     
@@ -23,16 +23,16 @@
             cursor: pointer;
         }
     }
-    .popup {
+    .alert {
         position: absolute;
-        top: 0;
-        right: -270px;
+        top: -40px;
+        left: 8px;
         display: flex;
         align-items: center;
         justify-content: center;
         width: 270px;
-        height: 60px;
-        border: 2px solid $secondary-color;
+        height: 50px;
+        border: 2px solid rgb(231, 19, 105);
         border-radius: 10px;
         background-color: $verylightgrey-color;
     
@@ -40,9 +40,10 @@
             display: inline-block;
         }
         p {
-            margin-right: .8rem;
+            margin: 1rem;
         }
         button {
+            padding: .4rem .6rem;
             border: 1px solid;
             color: $tertiary-color;
             background-color: white;

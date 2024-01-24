@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { validationRules, validateResult } from "../middlewares/validate.js";
 import { 
     getAllContinentsAndDestinations,
     getAllContinents,
@@ -19,9 +20,7 @@ import {
 
 const router = Router();
 
-
 // !!!!! ATTENTION : l'ordre des routes doit être organisé d'une façon spéciale ':id' et ':name' à la fin. Sinon certaines routes ne marchent pas !
-
 
 // ---------------------- GET ---------------------------
 // afficher tous les continents :
@@ -61,11 +60,11 @@ router.get("/pack-all-data/:id", getPackAllData);
 // chercher une activité par ID de destination :
 router.get("/activities/:id", getActivitiesByDestination);
 
-
 // ---------------------- POST ---------------------------
 // chercher toutes les données (destination, hébérgement, url photos) des packs de la destination chosie qui correspondent aux critères des filtres :
-router.post("/destinations-and-packs", getAllDataIfPacks);
-
-
+router.post("/destinations-and-packs", 
+            validationRules('findPacks'), 
+            validateResult, 
+            getAllDataIfPacks);
 
 export default router;

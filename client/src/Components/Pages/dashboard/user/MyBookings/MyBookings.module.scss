@@ -83,8 +83,27 @@
                         }
                         .delete_icon {
                             color: $highlight-color;
+                        }   
+                    }
+                    > div {
+                        div {
+                            top: 0;
+                            left: unset;
+                            right: 26px;
+                            font-weight: 500;
+                            background-color: $primary-color;
+                            button {
+                                width: 45px;
+                                height: 25px;
+                                margin: 0 5px;
+                                font-weight: 800;
+                                &:hover {
+                                    background-color: $tertiary-color;
+                                }
+                            }
                         }
                     }
+                    
                 }
                 .el_destination {
                     grid-area: 2/1/3/4;

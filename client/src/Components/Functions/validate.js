@@ -99,7 +99,7 @@ function validateInput(name, userData){
     if (name.match(/Price/i)) {
         // 5 chiffres + 2 décimals
         if (!/^\d{0,5}(\.\d{1,2})?$/.test(userData)) {
-            result.msg +="Le numéro de téléphone doit commencer par un zéro ou un plus et doit contenir uniquement des chiffres.\n";
+            result.msg +="Le montant doit être entre 0 et 99999.\n";
             result.isValid = false;
         }
     } 

@@ -1,6 +1,6 @@
 import styles from './Summary.module.scss';
 import { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { formatDate } from '../../Functions/utils';
 import MainBtn from '../../Containers/buttons/MainBtn/Index';
@@ -12,7 +12,7 @@ function Summary(){
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    let { id } = useParams(); // à supprimer
+    const { id } = useParams();
 
     const { destination, packs, lodging, activities } = useSelector((state) => state.allTravel);
     const { bookingInfo } = useSelector((state) => state.booking);
@@ -38,10 +38,10 @@ function Summary(){
 
     // récupérer l'ID du pack pour la réservation
     useEffect(() => {
-        if(packs[id].id) {
+        if(packs[id]) {
             dispatch(setPackID(packs[id].id));
         }
-    }, [packs[id].id]);
+    }, [packs[id]]);
 
     // récupérer les données uniquement des activités réservées pour pouvoir les envoyer dans la BDD
     useEffect(() => {

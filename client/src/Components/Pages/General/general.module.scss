@@ -1,8 +1,47 @@
 @import '../../../variables.scss';
 
 .main_ctn {
-    width: 100%;
     height: 100%;
+    width: 100%;
+    padding: 0 1rem 4rem;
+    text-align: left;
+
+    @media screen and (min-width: $br-tablet) {
+        max-width: 900px;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 2rem 4rem 4rem;
+    }
+}
+.section {
+    height: 100%;
+    padding: 1rem;
+    margin-left: 1rem;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    color: black;
+
+    .to_top_btn {
+        margin: 2rem auto;
+        padding: .4rem .8rem;
+        border: none;
+        font-weight: 700;
+        color: $tertiary-color;
+        self-align: center;
+        background-color: transparent;
+        &:hover {
+            cursor: pointer;
+        }
+    }
+
+    h1 {
+        margin: 1rem;
+        font-size: 3rem;
+        @media screen and (min-width: $br-tablet) {
+            margin: 3rem;
+            font-size: 3.6rem;
+        }
+    }
     h2, 
     h3 {
         text-align: left;
@@ -11,8 +50,27 @@
         color: $tertiary-color;
     }
 
+    p {
+        word-break: break-all;
+        @media screen and (min-width: $br-tablet) {
+            word-break: normal;
+        }
+    }
+
     ul {
-        position: relative;
+        li {
+            list-style: disc;
+            display: list-item;
+            margin-left: 2rem;
+        }
+    }
+
+    ol {
+        margin-left: 4rem;
+        li {
+            list-style: decimal;
+            margin-left: 2rem;
+        }
     }
 
     tr {
@@ -23,24 +81,6 @@
         }
     }
 
-    > section {
-        height: 100%;
-        padding: 1rem;
-        margin-left: 1rem;
-        overflow-y: auto;
-        scrollbar-width: thin;
-        color: black;
-
-        > article {
-            ul {
-                li {
-                    list-style: disc;
-                    display: list-item;
-                    margin-left: 2rem;
-                }
-            }
-        }
-    }
     :-webkit-scrollbar {
         width: 5px;
     }

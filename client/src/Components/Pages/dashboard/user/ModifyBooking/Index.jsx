@@ -78,7 +78,7 @@ function ModifyBooking(){
         fetchPackAllData();
     },[]);
     
-    // pour récupérer les NOMBRES DE PERSONNES pour chaque activité et le pack :
+    // récupérer les NOMBRES DE PERSONNES pour chaque activité et pack :
     useEffect(() => {
         if (destination && lodging && packs[0] && activities[0]){      
             const adultsBookedAct = [];
@@ -114,12 +114,15 @@ function ModifyBooking(){
 
     // si on a les nb de personnes -> on récupère LES PRIX PAR PERSONNE (pack & activités), les formatte et les stocke dans le Store (pour pouvoir les afficher):
     useEffect(() => {  
+        console.log(bookingInfo.nb_adults.pack);
         if (bookingInfo.nb_adults.pack) {
             // initialiser les checkboxes :
             let myArray = []; 
             activities.forEach((el, i) => {
                 bookingInfo.nb_adults.activities[i] || bookingInfo.nb_children.activities[i] ?
                 myArray.push(true) : myArray.push(false);
+                console.log(bookingInfo.nb_adults.activities[i]);
+                console.log(bookingInfo.nb_children.activities[i]);
             });
             setCheckBoxes(myArray);
             
@@ -127,13 +130,12 @@ function ModifyBooking(){
             let prices_adults = [];
             let prices_children = [];
             for (let i = 0; i < activities.length; i++) {
-                prices_adults[i] = activities[i].price_adults;
-                prices_children[i] = activities[i].price_children;
+                prices_adults[i] = parseFloat(activities[i].price_adults);
+                prices_children[i] = parseFloat(activities[i].price_children);
             }
-            
             setPricesList({
-                price_adults_pack: packs[0].price_adults,
-                price_children_pack: packs[0].price_children,
+                price_adults_pack: parseFloat(packs[0].price_adults),
+                price_children_pack: parseFloat(packs[0].price_children),
                 // on a récupéré les prix de toutes les activités ci-dessus
                 price_adults_activities: prices_adults,
                 price_children_activities: prices_children
@@ -166,13 +168,13 @@ function ModifyBooking(){
     // passer à la page Summary, si la vérif est OK :
     useEffect(() => {
         if (isSubmitPressed && !errors[0]) {
-            navigate(`/db/user/booking-summary`);
+            navigate(`/db/user/booking-modify-summary`);
         }
     },[isSubmitPressed, errors[0]]);
 
     // vérifier la réservation grâce à la fonction verifyBooking et passer à la page Booking Modified Summary, si OK :
     function handleSaveBooking(){
-        setErrors(verifyBooking(packs[0], activities, checkBoxes)); // vérifier les inputs
+        setErrors(verifyBooking(packs[0], activities, checkBoxes, "modify")); // vérifier les inputs
         setIsSubmitPressed(true);
     }
 
@@ -180,7 +182,8 @@ function ModifyBooking(){
             {isAllDataLoaded &&
             <section className={`${styles.booking_section} ${styles.modify_section}`}>
                 <h1>modifier votre réservation</h1>
-
+                { console.log(bookingInfo)}
+                {console.log(bookedData)}
                 <article className={styles.booking_info_top}>
                     <h2>Information concernant le pack choisi</h2>
                     <div className={styles.booking_info_ctn}>

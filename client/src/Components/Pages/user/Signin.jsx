@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import { useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { signin } from '../../../store/slices/user';
+import { setLogMessage } from '../../../store/slices/user';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faLock, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 import MainBtn from '../../Containers/buttons/MainBtn/Index';
@@ -17,7 +18,7 @@ function Signin(){
     
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [msg, setMsg] = useState('');
+    const [errMsg, setErrMsg] = useState('');
 
     /* pour l'oeil d'affichage du mdp */
     const [passInputType, setPassInputType] = useState("password");
@@ -36,6 +37,11 @@ function Signin(){
             setPassIcon(faEyeSlash)
             setPassInputType('password')
          }
+    }
+
+    function handleOnFocus(){
+        dispatch(setLogMessage(''));
+        setErrMsg('');
     }
     
     async function handleSubmit(e){
@@ -56,7 +62,7 @@ function Signin(){
                 navigate(`/booking/${userInfo.chosenPackID}`);
             }    
         } else {
-            setMsg(json.msg);
+            setErrMsg(json.msg);
         }
     }
 
@@ -65,6 +71,7 @@ function Signin(){
 
                 { (logMessage && !email && !password) && 
                     <p className={styles.ok_msg}>{logMessage}</p> }
+                { errMsg && <p className={styles.err_msg}>{errMsg}</p> }
                 
                 <h1>Je me connecte</h1>
 
@@ -77,9 +84,10 @@ function Signin(){
                                 placeholder="Votre adresse mail"
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
-                                onFocus={() => setMsg('')}
+                                onFocus={handleOnFocus}
                                 required/>
                     </label>
+
                     <label> 
                         <FontAwesomeIcon icon={faLock} className={styles.input_icon}/>
                         <input type={passInputType} 
@@ -87,23 +95,23 @@ function Signin(){
                                 placeholder="Votre mot de passe"
                                 value={password}
                                 onChange={(e) => setPassword(e.target.value)}
-                                onFocus={() => setMsg('')}
+                                onFocus={handleOnFocus}
                                 className={styles.pass_input}
                                 required/>
+
                         <button type="button"
-                            className={styles.pass_icon_ctn} 
-                            onClick={handlePassIconToggle}>
+                                className={styles.pass_icon_ctn} 
+                                onClick={handlePassIconToggle}>
                             <FontAwesomeIcon icon={passIcon} className={styles.pass_icon}/>
                         </button>    
+
                     </label>
                     
                     <MainBtn type="submit" text="se connecter"/>
-
                 </form>
 
-                { msg ? <p className={styles.err_msg}>{msg}</p> : null }
-
                 <p>Vous n'avez pas encore de compte ? <Link to="/user/signup">En créer un</Link></p>
+
             </section>
         </main>
 }

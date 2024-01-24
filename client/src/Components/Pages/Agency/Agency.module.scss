@@ -5,21 +5,23 @@
     margin: 3rem;
     padding-bottom: 3rem;
 
-    > p {
+    h1 {
+        margin: 2.5rem auto;
+        font-size: 3rem;
+    }
+    p {
         text-align: justify;
     }
 
     @media screen and (min-width: $br-tablet) {
+        display: flex;
         max-width: 900px;
         margin: 5rem;
         > img {
             float: left;
             width: 50%;
+            object-fit: contain;
             margin-right: 3rem; 
-        }
-        > h2 {
-            display: inline-block;
-            margin: .5rem auto;
         }
     }
 

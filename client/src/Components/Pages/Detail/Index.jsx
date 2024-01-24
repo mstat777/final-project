@@ -20,6 +20,7 @@ import { choosePack } from "../../../store/slices/user";
 
 import SeeMore from '../../Containers/SeeMore/Index';
 import MainBtn from '../../Containers/buttons/MainBtn/Index';
+import Loading from '../../Containers/Loading/Index';
 
 function Detail(){
     const dispatch = useDispatch();
@@ -53,7 +54,8 @@ function Detail(){
 
     return <main id="detail">
 
-            { (destination && lodging && activities && packs) &&
+            { !(destination && lodging && activities && packs) ?
+                <Loading/> :
             <section className={styles.detail_section}>
                 <h1>Informations détaillées de la destination choisie</h1>
 

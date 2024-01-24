@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencil } from '@fortawesome/free-solid-svg-icons';
 import MainBtn from '../../../../../Containers/buttons/MainBtn/Index';
-import BtnWithPopup from '../../../../../Containers/buttons/BtnWithPopup/Index';
+import BtnWithAlert from '../../../../../Containers/buttons/BtnWithAlert/Index';
 
 function AdminDashActivitiesCreateModify(){
     const BASE_URL = process.env.REACT_APP_BASE_URL;
@@ -280,7 +280,7 @@ function AdminDashActivitiesCreateModify(){
                         <div className={styles.main_btn_ctn}>
                             <MainBtn type="submit" 
                                     text="enregistrer"/>
-                            <BtnWithPopup
+                            <BtnWithAlert
                                 type="button" 
                                 clickFunc={handleDelete}
                                 text="supprimer"/>

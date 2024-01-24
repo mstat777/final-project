@@ -1,9 +1,19 @@
-import styles from '../general.module.scss';
-import { Link } from 'react-router-dom';
+import styles from '../General.module.scss';
+import { useRef } from 'react';
+import { useLocation } from 'react-router-dom';
 
 function TermsOfUse(){
-    return <div className={styles.main_ctn}>
-            <section>
+    const ref = useRef(null);
+    const { pathname } = useLocation();
+
+    const scrollToTop = () => {
+        pathname.slice(1,8) === "general" ?
+            window.scrollTo(0, 0) :
+            ref.current.scroll({ top: 0, behavior: 'smooth' });
+    };
+    window.scrollTo({ top: 0, behavior: 'smooth'});
+
+    return <section className={styles.section} ref={ref}>
                 <h1>CONDITIONS D’UTILISATION</h1>
                 <p>Dernière révision : 29/9/2023</p>
                 <p>Bonjour et bienvenue ! Nous sommes ravis que vous preniez le temps de lire les présentes conditions d’utilisation (les <q lang="fr"> <strong>Conditions</strong> </q>).</p>
@@ -774,8 +784,8 @@ function TermsOfUse(){
                         <h3></h3><p>Enregistrement fiscal de l’État de New York</p>
                         <p>Les taxes de vente de l’État de New York et les taxes de séjour de la ville de New York, le cas échéant, sont dues sur votre séjour dans l’hébergement. Pour les réservations de type Payer maintenant, le numéro d’enregistrement du vendeur aux fins de la taxe de vente de l’État de New York de Travelscape, LLC est 880392667 et son numéro d’enregistrement aux fins de la taxe de séjour de la ville de New York est 033960.</p>
                         <p>Pour obtenir des informations complémentaires, cliquez ci-dessous :</p>
-                        <Link to={'#'}>Certificat de l’État de New York</Link>
-                        <Link to={'#'}>Certificat de la ville de New York</Link>
+                        <a href="#">Certificat de l’État de New York</a>
+                        <a href="#">Certificat de la ville de New York</a>
                     </article>
                 </article>
                 <article>
@@ -844,8 +854,12 @@ function TermsOfUse(){
                             <li>Vous trouverez la Directive (EU) 2015/2302 telle que transposée dans le droit national ici.</li>
                     </article>
                 </article>
+
+                <button 
+                    type="button" 
+                    className={styles.to_top_btn}
+                    onClick={scrollToTop}>VERS LE HAUT</button>
             </section>
-        </div>
 }
 
 export default TermsOfUse;

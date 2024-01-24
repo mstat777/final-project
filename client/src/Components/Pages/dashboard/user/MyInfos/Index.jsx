@@ -5,7 +5,7 @@ import { useMediaQuery } from "react-responsive";
 import { correctDate } from '../../../../Functions/utils.js';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencil, faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
-import { validateInput } from '../../../../Functions/sanitize';
+import { validateInput } from '../../../../Functions/validate.js';
 import MainBtn from '../../../../Containers/buttons/MainBtn/Index';
 
 function UserDashboardMyInfos(){
@@ -66,8 +66,7 @@ function UserDashboardMyInfos(){
     const isTabletOrDesktop = useMediaQuery({ query: '(min-width: 768px)' });
     useEffect(() => {
         if (isMobile) { window.scrollTo(0, 160); }
-        if (isTabletOrDesktop) { window.scrollTo(0, 0); }
-        if (errMsg || okMsg) { window.scrollTo(0, document.body.scrollHeight); }
+        if (isTabletOrDesktop || errMsg || okMsg) { window.scrollTo(0, 0); }
     }, [isMobile, isTabletOrDesktop, errMsg, okMsg])
 
     // afficher/cacher les mdp :
@@ -81,18 +80,13 @@ function UserDashboardMyInfos(){
         }
     }
 
-    // on récupère les données de l'utilisateur pour 'automatiquement' remplir le formulaire lors du chargement de la page :
+    // remplir le formulaire lors du chargement de la page :
     useEffect(() => {
         async function fetchUser() {
             try {
                 const dataUser = await (await fetch(`${BASE_URL}/api/v.0.1/user/${userInfo.userID}`, {
                     headers: { Authentication: "Bearer " + TOKEN }
                 })).json();
-                /*const tempDate = new Date(dataUser.datas[0].birth_date);
-                const tempArray = tempDate.toLocaleDateString().split('/');
-                const newDate = new Date(`${tempArray[2]}-${tempArray[1]}-${tempArray[0]}`);
-                console.log(newDate);*/
-                
                 // initialiser les données utilisateur :
                 setInputs({
                     lastName: dataUser.datas[0].last_name,
@@ -122,11 +116,7 @@ function UserDashboardMyInfos(){
                 setErrMsg("Vous n'avez pas indiqué un nouveau mot de passe.");
                 return;
             }
-            if (!inputs.passwordNew2) {
-                setErrMsg("La confirmation du nouveau mot de passe est erronée.");
-                return;
-            }
-            if (inputs.passwordNew !== inputs.passwordNew2){
+            if (!inputs.passwordNew2 || (inputs.passwordNew !== inputs.passwordNew2)) {
                 setErrMsg("La confirmation du nouveau mot de passe est erronée.");
                 return;
             }
@@ -141,17 +131,12 @@ function UserDashboardMyInfos(){
         const lNameVerif = validateInput("lastName", inputs.lastName.trim());
         const fNameVerif = validateInput("firstName", inputs.firstName.trim());
         const bDateVerif = validateInput("birthDate", inputs.birthDate);
-
+        const telVerif = validateInput("tel", inputs.tel.trim());
         // Vérifier les champs facultatifs (si remplis) :
-        let telVerif = { isValid: true, msg: '' }
-        if (inputs.tel) {
-            telVerif = validateInput("tel", inputs.tel.trim());
-        }
         let addressVerif = { isValid: true, msg: '' }
         if (inputs.address) {
             addressVerif = validateInput("address", inputs.address.trim());
         }
-
         // afficher toutes les messages d'erreur :
         setErrMsg(lNameVerif.msg 
                     + fNameVerif.msg 
@@ -170,16 +155,17 @@ function UserDashboardMyInfos(){
         async function submitForm() {
             if (isFormValidated) {
                 const res = await fetch(`${BASE_URL}/api/v.0.1/user/modify-user-info`, {
-                    method: "post",
-                    headers: { "Content-Type": "application/json",
-                                Authentication: "Bearer " + TOKEN },
+                    method: "POST",
+                    headers: { 
+                        "Content-Type": "application/json",
+                        Authentication: "Bearer " + TOKEN },
                     body: JSON.stringify(inputs)
                 });
                 const json = await res.json();  
                 if (res.status === 201) {
-                    setOkMsg("Les modifications ont été enregistrée.")
+                    setOkMsg("Les modifications ont été enregistrée.");
                 } else {
-                    setErrMsg(json.msg)
+                    console.log(json.errors);
                 }
             }
         }
@@ -205,6 +191,9 @@ function UserDashboardMyInfos(){
     return inputs && 
         <main className={styles.user_db_main}>
             <h1>mes informations personnelles</h1>
+
+            { errMsg && <p className={styles.err_msg}>{errMsg}</p> }
+            { okMsg && <p className={styles.ok_msg}>{okMsg}</p> }
 
             <form onSubmit={handleSubmit} className={styles.user_account_form}>
                 <label>
@@ -291,9 +280,10 @@ function UserDashboardMyInfos(){
 
                 <label>
                     <span>Mot de passe :</span>
-                    <button type="button" 
+                    {!showPswdModif &&
+                        <button type="button" 
                             className={styles.passwordBtn}
-                            onClick={() => setShowPswdModif(true)}>modifier mon mot de passe</button>
+                            onClick={() => setShowPswdModif(true)}>modifier mon mot de passe</button>}
                 </label>
                 {showPswdModif && <>
                     <label>
@@ -339,9 +329,6 @@ function UserDashboardMyInfos(){
 
                 <MainBtn type="submit" text="enregistrer"/>
             </form>
-
-            { errMsg && <p className={styles.err_msg}>{errMsg}</p> }
-            { okMsg && <p className={styles.ok_msg}>{okMsg}</p> }
 
         </main>
 }

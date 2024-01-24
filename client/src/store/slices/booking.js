@@ -5,20 +5,20 @@ const initialState = {
     // données actuelles de la réservation
     bookingInfo: {
         nb_adults: {
-            pack: 0, // nb d'adultes par pack
-            activities: [] // nb d'adultes par activité
+            pack: 0, // nb adultes/pack
+            activities: [] // nb adultes/activité
         },
         nb_children: {
-            pack: 0, // nb d'enfants par pack
-            activities: [] // nb d'enfants par activité
+            pack: 0, // nb d'enfants/pack
+            activities: [] // nb enfants/activité
         },
         prices: {
-            activity_per_adult: [], //prix défini par adulte/activité récupéré de la BDD
-            activity_per_child: [], //prix défini par enfant/activité récupéré de la BDD
+            activity_per_adult: [], //prix adulte/activité de la BDD
+            activity_per_child: [], //prix enfant/activité de la BDD
             total_adults: [], //prix à payer pour les adultes/activité récupéré de la BDD
             total_children: [], //prix à payer pour les enfants/activité récupéré de la BDD
-            total_pack: 0, //la somme à payer que pour le pack
-            total_activities: 0, //la somme des prix pour toutes les activités (adultes + enfants)
+            total_pack: 0, //montant total du pack à payer
+            total_activities: 0, //montant total des activités (adultes + enfants)
             total_all: 0 // = total_pack + total_activities
         },
         packID: '',

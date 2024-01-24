@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faLock, faEye, faEyeSlash, faPhone, faEnvelope, faLocationDot, faCakeCandles, faBriefcase } from '@fortawesome/free-solid-svg-icons';
 import { faUser as faUserReg } from '@fortawesome/free-regular-svg-icons';
-import { validateInput } from '../../Functions/sanitize';
+import { validateInput } from '../../Functions/validate.js';
 import { setLogMessage } from '../../../store/slices/user';
 import MainBtn from '../../Containers/buttons/MainBtn/Index';
 import Popup from '../../Containers/Popup/Index';
@@ -35,8 +35,8 @@ function Signup(){
     // afficher le placeholder de la date de naissance :
     const [inputDateType, setInputDateType] = useState("text");
 
-    const [msg, setMsg] = useState('');
-    const [errMsg, setErrMsg] = useState('');
+    const [errMsg, setErrMsg] = useState(''); // messages Frontend
+    const [errors, setErrors] = useState([]); // err Validator Backend
 
     // pour ne pas soumettre le formulaire, si les inputs ne sont pas valides:
     const [isFormValidated, setIsFormValidated] = useState(false);
@@ -67,14 +67,13 @@ function Signup(){
             const fNameVerif = validateInput("firstName", firstName.trim());
             const emailVerif = validateInput("email", email.trim());
             const telVerif = validateInput("tel", tel.trim());
+            const bDateVerif = validateInput("birthDate", birthDate);
+            const passVerif= validateInput("password", password.trim());
             // si l'adresse est renseignée, on la vérifie. Si non, on la vérifie pas, car pas obligatoire :
             let addressVerif = { isValid: true, msg: '' }
             if (address) {
                 addressVerif = validateInput("address", address.trim());
             }
-            //
-            const bDateVerif = validateInput("birthDate", birthDate);
-            const passVerif= validateInput("password", password.trim());
 
             // afficher tous les messages d'erreur :
             setErrMsg(lNameVerif.msg 
@@ -99,7 +98,7 @@ function Signup(){
         async function submitForm() {
             if (isFormValidated) {
                 const res = await fetch(`${BASE_URL}/api/v.0.1/user/signup`, {
-                    method: "post",
+                    method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ 
                         lastName,
@@ -113,11 +112,13 @@ function Signup(){
                         checkBoxNewsL})
                 });
                 const json = await res.json();
-                setMsg(json.msg);
+                setErrMsg(json.msg);
                 
                 if (res.status === 201) {
                     dispatch(setLogMessage("Votre compte a bien été créé.\nVous pouvez désormais vous connecter."));
                     navigate("/user/signin");
+                } else {
+                    console.log(json.errors);
                 }
             }
         }
@@ -128,12 +129,16 @@ function Signup(){
 
     function handleSubmit(e) {
         e.preventDefault();
+        window.scrollTo(0, 0);
+        setErrMsg('');
         checkFormValidation();
     }
 
     return <main id="signup">
             <section className={`${styles.sign_section} ${styles.signup}`}>
                 <h1>Je crée mon compte</h1>     
+
+                { errMsg && <p className={styles.err_msg}>{errMsg}</p> }
 
                 <form onSubmit={handleSubmit} className={styles.sign_form}>
                     <label> 
@@ -234,10 +239,6 @@ function Signup(){
 
                     <MainBtn type="submit" text="s'inscrire"/>
                 </form>
-
-                { errMsg ? <p className={styles.err_msg}>{errMsg}</p> : null}
-                { (msg && !lastName) ? 
-                        <p className={styles.err_msg}>{msg}</p> : null}
             </section>
         </main>
 }

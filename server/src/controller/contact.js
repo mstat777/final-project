@@ -9,12 +9,12 @@ const sendMail = async (req, res) => {
         const mail = {
             from: name,
             to: process.env.MAIL_USER,
-            subject: 'New Message from Contact Form',
-            text: `Du nom: ${name} \n email: ${email} \n message: ${message}`,
-            html : `<b>De :</b> ${name}
+            subject: 'New Message from Dimitravel Contact Form',
+            text: `De : ${name} \n email : ${email} \n message : ${message}`,
+            html:  `<b>De :</b> ${name} &lt;${email}&gt;
                     <b>Email :</b> ${email}
                     <b>Message :</b>
-                    ${message}`
+                    <div>${message}</div>`
         }
         const transport = {
             host: "smtp.titan.email",
@@ -23,6 +23,7 @@ const sendMail = async (req, res) => {
             tls: {
                 rejectUnauthorized: false,
             },
+            requireTLS: true,
             auth: {
                 user: process.env.MAIL_USER,
                 pass: process.env.MAIL_PWD

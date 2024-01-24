@@ -30,6 +30,12 @@
                 margin: 0 1.5rem;
             }
         }
+
+        &_inner {
+            a {
+                text-transform: uppercase;
+            }
+        }
     }
 
     @media screen and (min-width: $br-tablet) {

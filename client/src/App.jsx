@@ -26,6 +26,7 @@ import Confirmation from './Components/Pages/Confirmation/Index';
 import Signin from './Components/Pages/user/Signin';
 import Signup from './Components/Pages/user/Signup';
 import Signout from './Components/Pages/user/Signout';
+import General from './Components/Pages/General/Index';
 import NotFound from './Components/Pages/NotFound/Index';
 
 // ------------------- User Dashboard -----------------------
@@ -90,9 +91,15 @@ function App() {
                         <Route path="confirmation" element={<WithAuth child={Confirmation} auth="true"/>}/>
 
                         <Route path="not-found" element={<NotFound/>}/>
+
+                        <Route path="general">
+                            <Route path="recruitment" element={<General/>}/>
+                            <Route path="terms-of-use" element={<General/>}/>
+                            <Route path="info-covid" element={<General/>}/>
+                        </Route>
                     </Route>
 
-                    {/* DASHBOARD utilisateur */}
+                    {/* ---------------------------------- DASHBOARD utilisateur ------------------------------------*/}
                     <Route path="/db/user" element={<UserDashLayout/>}>
                         {/* infos persos de l'utilisateur */}
                         <Route path="my-infos" element={<WithAuth child={UserDashMyInfos} auth="true"/>}/>
@@ -100,10 +107,10 @@ function App() {
                         <Route path="my-bookings/:id" element={<WithAuth child={UserDashMyBookings} auth="true"/>}/>
                         {/* modifier une réservation de l'utilisateur */}
                         <Route path="booking-modify" element={<WithAuth child={UserDashBookingModify} auth="true"/>}/>
-                        <Route path="booking-summary" element={<WithAuth child={UserDashBookingModifiedSummary} auth="true"/>}/>
+                        <Route path="booking-modify-summary" element={<WithAuth child={UserDashBookingModifiedSummary} auth="true"/>}/>
                     </Route>
 
-                    {/* DASHBOARD admin/superadmin */}
+                    {/* -------------------------------- DASHBOARD admin/superadmin --------------------------------- */}
                     <Route path="/db/admin" element={<AdminDashLayout/>}>
                         
                         <Route path="my-infos" element={<WithAuth child={UserDashMyInfos} auth="true"/>}/>

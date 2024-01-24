@@ -2,7 +2,7 @@ import styles from './Contact.module.scss';
 import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPhone } from '@fortawesome/free-solid-svg-icons';
-import { validateInput } from '../../Functions/sanitize';
+import { validateInput } from '../../Functions/validate.js';
 import MainBtn from '../../Containers/buttons/MainBtn/Index';
 
 function Contact(){

@@ -39,7 +39,7 @@ function Suggestions(props){
         setDestinationInput(e.target.innerText);
     }
 
-    return (allDestinations.length > 0 && textEntered && showSuggestions) && 
+    return (allDestinations.length > 0 && destinationInput && showSuggestions) && 
             <ul className={styles.suggestions_box}>    
                 {allDestinations.filter(dest => dest.startsWith(textEntered)).map((filteredDest, i) => 
                     <li key={i} onClick={handleClick}>

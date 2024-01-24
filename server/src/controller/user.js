@@ -81,7 +81,7 @@ const createUserAccount = async (req, res) => {
                 await Query.queryByValue(queryNewsL, req.body.email);
             }
 
-            msg = "utilisateur créé";
+            msg = "Utilisateur créé";
             res.status(201).json({ msg });
         }
     } catch (err) {

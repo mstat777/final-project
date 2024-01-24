@@ -1,7 +1,7 @@
 import { store } from "../../store";
 
 // cette fonction cherche et retourne un tableau d'erreurs
-function verifyBooking(chosenPack, activities, checkBoxes){
+function verifyBooking(chosenPack, activities, checkBoxes, modify){
     const errors = [];
     const state = store.getState();
     const bookingInfo = state.booking.bookingInfo;
@@ -33,7 +33,7 @@ function verifyBooking(chosenPack, activities, checkBoxes){
     }); 
 
     // UNIQUEMENT dans le cas de modif d'une réservation déjà validée/payée :
-    if (bookedData.datasBook) {
+    if (modify === "modify") {
         if (bookedData.datasBook[0].status === "validée") {
             // si montant négatif (à rembourser) :
             if (bookingInfo.prices.total_all - bookedData.datasBook[0].price_total_booking < 0) {

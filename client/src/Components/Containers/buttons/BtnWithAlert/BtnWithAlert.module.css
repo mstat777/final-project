@@ -1,11 +1,11 @@
-.btn_popup_ctn {
+.btn_alert_ctn {
   position: relative;
   display: inline-block;
 }
-.btn_popup_ctn button {
+.btn_alert_ctn button {
   transition: all 0.3s;
 }
-.btn_popup_ctn > button {
+.btn_alert_ctn > button {
   display: block;
   margin: 0 auto;
   padding: 1rem 1.2rem 0.8rem;
@@ -17,10 +17,10 @@
   text-transform: uppercase;
   background-color: white;
 }
-.btn_popup_ctn > button:hover {
+.btn_alert_ctn > button:hover {
   cursor: pointer;
 }
-.btn_popup_ctn .popup {
+.btn_alert_ctn .alert {
   position: absolute;
   top: 0;
   right: -270px;
@@ -33,22 +33,22 @@
   border-radius: 10px;
   background-color: #f9f9f9;
 }
-.btn_popup_ctn .popup > * {
+.btn_alert_ctn .alert > * {
   display: inline-block;
 }
-.btn_popup_ctn .popup p {
+.btn_alert_ctn .alert p {
   margin-right: 0.8rem;
 }
-.btn_popup_ctn .popup button {
+.btn_alert_ctn .alert button {
   border: 1px solid;
   color: rgb(47, 74, 122);
   background-color: white;
 }
-.btn_popup_ctn .popup button:hover {
+.btn_alert_ctn .alert button:hover {
   color: white;
   background-color: #3f9ae9;
   opacity: 0.9;
 }
-.btn_popup_ctn .popup .hide {
+.btn_alert_ctn .alert .hide {
   display: none;
-}/*# sourceMappingURL=BtnWithPopup.module.css.map */
+}/*# sourceMappingURL=BtnWithAlert.module.css.map */

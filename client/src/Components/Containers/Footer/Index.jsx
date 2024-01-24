@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faTwitter, faInstagram, faYoutube } from '@fortawesome/free-brands-svg-icons';
 import MainBtn from '../buttons/MainBtn/Index';
-import { validateInput } from '../../Functions/sanitize';
+import { validateInput } from '../../Functions/validate.js';
 
 function Footer() {
     const BASE_URL = process.env.REACT_APP_BASE_URL;
@@ -41,27 +41,27 @@ function Footer() {
                 <div>
                     <h2 className={styles.footer_title}>suivez-nous</h2>
                     <ul className={styles.footer_social}>
-                        <li><Link to={'#'}><FontAwesomeIcon icon={faFacebook} /></Link></li>
-                        <li><Link to={'#'}><FontAwesomeIcon icon={faTwitter} /></Link></li>
-                        <li><Link to={'#'}><FontAwesomeIcon icon={faInstagram} /></Link></li>
-                        <li><Link to={'#'}><FontAwesomeIcon icon={faYoutube} /></Link></li>
+                        <li><a href="https://www.facebook.com/BeautifulDestinations/" target="_blank"><FontAwesomeIcon icon={faFacebook} /></a></li>
+                        <li><a href="https://twitter.com/beadestinations?lang=fr" target="_blank"><FontAwesomeIcon icon={faTwitter} /></a></li>
+                        <li><a href="https://www.instagram.com/beautifuldestinations/" target="_blank"><FontAwesomeIcon icon={faInstagram} /></a></li>
+                        <li><a href="https://www.youtube.com/watch?v=RgCENw09Dpk" target="_blank"><FontAwesomeIcon icon={faYoutube}/></a></li>
                     </ul>
 
                     <h2 className={styles.footer_title}>A propos</h2>
                     <ul>
-                        <li><Link to={'#'}>A propos</Link></li>
-                        <li><Link to={'#'}>Recrutement</Link></li>
+                        <li><Link to={"/agency"}>A propos</Link></li>
+                        <li><Link to={"/general/recruitment"}>Recrutement</Link></li>
                     </ul>
                 </div>
 
                 <div>
                     <h2 className={styles.footer_title}>informations pratiques</h2>
                     <ul>
-                        <li><Link to={'#'}>Conditions Particulières de Vente</Link></li>
-                        <li><Link to={'#'}>Mentions légales</Link></li>
-                        <li><Link to={'#'}>Politique de confidentialité</Link></li>
-                        <li><Link to={'#'}>Avant de partir</Link></li>
-                        <li><Link to={'#'}>Info Covid</Link></li>
+                        <li><Link to={"/general/terms-of-use"}>Conditions Particulières de Vente</Link></li>
+                        <li><Link to={"/general/terms-of-use"}>Mentions légales</Link></li>
+                        <li><Link to={"/general/terms-of-use"}>Politique de confidentialité</Link></li>
+                        <li><Link to={"/general/terms-of-use"}>Avant de partir</Link></li>
+                        <li><Link to={"/general/info-covid"}>Info Covid</Link></li>
                     </ul>
                 </div>
 

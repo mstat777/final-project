@@ -15,13 +15,9 @@ function formatDate(date) {
 // formatter les dates du format DATE (ça corrige le bug '-1 jour') (pour les inputs préremplis):
 function correctDate(date) {
     const oldDate = new Date(date);
-    console.log(oldDate);
     const timeOffset = oldDate.getTimezoneOffset();
-    console.log(timeOffset);
     const correctDate = new Date(oldDate.getTime() - (timeOffset*60*1000));
-    console.log(correctDate);
     const newDate = correctDate.toISOString().split('T')[0];
-    console.log(newDate);
     return newDate;
 }
 

@@ -8,7 +8,7 @@ import { setBookedData } from '../../../../../store/slices/booking';
 import { formatDate } from '../../../../Functions/utils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencil, faTrashCan } from '@fortawesome/free-solid-svg-icons';
-
+import BtnWithAlert from '../../../../Containers/buttons/BtnWithAlert/Index';
 
 function UserDashboardMyBookings(){
     const BASE_URL = process.env.REACT_APP_BASE_URL;
@@ -19,6 +19,8 @@ function UserDashboardMyBookings(){
     const isMobile = useMediaQuery({ query: '(max-width: 767px)' });
     const { userInfo } = useSelector(state => state.user);
     const [ userBookings, setUserBookings] = useState([]);
+
+    const { bookedData, bookingInfo } = useSelector((state) => state.booking);
 
     // pour afficher des messages suite à la suppression :
     const [okMsg, setOkMsg] = useState('');
@@ -46,6 +48,8 @@ function UserDashboardMyBookings(){
     // modifier une des réservations de l'utilisateur :
     async function handleModify(bookingID, packID) {
         try {
+            console.log("bookingID= "+bookingID);
+            console.log("packID= "+packID);
             // récupérer toutes les données de la réservation sélectionnée :
             const res = await fetch(`${BASE_URL}/api/v.0.1/booking/all-data`, {
                 method: "post",
@@ -76,31 +80,30 @@ function UserDashboardMyBookings(){
 
     // supprimer une des réservations de l'utilisateur :
     async function handleDelete(id, index) {
-        const shouldRemove = window.confirm("Êtez-vous sûr ?");
-        if (shouldRemove) {
-            const res = await fetch(`${BASE_URL}/api/v.0.1/booking/delete`, {
-                method: "post",
-                headers: { "Content-Type": "application/json",
-                            Authentication: "Bearer " + TOKEN },
-                body: JSON.stringify({ id })
-            });
-            const json = await res.json();
-
-            if (res.status === 201) {
-                setOkMsg("La réservation a été supprimée.");
-                // on supprime l'élément du tableau :
-                userBookings.splice(index, 1);
-            }
+        const res = await fetch(`${BASE_URL}/api/v.0.1/booking/delete`, {
+            method: "post",
+            headers: { "Content-Type": "application/json",
+                        Authentication: "Bearer " + TOKEN },
+            body: JSON.stringify({ id })
+        });
+        if (res.status === 201) {
+            setOkMsg("La réservation a été supprimée.");
+            // on supprime l'élément du tableau :
+            userBookings.splice(index, 1);
         }
     }
 
     return <main className={styles.user_db_main}>
-            <div className={styles.user_db_section}>
+            <section className={styles.user_db_section}>
 
                 <h1>mes réservations</h1>
+                { console.log(bookingInfo)}
 
                 {userBookings[0] ? 
                 <>
+                    { errMsg && <p className={styles.err_msg}>{errMsg}</p> }
+                    { okMsg && <p className={styles.ok_msg}>{okMsg}</p> }
+
                     <div className={styles.bookings_main_ctn}>
                     { userBookings.map((booking, index) => 
                         <div key={index} className={styles.booking_ctn}>
@@ -113,22 +116,26 @@ function UserDashboardMyBookings(){
                                 <span>date :</span>
                                 <span>{formatDate(booking.b.date_created)}</span>
                             </div>
+
                             <div className={styles.el_btn_ctn}>
                                 <button type="button"
                                     onClick={() => handleModify(booking.b.id, booking.p.id
                                     )}>
                                     <FontAwesomeIcon icon={faPencil} className={styles.modify_icon}/>
                                 </button>
-                                <button type="button"
-                                    onClick={() => handleDelete(booking.b.id, index)}>
-                                    <FontAwesomeIcon icon={faTrashCan} className={styles.delete_icon}/>
-                                </button>
+                                <BtnWithAlert 
+                                    type="button"
+                                    clickFunc={() => handleDelete(booking.b.id, index)}
+                                    text={
+                                        <FontAwesomeIcon icon={faTrashCan} className={styles.delete_icon}/>
+                                    }/>
                             </div>
 
                             <div className={styles.el_destination}>
                                 <span>dest{!isMobile ? "ination" : "."} :</span>
                                 <span>{booking.d.name}</span>
                             </div>
+
                             <div className={styles.el_country}>
                                 <span>pays :</span>
                                 <span>{booking.d.country}</span>
@@ -147,16 +154,13 @@ function UserDashboardMyBookings(){
                                 <span>{booking.b.price_total_booking.slice(0,-3)}&euro;</span>
                             </div>              
                             
-
                         </div>
                     )}
                     </div> 
-                    { errMsg && <p className={styles.err_msg}>{errMsg}</p> }
-                    { okMsg && <p className={styles.ok_msg}>{okMsg}</p> }
                 </>
                 : <p className={styles.err_msg}>Aucun réservation trouvée</p>
                 }
-            </div>
+            </section>
         </main>
 }
 

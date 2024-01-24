@@ -1,6 +1,6 @@
 import styles from './Booking.module.scss';
 import { useEffect, useState } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { calculatePrices,
         incrNbAdultsPack, 
@@ -16,14 +16,16 @@ import { verifyBooking } from '../../Functions/verifyBooking';
 import { formatDate } from '../../Functions/utils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCirclePlus, faCircleMinus } from '@fortawesome/free-solid-svg-icons';
+import Loading from '../../Containers/Loading/Index';
 import MainBtn from '../../Containers/buttons/MainBtn/Index';
 
 function Booking(){
     const IMG_URL = process.env.REACT_APP_IMG_URL;
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    // on enregistre l'ID du pack sélectionné :
-    let { id } = useParams();
+
+    // le numéro du pack sélectionné (n'est pas l'ID !) :
+    const { id } = useParams();
 
     const { destination, 
             lodging, 
@@ -78,10 +80,10 @@ function Booking(){
             }
             await setPrices();
         }
-        if (activities[0]) {
+        if (activities[0] && packs[id]) {
             initInfoAndSetPrices();
         }
-    },[activities]);
+    },[activities[0], packs[id]]);
 
     // calculer les prix chaque fois le nb de personnes change :
     useEffect(() => {
@@ -111,7 +113,8 @@ function Booking(){
     }
 
     return <main id="booking">
-            { (destination && lodging && packs[0] && activities[0]) &&
+            { !(destination && lodging && packs[id] && activities[0]) ? 
+                <Loading/> :
             <section className={styles.booking_section}>
                 <h1 className={styles.hidden}>Paramétrer votre réservation</h1>
 

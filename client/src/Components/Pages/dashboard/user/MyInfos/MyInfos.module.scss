@@ -119,17 +119,19 @@
             padding: .8rem 1rem .6rem;
         }
     }
-    .ok_msg {
-        color: rgb(0, 143, 49);
-        text-align: center;
-    }
+    .ok_msg,
     .err_msg {
+        width: 100%;
         max-width: 600px;
-        margin: 1rem auto;
+        margin: 0 auto;
         padding: 0 1.5rem;
         color: $highlight-color;
-        text-align: left;
         white-space: break-spaces;
+    }
+    .ok_msg {
+        font-size: 2rem;
+        font-weight: 500;
+        color: rgb(0, 143, 49);
     }
 
     @media screen and (min-width: $br-tablet) {

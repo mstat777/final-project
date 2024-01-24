@@ -1,4 +1,10 @@
+@import '../../../variables.scss';
+
 .spinner {
     width: 80px;
     height: 80px;
+    margin: 20vh auto;
+    @media screen and (min-width: $br-tablet) {
+        margin: 30vh auto;
+    }
 }

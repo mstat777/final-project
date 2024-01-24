@@ -1,32 +1,32 @@
-import styles from './BtnWithPopup.module.scss';
+import styles from './BtnWithAlert.module.scss';
 import { useState } from 'react';
 import MainBtn from '../MainBtn/Index';
 
-function BtnWithPopup(props){
+function BtnWithAlert(props){
     const {text, clickFunc} = props;
 
-    const [showPopup, setShowPopup] = useState(false);
+    const [showAlert, setShowAlert] = useState(false);
 
-    return <div className={styles.btn_popup_ctn}>
+    return <div className={styles.btn_alert_ctn}>
 
             <MainBtn 
                 type="button"
-                onClick={() => setShowPopup(true)} 
+                onClick={() => setShowAlert(true)} 
                 text={text}/>
 
-            {showPopup &&
-            <div className={styles.popup}>
+            {showAlert &&
+            <div className={styles.alert}>
                 <p>Êtes-vous sûr ?</p>
                 <MainBtn 
                     type="button"
                     text="NON" 
-                    onClick={() => setShowPopup(false)}
+                    onClick={() => setShowAlert(false)}
                     />
                 <MainBtn 
                     type="button"
                     text="OUI"
                     onClick={() => {
-                        setShowPopup(false);
+                        setShowAlert(false);
                         clickFunc();
                     }}/>
             </div>}
@@ -34,4 +34,4 @@ function BtnWithPopup(props){
           </div>
 }
 
-export default BtnWithPopup;
+export default BtnWithAlert;
