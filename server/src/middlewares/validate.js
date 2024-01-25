@@ -103,7 +103,7 @@ export const validationRules = (method) => {
                     .isInt({ min: 50, max: 100000000}),
                 body('currency')
                     .exists()
-                    .matches(/[A-Z]{3}/)
+                    .matches(/^[a-zA-Z]{3}$/)
             ];
         }
         case 'findPacks': {
@@ -135,13 +135,13 @@ export const validationRules = (method) => {
                     .isInt({ min: 1, max: 3}),
                 body('status')
                     .exists()
-                    .matches(/^[a-zA-Z\s]*$/),
+                    .matches(/^[A-zÀ-ÿ][A-zÀ-ÿ ]+$/),
                 body('pack_id')
                     .exists()
-                    .matches(/\d{0,20}/),
+                    .matches(/^\d{0,20}$/),
                 body('user_id')
                     .exists()
-                    .matches(/\d{0,20}/),
+                    .matches(/^\d{0,20}$/)
             ];
         }
         case 'modifyBooking': {
@@ -160,10 +160,10 @@ export const validationRules = (method) => {
                     .isInt({ min: 1, max: 3}),
                 body('status')
                     .exists()
-                    .matches(/^[a-zA-Z\s]*$/),
+                    .matches(/^[A-zÀ-ÿ][A-zÀ-ÿ ]+$/),
                 body('bookingID')
                     .exists()
-                    .matches(/\d{0,20}/)
+                    .matches(/^\d{0,20}$/)
             ];
         }
     }

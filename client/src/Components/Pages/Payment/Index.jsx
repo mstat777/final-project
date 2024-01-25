@@ -1,5 +1,4 @@
 import styles from './Payment.module.scss';
-import variables from './Stripe.module.scss';
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { Elements } from '@stripe/react-stripe-js';
@@ -13,6 +12,11 @@ function Payment(){
 
     const [stripePromise, setStripePromise] = useState('');
     const [clientSecret, setClientSecret] = useState('');
+
+    // remonter au top de la page lors de chargement
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     useEffect(() => {
         async function getPK(){

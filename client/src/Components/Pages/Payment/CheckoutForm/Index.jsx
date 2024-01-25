@@ -1,5 +1,5 @@
 import styles from '../Payment.module.scss';
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useStripe, useElements, CardNumberElement, CardCvcElement, CardExpiryElement } from '@stripe/react-stripe-js';
@@ -11,24 +11,7 @@ function CheckoutForm({clientSecret}){
     const stripe = useStripe();
     const elements = useElements();
     const navigate = useNavigate();
-/*
-    const options = {
-                style: {
-                    base: {
-                        fontSize: "1.4rem",
-                        color: "#424770",
-                        letterSpacing: "0.04rem",
-                        fontFamily: "Roboto, Source Code Pro, monospace, SFUIDisplay",
-                        "::placeholder": {
-                            color: "#aab7c4"
-                        }
-                    },
-                    invalid: {
-                        color: "#9e2146"
-                    },
-                }
-            };
-    */
+
     const { bookingInfo, bookedData, newBookedAct, oldBookedAct } = useSelector((state) => state.booking);
     const { userInfo } =  useSelector((state) => state.user);
 
@@ -99,6 +82,8 @@ function CheckoutForm({clientSecret}){
                     navigate("/confirmation");
                 }, 9000);
                 return () => clearTimeout(redirectTimeout);
+            } else {
+                console.log(res.status);
             }
         } else {
             setErrMsg("état inattendu");
