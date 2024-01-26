@@ -107,7 +107,7 @@ function AdminDashPackCreateModify(){
         formData.append('discount', inputs.discount);
         formData.append('places_total', inputs.placesTotal);
         formData.append('places_left', inputs.placesLeft);
-        formData.append('destination_id', destinationID);
+        formData.append('destinationID', destinationID);
 
         if (isModFormValidated) {
             // s'il s'agit d'une modif d'une destination déjà existante :

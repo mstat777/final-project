@@ -56,10 +56,10 @@ function ModifyBooking(){
 
     // initialiser les variables pour stocker les prix du pack et des activités associées :
     const [pricesList, setPricesList] = useState({
-        price_adults_pack: 0,
-        price_children_pack: 0,
-        price_adults_activities: [],
-        price_children_activities: []
+        priceAdultsPack: 0,
+        priceChildrenPack: 0,
+        priceAdultsActivities: [],
+        priceChildrenActivities: []
     });
     
     // on récupère toutes les données liées au pack lors du 1er chargement de la page :
@@ -80,7 +80,7 @@ function ModifyBooking(){
     
     // récupérer les NOMBRES DE PERSONNES pour chaque activité réservée et pour le pack :
     useEffect(() => {
-        if (destination && lodging && packs[0] && activities[0]){      
+        if (destination && lodging && packs[0] && activities[0] && bookedData){    
             const adultsBookedAct = [];
             const childrenBookedAct = [];
             for (let i = 0; i < activities.length; i++) {
@@ -98,11 +98,11 @@ function ModifyBooking(){
 
             // et on les enregistre dans Store :
             const numberPeople = {
-                nb_adults: {
+                nbAdults: {
                     pack: bookedData.datasBook[0].nb_adults,
                     activities: adultsBookedAct
                 },
-                nb_children: {
+                nbChildren: {
                     pack: bookedData.datasBook[0].nb_children,
                     activities: childrenBookedAct
                 }
@@ -113,46 +113,46 @@ function ModifyBooking(){
 
     // si on a les nb de personnes -> on récupère LES PRIX PAR PERSONNE (pack & activités), les formatte et les stocke dans le Store (pour pouvoir les afficher):
     useEffect(() => {  
-        if (bookingInfo.nb_adults.pack) {
+        if (bookingInfo.nbAdults.pack) {
             // initialiser les checkboxes :
             let myArray = []; 
             activities.forEach((el, i) => {
-                bookingInfo.nb_adults.activities[i] || bookingInfo.nb_children.activities[i] ?
+                bookingInfo.nbAdults.activities[i] || bookingInfo.nbChildren.activities[i] ?
                 myArray.push(true) : myArray.push(false);
             });
             setCheckBoxes(myArray);
             
             // des variables pour stocker tous les prix (du pack et des activités) qu'on va récupèrer de la BDD, les regroupe en arrays pour les passer au Store :
-            let prices_adults = [];
-            let prices_children = [];
+            let pricesAdults = [];
+            let pricesChildren = [];
             for (let i = 0; i < bookedData.datasAct.length; i++) {
-                prices_adults[i] = parseFloat(bookedData.datasAct[i].price_adults);
-                prices_children[i] = parseFloat(bookedData.datasAct[i].price_children);
+                pricesAdults[i] = parseFloat(bookedData.datasAct[i].price_adults);
+                pricesChildren[i] = parseFloat(bookedData.datasAct[i].price_children);
             }
             setPricesList({
-                price_adults_pack: parseFloat(bookedData.datasPack[0].price_adults),
-                price_children_pack: parseFloat(bookedData.datasPack[0].price_children),
+                priceAdultsPack: parseFloat(bookedData.datasPack[0].price_adults),
+                priceChildrenPack: parseFloat(bookedData.datasPack[0].price_children),
                 // on a récupéré les prix de toutes les activités ci-dessus
-                price_adults_activities: prices_adults,
-                price_children_activities: prices_children
+                priceAdultsActivities: pricesAdults,
+                priceChildrenActivities: pricesChildren
             });
         }
-    },[JSON.stringify(bookingInfo.nb_adults), JSON.stringify(bookingInfo.nb_children)]);
+    },[JSON.stringify(bookingInfo.nbAdults), JSON.stringify(bookingInfo.nbChildren)]);
 
     // si toutes les données sont chargées, on peut afficher la page :
     useEffect(() => {
-        if (bookingInfo.prices.total_all) {
+        if (bookingInfo.prices.totalAll) {
             setIsAllDataLoaded(true);
         }
-    },[bookingInfo.prices.total_all]);
+    },[bookingInfo.prices.totalAll]);
 
     // CALCULER LES PRIX TOTAUX chaque fois le nb de personnes change :
     useEffect(() => {
-        if (bookingInfo.nb_adults.pack && 
-            pricesList.price_adults_activities.length) {
+        if (bookingInfo.nbAdults.pack && 
+            pricesList.priceAdultsActivities.length) {
             dispatch(calculatePrices(pricesList));
         }
-    },[bookingInfo.nb_adults, bookingInfo.nb_children, pricesList.price_adults_activities.length]);
+    },[bookingInfo.nbAdults, bookingInfo.nbChildren, pricesList.priceAdultsActivities.length]);
 
     // afficher/cacher (via checkbox) les compteurs pour les activités :
     function handleChange(index) {
@@ -203,7 +203,7 @@ function ModifyBooking(){
                         </button>
                         <input type="text" 
                             pattern="[0-9]{2}"
-                            value={bookingInfo.nb_adults.pack}
+                            value={bookingInfo.nbAdults.pack}
                             disabled/>
                         <button onClick={()=>{dispatch(decrNbAdultsPack())}}>
                             <FontAwesomeIcon icon={faCircleMinus} className={styles.fa_circle}/>
@@ -216,7 +216,7 @@ function ModifyBooking(){
                         </button>
                         <input type="text" 
                             pattern="[0-9]{2}"
-                            value={bookingInfo.nb_children.pack}
+                            value={bookingInfo.nbChildren.pack}
                             disabled/>
                         <button onClick={()=>{dispatch(decrNbChildrenPack())}}>
                             <FontAwesomeIcon icon={faCircleMinus} className={styles.fa_circle}/>
@@ -248,7 +248,7 @@ function ModifyBooking(){
                                     </button>
                                     <input type="text" 
                                         pattern="[0-9]{2}"
-                                        value={bookingInfo.nb_adults.activities[i]} 
+                                        value={bookingInfo.nbAdults.activities[i]} 
                                         disabled/>
                                     <button onClick={()=>{dispatch(decrNbAdultsActivity(i))}}>
                                         <FontAwesomeIcon icon={faCircleMinus} className={styles.fa_circle}/>
@@ -262,7 +262,7 @@ function ModifyBooking(){
                                     </button>
                                     <input type="text" 
                                         pattern="[0-9]{2}"
-                                        value={bookingInfo.nb_children.activities[i]} 
+                                        value={bookingInfo.nbChildren.activities[i]} 
                                         disabled/>
                                     <button onClick={()=>{dispatch(decrNbChildrenActivity(i))}}>
                                         <FontAwesomeIcon icon={faCircleMinus} className={styles.fa_circle}/>
@@ -283,14 +283,14 @@ function ModifyBooking(){
                 <article className={styles.booking_totals_ctn}>
                     <h2>Récapitulatif des montants à payer</h2>
                     <p>Vous avez sélectionné le pack suivant :</p>
-                    <p>Prix total du pack : <b>{bookingInfo.prices.total_pack}</b> &euro; TTC</p> 
-                    <p>Prix total des activités choisies : <b>{bookingInfo.prices.total_activities}</b> &euro; TTC</p> 
-                    <p>Prix total (pack + activités) : <b>{bookingInfo.prices.total_all}</b> &euro; TTC</p> 
+                    <p>Prix total du pack : <b>{bookingInfo.prices.totalPack}</b> &euro; TTC</p> 
+                    <p>Prix total des activités choisies : <b>{bookingInfo.prices.totalActivities}</b> &euro; TTC</p> 
+                    <p>Prix total (pack + activités) : <b>{bookingInfo.prices.totalAll}</b> &euro; TTC</p> 
 
                     {/* si l'utilisateur a déjà payé : */}
                     {bookedData.datasBook[0].status === "validée" && <>
                         <p>Montant déjà payé : <b>{parseFloat(bookedData.datasBook[0].price_total_booking)}</b> &euro; TTC</p> 
-                        <p>RESTE A PAYER : <b>{bookingInfo.prices.total_all - bookedData.datasBook[0].price_total_booking}</b> &euro; TTC</p> 
+                        <p>RESTE A PAYER : <b>{bookingInfo.prices.totalAll - bookedData.datasBook[0].price_total_booking}</b> &euro; TTC</p> 
                     </>}
                 </article>
 

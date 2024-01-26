@@ -37,9 +37,9 @@ function Payment(){
                 let toPay = 0;
                 // deux cas : une partie a déjà été payée ou tout est à payer :
                 if (bookedData.datasBook) {
-                    toPay = bookedData.datasBook[0].status !== "validée" ? bookingInfo.prices.total_all : bookingInfo.prices.total_all - bookedData.datasBook[0].price_total_booking;
+                    toPay = bookedData.datasBook[0].status !== "validée" ? bookingInfo.prices.totalAll : bookingInfo.prices.totalAll - bookedData.datasBook[0].price_total_booking;
                 } else {
-                    toPay = bookingInfo.prices.total_all;
+                    toPay = bookingInfo.prices.totalAll;
                 }
                 const res = await fetch(`${BASE_URL}/api/v.0.1/payment/create-payment-intent`, {
                     method: "POST",
@@ -58,7 +58,7 @@ function Payment(){
                 console.log(err.message);
             }
         }
-        if (bookingInfo.prices.total_all) {
+        if (bookingInfo.prices.totalAll) {
             getClientSecret(); 
         }
     },[bookingInfo]);
@@ -68,9 +68,9 @@ function Payment(){
                     <h1>Paiement</h1>
                     {/* s'il reste à payer dans le cas de modif de la réservation : */}
                     <p>Montant du paiement : {!bookedData.datasBook ? 
-                    bookingInfo.prices.total_all.toFixed(2) : bookedData.datasBook[0].status === "validée" ? 
-                    (bookingInfo.prices.total_all - bookedData.datasBook[0].price_total_booking).toFixed(2) :
-                    bookingInfo.prices.total_all.toFixed(2)} &euro;</p>
+                    bookingInfo.prices.totalAll.toFixed(2) : bookedData.datasBook[0].status === "validée" ? 
+                    (bookingInfo.prices.totalAll - bookedData.datasBook[0].price_total_booking).toFixed(2) :
+                    bookingInfo.prices.totalAll.toFixed(2)} &euro;</p>
                     {stripePromise && clientSecret &&
                         <Elements 
                             stripe={stripePromise} 

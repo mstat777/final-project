@@ -19,7 +19,7 @@ function Results() {
         if (isMobile) { window.scrollTo(0, 160); }
         if (isTablet) { window.scrollTo(0, 400); }
         if (isDesktop) { window.scrollTo(0, 200); }
-    }, [destination]);
+    }, [destination, isMobile, isTablet, isDesktop]);
 
     return (!destination && !packs[0] && !destinationImages[0]) ? 
             <Loading/> : 

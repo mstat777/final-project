@@ -41,10 +41,10 @@ function Footer() {
                 <div>
                     <h2 className={styles.footer_title}>suivez-nous</h2>
                     <ul className={styles.footer_social}>
-                        <li><a href="https://www.facebook.com/BeautifulDestinations/" target="_blank"><FontAwesomeIcon icon={faFacebook} /></a></li>
-                        <li><a href="https://twitter.com/beadestinations?lang=fr" target="_blank"><FontAwesomeIcon icon={faTwitter} /></a></li>
-                        <li><a href="https://www.instagram.com/beautifuldestinations/" target="_blank"><FontAwesomeIcon icon={faInstagram} /></a></li>
-                        <li><a href="https://www.youtube.com/watch?v=RgCENw09Dpk" target="_blank"><FontAwesomeIcon icon={faYoutube}/></a></li>
+                        <li><a href="https://www.facebook.com/BeautifulDestinations/" target="_blank" rel="noreferrer"><FontAwesomeIcon icon={faFacebook} /></a></li>
+                        <li><a href="https://twitter.com/beadestinations?lang=fr" target="_blank" rel="noreferrer"><FontAwesomeIcon icon={faTwitter} /></a></li>
+                        <li><a href="https://www.instagram.com/beautifuldestinations/" target="_blank" rel="noreferrer"><FontAwesomeIcon icon={faInstagram} /></a></li>
+                        <li><a href="https://www.youtube.com/watch?v=RgCENw09Dpk" target="_blank" rel="noreferrer"><FontAwesomeIcon icon={faYoutube}/></a></li>
                     </ul>
 
                     <h2 className={styles.footer_title}>A propos</h2>

@@ -43,7 +43,7 @@ function Booking(){
     // pour stocker les états des checkboxes :
     let myArray = []; 
     activities.forEach((el, i) => {
-        (bookingInfo.nb_adults.activities[i] || bookingInfo.nb_children.activities[i]) ? myArray.push(true) : myArray.push(false);
+        (bookingInfo.nbAdults.activities[i] || bookingInfo.nbChildren.activities[i]) ? myArray.push(true) : myArray.push(false);
     });
     const [checkBoxes, setCheckBoxes] = useState(myArray);
 
@@ -53,18 +53,18 @@ function Booking(){
     }, [])
     
     // on récupère tous les prix (pack + activités) de la BDD, les regroupe en arrays pour les passer au Store :
-    let prices_adults = [];
-    let prices_children = [];
+    let pricesAdults = [];
+    let pricesChildren = [];
     for (let i = 0; i < activities.length; i++) {
-        prices_adults[i] = activities[i].price_adults;
-        prices_children[i] = activities[i].price_children;
+        pricesAdults[i] = activities[i].price_adults;
+        pricesChildren[i] = activities[i].price_children;
     }
     // initialiser les variables pour stocker les prix du pack et des activités associées :
     const [pricesList, setPricesList] = useState({
-        price_adults_pack: 0,
-        price_children_pack: 0,
-        price_adults_activities: [],
-        price_children_activities: []
+        priceAdultsPack: 0,
+        priceChildrenPack: 0,
+        priceAdultsActivities: [],
+        priceChildrenActivities: []
     });
 
     // on passe les prix au Store
@@ -72,10 +72,10 @@ function Booking(){
         const initInfoAndSetPrices = async () => { 
             const setPrices = async () => {
                 setPricesList({
-                    price_adults_pack: packs[id].price_adults,
-                    price_children_pack: packs[id].price_children,
-                    price_adults_activities: prices_adults,
-                    price_children_activities: prices_children
+                    priceAdultsPack: packs[id].price_adults,
+                    priceChildrenPack: packs[id].price_children,
+                    priceAdultsActivities: pricesAdults,
+                    priceChildrenActivities: pricesChildren
                 });
             }
             await setPrices();
@@ -87,11 +87,11 @@ function Booking(){
 
     // calculer les prix chaque fois le nb de personnes change :
     useEffect(() => {
-        if (pricesList.price_adults_activities.length && 
-            pricesList.price_children_activities) {
+        if (pricesList.priceAdultsActivities.length && 
+            pricesList.priceChildrenActivities.length) {
             dispatch(calculatePrices(pricesList));
         }
-    },[bookingInfo.nb_adults, bookingInfo.nb_children, pricesList]);
+    },[bookingInfo.nbAdults, bookingInfo.nbChildren, pricesList]);
 
     // afficher/cacher (via checkbox) les compteurs pour les activités :
     function handleChange(index) {
@@ -144,7 +144,7 @@ function Booking(){
                         </button>
                         <input type="text" 
                             pattern="[0-9]{2}"
-                            value={bookingInfo.nb_adults.pack}
+                            value={bookingInfo.nbAdults.pack}
                             disabled/>
                         <button onClick={() => dispatch(decrNbAdultsPack())}>
                             <FontAwesomeIcon icon={faCircleMinus} className={styles.fa_circle}/>
@@ -157,7 +157,7 @@ function Booking(){
                         </button>
                         <input type="text" 
                             pattern="[0-9]{2}"
-                            value={bookingInfo.nb_children.pack}
+                            value={bookingInfo.nbChildren.pack}
                             disabled/>
                         <button onClick={()=>{dispatch(decrNbChildrenPack())}}>
                             <FontAwesomeIcon icon={faCircleMinus} className={styles.fa_circle}/>
@@ -189,7 +189,7 @@ function Booking(){
                                     </button>
                                     <input type="text" 
                                         pattern="[0-9]{2}"
-                                        value={bookingInfo.nb_adults.activities[i]} 
+                                        value={bookingInfo.nbAdults.activities[i]} 
                                         disabled/>
                                     <button onClick={()=>{dispatch(decrNbAdultsActivity(i))}}>
                                         <FontAwesomeIcon icon={faCircleMinus} className={styles.fa_circle}/>
@@ -203,7 +203,7 @@ function Booking(){
                                     </button>
                                     <input type="text" 
                                         pattern="[0-9]{2}"
-                                        value={bookingInfo.nb_children.activities[i]}
+                                        value={bookingInfo.nbChildren.activities[i]}
                                         disabled/>
                                     <button onClick={()=>{dispatch(decrNbChildrenActivity(i))}}>
                                         <FontAwesomeIcon icon={faCircleMinus} className={styles.fa_circle}/>
@@ -225,9 +225,9 @@ function Booking(){
                 <article className={styles.booking_totals_ctn}>
                     <h2>Récapitulatif des montants à payer</h2>
                     <p>Vous avez sélectionné le pack suivant :</p>
-                    <p>Prix total du pack : <b>{bookingInfo.prices.total_pack}</b> &euro; TTC</p> 
-                    <p>Prix total des activités choisies : <b>{bookingInfo.prices.total_activities}</b> &euro; TTC</p> 
-                    <p>PRIX TOTAL A PAYER : <b>{bookingInfo.prices.total_all}</b> &euro; TTC</p> 
+                    <p>Prix total du pack : <b>{bookingInfo.prices.totalPack}</b> &euro; TTC</p> 
+                    <p>Prix total des activités choisies : <b>{bookingInfo.prices.totalActivities}</b> &euro; TTC</p> 
+                    <p>PRIX TOTAL A PAYER : <b>{bookingInfo.prices.totalAll}</b> &euro; TTC</p> 
                 </article>
 
                 <MainBtn onClick={handleSubmitBooking} className={styles.booking_btn} text="réserver"/>

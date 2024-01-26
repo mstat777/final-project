@@ -50,13 +50,13 @@ function CheckoutForm({clientSecret}){
                     headers: { "Content-Type": "application/json",
                                 Authentication: "Bearer " + TOKEN },
                     body: JSON.stringify({ 
-                        nb_adults: bookingInfo.nb_adults.pack,
-                        nb_children: bookingInfo.nb_children.pack,
-                        price_total_booking: bookingInfo.prices.total_all,
+                        nbAdults: bookingInfo.nbAdults.pack,
+                        nbChildren: bookingInfo.nbChildren.pack,
+                        priceTotalBooking: bookingInfo.prices.totalAll,
                         paymentType: '1',
                         status: 'validée',
-                        pack_id: bookingInfo.packID,
-                        user_id: userInfo.userID,
+                        packID: bookingInfo.packID,
+                        userID: userInfo.userID,
                         activities: bookingInfo.selectedActivities
                     })
                 });
@@ -66,9 +66,9 @@ function CheckoutForm({clientSecret}){
                     headers: { "Content-Type": "application/json",
                                 Authentication: "Bearer " + TOKEN },
                     body: JSON.stringify({ 
-                        nb_adults: bookingInfo.nb_adults.pack,
-                        nb_children: bookingInfo.nb_children.pack,
-                        price_total_booking: bookingInfo.prices.total_all,
+                        nbAdults: bookingInfo.nbAdults.pack,
+                        nbChildren: bookingInfo.nbChildren.pack,
+                        priceTotalBooking: bookingInfo.prices.totalAll,
                         paymentType: '1',
                         status: 'validée',
                         bookingID: bookedData.datasBook[0].id,

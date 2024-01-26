@@ -5,13 +5,13 @@ const createBooking = async (req, res) => {
     try {
         // on enregistre la réservation du pack dans la table 'bookings' :
         const datasPack = {
-            nb_adults: req.body.nb_adults,
-            nb_children: req.body.nb_children,
-            price_total_booking: req.body.price_total_booking,
+            nbAdults: req.body.nbAdults,
+            nbChildren: req.body.nbChildren,
+            priceTotalBooking: req.body.priceTotalBooking,
             paymentType: req.body.paymentType,
             status: req.body.status,
-            pack_id: req.body.pack_id,
-            user_id: req.body.user_id
+            packID: req.body.packID,
+            userID: req.body.userID
         };
         const queryPack = "INSERT INTO bookings (nb_adults, nb_children, price_total_booking, payment_type, status, date_created, pack_id, user_id) VALUES (?, ?, ?, ?, ?, CURRENT_TIMESTAMP(), ?, ?)";
         await Query.queryByObject(queryPack, datasPack);
@@ -19,7 +19,7 @@ const createBooking = async (req, res) => {
         if (req.body.activities.length) {
             // on récupère l'ID de la réservation :
             const queryLastBooking = "SELECT id FROM bookings WHERE user_id = ? ORDER BY date_created DESC LIMIT 1";
-            const [bookingData] = await Query.queryByValue(queryLastBooking, req.body.user_id);
+            const [bookingData] = await Query.queryByValue(queryLastBooking, req.body.userID);
             // et on l'insère dans chaque activité :
             const newData = [];
             req.body.activities.map(el => {
@@ -43,9 +43,9 @@ const modifyBooking = async (req, res) => {
         // -------------- modifier PACK ---------------
         // on enregistre la réservation du pack dans la table 'bookings' :
         const datasPack = {
-            nb_adults: req.body.nb_adults,
-            nb_children: req.body.nb_children,
-            price_total_booking: req.body.price_total_booking,
+            nbAdults: req.body.nbAdults,
+            nbChildren: req.body.nbChildren,
+            priceTotalBooking: req.body.priceTotalBooking,
             payment_type: req.body.paymentType,
             status: req.body.status,
             id: req.body.bookingID
@@ -57,29 +57,29 @@ const modifyBooking = async (req, res) => {
         // s'il y a des activités réservées, on les passe dans la table 'booked_activities' :
         // on compare le nouvel état avec l'ancien pour savoir quelles activités sont à mettre à jour, insérer, supprimer :
         for(let i = 0; i < req.body.newBookedActiv.length; i++){
-            if (req.body.newBookedActiv[i].activity_id && 
-                req.body.oldBookedActiv[i].activity_id ) {
+            if (req.body.newBookedActiv[i].activityID && 
+                req.body.oldBookedActiv[i].activityID ) {
                 // il s'agit d'une MAJ :
                 const datasActUpd = {
-                    nb_adults: req.body.newBookedActiv[i].nb_adults,
-                    nb_children: req.body.newBookedActiv[i].nb_children,
-                    price_total_act: req.body.newBookedActiv[i].price_total_act,
-                    activity_id: req.body.newBookedActiv[i].activity_id,
-                    booking_id: req.body.newBookedActiv[i].booking_id,
+                    nbAdults: req.body.newBookedActiv[i].nbAdults,
+                    nbChildren: req.body.newBookedActiv[i].nbChildren,
+                    priceTotalAct: req.body.newBookedActiv[i].priceTotalAct,
+                    activityID: req.body.newBookedActiv[i].activityID,
+                    bookingID: req.body.newBookedActiv[i].bookingID,
                     id: req.body.oldBookedActiv[i].id
                 };
                 const queryBookActUpd = "UPDATE booked_activities SET nb_adults = ?, nb_children = ?, price_total_act = ?, activity_id = ?, booking_id = ? WHERE id = ?";
                 await Query.queryByObject(queryBookActUpd, datasActUpd);
             }
-            else if (req.body.newBookedActiv[i].activity_id && 
-                    !req.body.oldBookedActiv[i].activity_id) {
+            else if (req.body.newBookedActiv[i].activityID && 
+                    !req.body.oldBookedActiv[i].activityID) {
                 // c'est une nouvelle act. à enregistrer  :
                 delete req.body.newBookedActiv[i].name;
                 const queryBookActIns = "INSERT INTO booked_activities (nb_adults, nb_children, price_total_act, activity_id, booking_id) VALUES (?, ?, ?, ?, ?)";
                 await Query.queryByObject(queryBookActIns, req.body.newBookedActiv[i]);
             }
-            else if (!req.body.newBookedActiv[i].activity_id && 
-                    req.body.oldBookedActiv[i].activity_id) {
+            else if (!req.body.newBookedActiv[i].activityID && 
+                    req.body.oldBookedActiv[i].activityID) {
                 // c'est l'ancienne act. à supprimer :
                 const queryBookActDel = "DELETE FROM booked_activities WHERE id = ?";
                 await Query.queryByValue(queryBookActDel, req.body.oldBookedActiv[i].id);

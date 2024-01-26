@@ -78,6 +78,12 @@ function Contact(){
 
                 <article>
                     <h2>nous contacter</h2>
+                    
+                    { (okMsg && userName && userEmail && userMessage) ? 
+                        <p className={styles.ok_msg}>{okMsg}</p> : null }
+                    { (errMsg && userName && userEmail && userMessage) ? 
+                        <p className={styles.err_msg}>{errMsg}</p> : null }
+
                     <form onSubmit={handleSubmit} className={styles.contact_form}>
                         <label>  
                             <span>Nom :</span>
@@ -117,11 +123,6 @@ function Contact(){
                             </div>
                         </div>
                     </form>
-
-                    { (okMsg && userName && userEmail && userMessage) ? 
-                        <p className={styles.ok_msg}>{okMsg}</p> : null }
-                    { (errMsg && userName && userEmail && userMessage) ? 
-                        <p className={styles.err_msg}>{errMsg}</p> : null }
 
                 </article>
                 

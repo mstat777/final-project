@@ -6,10 +6,10 @@ export const validationRules = (method) => {
             return [
                 body('lastName')
                     .exists()
-                    .matches(/^[a-zÀ-Ÿ]+(?:['-.\s][a-zÀ-Ÿ]+)*$/i),
+                    .matches(/^[a-zàâçéèêëîïôûùüÿñæœ .'-]*$/i),
                 body('firstName')
                     .exists()
-                    .matches(/^[a-zÀ-Ÿ]+(?:['-.\s][a-zÀ-Ÿ]+)*$/i),
+                    .matches(/^[a-zàâçéèêëîïôûùüÿñæœ .'-]*$/i),
                 body('email')
                     .exists()
                     .isEmail(),
@@ -37,10 +37,10 @@ export const validationRules = (method) => {
             return [
                 body('lastName')
                     .exists()
-                    .matches(/^[a-zÀ-Ÿ]+(?:['-.\s][a-zÀ-Ÿ]+)*$/i),
+                    .matches(/^[a-zàâçéèêëîïôûùüÿñæœ .'-]*$/i),
                 body('firstName')
                     .exists()
-                    .matches(/^[a-zÀ-Ÿ]+(?:['-.\s][a-zÀ-Ÿ]+)*$/i),
+                    .matches(/^[a-zàâçéèêëîïôûùüÿñæœ .'-]*$/i),
                 body('email')
                     .exists()
                     .isEmail(),
@@ -86,7 +86,7 @@ export const validationRules = (method) => {
             return [
                 body('userName')
                     .exists()
-                    .matches(/^[a-zÀ-Ÿ]+(?:['-.\s][a-zÀ-Ÿ]+)*$/i),
+                    .matches(/^[a-zàâçéèêëîïôûùüÿñæœ .'-]*$/i),
                 body('userEmail')
                     .exists()
                     .isEmail(),
@@ -110,7 +110,7 @@ export const validationRules = (method) => {
             return [
                 body('searchDestination')
                     .exists()
-                    .matches(/^[a-zÀ-Ÿ]+(?:['-.\s][a-zÀ-Ÿ]+)*$/i),
+                    .matches(/^[a-zA-ZÀ-ÿ-'"(). ]*$/),
                 body('departureDate')
                     .optional({ checkFalsy: true })
                     .isDate(),
@@ -121,13 +121,13 @@ export const validationRules = (method) => {
         }
         case 'createBooking': {
             return [
-                body('nb_adults')
+                body('nbAdults')
                     .exists()
                     .isInt({ min: 0, max: 100}),
-                body('nb_children')
+                body('nbChildren')
                     .exists()
                     .isInt({ min: 0, max: 100}),
-                body('price_total_booking')
+                body('priceTotalBooking')
                     .exists()
                     .matches(/^\d{0,6}(\.\d{1,2})?$/),
                 body('paymentType')
@@ -136,23 +136,23 @@ export const validationRules = (method) => {
                 body('status')
                     .exists()
                     .matches(/^[A-zÀ-ÿ][A-zÀ-ÿ ]+$/),
-                body('pack_id')
+                body('packID')
                     .exists()
                     .matches(/^\d{0,20}$/),
-                body('user_id')
+                body('userID')
                     .exists()
                     .matches(/^\d{0,20}$/)
             ];
         }
         case 'modifyBooking': {
             return [
-                body('nb_adults')
+                body('nbAdults')
                     .exists()
                     .isInt({ min: 0, max: 100}),
-                body('nb_children')
+                body('nbChildren')
                     .exists()
                     .isInt({ min: 0, max: 100}),
-                body('price_total_booking')
+                body('priceTotalBooking')
                     .exists()
                     .matches(/^\d{0,6}(\.\d{1,2})?$/),
                 body('paymentType')

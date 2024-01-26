@@ -30,7 +30,7 @@ function Holidays(){
                                 <li key={i}>
                                     <Link to={`/search?destination=${dest.name.toLowerCase()}`} className={styles.destination_ctn}>
                                         <img src={`${IMG_URL}/img/destinations/${dest.url_initial_image}`} 
-                                                alt="image de la destination"/>
+                                                alt="la destination"/>
                                     
                                         <div className={styles.info_ctn}>
                                             <p>{dest.country}</p>

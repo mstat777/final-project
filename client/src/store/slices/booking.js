@@ -4,27 +4,27 @@ import {createSlice} from "@reduxjs/toolkit";
 const initialState = {
     // données actuelles de la réservation
     bookingInfo: {
-        nb_adults: {
+        nbAdults: {
             pack: 0, // nb adultes/pack
             activities: [] // nb adultes/activité
         },
-        nb_children: {
+        nbChildren: {
             pack: 0, // nb d'enfants/pack
             activities: [] // nb enfants/activité
         },
         prices: {
-            activity_per_adult: [], //prix adulte/activité de la BDD
-            activity_per_child: [], //prix enfant/activité de la BDD
-            total_adults: [], //prix à payer pour les adultes/activité récupéré de la BDD
-            total_children: [], //prix à payer pour les enfants/activité récupéré de la BDD
-            total_pack: 0, //montant total du pack à payer
-            total_activities: 0, //montant total des activités (adultes + enfants)
-            total_all: 0 // = total_pack + total_activities
+            activityPerAdult: [], //prix adulte/activité de la BDD
+            activityPerChild: [], //prix enfant/activité de la BDD
+            totalAdults: [], //prix à payer pour les adultes/activité récupéré de la BDD
+            totalChildren: [], //prix à payer pour les enfants/activité récupéré de la BDD
+            totalPack: 0, //montant total du pack à payer
+            totalActivities: 0, //montant total des activités (adultes + enfants)
+            totalAll: 0 // = totalPack + totalActivities
         },
         packID: '',
         selectedActivities: []
     },
-    // anciennes données de la réservation (afin de faire une MAJ)
+    // anciennes données de la réservation (afin de faire une MAJ) récupérées de la BDD
     bookedData: {},
     // nouvel état de la réservation
     newBookedAct: [],
@@ -38,104 +38,104 @@ export const bookingSlice = createSlice({
     reducers: {
         calculatePrices: (state, action) => {
             // calculer pour les packs :
-            const price_pack_adults = state.bookingInfo.nb_adults.pack * action.payload.price_adults_pack;
-            const price_pack_children = state.bookingInfo.nb_children.pack * action.payload.price_children_pack;
-            state.bookingInfo.prices.total_pack = price_pack_adults + price_pack_children;
+            const pricePackAdults = state.bookingInfo.nbAdults.pack * action.payload.priceAdultsPack;
+            const pricePackChildren = state.bookingInfo.nbChildren.pack * action.payload.priceChildrenPack;
+            state.bookingInfo.prices.totalPack = pricePackAdults + pricePackChildren;
 
             let sum_adults = 0;
             let sum_children = 0;
-            for (let i=0; i < state.bookingInfo.nb_adults.activities.length; i++ ) {
+            for (let i=0; i < state.bookingInfo.nbAdults.activities.length; i++ ) {
                 // calculer le prix total de chaque activité pour tous les adultes (on l'affiche sur la page Summary)
-                state.bookingInfo.prices.total_adults[i] = state.bookingInfo.nb_adults.activities[i] * action.payload.price_adults_activities[i];
+                state.bookingInfo.prices.totalAdults[i] = state.bookingInfo.nbAdults.activities[i] * action.payload.priceAdultsActivities[i];
                 // calculer la somme des prix totaux de tous les activités pour tous les adultes
-                sum_adults += state.bookingInfo.prices.total_adults[i];
+                sum_adults += state.bookingInfo.prices.totalAdults[i];
                 // calculer le prix total de chaque activité pour tous les enfants (on l'affiche sur la page Summary)
-                state.bookingInfo.prices.total_children[i] = state.bookingInfo.nb_children.activities[i] * action.payload.price_children_activities[i];
+                state.bookingInfo.prices.totalChildren[i] = state.bookingInfo.nbChildren.activities[i] * action.payload.priceChildrenActivities[i];
                 // calculer la somme des prix totaux de tous les activités pour tous les enfants
-                sum_children += state.bookingInfo.prices.total_children[i];
+                sum_children += state.bookingInfo.prices.totalChildren[i];
             }
-            state.bookingInfo.prices.total_activities = sum_adults + sum_children;
-            state.bookingInfo.prices.total_all = state.bookingInfo.prices.total_pack + state.bookingInfo.prices.total_activities;
+            state.bookingInfo.prices.totalActivities = sum_adults + sum_children;
+            state.bookingInfo.prices.totalAll = state.bookingInfo.prices.totalPack + state.bookingInfo.prices.totalActivities;
         },
         resetCounters: (state, action) => {
             // supprimer les anciennes valeurs des tableaux :
-            state.bookingInfo.nb_adults.pack = 0;
-            state.bookingInfo.nb_adults.activities = [];
-            state.bookingInfo.nb_children.pack = 0;
-            state.bookingInfo.nb_children.activities = [];
-            state.bookingInfo.prices.activity_per_adult = [];
-            state.bookingInfo.prices.activity_per_child = [];
-            state.bookingInfo.prices.total_adults = [];
-            state.bookingInfo.prices.total_children = [];
-            state.bookingInfo.prices.total_pack = 0;
-            state.bookingInfo.prices.total_activities = 0;
-            state.bookingInfo.prices.total_all = 0;
+            state.bookingInfo.nbAdults.pack = 0;
+            state.bookingInfo.nbAdults.activities = [];
+            state.bookingInfo.nbChildren.pack = 0;
+            state.bookingInfo.nbChildren.activities = [];
+            state.bookingInfo.prices.activityPerAdult = [];
+            state.bookingInfo.prices.activityPerChild = [];
+            state.bookingInfo.prices.totalAdults = [];
+            state.bookingInfo.prices.totalChildren = [];
+            state.bookingInfo.prices.totalPack = 0;
+            state.bookingInfo.prices.totalActivities = 0;
+            state.bookingInfo.prices.totalAll = 0;
             state.bookingInfo.selectedActivities = [];
         },
         initialiseCounters: (state, action) => {
-            state.bookingInfo.nb_adults.pack = 0;
-            state.bookingInfo.nb_children.pack = 0;
+            state.bookingInfo.nbAdults.pack = 0;
+            state.bookingInfo.nbChildren.pack = 0;
             // attribuer des valuers 0 à tous les éléments en fonction de nombre d'activités (chaque pack/destination a un nb différent) :
             for (let i=0; i < action.payload; i++){
-                state.bookingInfo.nb_adults.activities.push(0);
-                state.bookingInfo.nb_children.activities.push(0);
-                state.bookingInfo.prices.activity_per_adult.push(0);
-                state.bookingInfo.prices.activity_per_child.push(0);
+                state.bookingInfo.nbAdults.activities.push(0);
+                state.bookingInfo.nbChildren.activities.push(0);
+                state.bookingInfo.prices.activityPerAdult.push(0);
+                state.bookingInfo.prices.activityPerChild.push(0);
             }
         },
         incrNbAdultsPack: (state, action) => {
-            state.bookingInfo.nb_adults.pack++;
+            state.bookingInfo.nbAdults.pack++;
         },
         decrNbAdultsPack: (state, action) => {
-            state.bookingInfo.nb_adults.pack--;
-            if (state.bookingInfo.nb_adults.pack < 0){ 
-                state.bookingInfo.nb_adults.pack = 0;
+            state.bookingInfo.nbAdults.pack--;
+            if (state.bookingInfo.nbAdults.pack < 0){ 
+                state.bookingInfo.nbAdults.pack = 0;
             }
         },
         incrNbChildrenPack: (state, action) => {
-            state.bookingInfo.nb_children.pack++;
+            state.bookingInfo.nbChildren.pack++;
         },
         decrNbChildrenPack: (state, action) => {
-            state.bookingInfo.nb_children.pack--;
-            if (state.bookingInfo.nb_children.pack < 0){ 
-                state.bookingInfo.nb_children.pack = 0;
+            state.bookingInfo.nbChildren.pack--;
+            if (state.bookingInfo.nbChildren.pack < 0){ 
+                state.bookingInfo.nbChildren.pack = 0;
             }
         },
         incrNbAdultsActivity: (state, action) => {
-            if (!state.bookingInfo.nb_adults.activities.length) {
-                state.bookingInfo.nb_adults.activities[action.payload] = 0;
+            if (!state.bookingInfo.nbAdults.activities.length) {
+                state.bookingInfo.nbAdults.activities[action.payload] = 0;
             }
-            if (state.bookingInfo.nb_adults.activities.length) {
-                state.bookingInfo.nb_adults.activities[action.payload]++;
+            if (state.bookingInfo.nbAdults.activities.length) {
+                state.bookingInfo.nbAdults.activities[action.payload]++;
             }
         },
         decrNbAdultsActivity: (state, action) => {
-            if (!state.bookingInfo.nb_adults.activities.length) {
-                state.bookingInfo.nb_adults.activities[action.payload] = 0;
+            if (!state.bookingInfo.nbAdults.activities.length) {
+                state.bookingInfo.nbAdults.activities[action.payload] = 0;
             }
-            if (state.bookingInfo.nb_adults.activities.length) {
-                state.bookingInfo.nb_adults.activities[action.payload]--;
-                if (state.bookingInfo.nb_adults.activities[action.payload] < 0) {
-                    state.bookingInfo.nb_adults.activities[action.payload] = 0;
+            if (state.bookingInfo.nbAdults.activities.length) {
+                state.bookingInfo.nbAdults.activities[action.payload]--;
+                if (state.bookingInfo.nbAdults.activities[action.payload] < 0) {
+                    state.bookingInfo.nbAdults.activities[action.payload] = 0;
                 }
             }
         },
         incrNbChildrenActivity: (state, action) => {
-            if (!state.bookingInfo.nb_children.activities.length) {
-                state.bookingInfo.nb_children.activities[action.payload] = 0;
+            if (!state.bookingInfo.nbChildren.activities.length) {
+                state.bookingInfo.nbChildren.activities[action.payload] = 0;
             }
-            if (state.bookingInfo.nb_children.activities.length) {
-                state.bookingInfo.nb_children.activities[action.payload]++;
+            if (state.bookingInfo.nbChildren.activities.length) {
+                state.bookingInfo.nbChildren.activities[action.payload]++;
             }
         },
         decrNbChildrenActivity: (state, action) => {
-            if (!state.bookingInfo.nb_children.activities.length) {
-                state.bookingInfo.nb_children.activities[action.payload] = 0;
+            if (!state.bookingInfo.nbChildren.activities.length) {
+                state.bookingInfo.nbChildren.activities[action.payload] = 0;
             }
-            if (state.bookingInfo.nb_children.activities.length) {
-                state.bookingInfo.nb_children.activities[action.payload]--;
-                if (state.bookingInfo.nb_children.activities[action.payload] < 0){
-                    state.bookingInfo.nb_children.activities[action.payload] = 0;
+            if (state.bookingInfo.nbChildren.activities.length) {
+                state.bookingInfo.nbChildren.activities[action.payload]--;
+                if (state.bookingInfo.nbChildren.activities[action.payload] < 0){
+                    state.bookingInfo.nbChildren.activities[action.payload] = 0;
                 }
             }
         },
@@ -143,8 +143,8 @@ export const bookingSlice = createSlice({
             state.bookedData = action.payload;
         },
         setNbInBooking: (state, action) => {
-            state.bookingInfo.nb_adults = action.payload.nb_adults;
-            state.bookingInfo.nb_children = action.payload.nb_children;
+            state.bookingInfo.nbAdults = action.payload.nbAdults;
+            state.bookingInfo.nbChildren = action.payload.nbChildren;
         },
         setPackID: (state, action) => {
             state.bookingInfo.packID = action.payload;

@@ -1,7 +1,7 @@
 import styles from './Header.module.scss';
 import { NavLink } from 'react-router-dom';
 import { useMediaQuery } from "react-responsive";
-import logo from '../../../assets/img/logo-dimitravel-02-90p45p.png';
+import logo from '../../../assets/img/logo-dimitravel-02.png';
 import Burger from '../buttons/Burger/Index';
  
 function Header() {

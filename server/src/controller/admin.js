@@ -288,7 +288,7 @@ const createLodging = async (req, res) => {
                 images.forEach((image) => {
                     const newImgObject = {
                         url_image: image[0].newFilename,
-                        lodging_id: lodgID[0].id
+                        lodgingID: lodgID[0].id
                     }
                     urlArray.push(newImgObject);
                 });
@@ -352,7 +352,7 @@ const createDestination = async (req, res) => {
                 images.forEach((image) => {
                     const newImgObject = {
                         url_image: image[0].newFilename,
-                        destination_id: destID[0].id
+                        destinationID: destID[0].id
                     }
                     urlArray.push(newImgObject);
                 });
@@ -412,7 +412,7 @@ const createActivity= async (req, res) => {
             const queryGetID = "SELECT id FROM activities WHERE name = ?";
             const [activityData] = await Query.queryByValue(queryGetID, newAct.name);
             // insérer l'activité (via son ID) dans le tableau 'destinations_activities' pour l'associer à la destination correspondante
-            const dataArray = [activityData[0].id, newAct.destination_id];
+            const dataArray = [activityData[0].id, newAct.destinationID];
             const queryInsertDestAct = "INSERT INTO destinations_activities (activity_id, destination_id) VALUES (?,?)";
             await Query.queryByArray(queryInsertDestAct, dataArray);
             // si tout est OK :

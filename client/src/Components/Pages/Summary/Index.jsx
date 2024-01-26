@@ -50,14 +50,14 @@ function Summary(){
             for(let i = 0; i < activities.length; i++){
                 const myObject = {};
                 myObject.name = activities[i].name;
-                myObject.nb_adults = bookingInfo.nb_adults.activities[i];
-                myObject.nb_children = bookingInfo.nb_children.activities[i];
-                myObject.price_total_act = bookingInfo.prices.total_adults[i] + bookingInfo.prices.total_children[i];
-                myObject.activity_id = activities[i].id;
+                myObject.nbAdults = bookingInfo.nbAdults.activities[i];
+                myObject.nbChildren = bookingInfo.nbChildren.activities[i];
+                myObject.priceTotalAct = bookingInfo.prices.totalAdults[i] + bookingInfo.prices.totalChildren[i];
+                myObject.activityID = activities[i].id;
 
                 myArray.push(myObject);
             }
-            const filtered = myArray.filter(el => el.nb_adults > 0 || el.nb_children > 0);
+            const filtered = myArray.filter(el => el.nbAdults > 0 || el.nbChildren > 0);
             setBookedActivities(filtered);
         }
         if(activities[0]) {
@@ -86,13 +86,13 @@ function Summary(){
                 headers: { "Content-Type": "application/json",
                             Authentication: "Bearer " + TOKEN },
                 body: JSON.stringify({ 
-                    nb_adults: bookingInfo.nb_adults.pack,
-                    nb_children: bookingInfo.nb_children.pack,
-                    price_total_booking: bookingInfo.prices.total_all,
+                    nbAdults: bookingInfo.nbAdults.pack,
+                    nbChildren: bookingInfo.nbChildren.pack,
+                    priceTotalBooking: bookingInfo.prices.totalAll,
                     paymentType,
                     status: 'en attente',
-                    pack_id: bookingInfo.packID,
-                    user_id: userInfo.userID,
+                    packID: bookingInfo.packID,
+                    userID: userInfo.userID,
                     activities: bookingInfo.selectedActivities
                 })
             });
@@ -118,22 +118,22 @@ function Summary(){
                     <p>Date de départ : <b>{formatDate(packs[id].departure_date)}</b></p>
                     <p>Date de retour : <b>{formatDate(packs[id].return_date)}</b></p> 
                     <p>Durée : <b>{packs[id].duration+1}</b> jours / <b>{packs[id].duration}</b> nuits</p>  
-                    <p>Nombre d'adultes : <b>{bookingInfo.nb_adults.pack}</b></p>
-                    <p>Nombre d'enfants : <b>{bookingInfo.nb_children.pack}</b></p>
-                    <p>Prix du pack (sans activités) : <b>{bookingInfo.prices.total_pack}</b> &euro;</p>
+                    <p>Nombre d'adultes : <b>{bookingInfo.nbAdults.pack}</b></p>
+                    <p>Nombre d'enfants : <b>{bookingInfo.nbChildren.pack}</b></p>
+                    <p>Prix du pack (sans activités) : <b>{bookingInfo.prices.totalPack}</b> &euro;</p>
                     <p>Activités choisies : </p>
                     {bookedActivities.length ?
                         <ul className={styles.summary_activities}>
                         {bookedActivities.map((activity, i) => 
                             <li key={i}>
-                                <b>{activity.name}</b> pour {activity.nb_adults >= 1 && <span><b>{activity.nb_adults}</b> adulte(s) </span>} {(activity.nb_adults >= 1 && activity.nb_children >= 1) && "et"} {activity.nb_children >= 1 && <span><b>{activity.nb_children}</b> enfant(s) </span>}au prix de <b>{activity.price_total_act}</b> &euro;
+                                <b>{activity.name}</b> pour {activity.nbAdults >= 1 && <span><b>{activity.nbAdults}</b> adulte(s) </span>} {(activity.nbAdults >= 1 && activity.nbChildren >= 1) && "et"} {activity.nbChildren >= 1 && <span><b>{activity.nbChildren}</b> enfant(s) </span>}au prix de <b>{activity.priceTotalAct}</b> &euro;
                             </li>
                         )}
                         </ul> : <span><b> aucune activité choisie</b></span>
                     }
-                    <p>Prix total des activités : <b>{bookingInfo.prices.total_activities}</b> &euro;</p>
+                    <p>Prix total des activités : <b>{bookingInfo.prices.totalActivities}</b> &euro;</p>
                     <hr/>
-                    <p>Prix total de la réservation : <b>{bookingInfo.prices.total_all}</b> &euro;</p>
+                    <p>Prix total de la réservation : <b>{bookingInfo.prices.totalAll}</b> &euro;</p>
                 </article>
 
                 <article className={styles.summary_ctn}>

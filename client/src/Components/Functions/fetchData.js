@@ -79,9 +79,9 @@ async function fetchDestinationAllData(destination){
 }
 
 // récupérer les données des activités liées à la destination :
-async function fetchActivities(destination_id) {
+async function fetchActivities(destinationID) {
     try {
-        const result = await (await fetch(`${BASE_URL}/api/v.0.1/travel/activities/${destination_id}`)).json();
+        const result = await (await fetch(`${BASE_URL}/api/v.0.1/travel/activities/${destinationID}`)).json();
         store.dispatch(setActivities(result.datas));
         store.dispatch(resetCounters());
         store.dispatch(initialiseCounters(result.datas.length));

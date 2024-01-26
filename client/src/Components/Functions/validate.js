@@ -12,8 +12,8 @@ function validateInput(name, userData){
             result.msg +="Le nom/prénom est trop long.\n";
             result.isValid = false;
         }
-        if (!/^[a-zÀ-Ÿ]+(?:['-.\s][a-zÀ-Ÿ]+)*$/i.test(userData)) {
-            result.msg +="Le nom/prénom doit commencer par une majuscule et ne doit pas contenir de chiffres ni de caractères spéciaux.\n";
+        if (!/^[a-zàâçéèêëîïôûùüÿñæœ .'-]*$/i.test(userData)) {
+            result.msg +="Le nom/prénom ne doit pas contenir de chiffres ni de caractères spéciaux.\n";
             result.isValid = false;
         }
     }

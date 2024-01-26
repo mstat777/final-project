@@ -98,7 +98,7 @@ function AdminDashDestinationsCreateModify(){
         formData.append('continent', inputs.continent);
         formData.append('overview', inputs.overview);
         formData.append('departure_place', inputs.departurePlace);
-        formData.append('lodging_id', lodgingID);
+        formData.append('lodgingID', lodgingID);
         formData.append('file', imageInitial);
         [...imagesAll].forEach((file, idx) => {
             formData.append(`file-${idx}`, file, file.name);

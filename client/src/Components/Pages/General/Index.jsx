@@ -1,7 +1,6 @@
 import styles from './General.module.scss';
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import NotFound from '../NotFound/Index';
 import Recruitment from './Recruitment/Index';
 import TermsOfUse from './TermsOfUse/Index';
 import InfoCovid from './InfoCovid/Index';

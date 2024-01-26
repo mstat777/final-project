@@ -96,10 +96,10 @@ function AdminDashActivitiesCreateModify(){
         formData.append('name', inputs.nameAct);
         formData.append('type', inputs.typeAct);
         formData.append('overview', inputs.overview);
-        formData.append('price_adults', inputs.priceAdults);
-        formData.append('price_children', inputs.priceChildren); 
-        formData.append('places_total', inputs.placesTotal);  
-        formData.append('places_left', inputs.placesLeft);  
+        formData.append('priceAdults', inputs.priceAdults);
+        formData.append('priceChildren', inputs.priceChildren); 
+        formData.append('placesTotal', inputs.placesTotal);  
+        formData.append('placesLeft', inputs.placesLeft);  
         
         if (isModFormValidated) {
             // s'il s'agit d'une modif d'un hébergement déjà existant :
@@ -116,7 +116,7 @@ function AdminDashActivitiesCreateModify(){
             }
             // s'il s'agit d'une création d'un nouveau hébergement :
             if (pathname.includes("create")){
-                formData.append('destination_id', destinationID);  
+                formData.append('destinationID', destinationID);  
                 const res = await fetch(`${BASE_URL}/api/v.0.1/admin/activities/create`, {
                     method: "POST",
                     headers: { Authentication: "Bearer " + TOKEN },
