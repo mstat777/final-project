@@ -5,6 +5,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFacebook, faTwitter, faInstagram, faYoutube } from '@fortawesome/free-brands-svg-icons';
 import MainBtn from '../buttons/MainBtn/Index';
 import { validateInput } from '../../Functions/validate.js';
+import visa from '../../../assets/img/visa.png';
+import masterCard from '../../../assets/img/mastercard.png';
+import americanExpress from '../../../assets/img/americanexpress.png';
+import discover from '../../../assets/img/discover.png';
 
 function Footer() {
     const BASE_URL = process.env.REACT_APP_BASE_URL;
@@ -86,6 +90,14 @@ function Footer() {
                         <p className={styles.ok_msg}>{okMsg}</p>}
                     { errMsg && 
                         <p className={styles.err_msg}>{errMsg}</p>}
+
+                    <h2>paiement sécurisé</h2>
+                    <div className={styles.payment_methods}>
+                        <img src={visa} alt="carte Visa"/>
+                        <img src={masterCard} alt="carte MasterCard"/>
+                        <img src={americanExpress} alt="carte American Express"/>
+                        <img src={discover} alt="carte Discover"/>
+                    </div>
                 </div>
             </section>
 

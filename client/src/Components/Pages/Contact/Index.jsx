@@ -46,8 +46,6 @@ function Contact(){
                 userEmail,
                 userMessage})
         });
-        const json = await res.json();
-        
         if (res.status === 201) {
             setOkMsg("Merci de nous avoir contacté.\nVotre message a bien été transmis à notre équipe.");
         } else {

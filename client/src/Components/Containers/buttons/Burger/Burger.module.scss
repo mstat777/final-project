@@ -5,9 +5,6 @@
     position: absolute;
     top: 1.3rem;
     right: 3rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     height: 3.6rem;
     width: 3.6rem;
     border: 2px solid $tertiary-color;
@@ -17,27 +14,47 @@
     font-size: 1.6rem;
     color: $primary-color;
     background-color: $tertiary-color;
-    transition: color .5s, background-color .5s, width .5s, content .5s;
     &:hover {
         cursor: pointer;   
-        width: 14.5rem;
+        width: 14.2rem;
         color: $tertiary-color;
-        background-color: white; 
-        &_text {
-            color: $tertiary-color;
+        background-color: $primary-color;
+        > span {
+            width: 9.6rem;
+        }
+    }
+    &:not(:hover) {
+        width: 3.6rem;
+        transition: width .7s;
+        > span {
+            width: 0;
+            transition: width .6s;
         }
     }
     &:focus {
         visibility: hidden;
     }
-    &_text {
-        color: rgba(47, 74, 122, 0);
-        transition: color 3s;
+
+    > span {
+        position: absolute;
+        top: -.2rem;
+        right: 3.2rem;
+        height: 3.6rem;
+        width: 0;
+        display: flex;
+        align-items: center;
+        overflow: hidden;
+        transition: width 1.2s .2s ease-out;
     }
+
     /* l'image dans le bouton burger */
     .burger_icon {
+        position: absolute;
+        top: .7rem;
+        right: .8rem;
         height: 1.6rem;
         width: 1.6rem;
+        transition: transform 1s;
     }
 
     @media screen and (min-width: $br-tablet) {
@@ -45,6 +62,12 @@
     }
     @media screen and (min-width: $br-desktop) {
         right: calc(6vw + 1.6rem);
+    }
+}
+
+.static {
+    &:hover {
+        width: 3.6rem;
     }
 }
 

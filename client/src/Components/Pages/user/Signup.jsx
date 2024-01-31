@@ -35,8 +35,7 @@ function Signup(){
     // afficher le placeholder de la date de naissance :
     const [inputDateType, setInputDateType] = useState("text");
 
-    const [errMsg, setErrMsg] = useState(''); // messages Frontend
-    const [errors, setErrors] = useState([]); // err Validator Backend
+    const [errMsg, setErrMsg] = useState('');
 
     // pour ne pas soumettre le formulaire, si les inputs ne sont pas valides:
     const [isFormValidated, setIsFormValidated] = useState(false);

@@ -32,7 +32,6 @@ function WithAdminAuth({child, auth}){
                         navigate("/");
                     }
                     if (res.status === 200) {
-                        const json = await res.json();
                         setTokenIsValid(true);
                     }
                 }

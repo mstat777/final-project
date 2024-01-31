@@ -781,7 +781,7 @@ function TermsOfUse(){
                 <article>
                     <h2>Article 16 Enregistrements</h2>
                     <article>
-                        <h3></h3><p>Enregistrement fiscal de l’État de New York</p>
+                        <h3>Enregistrement fiscal de l’État de New York</h3>
                         <p>Les taxes de vente de l’État de New York et les taxes de séjour de la ville de New York, le cas échéant, sont dues sur votre séjour dans l’hébergement. Pour les réservations de type Payer maintenant, le numéro d’enregistrement du vendeur aux fins de la taxe de vente de l’État de New York de Travelscape, LLC est 880392667 et son numéro d’enregistrement aux fins de la taxe de séjour de la ville de New York est 033960.</p>
                         <p>Pour obtenir des informations complémentaires, cliquez ci-dessous :</p>
                         <a href="#">Certificat de l’État de New York</a>

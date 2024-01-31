@@ -145,11 +145,6 @@ function Search() {
         e.target.setCustomValidity("Prix < 100000. Deux décimals max.");
     }
 
-    // lors du changement du texte dans la barre de recherche :
-    function handleChange(e){
-        setDestinationInput(e.target.value);
-    }
-    
     function handleSubmit(e) {
         e.preventDefault();
         setIsFound(false);
@@ -165,7 +160,7 @@ function Search() {
                         <input type="text" 
                                 name="destination" 
                                 value={destinationInput}
-                                onChange={handleChange}
+                                onChange={(e) => setDestinationInput(e.target.value)}
                                 onFocus={() => setMsg("")}
                                 maxLength={maxNameLength}
                                 placeholder="Destination"

@@ -178,21 +178,9 @@ const getActivitiesByDestination = async (req, res) => {
     const [datas] = await Query.queryByValue(query, req.params.id);
     res.status(200).json({ msg: "activités trouvées", datas })
 }
-// le pack "Best Promo" (celui avec la plus grande réduction) :
-const getBestPromoPack = async (req, res) => {
-    const query = "SELECT d.name, d.country, d.url_initial_image, p.discount, p.price_adults, p.id AS pack_id FROM packs AS p JOIN destinations AS d ON d.id = p.destination_id WHERE p.discount = (SELECT MAX(discount) FROM packs ORDER BY price_adults LIMIT 1)";
-    const [datas] = await Query.find(query);
-    res.status(200).json({datas});
-}
 // les 3 destinations avec la plus grande réduction sur les packs :
 const getBestThreePromoPacks = async (req, res) => {
     const query = "SELECT d.name, d.country, d.url_initial_image, p.discount, p.price_adults, MAX(p.discount) AS max_discount FROM packs AS p JOIN destinations AS d ON d.id = p.destination_id GROUP BY p.destination_id ORDER BY max_discount DESC LIMIT 3";
-    const [datas] = await Query.find(query);
-    res.status(200).json({datas});
-}
-// la "Top" destination (la plus réservée) :
-const getTopDestination = async (req, res) => {
-    const query = "SELECT d.name, d.country, d.url_initial_image, p.discount, p.price_adults, pack_id AS the_pack, COUNT(pack_id) AS most FROM bookings AS b JOIN packs AS p ON p.id = b.pack_id JOIN destinations AS d ON d.id = p.destination_id GROUP BY pack_id ORDER BY most DESC LIMIT 1";
     const [datas] = await Query.find(query);
     res.status(200).json({datas});
 }
@@ -217,8 +205,6 @@ export {
     getLodgingById,
     getPacksByDestination,
     getActivitiesByDestination,
-    getBestPromoPack,
     getBestThreePromoPacks,
-    getTopDestination,
     getTopThreeDestinations
 }

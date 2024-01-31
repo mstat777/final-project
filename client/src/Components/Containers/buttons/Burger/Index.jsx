@@ -17,7 +17,6 @@ function Burger() {
     const { userInfo } = useSelector(state => state.user);
 
     const [burgerOpen, setBurgerOpen] = useState(false);
-    const [isHovering, setIsHovering] = useState(false);
 
     // si l'utilisateur est authentifié, mais par ex. a rafraichi la page, on vérifie le token et si valide, on récupère ses identifiants :
     useEffect(() => {
@@ -33,13 +32,6 @@ function Burger() {
             setBurgerOpen(!burgerOpen);
         }
     }
-
-    const handleMouseOver = () => {
-        setIsHovering(true);
-    };
-    const handleMouseOut = () => {
-        setIsHovering(false);
-    };
 
     return <nav className={`${styles.burger_menu} ${burgerOpen ? styles.show_burger_menu : styles.hide_burger_menu }`}>
 
@@ -98,16 +90,14 @@ function Burger() {
             
             {/* ---------- LE BOUTON BURGER ------------ */}
             <button onClick={toggleBurgerOrLogin} 
-                    onMouseOver={handleMouseOver}
-                    onMouseOut={handleMouseOut}
-                    className={`${styles.burger_btn} ${burgerOpen ? styles.hide : styles.show}`} 
+                    className={`${styles.burger_btn} ${burgerOpen ? styles.hide : styles.show} ${(userInfo.isLogged || TOKEN) ? styles.static : null}`} 
                     title="Espace utilisateur">
 
-                {(isHovering && (!userInfo.isLogged && !TOKEN)) && 
-                <span className={styles.burger_btn_text}>
-                    CONNEXION&nbsp;
-                </span>}
+                {(!userInfo.isLogged && !TOKEN) && 
+                    <span>CONNEXION</span>}
+                    
                 <FontAwesomeIcon icon={faUser} className={styles.burger_icon}/>
+
             </button>
         </nav>
 }

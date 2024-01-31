@@ -20,11 +20,7 @@ function UserDashboardMyBookings(){
     const { userInfo } = useSelector(state => state.user);
     const [ userBookings, setUserBookings] = useState([]);
 
-    const { bookedData, bookingInfo } = useSelector((state) => state.booking);
-
-    // pour afficher des messages suite à la suppression :
-    const [okMsg, setOkMsg] = useState('');
-    const [errMsg, setErrMsg] = useState('');
+    const [okMsg, setOkMsg] = useState(''); // pour des messages suite à la suppression
 
     // remonter au top de la page lors de chargement
     useEffect(() => {
@@ -100,7 +96,6 @@ function UserDashboardMyBookings(){
 
                 {userBookings[0] ? 
                 <>
-                    { errMsg && <p className={styles.err_msg}>{errMsg}</p> }
                     { okMsg && <p className={styles.ok_msg}>{okMsg}</p> }
 
                     <div className={styles.bookings_main_ctn}>
