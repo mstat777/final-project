@@ -190,7 +190,7 @@ function ModifyBooking(){
                         <p>Prix/TTC/adulte : <b>{packs[0].price_adults}</b> &euro;</p> 
                         <p>Prix/TTC/enfant : <b>{packs[0].price_children}</b> &euro;</p> 
                     </div>
-                    <img src={`${IMG_URL}/img/lodgings/${lodging.url_initial_image}`} alt="l'hébergement" className={styles.main_img}/>
+                    <img src={`${IMG_URL}/lodgings/${lodging.url_initial_image}`} alt="l'hébergement" className={styles.main_img}/>
                 </article>
 
                 <article className={styles.booking_inputs_ctn}>

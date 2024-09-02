@@ -24,7 +24,7 @@ function Carousel(){
                 { images.map((el, i) =>
                     <div key={i}
                             className={imgIndex === i + 1 ? `${styles.slide} ${styles.active_anim}` : `${styles.slide}`}> 
-                        <img src={`${IMG_URL}/img/carousel/${i+1}.jpg`} alt="destination exotique"/>
+                        <img src={`${IMG_URL}/carousel/${i+1}.jpg`} alt="destination exotique"/>
                     </div>
                 )}
             </div>

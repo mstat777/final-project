@@ -14,7 +14,7 @@ function Card({type, data}){
     }
 
     return <article className={styles.card}>
-                <img src={`${IMG_URL}/img/destinations/${data.url_initial_image}`} alt="la destination"/>
+                <img src={`${IMG_URL}/destinations/${data.url_initial_image}`} alt="la destination"/>
 
                 <div className={styles.card_info}> 
                     <h4>{data.country}</h4>

@@ -53,14 +53,14 @@ function Slideshow({type}){
                 destinationImages.map((el, index) =>
                 <div key={index}
                         className={slideIndex === index + 1 ? `${styles.slide} ${styles.active_anim}` : `${styles.slide}`}> 
-                    <img src={`${IMG_URL}/img/destinations/${el.url_image}`} alt="la destination"/>
+                    <img src={`${IMG_URL}/destinations/${el.url_image}`} alt="la destination"/>
                 </div>
                 )}
                 { type === "lodging" &&
                 lodgingImages.map((el, index) =>
                 <div key={index}
                         className={slideIndex === index + 1 ? `${styles.slide} ${styles.active_anim}` : `${styles.slide}`}> 
-                    <img src={`${IMG_URL}/img/lodgings/${el.url_image}`} alt="l'hébergement"/>
+                    <img src={`${IMG_URL}/lodgings/${el.url_image}`} alt="l'hébergement"/>
                 </div>
                 )}
                 <SlideshowBtn moveSlide={nextSlide} direction={"next"} />
