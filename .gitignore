@@ -1,10 +1,15 @@
+# Client
 client/build
 client/node_modules
-client/.env
 client/not_to_build
+client/.env
+
+# Server
 server/node_modules
 server/.env
 server/not_to_build
 server/public
-backup
+
+# Others
 .vscode
+backup
