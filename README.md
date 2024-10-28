@@ -60,13 +60,13 @@ The user can search for a holidays destination.
 He will be able to consult the packs one by one. The Detail page shows the available dates and places left. The user can also choose among the optional activities (e.g. excursions, museums, concerts) available for the chosen destination and add them to the reservation. He can make a reservation by specifying the number and type of travelers (adults and/or children) and choose his preferred payment method (card, check or bank transfer).
 
 **Desktop Version**<br/>
-<img src="https://dt.mitkostatev.com/other/screenshots/dimitravel-desktop-home.jpg" width="760"/>
+<img src="https://dt.mitkostatev.com/other/screenshots/dimitravel-desktop-home.png" width="760"/>
 
 **Mobile Version**<br/>
-<img src="https://dt.mitkostatev.com/other/screenshots/dimitravel-mobile-home.jpg" width="180"/> &nbsp;
-<img src="https://dt.mitkostatev.com/other/screenshots/dimitravel-mobile-destinations.jpg" width="180"/> &nbsp;
-<img src="https://dt.mitkostatev.com/other/screenshots/dimitravel-mobile-card.jpg" width="180"/> &nbsp;
-<img src="https://dt.mitkostatev.com/other/screenshots/dimitravel-mobile-signup.jpg" width="180"/>
+<img src="https://dt.mitkostatev.com/other/screenshots/dimitravel-mobile-home.png" width="180"/> &nbsp;
+<img src="https://dt.mitkostatev.com/other/screenshots/dimitravel-mobile-destinations.png" width="180"/> &nbsp;
+<img src="https://dt.mitkostatev.com/other/screenshots/dimitravel-mobile-card.png" width="180"/> &nbsp;
+<img src="https://dt.mitkostatev.com/other/screenshots/dimitravel-mobile-signup.png" width="180"/>
 
 ## Contact
 
