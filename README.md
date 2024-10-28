@@ -1,4 +1,4 @@
-<img src="https://dt.mitkostatev.com/other/logo-dimitravel-02.1-170p100p.png" width="119" height="70"/> 
+<img src="https://dt.mitkostatev.com/other/logo-dimitravel-02.1-170p100p.png" width="120"/> 
 
 # Dimitravel
 
@@ -28,7 +28,7 @@ A web application for a travel agency company. A Full Stack diplome project (Bac
 
 ## Technologies Used
 
-**Language**: JavaScript, Sass, HTML<br/>
+**Languages**: JavaScript, Sass, HTML<br/>
 **Frameworks**: React, Express<br/>
 **Database**: MySQL<br/>
 **Other Tools**: Git, Postman, XAMPP, VSCode, Mocodo, Photoshop
@@ -60,20 +60,17 @@ The user can search for a holidays destination.
 He will be able to consult the packs one by one. The Detail page shows the available dates and places left. The user can also choose among the optional activities (e.g. excursions, museums, concerts) available for the chosen destination and add them to the reservation. He can make a reservation by specifying the number and type of travelers (adults and/or children) and choose his preferred payment method (card, check or bank transfer).
 
 **Desktop Version**<br/>
-<img src="https://dt.mitkostatev.com/other/screenshots/page Home.jpg" width="540" height="280"/>
+<img src="https://dt.mitkostatev.com/other/screenshots/dimitravel-desktop-home.jpg" width="760"/>
 
 **Mobile Version**<br/>
-<img src="https://dt.mitkostatev.com/other/screenshots/Responsive - Mobile.jpg" width="180" height="350"/>
-
-<img src="https://dt.mitkostatev.com/other/screenshots/Card Offer.png" width="180" height="222"/>
-
-<img src="https://dt.mitkostatev.com/other/screenshots/Results.jpg" width="540" height="310"/>
-
-<img src="https://dt.mitkostatev.com/other/screenshots/Signup.jpg" width="180" height="212"/>
+<img src="https://dt.mitkostatev.com/other/screenshots/dimitravel-mobile-home.jpg" width="180"/> &nbsp;
+<img src="https://dt.mitkostatev.com/other/screenshots/dimitravel-mobile-destinations.jpg" width="180"/> &nbsp;
+<img src="https://dt.mitkostatev.com/other/screenshots/dimitravel-mobile-card.jpg" width="180"/> &nbsp;
+<img src="https://dt.mitkostatev.com/other/screenshots/dimitravel-mobile-signup.jpg" width="180"/>
 
 ## Contact
 
 Dimitar Statev<br/>
-Email: &nbsp;  statedv@gmail.com<br/>
+Email: &nbsp;  statevd@gmail.com<br/>
 GitHub: &nbsp;  https://github.com/mstat777<br/>
-LinkedIn: &nbsp;  https://www.linkedin.com/in/dimitar-statev-34484068
+LinkedIn: &nbsp;  https://www.linkedin.com/in/dimitar-statev/
