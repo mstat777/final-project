@@ -10,6 +10,8 @@ server/.env
 server/not_to_build
 server/public
 
-# Others
+# Misc
 .vscode
 backup
+*.css
+*.css.map

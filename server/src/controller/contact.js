@@ -7,7 +7,7 @@ const sendMail = async (req, res) => {
         const email = req.body.userEmail;
         const message = req.body.userMessage;
         const mail = {
-            from: name,
+            from: process.env.MAIL_USER,
             to: process.env.MAIL_USER,
             subject: 'New Message from Dimitravel Contact Form',
             text: `De : ${name} \n email : ${email} \n message : ${message}`,
